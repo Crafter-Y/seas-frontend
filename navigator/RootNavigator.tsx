@@ -1,17 +1,24 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import TestScreen from "../screens/TestScreen";
-import ServerSelector from "./ServerSelector";
+import ServerSelector from "../screens/ServerSelectorScreen";
+import LoginScreen from "../screens/LoginScreen";
+
+export type RootStackParamList = {
+  ServerSelector: undefined;
+  LoginScreen: undefined;
+};
 
 const RootNavigator = () => {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Server Selector" component={ServerSelector} />
-        <Stack.Screen name="TestScreen" component={TestScreen} />
+      <Stack.Navigator
+        initialRouteName="ServerSelector"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="ServerSelector" component={ServerSelector} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
