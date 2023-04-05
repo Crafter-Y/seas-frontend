@@ -6,7 +6,7 @@ import {
   useWindowDimensions,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@rneui/base";
 import tw from "../tailwind";
 import "@expo/match-media";
@@ -32,19 +32,22 @@ const LoginScreen = () => {
     minWidth: 640,
   });
 
-  const { height } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
 
   const isWeb = Platform.OS == "web";
 
   const [serverId, setServerId] = useState("");
 
-  AsyncStorage.getItem("serverId").then((value) => {
-    if (value == null) {
-      navigation.replace("ServerSelectorScreen");
-      return;
-    }
-    setServerId(value);
-  });
+  useEffect(() => {
+    AsyncStorage.getItem("serverId").then((value) => {
+      if (value == null) {
+        console.log("ERROR: send to Server Selector");
+        navigation.replace("ServerSelectorScreen");
+        return;
+      }
+      setServerId(value);
+    });
+  }, [navigation]);
 
   const back = () => {
     AsyncStorage.removeItem("serverId").then(() => {
