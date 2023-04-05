@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -22,13 +20,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "de.craftery.csaFrontend"
+      "package": "de.craftery.csafrontend"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "serverId": "10410"
-    }
+      "serverId": "10410",
+      "eas": {
+        "projectId": "04b64ca7-4272-45dc-98cb-14e129c5ac01"
+      }
+    },
+    "owner": "crafter_y"
   }
 }
