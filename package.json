@@ -11,14 +11,15 @@
     "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\""
   },
   "dependencies": {
+    "@expo/match-media": "^0.4.0",
     "@expo/webpack-config": "^18.0.1",
     "@react-native-async-storage/async-storage": "1.17.11",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@rneui/base": "^4.0.0-rc.7",
     "@rneui/themed": "^4.0.0-rc.7",
-    "daisyui": "^2.51.5",
     "expo": "~48.0.9",
+    "expo-screen-orientation": "~5.1.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -28,6 +29,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.10",
+    "react-responsive": "^9.0.2",
     "tailwind-rn": "^4.2.0",
     "twrnc": "^3.6.0"
   },

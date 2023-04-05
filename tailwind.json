@@ -25,6 +25,11 @@
 			"marginBottom": 32
 		}
 	},
+	"mb-12": {
+		"style": {
+			"marginBottom": 48
+		}
+	},
 	"mt-12": {
 		"style": {
 			"marginTop": 48
@@ -60,9 +65,24 @@
 			"display": "none"
 		}
 	},
-	"h-screen": {
+	"h-0": {
 		"style": {
-			"height": "100vh"
+			"height": 0
+		}
+	},
+	"h-0.5": {
+		"style": {
+			"height": 2
+		}
+	},
+	"w-96": {
+		"style": {
+			"width": 384
+		}
+	},
+	"w-auto": {
+		"style": {
+			"width": "auto"
 		}
 	},
 	"w-full": {
@@ -75,6 +95,11 @@
 			"flexGrow": 1
 		}
 	},
+	"flex-row": {
+		"style": {
+			"flexDirection": "row"
+		}
+	},
 	"flex-col": {
 		"style": {
 			"flexDirection": "column"
@@ -83,6 +108,16 @@
 	"items-center": {
 		"style": {
 			"alignItems": "center"
+		}
+	},
+	"justify-center": {
+		"style": {
+			"justifyContent": "center"
+		}
+	},
+	"self-stretch": {
+		"style": {
+			"alignSelf": "stretch"
 		}
 	},
 	"rounded-xl": {
@@ -129,22 +164,40 @@
 			"--tw-border-opacity": 0.2
 		}
 	},
+	"bg-[#e0e2e5]": {
+		"style": {
+			"--tw-bg-opacity": 1,
+			"backgroundColor": "rgb(224 226 229 / var(--tw-bg-opacity))"
+		}
+	},
 	"bg-blueAccent": {
 		"style": {
 			"--tw-bg-opacity": 1,
 			"backgroundColor": "rgb(56 130 214 / var(--tw-bg-opacity))"
 		}
 	},
-	"bg-lightgrayNeutral": {
+	"bg-white": {
 		"style": {
 			"--tw-bg-opacity": 1,
-			"backgroundColor": "rgb(246 247 249 / var(--tw-bg-opacity))"
+			"backgroundColor": "rgb(255 255 255 / var(--tw-bg-opacity))"
+		}
+	},
+	"px-0": {
+		"style": {
+			"paddingLeft": 0,
+			"paddingRight": 0
 		}
 	},
 	"px-2": {
 		"style": {
 			"paddingLeft": 8,
 			"paddingRight": 8
+		}
+	},
+	"px-20": {
+		"style": {
+			"paddingLeft": 80,
+			"paddingRight": 80
 		}
 	},
 	"px-4": {
@@ -157,12 +210,6 @@
 		"style": {
 			"paddingTop": 4,
 			"paddingBottom": 4
-		}
-	},
-	"py-2": {
-		"style": {
-			"paddingTop": 8,
-			"paddingBottom": 8
 		}
 	},
 	"text-center": {
@@ -194,6 +241,12 @@
 			"lineHeight": 28
 		}
 	},
+	"text-xs": {
+		"style": {
+			"fontSize": 12,
+			"lineHeight": 16
+		}
+	},
 	"font-bold": {
 		"style": {
 			"fontWeight": "700"
@@ -212,11 +265,6 @@
 	"capitalize": {
 		"style": {
 			"textTransform": "capitalize"
-		}
-	},
-	"normal-case": {
-		"style": {
-			"textTransform": "none"
 		}
 	},
 	"text-red-500": {
@@ -240,82 +288,10 @@
 			"opacity": 0.8
 		}
 	},
-	"opacity-95": {
-		"style": {
-			"opacity": 0.95
-		}
-	},
-	"hover:border-opacity-40:hover": {
-		"style": {
-			"--tw-border-opacity": 0.4
-		}
-	},
-	"hover:opacity-70:hover": {
-		"style": {
-			"opacity": 0.7
-		}
-	},
 	"print:hidden": {
 		"style": {
 			"display": "none"
 		},
 		"media": "print"
-	},
-	"sm:px-20": {
-		"style": {
-			"paddingLeft": 80,
-			"paddingRight": 80
-		},
-		"media": "(min-width: 640px)"
-	},
-	"md:mb-12": {
-		"style": {
-			"marginBottom": 48
-		},
-		"media": "(min-width: 768px)"
-	},
-	"md:flex": {
-		"style": {
-			"display": "flex"
-		},
-		"media": "(min-width: 768px)"
-	},
-	"md:hidden": {
-		"style": {
-			"display": "none"
-		},
-		"media": "(min-width: 768px)"
-	},
-	"md:w-96": {
-		"style": {
-			"width": 384
-		},
-		"media": "(min-width: 768px)"
-	},
-	"md:w-auto": {
-		"style": {
-			"width": "auto"
-		},
-		"media": "(min-width: 768px)"
-	},
-	"md:justify-center": {
-		"style": {
-			"justifyContent": "center"
-		},
-		"media": "(min-width: 768px)"
-	},
-	"md:bg-white": {
-		"style": {
-			"--tw-bg-opacity": 1,
-			"backgroundColor": "rgb(255 255 255 / var(--tw-bg-opacity))"
-		},
-		"media": "(min-width: 768px)"
-	},
-	"md:px-0": {
-		"style": {
-			"paddingLeft": 0,
-			"paddingRight": 0
-		},
-		"media": "(min-width: 768px)"
 	}
 }
