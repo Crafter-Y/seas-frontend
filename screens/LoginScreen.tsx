@@ -2,9 +2,9 @@ import {
   View,
   Text,
   StatusBar,
-  Dimensions,
   TextInput,
   useWindowDimensions,
+  Platform,
 } from "react-native";
 import React from "react";
 import { Button } from "@rneui/base";
@@ -22,6 +22,8 @@ const LoginScreen = () => {
   });
 
   const { height, width } = useWindowDimensions();
+
+  const isWeb = Platform.OS == "web";
 
   return (
     <View style={{ marginTop: StatusBar.currentHeight, margin: 0, padding: 0 }}>
@@ -50,8 +52,9 @@ const LoginScreen = () => {
                 "w-96": isMd,
                 "justify-center": isMd,
                 "w-full": !isMd,
+                "shadow-lg": isSm || isMd,
               },
-              "flex flex-col items-center border-l border-gray-200 shadow-lg px-4",
+              "flex flex-col items-center border-l border-gray-200 px-4",
               {
                 height: height,
               }
@@ -91,7 +94,7 @@ const LoginScreen = () => {
                 {
                   "mb-12": isMd,
                 },
-                `text-4xl font-bold opacity-80 underline decoration-blueAccent underline-offset-4 decoration-2`
+                `text-4xl font-bold opacity-80 underline`
               )}
             >
               Login
@@ -134,8 +137,14 @@ const LoginScreen = () => {
             </Text>
             <Text
               style={tw`text-xs opacity-80 w-full text-center print:hidden`}
+            ></Text>
+            <Text
+              style={tw.style(
+                { hidden: !isWeb },
+                `underline text-xs opacity-80 w-full text-center`
+              )}
             >
-              <Text style={tw`underline`}>Impressum</Text>
+              Impressum
             </Text>
           </View>
         </View>

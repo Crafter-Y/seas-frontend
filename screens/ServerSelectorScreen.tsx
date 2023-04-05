@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Button, Platform } from "react-native";
+import { Text, SafeAreaView, Button, Platform } from "react-native";
 import React, { useEffect } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
