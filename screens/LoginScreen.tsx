@@ -32,7 +32,7 @@ const LoginScreen = () => {
     minWidth: 640,
   });
 
-  const { height, width } = useWindowDimensions();
+  const { height } = useWindowDimensions();
 
   const isWeb = Platform.OS == "web";
 
@@ -46,6 +46,7 @@ const LoginScreen = () => {
         return;
       }
       setServerId(value);
+      navigation.setOptions({ title: value });
     });
   }, [navigation]);
 

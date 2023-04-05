@@ -32,6 +32,7 @@ const ServerSelectorScreen = () => {
   const [inputError, setInputError] = useState("");
 
   useEffect(() => {
+    navigation.setOptions({ title: "Server auswählen" });
     if (Platform.OS == "web") {
       let configServer: string = Constants.expoConfig?.extra?.serverId;
       if (configServer) {
