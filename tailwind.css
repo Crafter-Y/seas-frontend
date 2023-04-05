@@ -35,6 +35,34 @@
   margin-top: 10%
 }
 
+.mt-8 {
+  margin-top: 2rem
+}
+
+.mt-6 {
+  margin-top: 1.5rem
+}
+
+.mt-2 {
+  margin-top: 0.5rem
+}
+
+.mt-1 {
+  margin-top: 0.25rem
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem
+}
+
+.mb-0 {
+  margin-bottom: 0px
+}
+
+.mt-0 {
+  margin-top: 0px
+}
+
 .block {
   display: block
 }
@@ -213,10 +241,6 @@
 
 .underline {
   text-decoration-line: underline
-}
-
-.decoration-blueAccent {
-  text-decoration-color: #3882d6
 }
 
 .opacity-80 {

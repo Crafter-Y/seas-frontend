@@ -45,6 +45,41 @@
 			"marginTop": "10%"
 		}
 	},
+	"mt-8": {
+		"style": {
+			"marginTop": 32
+		}
+	},
+	"mt-6": {
+		"style": {
+			"marginTop": 24
+		}
+	},
+	"mt-2": {
+		"style": {
+			"marginTop": 8
+		}
+	},
+	"mt-1": {
+		"style": {
+			"marginTop": 4
+		}
+	},
+	"mb-2": {
+		"style": {
+			"marginBottom": 8
+		}
+	},
+	"mb-0": {
+		"style": {
+			"marginBottom": 0
+		}
+	},
+	"mt-0": {
+		"style": {
+			"marginTop": 0
+		}
+	},
 	"block": {
 		"style": {
 			"display": "block"
@@ -276,11 +311,6 @@
 	"underline": {
 		"style": {
 			"textDecorationLine": "underline"
-		}
-	},
-	"decoration-blueAccent": {
-		"style": {
-			"textDecorationColor": "#3882d6"
 		}
 	},
 	"opacity-80": {

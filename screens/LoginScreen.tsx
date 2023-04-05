@@ -6,13 +6,24 @@ import {
   useWindowDimensions,
   Platform,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@rneui/base";
 import tw from "../tailwind";
 import "@expo/match-media";
 import { useMediaQuery } from "react-responsive";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../navigator/RootNavigator";
+
+type LoginScreenProps = NativeStackNavigationProp<
+  RootStackParamList,
+  "LoginScreen"
+>;
 
 const LoginScreen = () => {
+  const navigation = useNavigation<LoginScreenProps>();
+
   const isMd = useMediaQuery({
     minWidth: 768,
   });
@@ -21,9 +32,25 @@ const LoginScreen = () => {
     minWidth: 640,
   });
 
-  const { height, width } = useWindowDimensions();
+  const { height } = useWindowDimensions();
 
   const isWeb = Platform.OS == "web";
+
+  const [serverId, setServerId] = useState("");
+
+  AsyncStorage.getItem("serverId").then((value) => {
+    if (value == null) {
+      navigation.replace("ServerSelectorScreen");
+      return;
+    }
+    setServerId(value);
+  });
+
+  const back = () => {
+    AsyncStorage.removeItem("serverId").then(() => {
+      navigation.replace("ServerSelectorScreen");
+    });
+  };
 
   return (
     <View style={{ marginTop: StatusBar.currentHeight, margin: 0, padding: 0 }}>
@@ -43,7 +70,7 @@ const LoginScreen = () => {
             )}
           >
             <Text style={tw`text-4xl font-semibold mt-[10%]`}>Willkommen!</Text>
-            <Text style={tw`text-2xl`}>Pagetitle</Text>
+            <Text style={tw`text-2xl`}>{serverId}</Text>
           </View>
           <View
             style={tw.style(
@@ -78,7 +105,7 @@ const LoginScreen = () => {
                 `text-2xl text-center`
               )}
             >
-              Pagetitle
+              {serverId}
             </Text>
             <View
               style={tw.style(
@@ -121,6 +148,7 @@ const LoginScreen = () => {
                 placeholder="Passwort"
                 style={tw`border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg`}
                 placeholderTextColor={"gray"}
+                secureTextEntry={true}
               ></TextInput>
 
               <Button
@@ -129,6 +157,20 @@ const LoginScreen = () => {
               >
                 Anmelden
               </Button>
+              <View
+                style={tw.style({
+                  hidden: isWeb,
+                })}
+              >
+                <Text style={tw`mt-2 mb-0`}>Falsch hier?</Text>
+                <Button
+                  style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold mt-0`}
+                  color={"#3882d6"}
+                  onPress={back}
+                >
+                  Woanders anmelden
+                </Button>
+              </View>
             </View>
             <Text
               style={tw`text-xs opacity-80 w-full text-center print:hidden mt-12`}

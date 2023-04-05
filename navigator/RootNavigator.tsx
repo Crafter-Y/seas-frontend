@@ -1,11 +1,11 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ServerSelector from "../screens/ServerSelectorScreen";
+import ServerSelectorScreen from "../screens/ServerSelectorScreen";
 import LoginScreen from "../screens/LoginScreen";
 
 export type RootStackParamList = {
-  ServerSelector: undefined;
+  ServerSelectorScreen: undefined;
   LoginScreen: undefined;
 };
 
@@ -14,10 +14,13 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ServerSelector"
+        initialRouteName="ServerSelectorScreen"
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="ServerSelector" component={ServerSelector} />
+        <Stack.Screen
+          name="ServerSelectorScreen"
+          component={ServerSelectorScreen}
+        />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
