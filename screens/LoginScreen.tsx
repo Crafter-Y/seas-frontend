@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
+import useServerName from "../hooks/useServerName";
 
 type LoginScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -36,16 +37,20 @@ const LoginScreen = () => {
 
   const isWeb = Platform.OS == "web";
 
-  const [serverId, setServerId] = useState("");
+  const {
+    fetchServerName,
+    serverName,
+    fetchIsServerError,
+    fetchServerError,
+    isFetchServerLoading,
+  } = useServerName();
 
   useEffect(() => {
     AsyncStorage.getItem("serverId").then((value) => {
       if (value == null) {
-        console.log("ERROR: send to Server Selector");
         navigation.replace("ServerSelectorScreen");
         return;
       }
-      setServerId(value);
       navigation.setOptions({ title: value });
     });
   }, [navigation]);
@@ -74,7 +79,7 @@ const LoginScreen = () => {
             )}
           >
             <Text style={tw`text-4xl font-semibold mt-[10%]`}>Willkommen!</Text>
-            <Text style={tw`text-2xl`}>{serverId}</Text>
+            <Text style={tw`text-2xl`}>{serverName}</Text>
           </View>
           <View
             style={tw.style(
@@ -109,7 +114,7 @@ const LoginScreen = () => {
                 `text-2xl text-center`
               )}
             >
-              {serverId}
+              {serverName}
             </Text>
             <View
               style={tw.style(
@@ -130,6 +135,7 @@ const LoginScreen = () => {
             >
               Login
             </Text>
+
             <View
               style={tw.style(
                 {
@@ -142,6 +148,16 @@ const LoginScreen = () => {
                 `mt-4 flex flex-col gap-2`
               )}
             >
+              <Text
+                style={tw.style(
+                  {
+                    hidden: !fetchServerError,
+                  },
+                  "w-full rounded-lg bg-red-500 px-2 py-1 text-lg"
+                )}
+              >
+                {fetchServerError}
+              </Text>
               <TextInput
                 placeholder="Email"
                 style={tw`border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg`}

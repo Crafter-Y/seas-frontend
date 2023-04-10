@@ -10,11 +10,11 @@ import React, { useEffect, useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import { useNavigation } from "@react-navigation/native";
-import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import tw from "../tailwind";
 import { Button } from "@rneui/base";
 import webConfig from "../assets/config.json";
+import useServerName from "../hooks/useServerName";
 
 type ServerSelectorScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -36,6 +36,18 @@ const ServerSelectorScreen = () => {
 
   const [inputError, setInputError] = useState("");
 
+  const [shouldCheckRedirect, setShouldCheck] = useState(true);
+
+  const [isApiError, setIsApiError] = useState(false);
+
+  const {
+    fetchServerName,
+    serverName,
+    fetchIsServerError,
+    fetchServerError,
+    isFetchServerLoading,
+  } = useServerName();
+
   useEffect(() => {
     navigation.setOptions({ title: "Server auswählen" });
     if (Platform.OS == "web") {
@@ -52,16 +64,24 @@ const ServerSelectorScreen = () => {
           }
         });
     }
-
-    AsyncStorage.getItem("serverId").then((value) => {
-      if (value != null) {
-        navigation.replace("LoginScreen");
-        return;
-      }
-    });
   }, [navigation]);
 
+  useEffect(() => {
+    AsyncStorage.getItem("serverId").then((res) => {
+      if (!isFetchServerLoading && shouldCheckRedirect && res !== null) {
+        setShouldCheck(false);
+        setIsApiError(fetchIsServerError);
+        if (fetchIsServerError) {
+        } else {
+          navigation.replace("LoginScreen");
+        }
+      }
+    });
+  }, [shouldCheckRedirect, fetchIsServerError, isFetchServerLoading]);
+
   const login = () => {
+    setIsError(false);
+    setIsApiError(false);
     if (serverId.length == 0) {
       setIsError(true);
       setInputError("Du musst eine Server ID angeben.");
@@ -74,10 +94,10 @@ const ServerSelectorScreen = () => {
       return;
     }
 
-    // TODO: validate existance with Server before continue
-
     AsyncStorage.setItem("serverId", serverId);
-    navigation.replace("LoginScreen");
+
+    setShouldCheck(true);
+    fetchServerName();
   };
 
   return (
@@ -110,6 +130,18 @@ const ServerSelectorScreen = () => {
           )}
         >
           {inputError}
+        </Text>
+        <Text
+          style={tw.style(
+            {
+              hidden: !isApiError,
+            },
+            "text-red-500 mb-2"
+          )}
+        >
+          {fetchServerError == "Not found"
+            ? "Diese ID existiert nicht!"
+            : fetchServerError}
         </Text>
         <Text>Dies kann hinterher noch geändert werden.</Text>
         <Button
