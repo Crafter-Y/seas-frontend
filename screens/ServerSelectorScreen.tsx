@@ -14,11 +14,16 @@ import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import tw from "../tailwind";
 import { Button } from "@rneui/base";
+import webConfig from "../assets/config.json";
 
 type ServerSelectorScreenProps = NativeStackNavigationProp<
   RootStackParamList,
   "ServerSelectorScreen"
 >;
+
+type WebConfig = {
+  serverId: string;
+};
 
 const ServerSelectorScreen = () => {
   const navigation = useNavigation<ServerSelectorScreenProps>();
@@ -34,12 +39,18 @@ const ServerSelectorScreen = () => {
   useEffect(() => {
     navigation.setOptions({ title: "Server auswählen" });
     if (Platform.OS == "web") {
-      let configServer: string = Constants.expoConfig?.extra?.serverId;
-      if (configServer) {
-        AsyncStorage.setItem("serverId", configServer);
-        navigation.replace("LoginScreen");
-        return;
-      }
+      console.log(webConfig);
+      // @ts-ignore - webpack magic
+      let config: string = webConfig;
+      fetch(config)
+        .then((res) => res.json())
+        .then((json: WebConfig) => {
+          if (json.serverId) {
+            AsyncStorage.setItem("serverId", json.serverId);
+            navigation.replace("LoginScreen");
+            return;
+          }
+        });
     }
 
     AsyncStorage.getItem("serverId").then((value) => {
