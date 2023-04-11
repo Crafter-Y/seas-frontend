@@ -8,3 +8,11 @@ type ApiResponse = {
       };
   data: any;
 };
+
+type User = {
+  userId: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  role: "ADMIN" | "USER" | "MODERATOR";
+};

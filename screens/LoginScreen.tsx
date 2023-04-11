@@ -10,13 +10,13 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@rneui/base";
 import tw from "../tailwind";
 import "@expo/match-media";
-import { useMediaQuery } from "react-responsive";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import useServerName from "../hooks/useServerName";
 import useAuthentication from "../hooks/useAuthentication";
+import useMediaQueries from "../hooks/useMediaQueries";
 
 export type LoginScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -26,13 +26,7 @@ export type LoginScreenProps = NativeStackNavigationProp<
 const LoginScreen = () => {
   const navigation = useNavigation<LoginScreenProps>();
 
-  const isMd = useMediaQuery({
-    minWidth: 768,
-  });
-
-  const isSm = useMediaQuery({
-    minWidth: 640,
-  });
+  const { isSm, isMd } = useMediaQueries();
 
   const { height } = useWindowDimensions();
 

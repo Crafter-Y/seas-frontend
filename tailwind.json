@@ -19,6 +19,20 @@
 			"position": "relative"
 		}
 	},
+	"m-0": {
+		"style": {
+			"marginTop": 0,
+			"marginRight": 0,
+			"marginBottom": 0,
+			"marginLeft": 0
+		}
+	},
+	"mx-2": {
+		"style": {
+			"marginLeft": 8,
+			"marginRight": 8
+		}
+	},
 	"my-8": {
 		"style": {
 			"marginTop": 32,
@@ -28,6 +42,11 @@
 	"mb-0": {
 		"style": {
 			"marginBottom": 0
+		}
+	},
+	"mb-1": {
+		"style": {
+			"marginBottom": 4
 		}
 	},
 	"mb-12": {
@@ -105,6 +124,21 @@
 			"height": 2
 		}
 	},
+	"h-8": {
+		"style": {
+			"height": 32
+		}
+	},
+	"w-1": {
+		"style": {
+			"width": 4
+		}
+	},
+	"w-52": {
+		"style": {
+			"width": 208
+		}
+	},
 	"w-96": {
 		"style": {
 			"width": 384
@@ -145,9 +179,19 @@
 			"justifyContent": "center"
 		}
 	},
+	"justify-between": {
+		"style": {
+			"justifyContent": "space-between"
+		}
+	},
 	"self-stretch": {
 		"style": {
 			"alignSelf": "stretch"
+		}
+	},
+	"overflow-hidden": {
+		"style": {
+			"overflow": "hidden"
 		}
 	},
 	"rounded-lg": {
@@ -164,6 +208,12 @@
 			"borderTopRightRadius": 12,
 			"borderBottomRightRadius": 12,
 			"borderBottomLeftRadius": 12
+		}
+	},
+	"rounded-l-md": {
+		"style": {
+			"borderTopLeftRadius": 6,
+			"borderBottomLeftRadius": 6
 		}
 	},
 	"border": {
@@ -214,6 +264,18 @@
 			"backgroundColor": "rgb(56 130 214 / var(--tw-bg-opacity))"
 		}
 	},
+	"bg-gray-300": {
+		"style": {
+			"--tw-bg-opacity": 1,
+			"backgroundColor": "rgb(209 213 219 / var(--tw-bg-opacity))"
+		}
+	},
+	"bg-lightgrayNeutral": {
+		"style": {
+			"--tw-bg-opacity": 1,
+			"backgroundColor": "rgb(246 247 249 / var(--tw-bg-opacity))"
+		}
+	},
 	"bg-red-500": {
 		"style": {
 			"--tw-bg-opacity": 1,
@@ -224,6 +286,14 @@
 		"style": {
 			"--tw-bg-opacity": 1,
 			"backgroundColor": "rgb(255 255 255 / var(--tw-bg-opacity))"
+		}
+	},
+	"p-0": {
+		"style": {
+			"paddingTop": 0,
+			"paddingRight": 0,
+			"paddingBottom": 0,
+			"paddingLeft": 0
 		}
 	},
 	"px-0": {
@@ -279,6 +349,12 @@
 			"lineHeight": 28
 		}
 	},
+	"text-sm": {
+		"style": {
+			"fontSize": 14,
+			"lineHeight": 20
+		}
+	},
 	"text-xl": {
 		"style": {
 			"fontSize": 20,
@@ -332,5 +408,11 @@
 			"display": "none"
 		},
 		"media": "print"
+	},
+	"lg:flex": {
+		"style": {
+			"display": "flex"
+		},
+		"media": "(min-width: 1024px)"
 	}
 }

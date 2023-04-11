@@ -14,6 +14,15 @@
   position: relative
 }
 
+.m-0 {
+  margin: 0px
+}
+
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem
+}
+
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem
@@ -21,6 +30,10 @@
 
 .mb-0 {
   margin-bottom: 0px
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem
 }
 
 .mb-12 {
@@ -83,6 +96,18 @@
   height: 0.125rem
 }
 
+.h-8 {
+  height: 2rem
+}
+
+.w-1 {
+  width: 0.25rem
+}
+
+.w-52 {
+  width: 13rem
+}
+
 .w-96 {
   width: 24rem
 }
@@ -115,8 +140,16 @@
   justify-content: center
 }
 
+.justify-between {
+  justify-content: space-between
+}
+
 .self-stretch {
   align-self: stretch
+}
+
+.overflow-hidden {
+  overflow: hidden
 }
 
 .rounded-lg {
@@ -125,6 +158,11 @@
 
 .rounded-xl {
   border-radius: 0.75rem
+}
+
+.rounded-l-md {
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem
 }
 
 .border {
@@ -159,6 +197,16 @@
   background-color: rgb(56 130 214 / var(--tw-bg-opacity))
 }
 
+.bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity))
+}
+
+.bg-lightgrayNeutral {
+  --tw-bg-opacity: 1;
+  background-color: rgb(246 247 249 / var(--tw-bg-opacity))
+}
+
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity))
@@ -167,6 +215,10 @@
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+}
+
+.p-0 {
+  padding: 0px
 }
 
 .px-0 {
@@ -213,6 +265,11 @@
   line-height: 1.75rem
 }
 
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem
+}
+
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem
@@ -255,5 +312,11 @@
 @media print {
   .print\:hidden {
     display: none
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:flex {
+    display: flex
   }
 }

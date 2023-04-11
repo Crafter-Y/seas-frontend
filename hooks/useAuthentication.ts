@@ -4,14 +4,6 @@ import { LoginScreenProps } from "../screens/LoginScreen";
 import Constants from "expo-constants";
 import { Platform } from "react-native";
 
-type User = {
-  userId: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  role: "ADMIN" | "USER" | "MODERATOR";
-};
-
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authError, setAuthError] = useState("");
