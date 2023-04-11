@@ -16,8 +16,9 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import useServerName from "../hooks/useServerName";
+import useAuthentication from "../hooks/useAuthentication";
 
-type LoginScreenProps = NativeStackNavigationProp<
+export type LoginScreenProps = NativeStackNavigationProp<
   RootStackParamList,
   "LoginScreen"
 >;
@@ -37,13 +38,13 @@ const LoginScreen = () => {
 
   const isWeb = Platform.OS == "web";
 
-  const {
-    fetchServerName,
-    serverName,
-    fetchIsServerError,
-    fetchServerError,
-    isFetchServerLoading,
-  } = useServerName();
+  const { serverName, fetchServerError } = useServerName();
+
+  const { login, authError, isAuthenticating, hasAuthError, isAuthenticated } =
+    useAuthentication();
+
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     AsyncStorage.getItem("serverId").then((value) => {
@@ -55,10 +56,20 @@ const LoginScreen = () => {
     });
   }, [navigation]);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigation.replace("BoardScreen");
+    }
+  }, [isAuthenticated, navigation]);
+
   const back = () => {
     AsyncStorage.removeItem("serverId").then(() => {
       navigation.replace("ServerSelectorScreen");
     });
+  };
+
+  const submit = () => {
+    login(email, password, navigation);
   };
 
   return (
@@ -162,21 +173,36 @@ const LoginScreen = () => {
                 placeholder="Email"
                 style={tw`border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg`}
                 autoFocus={true}
+                onChangeText={(text) => setEmail(text)}
                 placeholderTextColor={"gray"}
               ></TextInput>
               <TextInput
                 placeholder="Passwort"
                 style={tw`border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg`}
                 placeholderTextColor={"gray"}
+                onChangeText={(text) => setPassword(text)}
                 secureTextEntry={true}
               ></TextInput>
 
               <Button
                 style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold`}
                 color={"#3882d6"}
+                onPress={submit}
               >
                 Anmelden
               </Button>
+              <Text
+                style={tw.style(
+                  {
+                    hidden: !hasAuthError && !isAuthenticating,
+                  },
+                  "text-red-500 mb-2"
+                )}
+              >
+                {authError == "Bad Request"
+                  ? "Email oder Passwort stimmt nicht"
+                  : authError}
+              </Text>
               <View
                 style={tw.style({
                   hidden: isWeb,

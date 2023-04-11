@@ -119,6 +119,10 @@
   align-self: stretch
 }
 
+.rounded-lg {
+  border-radius: 0.5rem
+}
+
 .rounded-xl {
   border-radius: 0.75rem
 }
@@ -153,6 +157,11 @@
 .bg-blueAccent {
   --tw-bg-opacity: 1;
   background-color: rgb(56 130 214 / var(--tw-bg-opacity))
+}
+
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity))
 }
 
 .bg-white {

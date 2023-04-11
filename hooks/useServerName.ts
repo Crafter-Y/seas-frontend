@@ -1,17 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-type ApiResponse = {
-  success: boolean;
-  error:
-    | any
-    | {
-        message: string;
-        description: string;
-      };
-  data: any;
-};
 
 export default function useServerName() {
   const [serverName, setName] = useState("");
