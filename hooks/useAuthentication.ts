@@ -110,5 +110,3 @@ export default function useAuthentication() {
     user,
   };
 }
-// useEffect: get Token from async storage and populate user
-// login: get serverId from storage, fetch api to authenticate, store token, populate user data

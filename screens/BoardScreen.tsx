@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, useWindowDimensions } from "react-native";
+import { View, StatusBar, useWindowDimensions } from "react-native";
 import React, { useEffect, useState } from "react";
 import useAuthentication from "../hooks/useAuthentication";
 import { useNavigation } from "@react-navigation/native";
@@ -6,6 +6,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import tw from "../tailwind";
 import BoardWideBoard from "../components/BoardWideBoard";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
 
 type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -35,9 +37,29 @@ const BoardScreen = () => {
     }
   }, [isAuthenticating, isAuthenticated, navigation]);
 
+  const logout = () => {
+    let configServer: string = Constants.expoConfig?.extra?.apiServer;
+
+    AsyncStorage.getItem("token").then((token) => {
+      if (token != null) {
+        fetch(`${configServer}/api/logout/`, {
+          headers: {
+            token,
+          },
+        }).finally(() => {
+          AsyncStorage.removeItem("token").then(() => {
+            navigation.replace("LoginScreen");
+          });
+        });
+      } else {
+        navigation.replace("LoginScreen");
+      }
+    });
+  };
+
   return (
     <View
-      style={tw.style("m-0 p-0 bg-lightgrayNeutral", {
+      style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", {
         marginTop: StatusBar.currentHeight,
         height,
       })}
@@ -46,6 +68,7 @@ const BoardScreen = () => {
         user={user}
         boardType={boardType}
         setBoardType={setBoardType}
+        logout={logout}
       />
     </View>
   );

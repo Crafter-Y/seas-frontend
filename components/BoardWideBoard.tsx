@@ -4,11 +4,13 @@ import tw from "../tailwind";
 import useMediaQueries from "../hooks/useMediaQueries";
 import { BoardType } from "../screens/BoardScreen";
 import WideBoardMenu from "./WideBoardMenu";
+import BoardWideButton from "./BoardWideButton";
 
 const BoardWideBoard = (props: {
   user: User | null;
   boardType: BoardType;
   setBoardType: React.Dispatch<React.SetStateAction<BoardType>>;
+  logout: () => void;
 }) => {
   const { isSm, isMd, isLg } = useMediaQueries();
 
@@ -62,8 +64,33 @@ const BoardWideBoard = (props: {
       <View style={tw.style("w-full")}>
         <View
           style={tw.style(
-            ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mt-6 mb-2 mx-2`
+            ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mt-6 mx-2`
           )}
+        />
+        <BoardWideButton
+          icon={require("../assets/img/settings.svg")}
+          text={"Einstellungen"}
+          pressAction={props.logout}
+        />
+        <View
+          style={tw.style(
+            ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
+          )}
+        />
+        <BoardWideButton
+          icon={require("../assets/img/changepassword.svg")}
+          text={"Passwort ändern"}
+          pressAction={props.logout}
+        />
+        <View
+          style={tw.style(
+            ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
+          )}
+        />
+        <BoardWideButton
+          icon={require("../assets/img/logout.svg")}
+          text={"Abmelden"}
+          pressAction={props.logout}
         />
       </View>
     </View>
