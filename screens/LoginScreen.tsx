@@ -5,6 +5,7 @@ import {
   TextInput,
   useWindowDimensions,
   Platform,
+  SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Button } from "@rneui/base";
@@ -67,7 +68,9 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={{ marginTop: StatusBar.currentHeight, margin: 0, padding: 0 }}>
+    <SafeAreaView
+      style={{ marginTop: StatusBar.currentHeight, margin: 0, padding: 0 }}
+    >
       <View>
         <View
           style={tw.style(`flex w-full flex-row`, {
@@ -231,7 +234,7 @@ const LoginScreen = () => {
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

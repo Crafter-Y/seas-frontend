@@ -5,6 +5,7 @@ import {
   StatusBar,
   useWindowDimensions,
   TextInput,
+  SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -101,7 +102,7 @@ const ServerSelectorScreen = () => {
   };
 
   return (
-    <View
+    <SafeAreaView
       style={tw.style({
         marginTop: StatusBar.currentHeight,
         height: height,
@@ -152,7 +153,7 @@ const ServerSelectorScreen = () => {
           onPress={login}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

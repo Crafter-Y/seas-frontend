@@ -70,7 +70,7 @@ const BoardWideBoard = (props: {
         <BoardWideButton
           icon={require("../assets/img/settings.svg")}
           text={"Einstellungen"}
-          pressAction={props.logout}
+          pressAction={() => {}}
         />
         <View
           style={tw.style(
@@ -80,7 +80,7 @@ const BoardWideBoard = (props: {
         <BoardWideButton
           icon={require("../assets/img/changepassword.svg")}
           text={"Passwort ändern"}
-          pressAction={props.logout}
+          pressAction={() => {}}
         />
         <View
           style={tw.style(

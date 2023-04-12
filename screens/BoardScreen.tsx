@@ -1,4 +1,11 @@
-import { View, StatusBar, useWindowDimensions } from "react-native";
+import {
+  View,
+  Text,
+  StatusBar,
+  useWindowDimensions,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import useAuthentication from "../hooks/useAuthentication";
 import { useNavigation } from "@react-navigation/native";
@@ -8,6 +15,7 @@ import tw from "../tailwind";
 import BoardWideBoard from "../components/BoardWideBoard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
+import BoardHeader from "../components/BoardHeader";
 
 type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -58,7 +66,7 @@ const BoardScreen = () => {
   };
 
   return (
-    <View
+    <SafeAreaView
       style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", {
         marginTop: StatusBar.currentHeight,
         height,
@@ -70,7 +78,10 @@ const BoardScreen = () => {
         setBoardType={setBoardType}
         logout={logout}
       />
-    </View>
+      <ScrollView>
+        <BoardHeader />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
