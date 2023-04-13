@@ -4,11 +4,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ServerSelectorScreen from "../screens/ServerSelectorScreen";
 import LoginScreen from "../screens/LoginScreen";
 import BoardScreen from "../screens/BoardScreen";
+import ImprintScreen from "../screens/ImprintScreen";
 
 export type RootStackParamList = {
   ServerSelectorScreen: undefined;
   LoginScreen: undefined;
   BoardScreen: undefined;
+  ImprintScreen: undefined;
 };
 
 const RootNavigator = () => {
@@ -25,6 +27,7 @@ const RootNavigator = () => {
         />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="BoardScreen" component={BoardScreen} />
+        <Stack.Screen name="ImprintScreen" component={ImprintScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

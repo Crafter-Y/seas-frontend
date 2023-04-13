@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "csa-frontend",
-    "slug": "csa-frontend",
+    "name": "CSA Frontend",
+    "slug": "csaFrontend",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

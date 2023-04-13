@@ -228,6 +228,9 @@ const LoginScreen = () => {
                 { hidden: !isWeb },
                 `underline text-xs opacity-80 w-full text-center`
               )}
+              onPress={() => {
+                navigation.navigate("ImprintScreen");
+              }}
             >
               Impressum
             </Text>

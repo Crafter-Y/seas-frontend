@@ -16,8 +16,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
 import BoardHeader from "../components/BoardHeader";
 import BoardSidebar from "../components/BoardSidebar";
+import useMediaQueries from "../hooks/useMediaQueries";
+import Footer from "../components/Footer";
 
-type BoardScreenProps = NativeStackNavigationProp<
+export type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,
   "BoardScreen"
 >;
@@ -34,6 +36,8 @@ const BoardScreen = () => {
   const { height } = useWindowDimensions();
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
+
+  const { isSm, isMd } = useMediaQueries();
 
   useEffect(() => {
     if (!isAuthenticating) {
@@ -85,6 +89,18 @@ const BoardScreen = () => {
           boardType={boardType}
           logout={logout}
         />
+        <View
+          style={tw.style(
+            {
+              "mx-2": !isSm,
+              "mx-4": isSm,
+            },
+            "bg-white mt-4 shadow-lg"
+          )}
+        >
+          <Text>Board</Text>
+        </View>
+        <Footer navigation={navigation} />
       </ScrollView>
     </SafeAreaView>
   );
