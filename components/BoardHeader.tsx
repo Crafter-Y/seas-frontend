@@ -123,10 +123,21 @@ const BoardHeader = () => {
             {
               "justify-end": Platform.OS != "web",
               "justify-center": Platform.OS == "web",
-              width: Platform.OS == "web" ? "1024" : width,
             },
-            "items-center m-0"
+            "m-0 flex items-center"
           )}
+          customBackdrop={
+            <TouchableOpacity
+              style={tw.style(
+                {
+                  height,
+                  width,
+                },
+                "bg-opacity-35 bg-black"
+              )}
+              onPress={toggleMenu}
+            ></TouchableOpacity>
+          }
         >
           <View
             style={tw.style(
