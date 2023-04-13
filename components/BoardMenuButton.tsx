@@ -4,7 +4,7 @@ import { Image } from "expo-image";
 import tw from "../tailwind";
 import { useHover } from "react-native-web-hooks";
 
-const BoardWideButton = (props: {
+const BoardMenuButton = (props: {
   icon: string;
   text: string;
   pressAction: () => void;
@@ -14,12 +14,11 @@ const BoardWideButton = (props: {
 
   return (
     <Pressable
-      style={tw`flex justify-between items-center mb-1 flex-row py-4`}
+      style={tw`flex items-center flex-row p-4`}
       ref={ref}
       onPress={props.pressAction}
     >
-      <View></View>
-      <View style={tw`flex flex-row items-center gap-2`}>
+      <View style={tw`flex flex-row gap-2`}>
         <Image source={props.icon} style={tw`h-6 w-6`} />
 
         <Text
@@ -32,17 +31,8 @@ const BoardWideButton = (props: {
           {props.text}
         </Text>
       </View>
-
-      <View
-        style={tw.style(
-          {
-            "bg-blueAccent": isHovered,
-          },
-          `w-1 h-8 rounded-l-md`
-        )}
-      ></View>
     </Pressable>
   );
 };
 
-export default BoardWideButton;
+export default BoardMenuButton;

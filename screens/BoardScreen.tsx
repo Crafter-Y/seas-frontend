@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import tw from "../tailwind";
-import BoardWideBoard from "../components/BoardWideBoard";
+import BoardWideBoard from "../components/BoardSidebar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
 import BoardHeader from "../components/BoardHeader";
@@ -79,7 +79,12 @@ const BoardScreen = () => {
         logout={logout}
       />
       <ScrollView>
-        <BoardHeader />
+        <BoardHeader
+          user={user}
+          setBoardType={setBoardType}
+          boardType={boardType}
+          logout={logout}
+        />
       </ScrollView>
     </SafeAreaView>
   );

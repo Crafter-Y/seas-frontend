@@ -3,10 +3,10 @@ import React from "react";
 import tw from "../tailwind";
 import useMediaQueries from "../hooks/useMediaQueries";
 import { BoardType } from "../screens/BoardScreen";
-import WideBoardMenu from "./WideBoardMenu";
-import BoardWideButton from "./BoardWideButton";
+import WideBoardMenu from "./BoardSidebarNavigationButton";
+import BoardSidebarButton from "./BoardSidebarButton";
 
-const BoardWideBoard = (props: {
+const BoardSidebar = (props: {
   user: User | null;
   boardType: BoardType;
   setBoardType: React.Dispatch<React.SetStateAction<BoardType>>;
@@ -67,7 +67,7 @@ const BoardWideBoard = (props: {
             ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mt-6 mx-2`
           )}
         />
-        <BoardWideButton
+        <BoardSidebarButton
           icon={require("../assets/img/settings.svg")}
           text={"Einstellungen"}
           pressAction={() => {}}
@@ -77,7 +77,7 @@ const BoardWideBoard = (props: {
             ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
           )}
         />
-        <BoardWideButton
+        <BoardSidebarButton
           icon={require("../assets/img/changepassword.svg")}
           text={"Passwort ändern"}
           pressAction={() => {}}
@@ -87,7 +87,7 @@ const BoardWideBoard = (props: {
             ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
           )}
         />
-        <BoardWideButton
+        <BoardSidebarButton
           icon={require("../assets/img/logout.svg")}
           text={"Abmelden"}
           pressAction={props.logout}
@@ -97,4 +97,4 @@ const BoardWideBoard = (props: {
   );
 };
 
-export default BoardWideBoard;
+export default BoardSidebar;

@@ -4,7 +4,7 @@ import { BoardType } from "../screens/BoardScreen";
 import tw from "../tailwind";
 import { useHover } from "react-native-web-hooks";
 
-const WideBoardMenu = (props: {
+const BoardSidebarNavigationButton = (props: {
   boardType: BoardType;
   currentBoardType: BoardType;
   setBoardType: React.Dispatch<React.SetStateAction<BoardType>>;
@@ -45,4 +45,4 @@ const WideBoardMenu = (props: {
   );
 };
 
-export default WideBoardMenu;
+export default BoardSidebarNavigationButton;
