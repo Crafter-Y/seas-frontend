@@ -3,8 +3,8 @@ import React from "react";
 import tw from "../tailwind";
 import useMediaQueries from "../hooks/useMediaQueries";
 import { BoardType } from "../screens/BoardScreen";
-import WideBoardMenu from "./BoardSidebarNavigationButton";
 import BoardSidebarButton from "./BoardSidebarButton";
+import BoardSidebarNavigationButton from "./BoardSidebarNavigationButton";
 
 const BoardSidebar = (props: {
   user: User | null;
@@ -12,7 +12,7 @@ const BoardSidebar = (props: {
   setBoardType: React.Dispatch<React.SetStateAction<BoardType>>;
   logout: () => void;
 }) => {
-  const { isSm, isMd, isLg } = useMediaQueries();
+  const { isLg } = useMediaQueries();
 
   const { height } = useWindowDimensions();
 
@@ -39,22 +39,22 @@ const BoardSidebar = (props: {
             ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mt-6 mb-2 mx-2`
           )}
         />
-        <WideBoardMenu
+        <BoardSidebarNavigationButton
           boardType="Jahresansicht"
           currentBoardType={props.boardType}
           setBoardType={props.setBoardType}
         />
-        <WideBoardMenu
+        <BoardSidebarNavigationButton
           boardType="Quartal Ansicht"
           currentBoardType={props.boardType}
           setBoardType={props.setBoardType}
         />
-        <WideBoardMenu
+        <BoardSidebarNavigationButton
           boardType="Monatsansicht"
           currentBoardType={props.boardType}
           setBoardType={props.setBoardType}
         />
-        <WideBoardMenu
+        <BoardSidebarNavigationButton
           boardType="Wochenansicht"
           currentBoardType={props.boardType}
           setBoardType={props.setBoardType}

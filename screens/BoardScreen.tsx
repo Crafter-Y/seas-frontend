@@ -12,10 +12,10 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import tw from "../tailwind";
-import BoardWideBoard from "../components/BoardSidebar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
 import BoardHeader from "../components/BoardHeader";
+import BoardSidebar from "../components/BoardSidebar";
 
 type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -72,7 +72,7 @@ const BoardScreen = () => {
         height,
       })}
     >
-      <BoardWideBoard
+      <BoardSidebar
         user={user}
         boardType={boardType}
         setBoardType={setBoardType}
