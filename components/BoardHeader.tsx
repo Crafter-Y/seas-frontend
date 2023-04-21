@@ -23,6 +23,7 @@ const BoardHeader = (props: {
   boardType: BoardType;
   setBoardType: React.Dispatch<React.SetStateAction<BoardType>>;
   logout: () => void;
+  changePassword: () => void;
 }) => {
   const { isLg, isSm } = useMediaQueries();
 
@@ -222,7 +223,7 @@ const BoardHeader = (props: {
             <BoardMenuButton
               icon={require("../assets/img/changepassword.svg")}
               text={"Passwort ändern"}
-              pressAction={() => {}}
+              pressAction={props.changePassword}
             />
             <View
               style={tw.style(

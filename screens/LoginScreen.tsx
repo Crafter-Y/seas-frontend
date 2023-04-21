@@ -7,7 +7,7 @@ import {
   Platform,
   SafeAreaView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@rneui/base";
 import tw from "../tailwind";
 import "@expo/match-media";
@@ -18,6 +18,7 @@ import { RootStackParamList } from "../navigator/RootNavigator";
 import useServerName from "../hooks/useServerName";
 import useAuthentication from "../hooks/useAuthentication";
 import useMediaQueries from "../hooks/useMediaQueries";
+import Input from "../components/Input";
 
 export type LoginScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -40,6 +41,8 @@ const LoginScreen = () => {
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  const secondInput = useRef<TextInput>(null);
 
   useEffect(() => {
     AsyncStorage.getItem("serverId").then((value) => {
@@ -166,20 +169,21 @@ const LoginScreen = () => {
               >
                 {fetchServerError}
               </Text>
-              <TextInput
+              <Input
                 placeholder="Email"
-                style={tw`border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg`}
                 autoFocus={true}
                 onChangeText={(text) => setEmail(text)}
-                placeholderTextColor={"gray"}
-              ></TextInput>
-              <TextInput
+                onSubmitEditing={() => secondInput.current?.focus()}
+                returnKeyType="next"
+              ></Input>
+              <Input
                 placeholder="Passwort"
-                style={tw`border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg`}
-                placeholderTextColor={"gray"}
                 onChangeText={(text) => setPassword(text)}
                 secureTextEntry={true}
-              ></TextInput>
+                ref={secondInput}
+                returnKeyType="done"
+                onSubmitEditing={submit}
+              ></Input>
 
               <Button
                 style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold`}

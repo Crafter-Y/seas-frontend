@@ -4,7 +4,6 @@ import {
   View,
   StatusBar,
   useWindowDimensions,
-  TextInput,
   SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -16,6 +15,7 @@ import tw from "../tailwind";
 import { Button } from "@rneui/base";
 import webConfig from "../assets/config.json";
 import useServerName from "../hooks/useServerName";
+import Input from "../components/Input";
 
 type ServerSelectorScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -115,13 +115,12 @@ const ServerSelectorScreen = () => {
         <Text style={tw`w-full mt-12 text-lg`}>
           Zuerst muss die Server ID der Gemeinde eingegeben werden
         </Text>
-        <TextInput
+        <Input
           placeholder="Server ID"
-          style={tw`border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg mt-1`}
           autoFocus={true}
           onChangeText={(id) => setServerId(id)}
-          placeholderTextColor={"gray"}
-        ></TextInput>
+          style={"mt-1"}
+        ></Input>
         <Text
           style={tw.style(
             {

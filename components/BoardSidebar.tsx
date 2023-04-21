@@ -11,6 +11,7 @@ const BoardSidebar = (props: {
   boardType: BoardType;
   setBoardType: React.Dispatch<React.SetStateAction<BoardType>>;
   logout: () => void;
+  changePassword: () => void;
 }) => {
   const { isLg } = useMediaQueries();
 
@@ -80,7 +81,7 @@ const BoardSidebar = (props: {
         <BoardSidebarButton
           icon={require("../assets/img/changepassword.svg")}
           text={"Passwort ändern"}
-          pressAction={() => {}}
+          pressAction={props.changePassword}
         />
         <View
           style={tw.style(

@@ -33,28 +33,28 @@
 			"marginRight": 8
 		}
 	},
-	"my-2": {
-		"style": {
-			"marginTop": 8,
-			"marginBottom": 8
-		}
-	},
-	"my-8": {
-		"style": {
-			"marginTop": 32,
-			"marginBottom": 32
-		}
-	},
 	"mx-4": {
 		"style": {
 			"marginLeft": 16,
 			"marginRight": 16
 		}
 	},
+	"my-2": {
+		"style": {
+			"marginTop": 8,
+			"marginBottom": 8
+		}
+	},
 	"my-4": {
 		"style": {
 			"marginTop": 16,
 			"marginBottom": 16
+		}
+	},
+	"my-8": {
+		"style": {
+			"marginTop": 32,
+			"marginBottom": 32
 		}
 	},
 	"mb-0": {
@@ -227,6 +227,11 @@
 			"width": "100%"
 		}
 	},
+	"max-w-md": {
+		"style": {
+			"maxWidth": 448
+		}
+	},
 	"flex-grow": {
 		"style": {
 			"flexGrow": 1
@@ -240,6 +245,11 @@
 	"flex-col": {
 		"style": {
 			"flexDirection": "column"
+		}
+	},
+	"content-center": {
+		"style": {
+			"alignContent": "center"
 		}
 	},
 	"items-center": {
@@ -260,6 +270,11 @@
 	"justify-between": {
 		"style": {
 			"justifyContent": "space-between"
+		}
+	},
+	"self-center": {
+		"style": {
+			"alignSelf": "center"
 		}
 	},
 	"self-stretch": {
@@ -452,6 +467,32 @@
 			"paddingBottom": 16
 		}
 	},
+	"py-2": {
+		"style": {
+			"paddingTop": 8,
+			"paddingBottom": 8
+		}
+	},
+	"pt-4": {
+		"style": {
+			"paddingTop": 16
+		}
+	},
+	"pb-2": {
+		"style": {
+			"paddingBottom": 8
+		}
+	},
+	"pb-1": {
+		"style": {
+			"paddingBottom": 4
+		}
+	},
+	"pb-3": {
+		"style": {
+			"paddingBottom": 12
+		}
+	},
 	"text-center": {
 		"style": {
 			"textAlign": "center"
@@ -513,6 +554,41 @@
 			"textTransform": "capitalize"
 		}
 	},
+	"leading-normal": {
+		"style": {
+			"lineHeight": 1.5
+		}
+	},
+	"leading-4": {
+		"style": {
+			"lineHeight": 16
+		}
+	},
+	"leading-10": {
+		"style": {
+			"lineHeight": 40
+		}
+	},
+	"leading-6": {
+		"style": {
+			"lineHeight": 24
+		}
+	},
+	"leading-8": {
+		"style": {
+			"lineHeight": 32
+		}
+	},
+	"leading-7": {
+		"style": {
+			"lineHeight": 28
+		}
+	},
+	"leading-5": {
+		"style": {
+			"lineHeight": 20
+		}
+	},
 	"text-red-500": {
 		"style": {
 			"--tw-text-opacity": 1,
@@ -522,6 +598,11 @@
 	"underline": {
 		"style": {
 			"textDecorationLine": "underline"
+		}
+	},
+	"decoration-blueAccent": {
+		"style": {
+			"textDecorationColor": "#3882d6"
 		}
 	},
 	"opacity-80": {
