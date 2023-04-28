@@ -52,7 +52,6 @@ const ServerSelectorScreen = () => {
   useEffect(() => {
     navigation.setOptions({ title: "Server auswählen" });
     if (Platform.OS == "web") {
-      console.log(webConfig);
       // @ts-ignore - webpack magic
       let config: string = webConfig;
       fetch(config)

@@ -39,7 +39,9 @@
     "react-responsive": "^9.0.2",
     "serve": "^14.2.0",
     "tailwind-rn": "^4.2.0",
-    "twrnc": "^3.6.0"
+    "twrnc": "^3.6.0",
+    "weeknumber": "^1.2.1",
+    "@react-native-picker/picker": "2.4.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -18,6 +18,7 @@ import BoardHeader from "../components/BoardHeader";
 import BoardSidebar from "../components/BoardSidebar";
 import useMediaQueries from "../hooks/useMediaQueries";
 import Footer from "../components/Footer";
+import Board from "../components/Board";
 
 export type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -36,8 +37,6 @@ const BoardScreen = () => {
   const { height } = useWindowDimensions();
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
-
-  const { isSm, isMd } = useMediaQueries();
 
   useEffect(() => {
     if (!isAuthenticating) {
@@ -95,17 +94,7 @@ const BoardScreen = () => {
           logout={logout}
           changePassword={changePassword}
         />
-        <View
-          style={tw.style(
-            {
-              "mx-2": !isSm,
-              "mx-4": isSm,
-            },
-            "bg-white mt-4 shadow-lg"
-          )}
-        >
-          <Text>Board</Text>
-        </View>
+        <Board boardType={boardType} />
         <Footer navigation={navigation} />
       </ScrollView>
     </SafeAreaView>
