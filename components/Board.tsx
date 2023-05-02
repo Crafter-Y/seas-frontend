@@ -4,6 +4,7 @@ import tw from "../tailwind";
 import useMediaQueries from "../hooks/useMediaQueries";
 import { BoardType } from "../screens/BoardScreen";
 import BoardRangePicker from "./BoardRangePicker";
+import BoardList from "./BoardList";
 
 type Props = {
   boardType: BoardType;
@@ -42,6 +43,7 @@ const Board = ({ boardType }: Props) => {
         setDateStart={setDateStart}
         setDateEnd={setDateEnd}
       />
+      <BoardList dateStart={dateStart} dateEnd={dateEnd} />
     </View>
   );
 };

@@ -187,8 +187,16 @@
   max-width: 28rem
 }
 
+.flex-shrink {
+  flex-shrink: 1
+}
+
 .flex-grow {
   flex-grow: 1
+}
+
+.basis-full {
+  flex-basis: 100%
 }
 
 .flex-row {
@@ -304,9 +312,24 @@
   background-color: rgb(209 213 219 / var(--tw-bg-opacity))
 }
 
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity))
+}
+
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity))
+}
+
 .bg-lightgrayNeutral {
   --tw-bg-opacity: 1;
   background-color: rgb(246 247 249 / var(--tw-bg-opacity))
+}
+
+.bg-red-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity))
 }
 
 .bg-red-500 {
@@ -345,6 +368,11 @@
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem
 }
 
 .py-1 {
