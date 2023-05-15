@@ -15,7 +15,6 @@ import Modal from "react-native-modal";
 import { Platform } from "react-native";
 import BoardMenuNavigationButton from "./BoardMenuNavigationButton";
 import { BoardType } from "../screens/BoardScreen";
-import BoardSidebarButton from "./BoardSidebarButton";
 import BoardMenuButton from "./BoardMenuButton";
 
 const BoardHeader = (props: {
@@ -213,7 +212,9 @@ const BoardHeader = (props: {
             <BoardMenuButton
               icon={require("../assets/img/settings.svg")}
               text={"Einstellungen"}
-              pressAction={() => {}}
+              pressAction={() => {
+                toggleMenu();
+              }}
             />
             <View
               style={tw.style(
@@ -223,7 +224,10 @@ const BoardHeader = (props: {
             <BoardMenuButton
               icon={require("../assets/img/changepassword.svg")}
               text={"Passwort ändern"}
-              pressAction={props.changePassword}
+              pressAction={() => {
+                toggleMenu();
+                props.changePassword();
+              }}
             />
             <View
               style={tw.style(

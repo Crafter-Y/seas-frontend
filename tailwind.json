@@ -39,6 +39,18 @@
 			"marginRight": 16
 		}
 	},
+	"mx-5": {
+		"style": {
+			"marginLeft": 20,
+			"marginRight": 20
+		}
+	},
+	"my-16": {
+		"style": {
+			"marginTop": 64,
+			"marginBottom": 64
+		}
+	},
 	"my-2": {
 		"style": {
 			"marginTop": 8,
@@ -182,6 +194,21 @@
 			"height": 32
 		}
 	},
+	"h-screen": {
+		"style": {
+			"height": "100vh"
+		}
+	},
+	"w-0": {
+		"style": {
+			"width": 0
+		}
+	},
+	"w-0.5": {
+		"style": {
+			"width": 2
+		}
+	},
 	"w-1": {
 		"style": {
 			"width": 4
@@ -190,6 +217,11 @@
 	"w-1/2": {
 		"style": {
 			"width": "50%"
+		}
+	},
+	"w-1/3": {
+		"style": {
+			"width": "33.333333%"
 		}
 	},
 	"w-10": {
@@ -205,6 +237,11 @@
 	"w-4": {
 		"style": {
 			"width": 16
+		}
+	},
+	"w-48": {
+		"style": {
+			"width": 192
 		}
 	},
 	"w-52": {
@@ -260,6 +297,11 @@
 	"flex-col": {
 		"style": {
 			"flexDirection": "column"
+		}
+	},
+	"items-end": {
+		"style": {
+			"alignItems": "flex-end"
 		}
 	},
 	"items-center": {
@@ -515,6 +557,11 @@
 			"paddingBottom": 16
 		}
 	},
+	"pl-4": {
+		"style": {
+			"paddingLeft": 16
+		}
+	},
 	"pt-4": {
 		"style": {
 			"paddingTop": 16
@@ -523,6 +570,11 @@
 	"text-center": {
 		"style": {
 			"textAlign": "center"
+		}
+	},
+	"text-right": {
+		"style": {
+			"textAlign": "right"
 		}
 	},
 	"text-2xl": {
@@ -581,6 +633,11 @@
 			"textTransform": "capitalize"
 		}
 	},
+	"normal-case": {
+		"style": {
+			"textTransform": "none"
+		}
+	},
 	"text-red-500": {
 		"style": {
 			"--tw-text-opacity": 1,
@@ -607,11 +664,58 @@
 			"opacity": 0.95
 		}
 	},
+	"hover:border-opacity-40:hover": {
+		"style": {
+			"--tw-border-opacity": 0.4
+		}
+	},
+	"hover:opacity-70:hover": {
+		"style": {
+			"opacity": 0.7
+		}
+	},
+	"hover:opacity-75:hover": {
+		"style": {
+			"opacity": 0.75
+		}
+	},
 	"print:hidden": {
 		"style": {
 			"display": "none"
 		},
 		"media": "print"
+	},
+	"sm:px-24": {
+		"style": {
+			"paddingLeft": 96,
+			"paddingRight": 96
+		},
+		"media": "(min-width: 640px)"
+	},
+	"md:hidden": {
+		"style": {
+			"display": "none"
+		},
+		"media": "(min-width: 768px)"
+	},
+	"md:w-72": {
+		"style": {
+			"width": 288
+		},
+		"media": "(min-width: 768px)"
+	},
+	"md:justify-center": {
+		"style": {
+			"justifyContent": "center"
+		},
+		"media": "(min-width: 768px)"
+	},
+	"md:px-0": {
+		"style": {
+			"paddingLeft": 0,
+			"paddingRight": 0
+		},
+		"media": "(min-width: 768px)"
 	},
 	"lg:flex": {
 		"style": {
