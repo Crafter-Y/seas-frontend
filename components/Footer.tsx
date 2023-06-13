@@ -1,9 +1,19 @@
 import { View, Text, Platform, Linking } from "react-native";
 import React from "react";
 import tw from "../tailwind";
-import { BoardScreenProps } from "../screens/BoardScreen";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../navigator/RootNavigator";
+import { ClassInput } from "twrnc/dist/esm/types";
 
-const Footer = (props: { navigation: BoardScreenProps }) => {
+type Props = {
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    keyof RootStackParamList
+  >;
+  style?: ClassInput;
+};
+
+const Footer = ({ navigation, style = {} }: Props) => {
   const mailtoReport = () => {
     let url = "mailto:helmut_h_haase@yahoo.de";
     Linking.canOpenURL(url).then((supported) => {
@@ -14,7 +24,7 @@ const Footer = (props: { navigation: BoardScreenProps }) => {
   };
 
   return (
-    <View style={tw`my-4`}>
+    <View style={tw.style(`my-4`, style)}>
       <Text style={tw`text-xs opacity-80 w-full text-center`}>
         &copy; Helmut Haase 2022
       </Text>
@@ -26,7 +36,7 @@ const Footer = (props: { navigation: BoardScreenProps }) => {
           `text-xs opacity-80 w-full text-center underline`
         )}
         onPress={() => {
-          props.navigation.navigate("ImprintScreen");
+          navigation.navigate("ImprintScreen");
         }}
       >
         Impressum

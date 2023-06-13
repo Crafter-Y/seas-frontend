@@ -264,6 +264,11 @@
 			"width": "100%"
 		}
 	},
+	"w-72": {
+		"style": {
+			"width": 288
+		}
+	},
 	"max-w-md": {
 		"style": {
 			"maxWidth": 448
@@ -550,6 +555,12 @@
 		"style": {
 			"paddingTop": 16,
 			"paddingBottom": 16
+		}
+	},
+	"px-24": {
+		"style": {
+			"paddingLeft": 96,
+			"paddingRight": 96
 		}
 	},
 	"pl-4": {

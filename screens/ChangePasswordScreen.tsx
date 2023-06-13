@@ -1,18 +1,24 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   StatusBar,
   View,
   Text,
   useWindowDimensions,
+  Pressable,
 } from "react-native";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import tw from "../tailwind";
 import useMediaQueries from "../hooks/useMediaQueries";
+import Input from "../components/Input";
+import { Button } from "@rneui/base";
+import useUpdatePassword from "../hooks/useUpdatePassword";
+import Footer from "../components/Footer";
+import { Image } from "expo-image";
 
-type ChangePasswordScreenProps = NativeStackNavigationProp<
+export type ChangePasswordScreenProps = NativeStackNavigationProp<
   RootStackParamList,
   "ChangePasswordScreen"
 >;
@@ -21,7 +27,14 @@ const ChangePasswordScreen = () => {
   const navigation = useNavigation<ChangePasswordScreenProps>();
   const { height } = useWindowDimensions();
 
-  const { isMd } = useMediaQueries();
+  const { isMd, isSm } = useMediaQueries();
+
+  const { updatePassword, hasUpdateError, updateError, isUpdateSuccessful } =
+    useUpdatePassword();
+
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword1, setNewPassword1] = useState("");
+  const [newPassword2, setNewPassword2] = useState("");
 
   useEffect(() => {
     navigation.setOptions({
@@ -51,16 +64,20 @@ const ChangePasswordScreen = () => {
           "w-1/3 items-end justify-center flex-col pl-4"
         )}
       >
-        <View
-          style={tw.style({}, "flex gap-1 items-center mb-4 hover:opacity-75")}
-        >
+        <View style={tw.style({}, "flex flex-row gap-1 items-center mb-4")}>
           {/*<img src="" alt="" height="16px" width="16px">*/}
-          <Text style={tw.style("font-semibold underline")}>Zurück</Text>
+          <Image
+            source={require("../assets/img/previous.svg")}
+            style={tw`h-4 w-4`}
+          />
+          <Pressable onPress={() => navigation.navigate("BoardScreen")}>
+            <Text style={tw.style("font-semibold underline")}>Zurück</Text>
+          </Pressable>
         </View>
         <Text
           style={tw.style(
             {},
-            "text-4xl font-bold opacity-95 underline decoration-blueAccent underline-offset-4 decoration-2 text-right"
+            "text-4xl font-bold opacity-95 underline text-right"
           )}
         >
           Passwort ändern
@@ -70,7 +87,15 @@ const ChangePasswordScreen = () => {
           geändert werden. Das neue Passwort muss mindestens 7 Zeichen haben.
           Erlaubt sind Buchstaben, Zahlen und Sonderzeichen: -_!?/*%$
         </Text>
-        {/*<View style={tw.style({}, "w-48 mt-12">Footer</View>*/}
+        <Footer
+          navigation={navigation}
+          style={tw.style(
+            {
+              hidden: !isMd,
+            },
+            "w-48 mt-12"
+          )}
+        />
       </View>
       <View
         style={tw.style(
@@ -84,8 +109,10 @@ const ChangePasswordScreen = () => {
         style={tw.style(
           {
             "justify-center": isMd,
+            "items-center": !isMd,
+            "w-full": !isMd,
           },
-          "flex w-full"
+          "flex"
         )}
       >
         <Text
@@ -100,26 +127,67 @@ const ChangePasswordScreen = () => {
         </Text>
         <View
           style={tw.style(
-            {},
-            "flex flex-col gap-2 md:w-72 px-6 sm:px-24 md:px-0"
+            {
+              "w-full": !isMd,
+              "w-72": isMd,
+              "px-6": !isSm && !isMd,
+              "px-24": isSm && !isMd,
+              "px-0": isMd,
+            },
+            "flex flex-col gap-2"
           )}
         >
-          {/*<input type="password" name="recentPassword" placeholder="Vorheriges Passwort" 
-                style={tw.style({}, "border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg focus-visible:outline-none hover:border-opacity-40 ease-in-out duration-100")}>
-            <input type="password" name="newPassword1" placeholder="Neues Passwort festlegen" 
-                style={tw.style({}, "border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg focus-visible:outline-none hover:border-opacity-40 ease-in-out duration-100")}>
-            <input type="password" name="newPassword2" placeholder="Passwort wiederholen"
-                style={tw.style({}, "border border-black border-opacity-20 rounded-xl px-2 py-1 text-lg focus-visible:outline-none hover:border-opacity-40 ease-in-out duration-100")}>
-          */}
-          <Text>Real Page Contents</Text>
-          <View style={tw.style({}, "flex gap-1 items-center")}>
-            <Text>{/*<img src="" alt="" height="20px" width="20px">*/}</Text>
-            {/** Error Message */}
-          </View>
+          <Input
+            placeholder="Vorheriges Passwort"
+            onChangeText={(text) => setOldPassword(text)}
+            secureTextEntry={true}
+            returnKeyType="next"
+          ></Input>
+          <Input
+            placeholder="Neues Passwort festlegen"
+            onChangeText={(text) => setNewPassword1(text)}
+            secureTextEntry={true}
+            returnKeyType="next"
+          ></Input>
+          <Input
+            placeholder="Passwort wiederholen"
+            onChangeText={(text) => setNewPassword2(text)}
+            secureTextEntry={true}
+            returnKeyType="done"
+          ></Input>
 
-          {/*<input type="submit" value="Passwort ändern" name="passwordChangeForm" style={tw.style({}, "btn bg-blueAccent rounded-xl text-xl px-4 py-2 font-semibold normal-case hover:opacity-70")}>*/}
+          <Text
+            style={tw.style(
+              {
+                hidden: !hasUpdateError,
+              },
+              "text-red-500 mb-2"
+            )}
+          >
+            {updateError}
+          </Text>
+
+          <Button
+            style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold`}
+            color={"#3882d6"}
+            onPress={() =>
+              updatePassword(
+                oldPassword,
+                newPassword1,
+                newPassword2,
+                navigation
+              )
+            }
+          >
+            Passwort ändern
+          </Button>
         </View>
-        <View style={tw.style({}, "mt-2 md:hidden")}>{/*Footer*/}</View>
+        <Footer
+          navigation={navigation}
+          style={tw.style({
+            hidden: isMd,
+          })}
+        />
       </View>
     </SafeAreaView>
   );
