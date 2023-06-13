@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   SafeAreaView,
   StatusBar,
@@ -8,6 +8,7 @@ import {
   Text,
   useWindowDimensions,
   Pressable,
+  TextInput,
 } from "react-native";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import tw from "../tailwind";
@@ -35,6 +36,9 @@ const ChangePasswordScreen = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword1, setNewPassword1] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
+
+  const secondInput = useRef<TextInput>(null);
+  const thirdInput = useRef<TextInput>(null);
 
   useEffect(() => {
     navigation.setOptions({
@@ -141,18 +145,22 @@ const ChangePasswordScreen = () => {
             placeholder="Vorheriges Passwort"
             onChangeText={(text) => setOldPassword(text)}
             secureTextEntry={true}
+            onSubmitEditing={() => secondInput.current?.focus()}
             returnKeyType="next"
           ></Input>
           <Input
             placeholder="Neues Passwort festlegen"
             onChangeText={(text) => setNewPassword1(text)}
             secureTextEntry={true}
+            onSubmitEditing={() => thirdInput.current?.focus()}
+            ref={secondInput}
             returnKeyType="next"
           ></Input>
           <Input
             placeholder="Passwort wiederholen"
             onChangeText={(text) => setNewPassword2(text)}
             secureTextEntry={true}
+            ref={thirdInput}
             returnKeyType="done"
           ></Input>
 
