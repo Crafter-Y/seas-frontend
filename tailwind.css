@@ -153,10 +153,6 @@
   height: 2rem
 }
 
-.h-screen {
-  height: 100vh
-}
-
 .w-0 {
   width: 0px
 }
@@ -543,10 +539,6 @@
 
   .md\:w-72 {
     width: 18rem
-  }
-
-  .md\:justify-center {
-    justify-content: center
   }
 
   .md\:px-0 {

@@ -194,11 +194,6 @@
 			"height": 32
 		}
 	},
-	"h-screen": {
-		"style": {
-			"height": "100vh"
-		}
-	},
 	"w-0": {
 		"style": {
 			"width": 0
@@ -701,12 +696,6 @@
 	"md:w-72": {
 		"style": {
 			"width": 288
-		},
-		"media": "(min-width: 768px)"
-	},
-	"md:justify-center": {
-		"style": {
-			"justifyContent": "center"
 		},
 		"media": "(min-width: 768px)"
 	},
