@@ -1,6 +1,4 @@
 import {
-  View,
-  Text,
   StatusBar,
   useWindowDimensions,
   ScrollView,
@@ -13,12 +11,11 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import tw from "../tailwind";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Constants from "expo-constants";
 import BoardHeader from "../components/BoardHeader";
 import BoardSidebar from "../components/BoardSidebar";
-import useMediaQueries from "../hooks/useMediaQueries";
 import Footer from "../components/Footer";
 import Board from "../components/Board";
+import useApi from "../hooks/useApi";
 
 export type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -38,6 +35,8 @@ const BoardScreen = () => {
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
 
+  const getApi = useApi();
+
   useEffect(() => {
     if (!isAuthenticating) {
       if (isAuthenticated) {
@@ -49,7 +48,7 @@ const BoardScreen = () => {
   }, [isAuthenticating, isAuthenticated, navigation]);
 
   const logout = () => {
-    let configServer: string = Constants.expoConfig?.extra?.apiServer;
+    let configServer = getApi();
 
     AsyncStorage.getItem("token").then((token) => {
       if (token != null) {

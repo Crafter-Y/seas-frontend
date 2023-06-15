@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useApi from "./useApi";
 
 export default function useServerName() {
   const [serverName, setName] = useState("");
   const [fetchServerError, setError] = useState("");
   const [fetchIsServerError, setIsError] = useState(false);
   const [isFetchServerLoading, setIsLoading] = useState(true);
+
+  const getApi = useApi();
 
   useEffect(() => {
     fetchServerName();
@@ -17,7 +19,7 @@ export default function useServerName() {
     setIsError(false);
     setError("");
     setName("");
-    let configServer: string = Constants.expoConfig?.extra?.apiServer;
+    let configServer = getApi();
 
     AsyncStorage.getItem("serverId").then((serverId) => {
       if (serverId == null) {

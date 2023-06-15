@@ -1,12 +1,14 @@
 import { useState } from "react";
-import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ChangePasswordScreenProps } from "../screens/ChangePasswordScreen";
+import useApi from "./useApi";
 
 export default function useUpdatePassword() {
   const [hasUpdateError, setHasUpdateError] = useState(false);
   const [updateError, setUpdateError] = useState("");
   const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
+
+  const getApi = useApi();
 
   const updatePassword = (
     oldPassword: string,
@@ -45,7 +47,7 @@ export default function useUpdatePassword() {
       return;
     }
 
-    let configServer: string = Constants.expoConfig?.extra?.apiServer;
+    let configServer = getApi();
     AsyncStorage.getItem("token").then((token) => {
       if (token == null) {
         navigation.replace("LoginScreen");

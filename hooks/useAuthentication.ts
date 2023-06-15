@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginScreenProps } from "../screens/LoginScreen";
-import Constants from "expo-constants";
 import { Platform } from "react-native";
+import useApi from "./useApi";
 
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
@@ -10,6 +10,8 @@ export default function useAuthentication() {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
+
+  const getApi = useApi();
 
   const login = (
     email: string,
@@ -22,7 +24,7 @@ export default function useAuthentication() {
     setAuthenticated(false);
     setUser(null);
 
-    let configServer: string = Constants.expoConfig?.extra?.apiServer;
+    let configServer = getApi();
     AsyncStorage.getItem("serverId").then((serverId) => {
       if (serverId == null) {
         setIsAuthenticating(false);
@@ -68,7 +70,7 @@ export default function useAuthentication() {
         return;
       }
 
-      let configServer: string = Constants.expoConfig?.extra?.apiServer;
+      let configServer = getApi();
 
       fetch(`${configServer}/api/getCurrentUserInfo/`, {
         headers: {
