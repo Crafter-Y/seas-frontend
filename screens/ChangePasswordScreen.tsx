@@ -29,8 +29,7 @@ const ChangePasswordScreen = () => {
 
   const { isMd, isSm } = useMediaQueries();
 
-  const { updatePassword, hasUpdateError, updateError, isUpdateSuccessful } =
-    useUpdatePassword();
+  const { updatePassword, hasUpdateError, updateError } = useUpdatePassword();
 
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword1, setNewPassword1] = useState("");
@@ -67,7 +66,6 @@ const ChangePasswordScreen = () => {
         )}
       >
         <View style={tw.style({}, "flex flex-row gap-1 items-center mb-4")}>
-          {/*<img src="" alt="" height="16px" width="16px">*/}
           <Image
             source={require("../assets/img/previous.svg")}
             style={tw`h-4 w-4`}

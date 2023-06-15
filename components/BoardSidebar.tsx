@@ -12,6 +12,7 @@ const BoardSidebar = (props: {
   setBoardType: React.Dispatch<React.SetStateAction<BoardType>>;
   logout: () => void;
   changePassword: () => void;
+  settings: () => void;
 }) => {
   const { isLg } = useMediaQueries();
 
@@ -71,7 +72,7 @@ const BoardSidebar = (props: {
         <BoardSidebarButton
           icon={require("../assets/img/settings.svg")}
           text={"Einstellungen"}
-          pressAction={() => {}}
+          pressAction={props.settings}
         />
         <View
           style={tw.style(

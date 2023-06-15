@@ -67,6 +67,10 @@ const BoardScreen = () => {
     navigation.navigate("ChangePasswordScreen");
   };
 
+  const settings = () => {
+    navigation.navigate("SettingsNavigator");
+  };
+
   return (
     <SafeAreaView
       style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", {})}
@@ -77,6 +81,7 @@ const BoardScreen = () => {
         setBoardType={setBoardType}
         logout={logout}
         changePassword={changePassword}
+        settings={settings}
       />
       <ScrollView>
         <BoardHeader
@@ -85,6 +90,7 @@ const BoardScreen = () => {
           boardType={boardType}
           logout={logout}
           changePassword={changePassword}
+          settings={settings}
         />
         <Board boardType={boardType} />
         <Footer navigation={navigation} />

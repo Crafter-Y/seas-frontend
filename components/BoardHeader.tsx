@@ -17,13 +17,23 @@ import BoardMenuNavigationButton from "./BoardMenuNavigationButton";
 import { BoardType } from "../screens/BoardScreen";
 import BoardMenuButton from "./BoardMenuButton";
 
-const BoardHeader = (props: {
+type BoardHeaderProps = {
   user: User | null;
   boardType: BoardType;
   setBoardType: React.Dispatch<React.SetStateAction<BoardType>>;
   logout: () => void;
   changePassword: () => void;
-}) => {
+  settings: () => void;
+};
+
+const BoardHeader = ({
+  user,
+  boardType,
+  setBoardType,
+  logout,
+  changePassword,
+  settings,
+}: BoardHeaderProps) => {
   const { isLg, isSm } = useMediaQueries();
 
   const ref1 = useRef(null);
@@ -169,10 +179,10 @@ const BoardHeader = (props: {
             <Text
               style={tw`w-full text-center px-2 text-lg font-semibold mt-6`}
             >
-              {props.user?.firstname} {props.user?.lastname}
+              {user?.firstname} {user?.lastname}
             </Text>
             <Text style={tw`w-full text-center px-2 text-sm mb-4`}>
-              {props.user?.email}
+              {user?.email}
             </Text>
             <View
               style={tw.style(
@@ -182,26 +192,26 @@ const BoardHeader = (props: {
 
             <BoardMenuNavigationButton
               boardType="Jahresansicht"
-              currentBoardType={props.boardType}
-              setBoardType={props.setBoardType}
+              currentBoardType={boardType}
+              setBoardType={setBoardType}
               closeModal={toggleMenu}
             />
             <BoardMenuNavigationButton
               boardType="Quartal Ansicht"
-              currentBoardType={props.boardType}
-              setBoardType={props.setBoardType}
+              currentBoardType={boardType}
+              setBoardType={setBoardType}
               closeModal={toggleMenu}
             />
             <BoardMenuNavigationButton
               boardType="Monatsansicht"
-              currentBoardType={props.boardType}
-              setBoardType={props.setBoardType}
+              currentBoardType={boardType}
+              setBoardType={setBoardType}
               closeModal={toggleMenu}
             />
             <BoardMenuNavigationButton
               boardType="Wochenansicht"
-              currentBoardType={props.boardType}
-              setBoardType={props.setBoardType}
+              currentBoardType={boardType}
+              setBoardType={setBoardType}
               closeModal={toggleMenu}
             />
             <View
@@ -214,6 +224,7 @@ const BoardHeader = (props: {
               text={"Einstellungen"}
               pressAction={() => {
                 toggleMenu();
+                settings();
               }}
             />
             <View
@@ -226,7 +237,7 @@ const BoardHeader = (props: {
               text={"Passwort ändern"}
               pressAction={() => {
                 toggleMenu();
-                props.changePassword();
+                changePassword();
               }}
             />
             <View
@@ -237,7 +248,7 @@ const BoardHeader = (props: {
             <BoardMenuButton
               icon={require("../assets/img/logout.svg")}
               text={"Abmelden"}
-              pressAction={props.logout}
+              pressAction={logout}
             />
             <View
               style={tw.style({

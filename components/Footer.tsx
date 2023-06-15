@@ -26,7 +26,7 @@ const Footer = ({ navigation, style = {} }: Props) => {
   return (
     <View style={tw.style(`my-4 flex items-center`, style)}>
       <Text style={tw`text-xs opacity-80 w-full text-center`}>
-        &copy; Helmut Haase 2022
+        &copy; Helmut Haase 2022-2023
       </Text>
       <Text
         style={tw.style(
