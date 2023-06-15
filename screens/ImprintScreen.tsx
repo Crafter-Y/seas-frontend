@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
-import { SafeAreaView, StatusBar, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import tw from "../tailwind";
 
@@ -18,9 +19,7 @@ const ImprintScreen = () => {
   }, [navigation]);
 
   return (
-    <SafeAreaView
-      style={{ marginTop: StatusBar.currentHeight, margin: 0, padding: 0 }}
-    >
+    <SafeAreaView style={{ margin: 0, padding: 0 }}>
       <View style={tw`px-4 flex flex-col gap-2 pt-4`}>
         <Text
           style={tw`text-4xl font-bold opacity-95 underline underline-offset-2 decoration-blueAccent`}

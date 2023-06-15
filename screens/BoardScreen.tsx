@@ -1,9 +1,5 @@
-import {
-  StatusBar,
-  useWindowDimensions,
-  ScrollView,
-  SafeAreaView,
-} from "react-native";
+import { useWindowDimensions, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import useAuthentication from "../hooks/useAuthentication";
 import { useNavigation } from "@react-navigation/native";
@@ -73,10 +69,7 @@ const BoardScreen = () => {
 
   return (
     <SafeAreaView
-      style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", {
-        marginTop: StatusBar.currentHeight,
-        height,
-      })}
+      style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", {})}
     >
       <BoardSidebar
         user={user}

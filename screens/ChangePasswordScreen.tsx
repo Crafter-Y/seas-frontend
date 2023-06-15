@@ -2,14 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  SafeAreaView,
-  StatusBar,
   View,
   Text,
   useWindowDimensions,
   Pressable,
   TextInput,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../navigator/RootNavigator";
 import tw from "../tailwind";
 import useMediaQueries from "../hooks/useMediaQueries";
@@ -51,7 +50,6 @@ const ChangePasswordScreen = () => {
   return (
     <SafeAreaView
       style={{
-        marginTop: StatusBar.currentHeight,
         margin: 0,
         padding: 0,
         display: "flex",

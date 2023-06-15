@@ -1,12 +1,11 @@
 import {
   View,
   Text,
-  StatusBar,
   TextInput,
   useWindowDimensions,
   Platform,
-  SafeAreaView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@rneui/base";
 import tw from "../tailwind";
@@ -71,9 +70,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView
-      style={{ marginTop: StatusBar.currentHeight, margin: 0, padding: 0 }}
-    >
+    <SafeAreaView style={{ margin: 0, padding: 0 }}>
       <View>
         <View
           style={tw.style(`flex w-full flex-row`, {

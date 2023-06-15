@@ -47,7 +47,14 @@ const BoardList = ({ dateStart, dateEnd }: Props) => {
             esse. Animi voluptatum delectus aspernatur excepturi, vitae aut
             saepe nisi, cumque magnam corrupti quis corporis asperiores soluta
             alias. Quia suscipit eos expedita, commodi nihil, nobis rem quod
-            voluptatem dolore ab aliquid quibusdam, eius assumenda esse?
+            voluptatem dolore ab aliquid quibusdam,eius assumenda esse? Quia
+            suscipit eos expedita, commodi nihil, nobis rem quod voluptatem
+            dolore ab aliquid quibusdam, eius assumenda esse?Quia suscipit eos
+            expedita, commodi nihil, nobis rem quod voluptatem dolore ab aliquid
+            quibusdam, eius assumenda esse?Quia suscipit eos expedita, commodi
+            nihil, nobis rem quod voluptatem dolore ab aliquid quibusdam, eius
+            assumenda esse?Quia suscipit eos expedita, commodi nihil, nobis rem
+            quod voluptatem dolore ab aliquid quibusdam, eius assumenda esse?
           </Text>
         </View>
         <View

@@ -1,11 +1,5 @@
-import {
-  Text,
-  Platform,
-  View,
-  StatusBar,
-  useWindowDimensions,
-  SafeAreaView,
-} from "react-native";
+import { Text, Platform, View, useWindowDimensions } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigator/RootNavigator";
@@ -103,7 +97,6 @@ const ServerSelectorScreen = () => {
   return (
     <SafeAreaView
       style={tw.style({
-        marginTop: StatusBar.currentHeight,
         height: height,
       })}
     >
