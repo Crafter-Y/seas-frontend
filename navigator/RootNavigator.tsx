@@ -6,9 +6,13 @@ import LoginScreen from "../screens/LoginScreen";
 import BoardScreen from "../screens/BoardScreen";
 import ImprintScreen from "../screens/ImprintScreen";
 import ChangePasswordScreen from "../screens/ChangePasswordScreen";
-import SettingsScreen from "../screens/SettingsScreen";
 import { createSettingsNavigator } from "./SettingsNavigator";
 import BaseSettingsScreen from "../screens/settings/BaseSettingsScreen";
+import ManageUsersScreen from "../screens/settings/ManageUsersScreen";
+import ManagePositionsScreen from "../screens/settings/ManagePositionsScreen";
+import ManageEventsScreen from "../screens/settings/ManageEventsScreen";
+import ManageCommentTemplatesScreen from "../screens/settings/ManageCommentTemplatesScreen";
+import ManagePagesScreen from "../screens/settings/ManagePagesScreen";
 
 export type RootStackParamList = {
   ServerSelectorScreen: undefined;
@@ -20,9 +24,28 @@ export type RootStackParamList = {
   SettingsNavigator: undefined;
 };
 
-export type SettingsStackParamList = {
-  BaseSettingsScreen: undefined;
+export const settingsScreens = {
+  ManageUsersScreen: undefined,
+  ManagePositionsScreen: undefined,
+  ManageEventsScreen: undefined,
+  ManageCommentTemplatesScreen: undefined,
+  ManagePagesScreen: undefined,
 };
+
+export const settingsTitles = {
+  ManageCommentTemplatesScreen: "Kommentarvorlagen",
+  ManageEventsScreen: "Termine verwalten",
+  ManagePagesScreen: "Pläne verwalten",
+  ManagePositionsScreen: "Spalten verwalten",
+  ManageUsersScreen: "Mitglieder verwalten",
+};
+
+const allSettingsScreens = {
+  BaseSettingsScreen: undefined,
+  ...settingsScreens,
+};
+
+export type SettingsStackParamList = typeof allSettingsScreens;
 
 const SettingsNavigator = () => {
   const SettingsNavigator = createSettingsNavigator<SettingsStackParamList>();
@@ -34,6 +57,26 @@ const SettingsNavigator = () => {
       <SettingsNavigator.Screen
         name="BaseSettingsScreen"
         component={BaseSettingsScreen}
+      ></SettingsNavigator.Screen>
+      <SettingsNavigator.Screen
+        name="ManageUsersScreen"
+        component={ManageUsersScreen}
+      ></SettingsNavigator.Screen>
+      <SettingsNavigator.Screen
+        name="ManagePositionsScreen"
+        component={ManagePositionsScreen}
+      ></SettingsNavigator.Screen>
+      <SettingsNavigator.Screen
+        name="ManageEventsScreen"
+        component={ManageEventsScreen}
+      ></SettingsNavigator.Screen>
+      <SettingsNavigator.Screen
+        name="ManageCommentTemplatesScreen"
+        component={ManageCommentTemplatesScreen}
+      ></SettingsNavigator.Screen>
+      <SettingsNavigator.Screen
+        name="ManagePagesScreen"
+        component={ManagePagesScreen}
       ></SettingsNavigator.Screen>
     </SettingsNavigator.Navigator>
   );

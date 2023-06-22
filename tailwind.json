@@ -134,6 +134,11 @@
 			"marginTop": "10%"
 		}
 	},
+	"ml-0": {
+		"style": {
+			"marginLeft": 0
+		}
+	},
 	"block": {
 		"style": {
 			"display": "block"

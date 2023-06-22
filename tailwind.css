@@ -105,6 +105,10 @@
   margin-top: 10%
 }
 
+.ml-0 {
+  margin-left: 0px
+}
+
 .block {
   display: block
 }
