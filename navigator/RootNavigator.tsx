@@ -24,20 +24,12 @@ export type RootStackParamList = {
   SettingsNavigator: undefined;
 };
 
-export const settingsScreens = {
+const settingsScreens = {
   ManageUsersScreen: undefined,
   ManagePositionsScreen: undefined,
   ManageEventsScreen: undefined,
   ManageCommentTemplatesScreen: undefined,
   ManagePagesScreen: undefined,
-};
-
-export const settingsTitles = {
-  ManageCommentTemplatesScreen: "Kommentarvorlagen",
-  ManageEventsScreen: "Termine verwalten",
-  ManagePagesScreen: "Pläne verwalten",
-  ManagePositionsScreen: "Spalten verwalten",
-  ManageUsersScreen: "Mitglieder verwalten",
 };
 
 const allSettingsScreens = {
@@ -61,6 +53,7 @@ const SettingsNavigator = () => {
       <SettingsNavigator.Screen
         name="ManageUsersScreen"
         component={ManageUsersScreen}
+        options={{ headerShown: true }}
       ></SettingsNavigator.Screen>
       <SettingsNavigator.Screen
         name="ManagePositionsScreen"

@@ -22,11 +22,15 @@ import useMediaQueries from "../hooks/useMediaQueries";
 import tw from "../tailwind";
 import { Image } from "expo-image";
 import Footer from "../components/Footer";
-import {
-  RootStackParamList,
-  settingsScreens,
-  settingsTitles,
-} from "./RootNavigator";
+import { RootStackParamList } from "./RootNavigator";
+
+export const settingsTitles = {
+  ManageUsersScreen: "Mitglieder verwalten",
+  ManagePositionsScreen: "Spalten verwalten",
+  ManageEventsScreen: "Termine verwalten",
+  ManageCommentTemplatesScreen: "Kommentarvorlagen",
+  ManagePagesScreen: "Pläne verwalten",
+};
 
 type Props = DefaultNavigatorOptions<
   ParamListBase,
@@ -82,7 +86,7 @@ const SettingsNavigator = ({
     } else {
       rootNavigation.setOptions({ headerShown: false });
     }
-  }, [isMd, rootNavigation]);
+  }, [isMd, rootNavigation, getRouteName()]);
 
   return (
     <NavigationContent>
@@ -114,7 +118,7 @@ const SettingsNavigator = ({
           >
             Einstellungen
           </Text>
-          {Object.keys(settingsScreens).map((setting) => (
+          {Object.keys(settingsTitles).map((setting) => (
             <View
               style={tw.style("items-center mt-2 gap-3 flex-row -mr-2")}
               key={setting}
@@ -125,7 +129,7 @@ const SettingsNavigator = ({
                 onPress={() => navigation.navigate(setting)}
               >
                 <Text style={tw.style("font-semibold")}>
-                  {settingsTitles[setting as keyof typeof settingsScreens]}
+                  {settingsTitles[setting as keyof typeof settingsTitles]}
                 </Text>
               </Pressable>
               <View
@@ -161,18 +165,21 @@ const SettingsNavigator = ({
           style={tw.style(
             {
               "py-14": isMd,
+              "px-4": isMd,
+              "pt-16": getRouteName() != "BaseSettingsScreen",
             },
             "flex-grow"
           )}
         >
+          <Text>Test</Text>
           <NativeStackView
             {...rest}
             state={state}
             navigation={navigation}
             descriptors={descriptors}
           />
-          <Text style={{ width: "300px" }}></Text>
         </View>
+        <Text>Agter</Text>
       </SafeAreaView>
     </NavigationContent>
   );
