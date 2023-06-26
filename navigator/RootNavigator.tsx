@@ -6,7 +6,6 @@ import LoginScreen from "../screens/LoginScreen";
 import BoardScreen from "../screens/BoardScreen";
 import ImprintScreen from "../screens/ImprintScreen";
 import ChangePasswordScreen from "../screens/ChangePasswordScreen";
-import { createSettingsNavigator } from "./SettingsNavigator";
 import BaseSettingsScreen from "../screens/settings/BaseSettingsScreen";
 import ManageUsersScreen from "../screens/settings/ManageUsersScreen";
 import ManagePositionsScreen from "../screens/settings/ManagePositionsScreen";
@@ -22,57 +21,12 @@ export type RootStackParamList = {
   ChangePasswordScreen: undefined;
   SettingsScreen: undefined;
   SettingsNavigator: undefined;
-};
-
-const settingsScreens = {
-  ManageUsersScreen: undefined,
-  ManagePositionsScreen: undefined,
-  ManageEventsScreen: undefined,
-  ManageCommentTemplatesScreen: undefined,
-  ManagePagesScreen: undefined,
-};
-
-const allSettingsScreens = {
-  BaseSettingsScreen: undefined,
-  ...settingsScreens,
-};
-
-export type SettingsStackParamList = typeof allSettingsScreens;
-
-const SettingsNavigator = () => {
-  const SettingsNavigator = createSettingsNavigator<SettingsStackParamList>();
-  return (
-    <SettingsNavigator.Navigator
-      initialRouteName="BaseSettingsScreen"
-      screenOptions={{ headerShown: false }}
-    >
-      <SettingsNavigator.Screen
-        name="BaseSettingsScreen"
-        component={BaseSettingsScreen}
-      ></SettingsNavigator.Screen>
-      <SettingsNavigator.Screen
-        name="ManageUsersScreen"
-        component={ManageUsersScreen}
-        options={{ headerShown: true }}
-      ></SettingsNavigator.Screen>
-      <SettingsNavigator.Screen
-        name="ManagePositionsScreen"
-        component={ManagePositionsScreen}
-      ></SettingsNavigator.Screen>
-      <SettingsNavigator.Screen
-        name="ManageEventsScreen"
-        component={ManageEventsScreen}
-      ></SettingsNavigator.Screen>
-      <SettingsNavigator.Screen
-        name="ManageCommentTemplatesScreen"
-        component={ManageCommentTemplatesScreen}
-      ></SettingsNavigator.Screen>
-      <SettingsNavigator.Screen
-        name="ManagePagesScreen"
-        component={ManagePagesScreen}
-      ></SettingsNavigator.Screen>
-    </SettingsNavigator.Navigator>
-  );
+  ManageUsersScreen: undefined;
+  ManagePositionsScreen: undefined;
+  ManageEventsScreen: undefined;
+  ManageCommentTemplatesScreen: undefined;
+  ManagePagesScreen: undefined;
+  BaseSettingsScreen: undefined;
 };
 
 const RootNavigator = () => {
@@ -94,7 +48,31 @@ const RootNavigator = () => {
           name="ChangePasswordScreen"
           component={ChangePasswordScreen}
         />
-        <Stack.Screen name="SettingsNavigator" component={SettingsNavigator} />
+        <Stack.Screen
+          name="BaseSettingsScreen"
+          component={BaseSettingsScreen}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ManageUsersScreen"
+          component={ManageUsersScreen}
+          options={{ headerShown: true }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ManagePositionsScreen"
+          component={ManagePositionsScreen}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ManageEventsScreen"
+          component={ManageEventsScreen}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ManageCommentTemplatesScreen"
+          component={ManageCommentTemplatesScreen}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ManagePagesScreen"
+          component={ManagePagesScreen}
+        ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

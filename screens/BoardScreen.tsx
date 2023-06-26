@@ -68,7 +68,7 @@ const BoardScreen = () => {
   };
 
   const settings = () => {
-    navigation.navigate("SettingsNavigator");
+    navigation.navigate("BaseSettingsScreen");
   };
 
   return (

@@ -1,36 +1,22 @@
-import { View, Text } from "react-native";
-import React, { useEffect } from "react";
+import { Text } from "react-native";
+import React from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { SettingsStackParamList } from "../../navigator/RootNavigator";
 import { useNavigation } from "@react-navigation/native";
-import useMediaQueries from "../../hooks/useMediaQueries";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { RootStackParamList } from "../../navigator/RootNavigator";
+import { SettingsLayout } from "../../components/layouts/SettingsLayout";
 
 export type ManageUsersScreenProps = NativeStackNavigationProp<
-  SettingsStackParamList,
+  RootStackParamList,
   "ManageUsersScreen"
 >;
 
 const ManageUsersScreen = () => {
   const navigation = useNavigation<ManageUsersScreenProps>();
 
-  const { isMd } = useMediaQueries();
-
-  useEffect(() => {
-    if (!isMd) {
-      navigation.setOptions({
-        headerShown: true,
-        title: "Mitglieder verwalten",
-      });
-    } else {
-      navigation.setOptions({ headerShown: false });
-    }
-  }, [isMd]);
-
   return (
-    <SafeAreaView>
+    <SettingsLayout navigation={navigation}>
       <Text>ManageUsersScreen</Text>
-    </SafeAreaView>
+    </SettingsLayout>
   );
 };
 
