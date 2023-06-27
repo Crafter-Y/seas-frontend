@@ -1,4 +1,9 @@
-import { TextInput, Platform, ReturnKeyTypeOptions } from "react-native";
+import {
+  TextInput,
+  Platform,
+  ReturnKeyTypeOptions,
+  InputModeOptions,
+} from "react-native";
 import React, { forwardRef } from "react";
 import tw from "../tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
@@ -11,6 +16,7 @@ type Props = {
   secureTextEntry?: boolean;
   onSubmitEditing?: () => void;
   returnKeyType?: ReturnKeyTypeOptions;
+  inputMode?: InputModeOptions;
 };
 
 const Input = forwardRef<TextInput, Props>(
@@ -23,6 +29,7 @@ const Input = forwardRef<TextInput, Props>(
       secureTextEntry,
       onSubmitEditing,
       returnKeyType,
+      inputMode,
     }: Props,
     ref
   ) => {
@@ -49,6 +56,7 @@ const Input = forwardRef<TextInput, Props>(
         returnKeyType={returnKeyType ? returnKeyType : "default"}
         ref={ref}
         blurOnSubmit={false}
+        inputMode={inputMode}
       ></TextInput>
     );
   }

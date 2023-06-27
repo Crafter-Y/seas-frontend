@@ -62,10 +62,10 @@ const ChangePasswordScreen = () => {
             hidden: !isMd,
             height,
           },
-          "w-1/3 items-end justify-center flex-col pl-4"
+          "w-1/3 items-end justify-center pl-4"
         )}
       >
-        <View style={tw.style({}, "flex flex-row gap-1 items-center mb-4")}>
+        <View style={tw.style({}, "flex-row gap-1 items-center mb-4")}>
           <Image
             source={require("../assets/img/previous.svg")}
             style={tw`h-4 w-4`}
@@ -134,7 +134,7 @@ const ChangePasswordScreen = () => {
               "px-24": isSm && !isMd,
               "px-0": isMd,
             },
-            "flex flex-col gap-2"
+            "gap-2"
           )}
         >
           <Input

@@ -83,7 +83,7 @@ const LoginScreen = () => {
                 hidden: !isMd,
                 flex: isMd,
               },
-              ["flex-grow items-center gap-4 flex-col"]
+              ["flex-grow items-center gap-4"]
             )}
           >
             <Text style={tw`text-4xl font-semibold mt-[10%]`}>Willkommen!</Text>
@@ -98,7 +98,7 @@ const LoginScreen = () => {
                 "w-full": !isMd,
                 "shadow-lg": isSm || isMd,
               },
-              "flex flex-col items-center border-l border-gray-200 px-4",
+              "items-center border-l border-gray-200 px-4",
               {
                 height: height,
               }
@@ -153,7 +153,7 @@ const LoginScreen = () => {
                   "w-full": !isMd,
                   "px-2": !isMd && !isSm,
                 },
-                `mt-4 flex flex-col gap-2`
+                `mt-4 gap-2`
               )}
             >
               <Text

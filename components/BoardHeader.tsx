@@ -219,19 +219,24 @@ const BoardHeader = ({
                 ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
               )}
             />
-            <BoardMenuButton
-              icon={require("../assets/img/settings.svg")}
-              text={"Einstellungen"}
-              pressAction={() => {
-                toggleMenu();
-                settings();
-              }}
-            />
-            <View
-              style={tw.style(
-                ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
-              )}
-            />
+            {user?.role == "ADMIN" && [
+              <BoardMenuButton
+                key={3}
+                icon={require("../assets/img/settings.svg")}
+                text={"Einstellungen"}
+                pressAction={() => {
+                  toggleMenu();
+                  settings();
+                }}
+              />,
+              <View
+                key={4}
+                style={tw.style(
+                  ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
+                )}
+              />,
+            ]}
+
             <BoardMenuButton
               icon={require("../assets/img/changepassword.svg")}
               text={"Passwort ändern"}

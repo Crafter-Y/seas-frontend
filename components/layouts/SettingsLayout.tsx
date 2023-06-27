@@ -40,11 +40,11 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
   };
 
   useEffect(() => {
-    navigation.setOptions({
-      title: settingsTitles[getRouteName() as keyof typeof settingsTitles],
-    });
     if (!isMd) {
       navigation.setOptions({ headerShown: true });
+      navigation.setOptions({
+        title: settingsTitles[getRouteName() as keyof typeof settingsTitles],
+      });
     } else {
       navigation.setOptions({ headerShown: false });
     }
@@ -130,7 +130,7 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
           {
             "py-14": isMd,
             "px-4": isMd,
-            //"pt-16": getRouteName() != "BaseSettingsScreen",
+            "justify-center": isMd,
           },
           "flex-grow"
         )}

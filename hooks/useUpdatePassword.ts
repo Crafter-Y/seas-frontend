@@ -6,7 +6,6 @@ import useApi from "./useApi";
 export default function useUpdatePassword() {
   const [hasUpdateError, setHasUpdateError] = useState(false);
   const [updateError, setUpdateError] = useState("");
-  const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
 
   const getApi = useApi();
 
@@ -84,5 +83,5 @@ export default function useUpdatePassword() {
     });
   };
 
-  return { updatePassword, hasUpdateError, updateError, isUpdateSuccessful };
+  return { updatePassword, hasUpdateError, updateError };
 }

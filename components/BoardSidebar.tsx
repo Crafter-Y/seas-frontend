@@ -21,7 +21,7 @@ const BoardSidebar = (props: {
   return (
     <View
       style={tw.style(
-        "w-52 bg-white shadow-lg flex-col justify-between overflow-hidden hidden lg:flex",
+        "w-52 bg-white shadow-lg justify-between overflow-hidden hidden lg:flex",
         {
           height,
           flex: isLg,
@@ -69,16 +69,20 @@ const BoardSidebar = (props: {
             ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mt-6 mx-2`
           )}
         />
-        <BoardSidebarButton
-          icon={require("../assets/img/settings.svg")}
-          text={"Einstellungen"}
-          pressAction={props.settings}
-        />
-        <View
-          style={tw.style(
-            ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
-          )}
-        />
+        {props.user?.role == "ADMIN" && [
+          <BoardSidebarButton
+            key={1}
+            icon={require("../assets/img/settings.svg")}
+            text={"Einstellungen"}
+            pressAction={props.settings}
+          />,
+          <View
+            key={2}
+            style={tw.style(
+              ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
+            )}
+          />,
+        ]}
         <BoardSidebarButton
           icon={require("../assets/img/changepassword.svg")}
           text={"Passwort ändern"}

@@ -18,18 +18,18 @@
 
 Unfortunately, I used the react-navigation navigation. I'll have to move it to the expo-router
 
-- [ ] Admin/Settings Layout
+- [x] Admin/Settings Layout
 
   - [x] corpus
-  - [ ] mobile navigation page
-  - [ ] navigation functionality
+  - [x] mobile navigation page
+  - [x] navigation functionality
 
 - [ ] Manage Users
 
-  - [ ] Create User API
-  - [ ] get All Users API
-  - [ ] delete User API
-  - [ ] request new user Password API
+  - [x] Create User API
+  - [x] get All Users API
+  - [x] delete User API
+  - [x] request new user Password API
   - [ ] design & functionality
 
 - [ ] Manage Positions

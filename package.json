@@ -17,10 +17,12 @@
     "@expo/match-media": "^0.4.0",
     "@expo/webpack-config": "^18.0.1",
     "@react-native-async-storage/async-storage": "1.17.11",
+    "@react-native-picker/picker": "2.4.8",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@rneui/base": "^4.0.0-rc.7",
     "@rneui/themed": "^4.0.0-rc.7",
+    "email-validator": "^2.0.4",
     "expo": "~48.0.10",
     "expo-image": "~1.0.1",
     "expo-screen-orientation": "~5.1.1",
@@ -40,8 +42,7 @@
     "serve": "^14.2.0",
     "tailwind-rn": "^4.2.0",
     "twrnc": "^3.6.0",
-    "weeknumber": "^1.2.1",
-    "@react-native-picker/picker": "2.4.8"
+    "weeknumber": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

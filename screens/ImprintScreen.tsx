@@ -20,7 +20,7 @@ const ImprintScreen = () => {
 
   return (
     <SafeAreaView style={{ margin: 0, padding: 0 }}>
-      <View style={tw`px-4 flex flex-col gap-2 pt-4`}>
+      <View style={tw`px-4 gap-2 pt-4`}>
         <Text
           style={tw`text-4xl font-bold opacity-95 underline underline-offset-2 decoration-blueAccent`}
         >
