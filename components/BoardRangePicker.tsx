@@ -1,13 +1,13 @@
 import { View, Text, Pressable } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { BoardType } from "../screens/BoardScreen";
-import tw from "../tailwind";
-import useYearState from "../hooks/useYearState";
+import { BoardType } from "@/screens/BoardScreen";
+import tw from "@/tailwind";
+import useYearState from "@/hooks/useYearState";
 import { Entypo } from "@expo/vector-icons";
-import useQuarterState from "../hooks/useQuarterState";
-import useMonthState from "../hooks/useMonthState";
-import useMediaQueries from "../hooks/useMediaQueries";
-import useWeekState from "../hooks/useWeekState";
+import useQuarterState from "@/hooks/useQuarterState";
+import useMonthState from "@/hooks/useMonthState";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import useWeekState from "@/hooks/useWeekState";
 
 type Props = {
   boardType: BoardType;

@@ -1,8 +1,8 @@
 import { View, Text, useWindowDimensions, Pressable } from "react-native";
 import React from "react";
-import tw from "../tailwind";
-import useMediaQueries from "../hooks/useMediaQueries";
-import { BoardType } from "../screens/BoardScreen";
+import tw from "@/tailwind";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import { BoardType } from "@/screens/BoardScreen";
 import BoardSidebarButton from "./BoardSidebarButton";
 import BoardSidebarNavigationButton from "./BoardSidebarNavigationButton";
 
@@ -72,7 +72,7 @@ const BoardSidebar = (props: {
         {props.user?.role == "ADMIN" && [
           <BoardSidebarButton
             key={1}
-            icon={require("../assets/img/settings.svg")}
+            icon={require("@/assets/img/settings.svg")}
             text={"Einstellungen"}
             pressAction={props.settings}
           />,
@@ -84,7 +84,7 @@ const BoardSidebar = (props: {
           />,
         ]}
         <BoardSidebarButton
-          icon={require("../assets/img/changepassword.svg")}
+          icon={require("@/assets/img/changepassword.svg")}
           text={"Passwort ändern"}
           pressAction={props.changePassword}
         />
@@ -94,7 +94,7 @@ const BoardSidebar = (props: {
           )}
         />
         <BoardSidebarButton
-          icon={require("../assets/img/logout.svg")}
+          icon={require("@/assets/img/logout.svg")}
           text={"Abmelden"}
           pressAction={props.logout}
         />

@@ -9,13 +9,13 @@ import {
   TextInput,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { RootStackParamList } from "../navigator/RootNavigator";
-import tw from "../tailwind";
-import useMediaQueries from "../hooks/useMediaQueries";
-import Input from "../components/Input";
+import { RootStackParamList } from "@/navigator/RootNavigator";
+import tw from "@/tailwind";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import Input from "@/components/Input";
 import { Button } from "@rneui/base";
-import useUpdatePassword from "../hooks/useUpdatePassword";
-import Footer from "../components/Footer";
+import useUpdatePassword from "@/hooks/useUpdatePassword";
+import Footer from "@/components/Footer";
 import { Image } from "expo-image";
 
 export type ChangePasswordScreenProps = NativeStackNavigationProp<
@@ -67,7 +67,7 @@ const ChangePasswordScreen = () => {
       >
         <View style={tw.style({}, "flex-row gap-1 items-center mb-4")}>
           <Image
-            source={require("../assets/img/previous.svg")}
+            source={require("@/assets/img/previous.svg")}
             style={tw`h-4 w-4`}
           />
           <Pressable onPress={() => navigation.navigate("BoardScreen")}>

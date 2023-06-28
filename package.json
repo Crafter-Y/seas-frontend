@@ -47,6 +47,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.0.14",
+    "babel-plugin-module-resolver": "^5.0.0",
     "concurrently": "^8.0.1",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.1",

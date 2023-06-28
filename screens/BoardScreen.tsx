@@ -1,17 +1,17 @@
 import { useWindowDimensions, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
-import useAuthentication from "../hooks/useAuthentication";
+import useAuthentication from "@/hooks/useAuthentication";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigator/RootNavigator";
-import tw from "../tailwind";
+import { RootStackParamList } from "@/navigator/RootNavigator";
+import tw from "@/tailwind";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import BoardHeader from "../components/BoardHeader";
-import BoardSidebar from "../components/BoardSidebar";
-import Footer from "../components/Footer";
-import Board from "../components/Board";
-import useApi from "../hooks/useApi";
+import BoardHeader from "@/components/BoardHeader";
+import BoardSidebar from "@/components/BoardSidebar";
+import Footer from "@/components/Footer";
+import Board from "@/components/Board";
+import useApi from "@/hooks/useApi";
 
 export type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,

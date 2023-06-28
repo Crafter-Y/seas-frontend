@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import tw from "../tailwind";
-import useMediaQueries from "../hooks/useMediaQueries";
+import React, { useEffect, useRef } from "react";
+import tw from "@/tailwind";
+import useMediaQueries from "@/hooks/useMediaQueries";
 
 type Props = {
   dateStart: Date;

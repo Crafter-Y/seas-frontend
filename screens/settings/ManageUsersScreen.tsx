@@ -10,14 +10,14 @@ import Modal from "react-native-modal";
 import React, { useEffect, useRef, useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../navigator/RootNavigator";
-import { SettingsLayout } from "../../components/layouts/SettingsLayout";
-import tw from "../../tailwind";
-import useMediaQueries from "../../hooks/useMediaQueries";
-import Input from "../../components/Input";
+import { RootStackParamList } from "@/navigator/RootNavigator";
+import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import tw from "@/tailwind";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import Input from "@/components/Input";
 import { Button } from "@rneui/base";
 import { Picker } from "@react-native-picker/picker";
-import useCreateUser from "../../hooks/useCreateUser";
+import useCreateUser from "@/hooks/useCreateUser";
 
 export type ManageUsersScreenProps = NativeStackNavigationProp<
   RootStackParamList,

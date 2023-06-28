@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React, { useEffect, useState } from "react";
-import tw from "../tailwind";
-import useMediaQueries from "../hooks/useMediaQueries";
-import { BoardType } from "../screens/BoardScreen";
+import tw from "@/tailwind";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import { BoardType } from "@/screens/BoardScreen";
 import BoardRangePicker from "./BoardRangePicker";
 import BoardList from "./BoardList";
 

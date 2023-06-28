@@ -1,8 +1,8 @@
 import { View, Text, Platform, Linking } from "react-native";
 import React from "react";
-import tw from "../tailwind";
+import tw from "@/tailwind";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigator/RootNavigator";
+import { RootStackParamList } from "@/navigator/RootNavigator";
 import { ClassInput } from "twrnc/dist/esm/types";
 
 type Props = {

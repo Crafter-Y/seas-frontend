@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import React, { useRef } from "react";
-import { BoardType } from "../screens/BoardScreen";
-import tw from "../tailwind";
+import { BoardType } from "@/screens/BoardScreen";
+import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 
 const BoardMenuNavigationButton = (props: {

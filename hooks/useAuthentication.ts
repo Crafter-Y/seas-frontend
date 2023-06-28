@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LoginScreenProps } from "../screens/LoginScreen";
+import { LoginScreenProps } from "@/screens/LoginScreen";
 import { Platform } from "react-native";
 import useApi from "./useApi";
 

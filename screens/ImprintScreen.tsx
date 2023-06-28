@@ -3,8 +3,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { RootStackParamList } from "../navigator/RootNavigator";
-import tw from "../tailwind";
+import { RootStackParamList } from "@/navigator/RootNavigator";
+import tw from "@/tailwind";
 
 type ImprintScreenProps = NativeStackNavigationProp<
   RootStackParamList,

@@ -1,17 +1,17 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ServerSelectorScreen from "../screens/ServerSelectorScreen";
-import LoginScreen from "../screens/LoginScreen";
-import BoardScreen from "../screens/BoardScreen";
-import ImprintScreen from "../screens/ImprintScreen";
-import ChangePasswordScreen from "../screens/ChangePasswordScreen";
-import BaseSettingsScreen from "../screens/settings/BaseSettingsScreen";
-import ManageUsersScreen from "../screens/settings/ManageUsersScreen";
-import ManagePositionsScreen from "../screens/settings/ManagePositionsScreen";
-import ManageEventsScreen from "../screens/settings/ManageEventsScreen";
-import ManageCommentTemplatesScreen from "../screens/settings/ManageCommentTemplatesScreen";
-import ManagePagesScreen from "../screens/settings/ManagePagesScreen";
+import ServerSelectorScreen from "@/screens/ServerSelectorScreen";
+import LoginScreen from "@/screens/LoginScreen";
+import BoardScreen from "@/screens/BoardScreen";
+import ImprintScreen from "@/screens/ImprintScreen";
+import ChangePasswordScreen from "@/screens/ChangePasswordScreen";
+import BaseSettingsScreen from "@/screens/settings/BaseSettingsScreen";
+import ManageUsersScreen from "@/screens/settings/ManageUsersScreen";
+import ManagePositionsScreen from "@/screens/settings/ManagePositionsScreen";
+import ManageEventsScreen from "@/screens/settings/ManageEventsScreen";
+import ManageCommentTemplatesScreen from "@/screens/settings/ManageCommentTemplatesScreen";
+import ManagePagesScreen from "@/screens/settings/ManagePagesScreen";
 
 export type RootStackParamList = {
   ServerSelectorScreen: undefined;

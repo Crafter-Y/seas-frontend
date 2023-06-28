@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useApi from "./useApi";
-import { ManageUsersScreenProps } from "../screens/settings/ManageUsersScreen";
+import { ManageUsersScreenProps } from "@/screens/settings/ManageUsersScreen";
 import { validate } from "email-validator";
 
 type APICreationReponse = {

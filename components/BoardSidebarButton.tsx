@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import React, { useRef } from "react";
 import { Image } from "expo-image";
-import tw from "../tailwind";
+import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 
 const BoardSidebarButton = (props: {

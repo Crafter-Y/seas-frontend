@@ -5,7 +5,7 @@ import {
   InputModeOptions,
 } from "react-native";
 import React, { forwardRef } from "react";
-import tw from "../tailwind";
+import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
   inputMode?: InputModeOptions;
 };
 
-const Input = forwardRef<TextInput, Props>(
+export default forwardRef<TextInput, Props>(
   (
     {
       placeholder,
@@ -61,5 +61,3 @@ const Input = forwardRef<TextInput, Props>(
     );
   }
 );
-
-export default Input;

@@ -6,15 +6,15 @@ import {
   useWindowDimensions,
 } from "react-native";
 import React, { useRef, useState } from "react";
-import tw from "../tailwind";
-import useMediaQueries from "../hooks/useMediaQueries";
-import useServerName from "../hooks/useServerName";
+import tw from "@/tailwind";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import useServerName from "@/hooks/useServerName";
 import { Image } from "expo-image";
 import { useHover } from "react-native-web-hooks";
 import Modal from "react-native-modal";
 import { Platform } from "react-native";
 import BoardMenuNavigationButton from "./BoardMenuNavigationButton";
-import { BoardType } from "../screens/BoardScreen";
+import { BoardType } from "@/screens/BoardScreen";
 import BoardMenuButton from "./BoardMenuButton";
 
 type BoardHeaderProps = {
@@ -98,7 +98,7 @@ const BoardHeader = ({
             onPress={() => {}}
           >
             <Image
-              source={require("../assets/img/calendar.svg")}
+              source={require("@/assets/img/calendar.svg")}
               style={tw`h-4 w-4`}
             />
           </Pressable>
@@ -113,7 +113,7 @@ const BoardHeader = ({
             onPress={() => {}}
           >
             <Image
-              source={require("../assets/img/print.svg")}
+              source={require("@/assets/img/print.svg")}
               style={tw`h-4 w-4`}
             />
           </Pressable>
@@ -131,7 +131,7 @@ const BoardHeader = ({
           onPress={toggleMenu}
         >
           <Image
-            source={require("../assets/img/menu.svg")}
+            source={require("@/assets/img/menu.svg")}
             style={tw`h-4 w-4`}
           />
         </Pressable>
@@ -222,7 +222,7 @@ const BoardHeader = ({
             {user?.role == "ADMIN" && [
               <BoardMenuButton
                 key={3}
-                icon={require("../assets/img/settings.svg")}
+                icon={require("@/assets/img/settings.svg")}
                 text={"Einstellungen"}
                 pressAction={() => {
                   toggleMenu();
@@ -238,7 +238,7 @@ const BoardHeader = ({
             ]}
 
             <BoardMenuButton
-              icon={require("../assets/img/changepassword.svg")}
+              icon={require("@/assets/img/changepassword.svg")}
               text={"Passwort ändern"}
               pressAction={() => {
                 toggleMenu();
@@ -251,7 +251,7 @@ const BoardHeader = ({
               )}
             />
             <BoardMenuButton
-              icon={require("../assets/img/logout.svg")}
+              icon={require("@/assets/img/logout.svg")}
               text={"Abmelden"}
               pressAction={logout}
             />

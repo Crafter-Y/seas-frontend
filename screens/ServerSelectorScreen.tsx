@@ -2,14 +2,14 @@ import { Text, Platform, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigator/RootNavigator";
+import { RootStackParamList } from "@/navigator/RootNavigator";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import tw from "../tailwind";
+import tw from "@/tailwind";
 import { Button } from "@rneui/base";
-import webConfig from "../assets/config.json";
-import useServerName from "../hooks/useServerName";
-import Input from "../components/Input";
+import webConfig from "@/assets/config.json";
+import useServerName from "@/hooks/useServerName";
+import Input from "@/components/Input";
 
 type ServerSelectorScreenProps = NativeStackNavigationProp<
   RootStackParamList,

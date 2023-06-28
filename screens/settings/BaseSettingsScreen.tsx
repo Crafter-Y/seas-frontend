@@ -1,15 +1,15 @@
 import { Text, Pressable, View } from "react-native";
 import React from "react";
-import useMediaQueries from "../../hooks/useMediaQueries";
-import tw from "../../tailwind";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../navigator/RootNavigator";
+import { RootStackParamList } from "@/navigator/RootNavigator";
 import {
   SettingsLayout,
   settingsSections,
-} from "../../components/layouts/SettingsLayout";
+} from "@/components/layouts/SettingsLayout";
 
 export type BaseSettingsScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -59,7 +59,7 @@ const BaseSettingsScreen = () => {
                 {settingsSections[setting as keyof typeof settingsSections]}
               </Text>
               <Image
-                source={require("../../assets/img/previous.svg")}
+                source={require("@/assets/img/previous.svg")}
                 style={tw.style(`h-4 w-4`, { transform: "rotate(180deg)" })}
               />
             </Pressable>

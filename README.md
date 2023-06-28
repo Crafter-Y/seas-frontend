@@ -16,8 +16,6 @@
 
 # Settings implementation Roadmap
 
-Unfortunately, I used the react-navigation navigation. I'll have to move it to the expo-router
-
 - [x] Admin/Settings Layout
 
   - [x] corpus

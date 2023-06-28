@@ -1,12 +1,12 @@
 import { View, Text, useWindowDimensions, Pressable } from "react-native";
 import React, { useEffect } from "react";
-import useMediaQueries from "../../hooks/useMediaQueries";
+import useMediaQueries from "@/hooks/useMediaQueries";
 import { SafeAreaView } from "react-native-safe-area-context";
-import tw from "../../tailwind";
+import tw from "@/tailwind";
 import { Image } from "expo-image";
-import Footer from "../Footer";
+import Footer from "@/components/Footer";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../navigator/RootNavigator";
+import { RootStackParamList } from "@/navigator/RootNavigator";
 
 type Props = {
   children: React.ReactNode;
@@ -64,7 +64,7 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
       >
         <View style={tw.style({}, "flex-row gap-1 items-center mb-4")}>
           <Image
-            source={require("../../assets/img/previous.svg")}
+            source={require("@/assets/img/previous.svg")}
             style={tw`h-4 w-4`}
           />
           <Pressable onPress={() => navigation.navigate("BoardScreen")}>

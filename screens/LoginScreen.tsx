@@ -8,16 +8,16 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@rneui/base";
-import tw from "../tailwind";
+import tw from "@/tailwind";
 import "@expo/match-media";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigator/RootNavigator";
-import useServerName from "../hooks/useServerName";
-import useAuthentication from "../hooks/useAuthentication";
-import useMediaQueries from "../hooks/useMediaQueries";
-import Input from "../components/Input";
+import { RootStackParamList } from "@/navigator/RootNavigator";
+import useServerName from "@/hooks/useServerName";
+import useAuthentication from "@/hooks/useAuthentication";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import Input from "@/components/Input";
 
 export type LoginScreenProps = NativeStackNavigationProp<
   RootStackParamList,
