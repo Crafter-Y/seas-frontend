@@ -20,6 +20,7 @@ import Input from "@/components/elements/Input";
 import H1 from "@/components/elements/H1";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";
+import Divider from "@/components/elements/Divider";
 
 export type LoginScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -126,15 +127,8 @@ const LoginScreen = () => {
             >
               {serverName}
             </Text>
-            <View
-              style={tw.style(
-                {
-                  hidden: isMd,
-                  flex: !isMd,
-                },
-                `flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 my-8`
-              )}
-            />
+
+            <Divider type="HORIZONTAL" style={tw`my-8 w-full`} />
 
             <H1
               style={tw.style({
@@ -197,14 +191,10 @@ const LoginScreen = () => {
                 <Button onPress={back}>Woanders anmelden</Button>
               </View>
             </View>
-            <Text
-              style={tw`text-xs opacity-80 w-full text-center print:hidden mt-12`}
-            >
+            <Text style={tw`text-xs opacity-80 w-full text-center mt-12`}>
               &copy; Helmut Haase 2022
             </Text>
-            <Text
-              style={tw`text-xs opacity-80 w-full text-center print:hidden`}
-            ></Text>
+            <Text style={tw`text-xs opacity-80 w-full text-center`}></Text>
             <Text
               style={tw.style(
                 { hidden: !isWeb },
