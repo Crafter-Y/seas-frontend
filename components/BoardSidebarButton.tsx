@@ -4,24 +4,25 @@ import { Image } from "expo-image";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 
-const BoardSidebarButton = (props: {
+type Props = {
   icon: string;
   text: string;
   pressAction: () => void;
-}) => {
+};
+
+const BoardSidebarButton = ({ icon, text, pressAction }: Props) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
 
   return (
     <Pressable
-      style={tw`flex justify-between items-center mb-1 flex-row py-4`}
+      style={tw`justify-between items-center mb-1 flex-row py-4`}
       ref={ref}
-      onPress={props.pressAction}
+      onPress={pressAction}
     >
       <View></View>
-      <View style={tw`flex flex-row items-center gap-2`}>
-        <Image source={props.icon} style={tw`h-6 w-6`} />
-
+      <View style={tw`flex-row items-center gap-2`}>
+        <Image source={icon} style={tw`h-6 w-6`} />
         <Text
           style={tw.style({
             underline: isHovered,
@@ -29,7 +30,7 @@ const BoardSidebarButton = (props: {
             "opacity-95": !isHovered,
           })}
         >
-          {props.text}
+          {text}
         </Text>
       </View>
 

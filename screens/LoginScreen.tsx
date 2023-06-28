@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useRef, useState } from "react";
-import { Button } from "@rneui/base";
 import tw from "@/tailwind";
 import "@expo/match-media";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,7 +16,10 @@ import { RootStackParamList } from "@/navigator/RootNavigator";
 import useServerName from "@/hooks/useServerName";
 import useAuthentication from "@/hooks/useAuthentication";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import Input from "@/components/Input";
+import Input from "@/components/elements/Input";
+import H1 from "@/components/elements/H1";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import Button from "@/components/elements/Button";
 
 export type LoginScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -130,19 +132,17 @@ const LoginScreen = () => {
                   hidden: isMd,
                   flex: !isMd,
                 },
-                ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 my-8`
+                `flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 my-8`
               )}
             />
-            <Text
-              style={tw.style(
-                {
-                  "mb-12": isMd,
-                },
-                `text-4xl font-bold opacity-80 underline`
-              )}
+
+            <H1
+              style={tw.style({
+                "mb-12": isMd,
+              })}
             >
               Login
-            </Text>
+            </H1>
 
             <View
               style={tw.style(
@@ -156,16 +156,11 @@ const LoginScreen = () => {
                 `mt-4 gap-2`
               )}
             >
-              <Text
-                style={tw.style(
-                  {
-                    hidden: !fetchServerError,
-                  },
-                  "w-full rounded-lg bg-red-500 px-2 py-1 text-lg"
-                )}
-              >
-                {fetchServerError}
-              </Text>
+              <ErrorDisplay
+                hasError={!!fetchServerError}
+                error={fetchServerError}
+              />
+
               <Input
                 placeholder="Email"
                 autoFocus={true}
@@ -182,38 +177,24 @@ const LoginScreen = () => {
                 onSubmitEditing={submit}
               ></Input>
 
-              <Button
-                style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold`}
-                color={"#3882d6"}
-                onPress={submit}
-              >
-                Anmelden
-              </Button>
-              <Text
-                style={tw.style(
-                  {
-                    hidden: !hasAuthError && !isAuthenticating,
-                  },
-                  "text-red-500 mb-2"
-                )}
-              >
-                {authError == "Bad Request"
-                  ? "Email oder Passwort stimmt nicht"
-                  : authError}
-              </Text>
+              <Button onPress={submit}>Anmelden</Button>
+
+              <ErrorDisplay
+                hasError={hasAuthError || isAuthenticating}
+                error={
+                  authError == "Bad Request"
+                    ? "Email oder Passwort stimmt nicht"
+                    : authError
+                }
+              />
+
               <View
                 style={tw.style({
                   hidden: isWeb,
                 })}
               >
                 <Text style={tw`mt-2 mb-0`}>Falsch hier?</Text>
-                <Button
-                  style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold mt-0`}
-                  color={"#3882d6"}
-                  onPress={back}
-                >
-                  Woanders anmelden
-                </Button>
+                <Button onPress={back}>Woanders anmelden</Button>
               </View>
             </View>
             <Text

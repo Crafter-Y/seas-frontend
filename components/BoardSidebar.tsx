@@ -1,10 +1,11 @@
-import { View, Text, useWindowDimensions, Pressable } from "react-native";
+import { View, Text, useWindowDimensions } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import { BoardType } from "@/screens/BoardScreen";
 import BoardSidebarButton from "./BoardSidebarButton";
 import BoardSidebarNavigationButton from "./BoardSidebarNavigationButton";
+import Divider from "./elements/Divider";
 
 const BoardSidebar = (props: {
   user: User | null;
@@ -15,21 +16,19 @@ const BoardSidebar = (props: {
   settings: () => void;
 }) => {
   const { isLg } = useMediaQueries();
-
   const { height } = useWindowDimensions();
 
   return (
     <View
       style={tw.style(
-        "w-52 bg-white shadow-lg justify-between overflow-hidden hidden lg:flex",
+        "w-52 bg-white shadow-lg justify-between overflow-hidden",
         {
           height,
-          flex: isLg,
           hidden: !isLg,
         }
       )}
     >
-      <View style={tw.style("w-full ")}>
+      <View>
         <View style={tw`mt-6 px-2`}>
           <Text style={tw`text-sm`}>Hallo,</Text>
           <Text style={tw`font-semibold mt-1 opacity-85`}>
@@ -63,12 +62,8 @@ const BoardSidebar = (props: {
         />
       </View>
 
-      <View style={tw.style("w-full")}>
-        <View
-          style={tw.style(
-            ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mt-6 mx-2`
-          )}
-        />
+      <View>
+        <Divider type="HORIZONTAL" style={tw`mt-6 mx-2`} />
         {props.user?.role == "ADMIN" && [
           <BoardSidebarButton
             key={1}
@@ -76,23 +71,14 @@ const BoardSidebar = (props: {
             text={"Einstellungen"}
             pressAction={props.settings}
           />,
-          <View
-            key={2}
-            style={tw.style(
-              ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
-            )}
-          />,
+          <Divider type="HORIZONTAL" style={tw`mx-2`} key={2} />,
         ]}
         <BoardSidebarButton
           icon={require("@/assets/img/changepassword.svg")}
           text={"Passwort ändern"}
           pressAction={props.changePassword}
         />
-        <View
-          style={tw.style(
-            ` flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mx-2`
-          )}
-        />
+        <Divider type="HORIZONTAL" style={tw`mx-2`} />
         <BoardSidebarButton
           icon={require("@/assets/img/logout.svg")}
           text={"Abmelden"}

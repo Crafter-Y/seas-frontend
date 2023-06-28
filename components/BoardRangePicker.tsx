@@ -154,14 +154,14 @@ const BoardRangePicker = ({ boardType, setDateEnd, setDateStart }: Props) => {
   };
 
   return (
-    <View style={tw`flex flex-row justify-center gap-3 items-center mt-4`}>
+    <View style={tw`flex-row justify-center gap-3 items-center mt-4`}>
       <Pressable
         onPress={backAction}
         style={tw.style(
           {
             "w-32": isMd,
           },
-          `flex flex-row items-center gap-2 justify-end`
+          `flex-row items-center gap-2 justify-end`
         )}
       >
         <Entypo name="arrow-bold-left" size={16} color="black" />
@@ -170,7 +170,7 @@ const BoardRangePicker = ({ boardType, setDateEnd, setDateStart }: Props) => {
         </Text>
       </Pressable>
       <Pressable
-        style={tw`flex border rounded-sm px-2 py-1 bg-gray-300 items-center w-32`}
+        style={tw`border rounded-sm px-2 py-1 bg-gray-300 items-center w-32`}
         onPress={middleAction}
       >
         {boardType == "Jahresansicht" && (
@@ -194,7 +194,7 @@ const BoardRangePicker = ({ boardType, setDateEnd, setDateStart }: Props) => {
           {
             "w-32": isMd,
           },
-          `flex flex-row items-center gap-2 justify-start`
+          `flex-row items-center gap-2 justify-start`
         )}
       >
         <Text style={tw`underline`} selectable={false} numberOfLines={1}>

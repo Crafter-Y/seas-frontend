@@ -1,12 +1,15 @@
 import { View, Text, useWindowDimensions, Pressable } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "@/tailwind";
-import { Image } from "expo-image";
 import Footer from "@/components/Footer";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/navigator/RootNavigator";
+import SettingsBackButton from "../SettingsBackButton";
+import Divider from "../elements/Divider";
+import H1 from "../elements/H1";
+import { useHover } from "react-native-web-hooks";
 
 type Props = {
   children: React.ReactNode;
@@ -27,6 +30,55 @@ export const settingsSections = {
 const settingsTitles = {
   ...settingsSections,
   BaseSettingsScreen: "Einstellungen",
+};
+
+type NavigationButtonProps = {
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    keyof RootStackParamList
+  >;
+  setting: keyof RootStackParamList;
+  actualSetting: keyof RootStackParamList;
+};
+
+const InlineNavigationButton = ({
+  navigation,
+  setting,
+  actualSetting,
+}: NavigationButtonProps) => {
+  const ref = useRef(null);
+  const isHovered = useHover(ref);
+
+  return (
+    <View style={tw.style("items-center mt-2 gap-3 flex-row -mr-2")}>
+      <Pressable
+        onPress={() => {
+          if (navigation.getState().routes.length > 2) navigation.pop();
+          navigation.navigate(setting as keyof typeof settingsSections);
+        }}
+        ref={ref}
+      >
+        <Text
+          style={tw.style({
+            "font-semibold": actualSetting == setting,
+            underline: isHovered,
+            "opacity-80": isHovered,
+          })}
+        >
+          {settingsTitles[setting as keyof typeof settingsTitles]}
+        </Text>
+      </Pressable>
+      <View
+        style={tw.style(
+          {
+            "bg-gray-300": actualSetting != setting,
+            "bg-blueAccent": actualSetting == setting,
+          },
+          "w-1 h-8 rounded-l-md"
+        )}
+      ></View>
+    </View>
+  );
 };
 
 export const SettingsLayout = ({ children, navigation }: Props) => {
@@ -55,57 +107,21 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
       <View
         style={tw.style(
           {
-            flex: isMd,
             hidden: !isMd,
             height,
           },
           "w-1/3 items-end justify-center pl-4"
         )}
       >
-        <View style={tw.style({}, "flex-row gap-1 items-center mb-4")}>
-          <Image
-            source={require("@/assets/img/previous.svg")}
-            style={tw`h-4 w-4`}
-          />
-          <Pressable onPress={() => navigation.navigate("BoardScreen")}>
-            <Text style={tw.style("font-semibold underline")}>Zurück</Text>
-          </Pressable>
-        </View>
-        <Text
-          style={tw.style(
-            {},
-            "text-4xl font-bold opacity-95 underline text-right mb-2"
-          )}
-        >
-          Einstellungen
-        </Text>
+        <SettingsBackButton navigation={navigation} />
+        <H1 style={tw`text-right`}>Einstellungen</H1>
         {Object.keys(settingsSections).map((setting) => (
-          <View
-            style={tw.style("items-center mt-2 gap-3 flex-row -mr-2")}
+          <InlineNavigationButton
             key={setting}
-          >
-            <View></View>
-            <Pressable
-              style={tw.style("hover:underline hover:opacity-80")}
-              onPress={() => {
-                if (navigation.getState().routes.length > 2) navigation.pop();
-                navigation.navigate(setting as keyof typeof settingsSections);
-              }}
-            >
-              <Text style={tw.style("font-semibold")}>
-                {settingsTitles[setting as keyof typeof settingsTitles]}
-              </Text>
-            </Pressable>
-            <View
-              style={tw.style(
-                {
-                  "bg-gray-300": getRouteName() != setting,
-                  "bg-blueAccent": getRouteName() == setting,
-                },
-                "w-1 h-8 rounded-l-md"
-              )}
-            ></View>
-          </View>
+            navigation={navigation}
+            setting={setting as keyof typeof settingsTitles}
+            actualSetting={getRouteName()}
+          />
         ))}
         <Footer
           navigation={navigation}
@@ -117,14 +133,15 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
           )}
         />
       </View>
-      <View
+      <Divider
+        type="VERTICAL"
         style={tw.style(
           {
             hidden: !isMd,
           },
-          "my-16 bg-[#e0e2e5] w-0.5 mx-2"
+          "my-16 mx-2"
         )}
-      ></View>
+      />
       <View
         style={tw.style(
           {

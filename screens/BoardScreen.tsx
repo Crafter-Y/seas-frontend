@@ -1,4 +1,4 @@
-import { useWindowDimensions, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import useAuthentication from "@/hooks/useAuthentication";
@@ -27,7 +27,6 @@ export type BoardType =
 const BoardScreen = () => {
   const { isAuthenticating, isAuthenticated, user } = useAuthentication();
   const navigation = useNavigation<BoardScreenProps>();
-  const { height } = useWindowDimensions();
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
 

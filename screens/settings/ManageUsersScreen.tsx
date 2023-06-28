@@ -1,12 +1,4 @@
-import {
-  Platform,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
-import Modal from "react-native-modal";
+import { Text, TextInput, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
@@ -14,10 +6,15 @@ import { RootStackParamList } from "@/navigator/RootNavigator";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import Input from "@/components/Input";
-import { Button } from "@rneui/base";
-import { Picker } from "@react-native-picker/picker";
+import Input from "@/components/elements/Input";
+import { Picker as RNPicker } from "@react-native-picker/picker";
 import useCreateUser from "@/hooks/useCreateUser";
+import Modal, { ModalHandle } from "@/components/elements/Modal";
+import H2 from "@/components/elements/H2";
+import SettingsForm from "@/components/SettingsForm";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import Picker from "@/components/elements/Picker";
+import Button from "@/components/elements/Button";
 
 export type ManageUsersScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -26,8 +23,6 @@ export type ManageUsersScreenProps = NativeStackNavigationProp<
 
 const ManageUsersScreen = () => {
   const navigation = useNavigation<ManageUsersScreenProps>();
-
-  const { height, width } = useWindowDimensions();
 
   const { isMd, isSm } = useMediaQueries();
 
@@ -48,11 +43,11 @@ const ManageUsersScreen = () => {
   const secondNameInput = useRef<TextInput>(null);
   const emailInput = useRef<TextInput>(null);
 
-  const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
+  const creationModal = useRef<ModalHandle>(null);
 
   useEffect(() => {
     if (successfulUserCreation) {
-      setIsCreationModalOpen(true);
+      creationModal.current?.toggleModal();
       firstNameInput.current?.clear();
       secondNameInput.current?.clear();
       emailInput.current?.clear();
@@ -61,26 +56,18 @@ const ManageUsersScreen = () => {
 
   return (
     <SettingsLayout navigation={navigation}>
-      <Text
-        style={tw.style("text-3xl font-semibold mb-6 opacity-85 mt-4", {
-          "text-center": !isMd,
-        })}
-      >
-        Nutzer erstellen
-      </Text>
-
-      <View
+      <H2
         style={tw.style(
           {
-            "w-full": !isMd,
-            "w-72": isMd,
-            "px-6": !isSm && !isMd,
-            "px-24": isSm && !isMd,
-            "px-0": isMd,
+            "text-center": !isMd,
           },
-          "gap-2"
+          "mt-4"
         )}
       >
+        Nutzer erstellen
+      </H2>
+
+      <SettingsForm>
         <Input
           placeholder="Vorname"
           onChangeText={(text) => setFirstName(text)}
@@ -106,114 +93,55 @@ const ManageUsersScreen = () => {
           returnKeyType="done"
           inputMode="email"
         ></Input>
-        <View
-          style={tw.style("border border-black border-opacity-20 rounded-xl")}
+        <Picker
+          selectedValue={role}
+          onValueChange={(itemValue) => setRole(itemValue)}
         >
-          <Picker
-            style={tw.style(
-              {
-                "py-2": Platform.OS == "ios",
-                "py-1": Platform.OS != "ios",
-                fontSize: 18,
-                border: "none",
-              },
+          <RNPicker.Item label="User" value="USER" />
+          <RNPicker.Item label="Moderator" value="MODERATOR" />
+          <RNPicker.Item label="Admin" value="ADMIN" />
+        </Picker>
 
-              `rounded-xl px-2 bg-transparent`
-            )}
-            selectedValue={role}
-            onValueChange={(itemValue) => setRole(itemValue)}
-          >
-            <Picker.Item label="User" value="USER" />
-            <Picker.Item label="Moderator" value="MODERATOR" />
-            <Picker.Item label="Admin" value="ADMIN" />
-          </Picker>
-        </View>
-
-        <Text
-          style={tw.style(
-            {
-              hidden: !hasCreationError,
-            },
-            "text-red-500 mb-2"
-          )}
-        >
-          {creationError}
-        </Text>
+        <ErrorDisplay hasError={hasCreationError} error={creationError} />
 
         <Button
-          style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold`}
-          color={"#3882d6"}
           onPress={() =>
             createUser(firstName, secondName, email, role, navigation)
           }
         >
           Nutzer erstellen
         </Button>
-      </View>
-      <Modal
-        isVisible={isCreationModalOpen}
-        onBackdropPress={() => setIsCreationModalOpen(false)}
-        style={tw.style("m-0 flex items-center justify-center")}
-        customBackdrop={
-          <TouchableOpacity
-            style={tw.style(
-              {
-                height,
-                width,
-              },
-              "bg-opacity-35 bg-black"
-            )}
-            onPress={() => setIsCreationModalOpen(false)}
-          ></TouchableOpacity>
-        }
-      >
-        <View
-          style={tw.style(
-            {
-              "w-1/2": Platform.OS == "web",
-              width:
-                Platform.OS == "web"
-                  ? isSm
-                    ? width / 2
-                    : width * 0.75
-                  : width,
-            },
-            `bg-white shadow-lg rounded-md`
-          )}
+      </SettingsForm>
+
+      <Modal type="CENTER" ref={creationModal}>
+        <Text
+          style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
         >
-          <Text
-            style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
-          >
-            Es wurde erfolgreich ein neuer Nutzer erstellt.
+          Es wurde erfolgreich ein neuer Nutzer erstellt.
+        </Text>
+        <View style={tw`px-4 mt-4 gap-2`}>
+          <Text>
+            Rolle:{" "}
+            {userCreationResponse?.role.charAt(0).toUpperCase() +
+              "" +
+              userCreationResponse?.role.slice(1).toLowerCase()}
           </Text>
-          <View style={tw`px-4 mt-4 gap-2`}>
-            <Text>
-              Rolle:{" "}
-              {userCreationResponse?.role.charAt(0).toUpperCase() +
-                "" +
-                userCreationResponse?.role.slice(1).toLowerCase()}
-            </Text>
-            <Text style={tw`text-lg`}>
-              {userCreationResponse?.firstname +
-                " " +
-                userCreationResponse?.lastname +
-                " (" +
-                userCreationResponse?.email +
-                ")"}
-            </Text>
-            <Text style={tw`text-lg font-bold`}>
-              {userCreationResponse?.password}
-            </Text>
-          </View>
-          <View style={tw`w-full items-center mb-4`}>
-            <Button
-              style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold`}
-              color={"#3882d6"}
-              onPress={() => setIsCreationModalOpen(false)}
-            >
-              Fertig
-            </Button>
-          </View>
+          <Text style={tw`text-lg`}>
+            {userCreationResponse?.firstname +
+              " " +
+              userCreationResponse?.lastname +
+              " (" +
+              userCreationResponse?.email +
+              ")"}
+          </Text>
+          <Text style={tw`text-lg font-bold`}>
+            {userCreationResponse?.password}
+          </Text>
+        </View>
+        <View style={tw`items-center mb-4`}>
+          <Button onPress={() => creationModal.current?.toggleModal()}>
+            Fertig
+          </Button>
         </View>
       </Modal>
     </SettingsLayout>

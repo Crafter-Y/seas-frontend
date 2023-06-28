@@ -4,39 +4,45 @@ import { BoardType } from "@/screens/BoardScreen";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 
-const BoardSidebarNavigationButton = (props: {
+type Props = {
   boardType: BoardType;
   currentBoardType: BoardType;
   setBoardType: React.Dispatch<React.SetStateAction<BoardType>>;
-}) => {
+};
+
+const BoardSidebarNavigationButton = ({
+  boardType,
+  currentBoardType,
+  setBoardType,
+}: Props) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
 
   const changeTab = () => {
-    props.setBoardType(props.boardType);
+    setBoardType(boardType);
   };
 
   return (
     <Pressable
-      style={tw`flex justify-between items-center mb-1 flex-row`}
+      style={tw`justify-between items-center mb-1 flex-row`}
       ref={ref}
       onPress={changeTab}
     >
       <View></View>
       <Text
         style={tw.style({
-          "font-semibold": props.boardType == props.currentBoardType,
+          "font-semibold": boardType == currentBoardType,
           underline: isHovered,
           "opacity-80": isHovered,
         })}
       >
-        {props.boardType}
+        {boardType}
       </Text>
       <View
         style={tw.style(
           {
-            "bg-blueAccent": props.boardType == props.currentBoardType,
-            "bg-gray-300": props.boardType != props.currentBoardType,
+            "bg-blueAccent": boardType == currentBoardType,
+            "bg-gray-300": boardType != currentBoardType,
           },
           `w-1 h-8 rounded-l-md`
         )}

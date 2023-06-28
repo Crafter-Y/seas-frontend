@@ -6,10 +6,11 @@ import { RootStackParamList } from "@/navigator/RootNavigator";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import tw from "@/tailwind";
-import { Button } from "@rneui/base";
 import webConfig from "@/assets/config.json";
 import useServerName from "@/hooks/useServerName";
-import Input from "@/components/Input";
+import Input from "@/components/elements/Input";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import Button from "@/components/elements/Button";
 
 type ServerSelectorScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -37,7 +38,6 @@ const ServerSelectorScreen = () => {
 
   const {
     fetchServerName,
-    serverName,
     fetchIsServerError,
     fetchServerError,
     isFetchServerLoading,
@@ -113,36 +113,18 @@ const ServerSelectorScreen = () => {
           onChangeText={(id) => setServerId(id)}
           style={"mt-1"}
         ></Input>
-        <Text
-          style={tw.style(
-            {
-              hidden: !isError,
-            },
-            "text-red-500 mb-2"
-          )}
-        >
-          {inputError}
-        </Text>
-        <Text
-          style={tw.style(
-            {
-              hidden: !isApiError,
-            },
-            "text-red-500 mb-2"
-          )}
-        >
-          {fetchServerError == "Not found"
-            ? "Diese ID existiert nicht!"
-            : fetchServerError}
-        </Text>
-        <Text>Dies kann hinterher noch geändert werden.</Text>
-        <Button
-          containerStyle={tw`mt-2`}
-          style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold`}
-          color={"#3882d6"}
-          title="Speichern"
-          onPress={login}
+        <ErrorDisplay hasError={isError} error={inputError} />
+        <ErrorDisplay
+          hasError={isApiError}
+          error={
+            fetchServerError == "Not found"
+              ? "Diese ID existiert nicht!"
+              : fetchServerError
+          }
         />
+
+        <Text>Dies kann hinterher noch geändert werden.</Text>
+        <Button onPress={login}>Speichern</Button>
       </View>
     </SafeAreaView>
   );

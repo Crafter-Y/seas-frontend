@@ -34,7 +34,7 @@ const BoardList = ({ dateStart, dateEnd }: Props) => {
       <Text>
         BoardList: {dateStart.toDateString()} - {dateEnd.toDateString()}
       </Text>
-      <Pressable style={tw`flex flex-row w-full`}>
+      <Pressable style={tw`flex-row w-full`}>
         <View style={tw`bg-red-400 flex-grow flex-shrink basis-full`}>
           <Text>
             Hello Lorem ipsum dolor sit, amet consectetur adipisicing elit.
