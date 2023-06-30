@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import tw from "@/tailwind";
 import webConfig from "@/assets/config.json";
-import useServerName from "@/hooks/useServerName";
+import useServerName from "@/hooks/api/useServerName";
 import Input from "@/components/elements/Input";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";

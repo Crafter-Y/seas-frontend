@@ -694,11 +694,5 @@
 		"style": {
 			"opacity": 0.95
 		}
-	},
-	"print:hidden": {
-		"style": {
-			"display": "none"
-		},
-		"media": "print"
 	}
 }

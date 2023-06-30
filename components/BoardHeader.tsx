@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React, { useRef } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import useServerName from "@/hooks/useServerName";
+import useServerName from "@/hooks/api/useServerName";
 import { Platform } from "react-native";
 import BoardMenuNavigationButton from "./BoardMenuNavigationButton";
 import { BoardType } from "@/screens/BoardScreen";

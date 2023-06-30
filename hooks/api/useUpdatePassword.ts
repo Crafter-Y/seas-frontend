@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ChangePasswordScreenProps } from "@/screens/ChangePasswordScreen";
-import useApi from "./useApi";
+import useApi from "../useApiName";
 
 export default function useUpdatePassword() {
   const [hasUpdateError, setHasUpdateError] = useState(false);

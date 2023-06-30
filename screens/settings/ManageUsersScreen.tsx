@@ -8,7 +8,7 @@ import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import Input from "@/components/elements/Input";
 import { Picker as RNPicker } from "@react-native-picker/picker";
-import useCreateUser from "@/hooks/useCreateUser";
+import useCreateUser from "@/hooks/api/useCreateUser";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
 import H2 from "@/components/elements/H2";
 import SettingsForm from "@/components/SettingsForm";

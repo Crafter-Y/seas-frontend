@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "./useApi";
+import useApi from "../useApiName";
 import { ManageUsersScreenProps } from "@/screens/settings/ManageUsersScreen";
 import { validate } from "email-validator";
 

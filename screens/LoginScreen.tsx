@@ -13,8 +13,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/navigator/RootNavigator";
-import useServerName from "@/hooks/useServerName";
-import useAuthentication from "@/hooks/useAuthentication";
+import useServerName from "@/hooks/api/useServerName";
+import useAuthentication from "@/hooks/api/useAuthentication";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import Input from "@/components/elements/Input";
 import H1 from "@/components/elements/H1";
@@ -128,7 +128,12 @@ const LoginScreen = () => {
               {serverName}
             </Text>
 
-            <Divider type="HORIZONTAL" style={tw`my-8 w-full`} />
+            <Divider
+              type="HORIZONTAL"
+              style={tw.style(`my-8 w-full`, {
+                hidden: isMd,
+              })}
+            />
 
             <H1
               style={tw.style({
@@ -150,11 +155,6 @@ const LoginScreen = () => {
                 `mt-4 gap-2`
               )}
             >
-              <ErrorDisplay
-                hasError={!!fetchServerError}
-                error={fetchServerError}
-              />
-
               <Input
                 placeholder="Email"
                 autoFocus={true}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "./useApi";
+import useApi from "../useApiName";
 
 export default function useServerName() {
   const [serverName, setName] = useState("");

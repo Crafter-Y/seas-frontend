@@ -7,7 +7,7 @@ import { RootStackParamList } from "@/navigator/RootNavigator";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import Input from "@/components/elements/Input";
-import useUpdatePassword from "@/hooks/useUpdatePassword";
+import useUpdatePassword from "@/hooks/api/useUpdatePassword";
 import Footer from "@/components/Footer";
 import SettingsBackButton from "@/components/SettingsBackButton";
 import Divider from "@/components/elements/Divider";
