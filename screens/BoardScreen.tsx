@@ -1,4 +1,4 @@
-import { ScrollView } from "react-native";
+import { ScrollView, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import useAuthentication from "@/hooks/api/useAuthentication";
@@ -29,6 +29,8 @@ const BoardScreen = () => {
   const navigation = useNavigation<BoardScreenProps>();
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
+
+  const { height } = useWindowDimensions();
 
   const getApi = useApi();
 
@@ -72,7 +74,7 @@ const BoardScreen = () => {
 
   return (
     <SafeAreaView
-      style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", {})}
+      style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", { height })}
     >
       <BoardSidebar
         user={user}

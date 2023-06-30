@@ -109,7 +109,7 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
   }, [isMd, navigation, getRouteName()]);
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flexDirection: "row",
         minHeight: height,
@@ -166,6 +166,6 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
       >
         {children}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
