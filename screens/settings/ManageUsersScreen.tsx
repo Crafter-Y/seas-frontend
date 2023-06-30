@@ -20,6 +20,12 @@ import TH from "@/components/elements/TH";
 import useAllUsers from "@/hooks/api/useAllUsers";
 import TR from "@/components/elements/TR";
 import TD from "@/components/elements/TD";
+import Form from "@/components/elements/Form";
+import useAuthentication from "@/hooks/api/useAuthentication";
+import { Image } from "expo-image";
+import H1 from "@/components/elements/H1";
+import useDeleteUser from "@/hooks/api/useDeleteUser";
+import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
 
 export type ManageUsersScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -29,9 +35,9 @@ export type ManageUsersScreenProps = NativeStackNavigationProp<
 const ManageUsersScreen = () => {
   const navigation = useNavigation<ManageUsersScreenProps>();
 
-  const { isMd, isSm } = useMediaQueries();
+  const { isMd } = useMediaQueries();
 
-  const allUsers = useAllUsers();
+  const { allUsers, queryUsers } = useAllUsers();
 
   const {
     createUser,
@@ -40,6 +46,11 @@ const ManageUsersScreen = () => {
     successfulUserCreation,
     userCreationResponse,
   } = useCreateUser();
+
+  const { requestNewPassword, newPassword, successfulPasswordCreation } =
+    useRequestNewPassword();
+
+  const deleteUser = useDeleteUser();
 
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
@@ -51,6 +62,21 @@ const ManageUsersScreen = () => {
   const emailInput = useRef<TextInput>(null);
 
   const creationModal = useRef<ModalHandle>(null);
+  const deleteUserModal = useRef<ModalHandle>(null);
+  const requestNewPasswordModal = useRef<ModalHandle>(null);
+  const newPasswordModal = useRef<ModalHandle>(null);
+
+  const [userIdToDelete, setUserIdToDelete] = useState("");
+  const [userNameToDelete, setUserNameToDelete] = useState("");
+
+  const [userIdForNewPassword, setUserIdForNewPassword] = useState("");
+  const [userNameForNewPassword, setUserNameForNewPassword] = useState("");
+
+  const { user } = useAuthentication();
+
+  useEffect(() => {
+    if (successfulPasswordCreation) newPasswordModal.current?.toggleModal();
+  }, [newPassword]);
 
   useEffect(() => {
     if (successfulUserCreation) {
@@ -146,30 +172,147 @@ const ManageUsersScreen = () => {
           </Text>
         </View>
         <View style={tw`items-center mb-4`}>
-          <Button onPress={() => creationModal.current?.toggleModal()}>
+          <Button
+            onPress={() => {
+              queryUsers();
+              creationModal.current?.toggleModal();
+            }}
+          >
             Fertig
           </Button>
         </View>
       </Modal>
+
       <Divider type="HORIZONTAL" style={tw`my-4`} />
-      <SettingsForm style={tw`gap-0`}>
-        <TH titles={["Mitglieder", ""]}></TH>
-        {allUsers.map((user) => (
-          <TR>
-            <TD>
-              <Text
-                style={tw.style(`py-4`, {
-                  "text-lg": isMd,
-                  "px-1": !isSm,
-                  "px-4": isSm,
-                })}
-              >
-                {user.firstname}
-              </Text>
-            </TD>
-          </TR>
-        ))}
+
+      <SettingsForm style={tw`mb-24`}>
+        <Form>
+          <TH titles={["Mitglieder", ""]}></TH>
+          {allUsers.map((Luser) => (
+            <TR key={Luser.userId}>
+              <TD>
+                <Text style={tw`text-lg`}>
+                  {Luser.firstname} {Luser.lastname}
+                </Text>
+                <Text>
+                  {Luser.role.charAt(0).toUpperCase() +
+                    "" +
+                    Luser.role.slice(1).toLowerCase()}
+                </Text>
+                <Text>{Luser.email}</Text>
+              </TD>
+              <TD style={tw`justify-end flex-row items-center gap-1`}>
+                {Luser.userId != "1" && Luser.userId != user?.userId && (
+                  <Button
+                    color="#f67e7e"
+                    style={tw`p-1`}
+                    onPress={() => {
+                      setUserIdToDelete(Luser.userId);
+                      setUserNameToDelete(
+                        `${Luser.firstname} ${Luser.lastname}`
+                      );
+                      deleteUserModal.current?.toggleModal();
+                    }}
+                  >
+                    <Image
+                      source={require("@/assets/img/close.svg")}
+                      style={{ height: 24, width: 24 }}
+                    />
+                  </Button>
+                )}
+                {Luser.userId != user?.userId && (
+                  <Button
+                    style={tw`p-1`}
+                    onPress={() => {
+                      setUserIdForNewPassword(Luser.userId);
+                      setUserNameForNewPassword(
+                        `${Luser.firstname} ${Luser.lastname}`
+                      );
+                      requestNewPasswordModal.current?.toggleModal();
+                    }}
+                  >
+                    <Image
+                      source={require("@/assets/img/refresh.svg")}
+                      style={{ height: 24, width: 24 }}
+                    />
+                  </Button>
+                )}
+              </TD>
+            </TR>
+          ))}
+        </Form>
       </SettingsForm>
+
+      <Modal type="CENTER" ref={deleteUserModal}>
+        <H1 style={tw`mt-2 text-center`}>Mitglied löschen?</H1>
+        <Text style={tw`mx-4`}>
+          Soll das Mitglied{" "}
+          <Text style={tw`font-semibold`}>{userNameToDelete}</Text> wirklich
+          glöscht werden?
+        </Text>
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button
+            onPress={() => {
+              deleteUser(userIdToDelete);
+              setTimeout(() => {
+                queryUsers();
+                deleteUserModal.current?.toggleModal();
+                setTimeout(() => {
+                  queryUsers();
+                }, 200);
+              }, 200);
+            }}
+            color="#f67e7e"
+          >
+            Löschen
+          </Button>
+          <Button onPress={() => deleteUserModal.current?.toggleModal()}>
+            Abbrechen
+          </Button>
+        </View>
+      </Modal>
+
+      <Modal type="CENTER" ref={requestNewPasswordModal}>
+        <H1 style={tw`mt-2 text-center`}>Passwort zurücksetzen?</H1>
+        <Text style={tw`mx-4`}>
+          Soll das Passwort von{" "}
+          <Text style={tw`font-semibold`}>{userNameForNewPassword}</Text>{" "}
+          wirklich zurückgesetzt werden?
+        </Text>
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button
+            onPress={() => {
+              requestNewPassword(userIdForNewPassword);
+              requestNewPasswordModal.current?.toggleModal();
+            }}
+            color="#f67e7e"
+          >
+            Zurücksetzen
+          </Button>
+          <Button
+            onPress={() => requestNewPasswordModal.current?.toggleModal()}
+          >
+            Abbrechen
+          </Button>
+        </View>
+      </Modal>
+
+      <Modal type="CENTER" ref={newPasswordModal}>
+        <H1 style={tw`mt-2 text-center`}>Neues Passwort generiert</H1>
+        <Text style={tw`mx-4`}>
+          Das Passwort von{" "}
+          <Text style={tw`font-semibold`}>{userNameForNewPassword}</Text> wurde
+          erfolgreich zurück gesetzt.
+        </Text>
+        <Text style={tw`mx-4 text-lg`}>
+          Das neue Passwort lautet: {newPassword}
+        </Text>
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button onPress={() => newPasswordModal.current?.toggleModal()}>
+            Fertig
+          </Button>
+        </View>
+      </Modal>
     </SettingsLayout>
   );
 };

@@ -11,9 +11,9 @@ const TH = ({ titles }: Props) => {
   const { isMd, isSm } = useMediaQueries();
 
   return (
-    <View style={tw`flex-row w-full bg-[#f0f1f2] rounded-t-lg shadow-lg`}>
+    <View style={tw`flex-row w-full bg-[#f0f1f2] rounded-t-lg`}>
       {titles.map((title) => (
-        <View style={tw`flex-grow flex-shrink basis-full`}>
+        <View style={tw`flex-grow flex-shrink basis-full`} key={title}>
           <Text
             style={tw.style(`font-semibold uppercase py-4`, {
               "text-lg": isMd,

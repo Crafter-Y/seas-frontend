@@ -1,17 +1,26 @@
 import React, { ReactNode } from "react";
 import tw from "@/tailwind";
 import { Button as RNButton } from "@rneui/base";
+import { ClassInput } from "twrnc/dist/esm/types";
 
 type Props = {
   children: ReactNode;
-  onPress: () => void;
+  onPress?: () => void;
+  color?: string;
+  style?: ClassInput;
 };
 
-const Button = ({ children, onPress }: Props) => {
+const Button = ({ children, onPress, color, style }: Props) => {
   return (
     <RNButton
-      style={tw`bg-blueAccent rounded-xl text-xl px-4 py-1 font-semibold`}
-      color={"#3882d6"}
+      style={tw.style(
+        `rounded-xl text-xl px-4 py-1 font-semibold`,
+        {
+          backgroundColor: color ? color : "#3882d6",
+        },
+        style
+      )}
+      color={color ? color : "#3882d6"}
       onPress={onPress}
     >
       {children}

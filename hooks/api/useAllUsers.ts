@@ -33,5 +33,5 @@ export default function useAllUsers() {
     queryUsers();
   }, []);
 
-  return allUsers;
+  return { allUsers, queryUsers };
 }

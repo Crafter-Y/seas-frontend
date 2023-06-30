@@ -12,6 +12,7 @@ import BoardSidebar from "@/components/BoardSidebar";
 import Footer from "@/components/Footer";
 import Board from "@/components/Board";
 import useApi from "@/hooks/useApiName";
+import useMediaQueries from "@/hooks/useMediaQueries";
 
 export type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -31,6 +32,7 @@ const BoardScreen = () => {
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
 
   const { height } = useWindowDimensions();
+  const { isMd } = useMediaQueries();
 
   const getApi = useApi();
 
@@ -74,7 +76,9 @@ const BoardScreen = () => {
 
   return (
     <SafeAreaView
-      style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", { height })}
+      style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", {
+        height: isMd ? height : undefined,
+      })}
     >
       <BoardSidebar
         user={user}
