@@ -14,5 +14,16 @@ type User = {
   firstname: string;
   lastname: string;
   email: string;
-  role: "ADMIN" | "USER" | "MODERATOR";
+  role: Role;
+};
+
+type Role = "ADMIN" | "USER" | "MODERATOR";
+
+type APIResponseUser = {
+  userId: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  role: Role;
 };

@@ -15,6 +15,11 @@ import SettingsForm from "@/components/SettingsForm";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Picker from "@/components/elements/Picker";
 import Button from "@/components/elements/Button";
+import Divider from "@/components/elements/Divider";
+import TH from "@/components/elements/TH";
+import useAllUsers from "@/hooks/api/useAllUsers";
+import TR from "@/components/elements/TR";
+import TD from "@/components/elements/TD";
 
 export type ManageUsersScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -25,6 +30,8 @@ const ManageUsersScreen = () => {
   const navigation = useNavigation<ManageUsersScreenProps>();
 
   const { isMd, isSm } = useMediaQueries();
+
+  const allUsers = useAllUsers();
 
   const {
     createUser,
@@ -144,6 +151,25 @@ const ManageUsersScreen = () => {
           </Button>
         </View>
       </Modal>
+      <Divider type="HORIZONTAL" style={tw`my-4`} />
+      <SettingsForm style={tw`gap-0`}>
+        <TH titles={["Mitglieder", ""]}></TH>
+        {allUsers.map((user) => (
+          <TR>
+            <TD>
+              <Text
+                style={tw.style(`py-4`, {
+                  "text-lg": isMd,
+                  "px-1": !isSm,
+                  "px-4": isSm,
+                })}
+              >
+                {user.firstname}
+              </Text>
+            </TD>
+          </TR>
+        ))}
+      </SettingsForm>
     </SettingsLayout>
   );
 };

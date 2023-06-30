@@ -1,4 +1,10 @@
-import { View, Text, useWindowDimensions, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  useWindowDimensions,
+  Pressable,
+  ScrollView,
+} from "react-native";
 import React, { useEffect, useRef } from "react";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -103,7 +109,13 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
   }, [isMd, navigation, getRouteName()]);
 
   return (
-    <SafeAreaView style={{ flexDirection: "row" }}>
+    <SafeAreaView
+      style={{
+        flexDirection: "row",
+        minHeight: height,
+        backgroundColor: "#f2f2f2",
+      }}
+    >
       <View
         style={tw.style(
           {
@@ -142,8 +154,8 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
           "my-16 mx-2"
         )}
       />
-      <View
-        style={tw.style(
+      <ScrollView
+        contentContainerStyle={tw.style(
           {
             "py-14": isMd,
             "px-4": isMd,
@@ -153,7 +165,7 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
         )}
       >
         {children}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
