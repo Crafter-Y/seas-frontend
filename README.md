@@ -55,14 +55,14 @@
   - [ ] delete comment template API
   - [ ] design & functionality
 
-- [ ] Manage Pages
+- [x] Manage Pages
 
   - [x] create page API
   - [x] get all pages API
   - [x] delete page API
   - [x] rename page API
-  - [ ] Inline Editing functionality
-  - [ ] design & functionality
+  - [x] Inline Editing functionality
+  - [x] design & functionality
 
 - [ ] always ask before erasing any data
 - [ ] Remove unused styling classes

@@ -24,7 +24,6 @@ type APIResponseUser = {
   firstname: string;
   lastname: string;
   email: string;
-  password: string;
   role: Role;
 };
 
