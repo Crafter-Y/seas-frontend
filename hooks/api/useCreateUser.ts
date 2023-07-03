@@ -30,6 +30,8 @@ export default function useCreateUser() {
   ) => {
     // clientside validation
 
+    setIsSuccessfulUserCreation(false);
+
     if (firstname == null || firstname == "") {
       setHasCreationError(true);
       setCreationError("Der Vorname muss angegeben werden.");

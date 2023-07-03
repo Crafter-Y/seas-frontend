@@ -22,13 +22,13 @@
   - [x] mobile navigation page
   - [x] navigation functionality
 
-- [ ] Manage Users
+- [x] Manage Users
 
   - [x] Create User API
   - [x] get All Users API
   - [x] delete User API
   - [x] request new user Password API
-  - [ ] design & functionality
+  - [x] design & functionality
 
 - [ ] Manage Positions
 
@@ -57,12 +57,13 @@
 
 - [ ] Manage Pages
 
-  - [ ] create page API
-  - [ ] get all pages API
-  - [ ] delete page API
-  - [ ] rename page API
+  - [x] create page API
+  - [x] get all pages API
+  - [x] delete page API
+  - [x] rename page API
   - [ ] Inline Editing functionality
   - [ ] design & functionality
 
 - [ ] always ask before erasing any data
 - [ ] Remove unused styling classes
+- [ ] reactivate user functionality (users get disabled, but email is still existing in DB)

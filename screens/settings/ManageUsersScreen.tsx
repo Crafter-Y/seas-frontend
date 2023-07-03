@@ -108,7 +108,7 @@ const ManageUsersScreen = () => {
           ref={firstNameInput}
           onSubmitEditing={() => secondNameInput.current?.focus()}
           returnKeyType="next"
-        ></Input>
+        />
         <Input
           placeholder="Nachname"
           onChangeText={(text) => setSecondName(text)}
@@ -116,7 +116,7 @@ const ManageUsersScreen = () => {
           onSubmitEditing={() => emailInput.current?.focus()}
           ref={secondNameInput}
           returnKeyType="next"
-        ></Input>
+        />
         <Input
           placeholder="Email-Adresse"
           onChangeText={(text) => setEmail(text)}
@@ -125,7 +125,7 @@ const ManageUsersScreen = () => {
           ref={emailInput}
           returnKeyType="done"
           inputMode="email"
-        ></Input>
+        />
         <Picker
           selectedValue={role}
           onValueChange={(itemValue) => setRole(itemValue)}
@@ -185,7 +185,7 @@ const ManageUsersScreen = () => {
 
       <Divider type="HORIZONTAL" style={tw`my-4`} />
 
-      <SettingsForm style={tw`mb-24`}>
+      <SettingsForm style={tw`mb-8`}>
         <Form>
           <TH titles={["Mitglieder", ""]}></TH>
           {allUsers.map((Luser) => (

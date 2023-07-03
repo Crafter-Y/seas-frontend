@@ -118,6 +118,10 @@
   margin-top: 10%
 }
 
+.mb-8 {
+  margin-bottom: 2rem
+}
+
 .block {
   display: block
 }
@@ -409,12 +413,12 @@
   padding: 0px
 }
 
-.p-4 {
-  padding: 1rem
-}
-
 .p-1 {
   padding: 0.25rem
+}
+
+.p-4 {
+  padding: 1rem
 }
 
 .px-0 {

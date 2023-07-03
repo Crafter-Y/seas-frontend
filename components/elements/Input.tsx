@@ -4,7 +4,7 @@ import {
   ReturnKeyTypeOptions,
   InputModeOptions,
 } from "react-native";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
 
@@ -17,6 +17,7 @@ type Props = {
   onSubmitEditing?: () => void;
   returnKeyType?: ReturnKeyTypeOptions;
   inputMode?: InputModeOptions;
+  initialValue?: string;
 };
 
 export default forwardRef<TextInput, Props>(
@@ -30,11 +31,19 @@ export default forwardRef<TextInput, Props>(
       onSubmitEditing,
       returnKeyType,
       inputMode,
+      initialValue,
     }: Props,
     ref
   ) => {
+    const [intVal, setIntVal] = useState("");
+
+    useEffect(() => {
+      if (initialValue) setIntVal(initialValue);
+    }, [initialValue]);
+
     return (
       <TextInput
+        value={intVal}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         autoCorrect={false}
@@ -50,7 +59,10 @@ export default forwardRef<TextInput, Props>(
           `border border-black border-opacity-20 rounded-xl px-2`
         )}
         autoFocus={autoFocus ? autoFocus : false}
-        onChangeText={onChangeText}
+        onChangeText={(text) => {
+          setIntVal(text);
+          onChangeText(text);
+        }}
         placeholderTextColor={"gray"}
         onSubmitEditing={onSubmitEditing}
         returnKeyType={returnKeyType ? returnKeyType : "default"}

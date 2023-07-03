@@ -27,3 +27,8 @@ type APIResponseUser = {
   password: string;
   role: Role;
 };
+
+type APIResponsePage = {
+  pageId: string;
+  name: string;
+};

@@ -112,7 +112,7 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
     <View
       style={{
         flexDirection: "row",
-        minHeight: height,
+        //minHeight: height,
         backgroundColor: "#f2f2f2",
       }}
     >
