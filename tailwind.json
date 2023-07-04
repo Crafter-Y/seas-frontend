@@ -100,11 +100,6 @@
 			"marginBottom": 8
 		}
 	},
-	"mb-24": {
-		"style": {
-			"marginBottom": 96
-		}
-	},
 	"mb-3": {
 		"style": {
 			"marginBottom": 12
@@ -113,6 +108,11 @@
 	"mb-4": {
 		"style": {
 			"marginBottom": 16
+		}
+	},
+	"mb-8": {
+		"style": {
+			"marginBottom": 32
 		}
 	},
 	"ml-4": {
@@ -148,11 +148,6 @@
 	"mt-[10%]": {
 		"style": {
 			"marginTop": "10%"
-		}
-	},
-	"mb-8": {
-		"style": {
-			"marginBottom": 32
 		}
 	},
 	"block": {
@@ -712,6 +707,12 @@
 	"capitalize": {
 		"style": {
 			"textTransform": "capitalize"
+		}
+	},
+	"text-red-400": {
+		"style": {
+			"--tw-text-opacity": 1,
+			"color": "rgb(248 113 113 / var(--tw-text-opacity))"
 		}
 	},
 	"text-red-500": {

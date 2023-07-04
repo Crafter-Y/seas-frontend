@@ -43,7 +43,7 @@ export default forwardRef<TextInput, Props>(
 
     return (
       <TextInput
-        value={intVal}
+        defaultValue={intVal}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         autoCorrect={false}

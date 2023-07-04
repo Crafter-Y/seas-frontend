@@ -48,12 +48,12 @@
   - [ ] create a recurring event
   - [ ] delete event, but ask before
 
-- [ ] Comment templates
+- [x] Comment templates
 
-  - [ ] Create comment template API
-  - [ ] Get all comment templates API
-  - [ ] delete comment template API
-  - [ ] design & functionality
+  - [x] Create comment template API
+  - [x] Get all comment templates API
+  - [x] delete comment template API
+  - [x] design & functionality
 
 - [x] Manage Pages
 

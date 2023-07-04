@@ -31,3 +31,8 @@ type APIResponsePage = {
   pageId: string;
   name: string;
 };
+
+type APIResponseDefaultComment = {
+  commentId: string;
+  comment: string;
+};
