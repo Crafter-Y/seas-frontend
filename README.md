@@ -32,9 +32,11 @@
 
 - [ ] Manage Positions
 
-  - [ ] get All Columns API
-  - [ ] delete Column API
-  - [ ] rename column API
+  - [x] get All Columns API
+  - [x] create Column API
+  - [x] delete Column API
+  - [x] rename column API
+  - [x] assign column API
   - [ ] Inline Editing functionality
   - [ ] design & functionality
 

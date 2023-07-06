@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import useApi from "../useApiName";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function useAllPages() {
-  const [allPages, setAllPages] = useState<APIResponsePage[]>([]);
+export default function useAllColumns() {
+  const [allColumns, setAllColumns] = useState<APIResponseColumn[]>([]);
 
   const getApi = useApi();
 
-  const queryPages = (): void => {
+  const queryColumns = () => {
     let configServer = getApi();
     AsyncStorage.getItem("token").then((token) => {
       if (token == null) {
         return;
       }
 
-      fetch(`${configServer}/api/getAllPages/`, {
+      fetch(`${configServer}/api/getAllColumns/`, {
         headers: {
           token,
         },
@@ -22,7 +22,7 @@ export default function useAllPages() {
         .then((response) => response.json())
         .then((res: ApiResponse) => {
           if (res.success) {
-            setAllPages(res.data);
+            setAllColumns(res.data);
           }
         })
         .catch(() => {});
@@ -30,8 +30,8 @@ export default function useAllPages() {
   };
 
   useEffect(() => {
-    queryPages();
+    queryColumns();
   }, []);
 
-  return { allPages, queryPages };
+  return { allColumns, queryColumns };
 }

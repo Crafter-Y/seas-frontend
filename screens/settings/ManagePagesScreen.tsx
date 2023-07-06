@@ -1,28 +1,28 @@
-import { Text, TextInput, View } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "@/navigator/RootNavigator";
-import { SettingsLayout } from "@/components/layouts/SettingsLayout";
-import H2 from "@/components/elements/H2";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
+import ErrorDisplay from "@/components/ErrorDisplay";
 import SettingsForm from "@/components/SettingsForm";
-import Input from "@/components/elements/Input";
 import Button from "@/components/elements/Button";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
-import TH from "@/components/elements/TH";
-import useAllPages from "@/hooks/api/useAllPages";
-import TR from "@/components/elements/TR";
-import TD from "@/components/elements/TD";
-import { Image } from "expo-image";
-import useCreatePage from "@/hooks/api/useCreatePage";
-import ErrorDisplay from "@/components/ErrorDisplay";
-import Modal, { ModalHandle } from "@/components/elements/Modal";
 import H1 from "@/components/elements/H1";
+import H2 from "@/components/elements/H2";
+import Input from "@/components/elements/Input";
+import Modal, { ModalHandle } from "@/components/elements/Modal";
+import TD from "@/components/elements/TD";
+import TH from "@/components/elements/TH";
+import TR from "@/components/elements/TR";
+import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import useAllPages from "@/hooks/api/useAllPages";
+import useCreatePage from "@/hooks/api/useCreatePage";
 import useDeletePage from "@/hooks/api/useDeletePage";
 import useRenamePage from "@/hooks/api/useRenamePage";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import { RootStackParamList } from "@/navigator/RootNavigator";
+import tw from "@/tailwind";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Image } from "expo-image";
+import React, { useEffect, useRef, useState } from "react";
+import { Text, TextInput, View } from "react-native";
 
 export type ManagePagesScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -153,7 +153,7 @@ const ManagePagesScreen = () => {
                   }}
                 >
                   <Image
-                    source={require("@/assets/img/refresh.svg")}
+                    source={require("@/assets/img/edit.svg")}
                     style={{ height: 24, width: 24 }}
                   />
                 </Button>

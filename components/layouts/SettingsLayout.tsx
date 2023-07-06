@@ -45,12 +45,14 @@ type NavigationButtonProps = {
   >;
   setting: keyof RootStackParamList;
   actualSetting: keyof RootStackParamList;
+  onPress: () => void;
 };
 
 const InlineNavigationButton = ({
   navigation,
   setting,
   actualSetting,
+  onPress,
 }: NavigationButtonProps) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
@@ -61,6 +63,7 @@ const InlineNavigationButton = ({
         onPress={() => {
           if (navigation.getState().routes.length > 2) navigation.pop();
           navigation.navigate(setting as keyof typeof settingsSections);
+          onPress();
         }}
         ref={ref}
       >
@@ -97,15 +100,19 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
       .name;
   };
 
-  useEffect(() => {
+  const processWindow = () => {
+    navigation.setOptions({
+      title: settingsTitles[getRouteName() as keyof typeof settingsTitles],
+    });
     if (!isMd) {
       navigation.setOptions({ headerShown: true });
-      navigation.setOptions({
-        title: settingsTitles[getRouteName() as keyof typeof settingsTitles],
-      });
     } else {
       navigation.setOptions({ headerShown: false });
     }
+  };
+
+  useEffect(() => {
+    processWindow();
   }, [isMd, navigation, getRouteName()]);
 
   return (
@@ -129,6 +136,7 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
         <H1 style={tw`text-right`}>Einstellungen</H1>
         {Object.keys(settingsSections).map((setting) => (
           <InlineNavigationButton
+            onPress={processWindow}
             key={setting}
             navigation={navigation}
             setting={setting as keyof typeof settingsTitles}

@@ -32,6 +32,13 @@ type APIResponsePage = {
   name: string;
 };
 
+type APIResponseColumn = {
+  columnId: string;
+  name: string;
+  type: "POSITION" | "COMMENT";
+  pages: string[];
+};
+
 type APIResponseDefaultComment = {
   commentId: string;
   comment: string;

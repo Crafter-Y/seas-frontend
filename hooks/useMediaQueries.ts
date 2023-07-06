@@ -7,10 +7,12 @@ export default function useMediaQueries() {
 
   const isMd = useMediaQuery({
     minWidth: 768,
+    minHeight: 440,
   });
 
   const isLg = useMediaQuery({
     minWidth: 1024,
+    minHeight: 480,
   });
 
   const isXl = useMediaQuery({
