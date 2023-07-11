@@ -30,15 +30,15 @@
   - [x] request new user Password API
   - [x] design & functionality
 
-- [ ] Manage Positions
+- [x] Manage Positions
 
   - [x] get All Columns API
   - [x] create Column API
   - [x] delete Column API
   - [x] rename column API
   - [x] assign column API
-  - [ ] Inline Editing functionality
-  - [ ] design & functionality
+  - [x] Inline Editing functionality
+  - [x] design & functionality
 
 - [ ] Recurring Events
 
