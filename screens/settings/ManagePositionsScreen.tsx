@@ -290,7 +290,6 @@ const ManagePositionsScreen = () => {
                   assignmentChanges.splice(index, 1);
                 }
               }
-              console.log(assignmentChanges);
             }}
           />
         ))}
