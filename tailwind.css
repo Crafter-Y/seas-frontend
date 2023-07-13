@@ -18,14 +18,6 @@
   margin: 0px
 }
 
-.m-1 {
-  margin: 0.25rem
-}
-
-.m-2 {
-  margin: 0.5rem
-}
-
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem
@@ -136,6 +128,18 @@
 
 .flex {
   display: flex
+}
+
+.table {
+  display: table
+}
+
+.grid {
+  display: grid
+}
+
+.contents {
+  display: contents
 }
 
 .hidden {
@@ -460,6 +464,16 @@
   padding-right: 1.5rem
 }
 
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem
+}
+
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem
@@ -485,8 +499,20 @@
   padding-bottom: 1.5rem
 }
 
+.pl-2 {
+  padding-left: 0.5rem
+}
+
 .pl-4 {
   padding-left: 1rem
+}
+
+.pr-1 {
+  padding-right: 0.25rem
+}
+
+.pr-5 {
+  padding-right: 1.25rem
 }
 
 .pt-4 {
@@ -550,6 +576,10 @@
 
 .capitalize {
   text-transform: capitalize
+}
+
+.italic {
+  font-style: italic
 }
 
 .text-red-400 {

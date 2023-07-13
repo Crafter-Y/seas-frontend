@@ -43,3 +43,28 @@ type APIResponseDefaultComment = {
   commentId: string;
   comment: string;
 };
+
+type EventType = "UNSET" | "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";
+
+type Weekday =
+  | "MONDAY"
+  | "TUESDAY"
+  | "WEDNESDAY"
+  | "THURSDAY"
+  | "FRIDAY"
+  | "SATURDAY"
+  | "SUNDAY";
+
+type Month =
+  | "JANUARY"
+  | "FEBRUARY"
+  | "MARCH"
+  | "APRIL"
+  | "MAY"
+  | "JUNE"
+  | "JULI"
+  | "AUGUST"
+  | "SEPTEMBER"
+  | "OCTOBER"
+  | "NOVEMBER"
+  | "DECEMBER";

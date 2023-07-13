@@ -192,7 +192,7 @@ const LoginScreen = () => {
               </View>
             </View>
             <Text style={tw`text-xs opacity-80 w-full text-center mt-12`}>
-              &copy; Helmut Haase 2022
+              &copy; Helmut Haase 2023
             </Text>
             <Text style={tw`text-xs opacity-80 w-full text-center`}></Text>
             <Text
