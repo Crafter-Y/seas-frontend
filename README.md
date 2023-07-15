@@ -14,59 +14,29 @@
 - [Print SVG](https://www.svgrepo.com/svg/476458/print)
 - [Calendar SVG](https://www.svgrepo.com/svg/511575/calendar-1322)
 
-# Settings implementation Roadmap
+# Next tasks
 
-- [x] Admin/Settings Layout
+- [ ] Board implementation
 
-  - [x] corpus
-  - [x] mobile navigation page
-  - [x] navigation functionality
+  - [ ] Print export
+  - [ ] Calendar export
 
-- [x] Manage Users
+  - [ ] display selected board columns
+  - [ ] assign field for cols where nobody is assigned
 
-  - [x] Create User API
-  - [x] get All Users API
-  - [x] delete User API
-  - [x] request new user Password API
-  - [x] design & functionality
+  - [ ] modal for event when touch
+    - [ ] self-assign to fields
+    - [ ] validation to only assign once
+    - [ ] admin force assign
+    - [ ] admin single delete
+    - [ ] comment field implementation
 
-- [x] Manage Positions
-
-  - [x] get All Columns API
-  - [x] create Column API
-  - [x] delete Column API
-  - [x] rename column API
-  - [x] assign column API
-  - [x] Inline Editing functionality
-  - [x] design & functionality
-
-- [x] Recurring Events
-
-  - [x] Create reurring event API
-  - [x] get All recurring events API (ask for effected columns, delete)
-  - [x] delete event API
-  - [x] Quick event creation
-  - [x] Manual event creation
-  - [x] create a recurring event
-  - [x] delete event, but ask before
-
-- [x] Comment templates
-
-  - [x] Create comment template API
-  - [x] Get all comment templates API
-  - [x] delete comment template API
-  - [x] design & functionality
-
-- [x] Manage Pages
-
-  - [x] create page API
-  - [x] get all pages API
-  - [x] delete page API
-  - [x] rename page API
-  - [x] Inline Editing functionality
-  - [x] design & functionality
-
-- [ ] always ask before erasing any data
-- [ ] Remove unused styling classes
+- [x] always ask before erasing any data
+- [x] Remove unused styling classes
 - [ ] refactor all delete operations to await Api response before refresh
 - [ ] reactivate user functionality (users get disabled, but email is still existing in DB)
+- [ ] prevent spamming buttons
+- [ ] make login authentication less buggy
+- [ ] splash screen
+- [ ] app icon/name
+- [ ] auto-update
