@@ -54,9 +54,9 @@ const ManagePositionsScreen = () => {
   const { renameColumn, hasRenameError, renameError, successfulColumnRename } =
     useRenameColumn();
 
-  const deleteColumn = useDeleteColumn();
+  const { deleteColumn, succesfulDeletion } = useDeleteColumn();
 
-  const assignColumns = useAssignColumns();
+  const { assignColumns, assignmentSuccessful } = useAssignColumns();
 
   const [columnName, setColumnName] = useState("");
   const [columnType, setColumnType] = useState("POSITION");
@@ -80,13 +80,18 @@ const ManagePositionsScreen = () => {
   }, [successfulColumnCreation]);
 
   useEffect(() => {
-    if (successfulColumnRename) {
+    if (succesfulDeletion) {
+      queryColumns();
+      deleteColumnModal.current?.toggleModal();
+    }
+  }, [succesfulDeletion]);
+
+  useEffect(() => {
+    if (successfulColumnRename && assignmentSuccessful) {
       queryColumns();
       modifyModal.current?.toggleModal();
     }
-  }, [successfulColumnRename]);
-
-  const [ss, setSS] = useState(false);
+  }, [successfulColumnRename, assignmentSuccessful]);
 
   return (
     <SettingsLayout navigation={navigation}>
@@ -212,13 +217,6 @@ const ManagePositionsScreen = () => {
           <Button
             onPress={() => {
               deleteColumn(columnToChange!.columnId);
-              setTimeout(() => {
-                queryColumns();
-                deleteColumnModal.current?.toggleModal();
-                setTimeout(() => {
-                  queryColumns();
-                }, 200);
-              }, 200);
             }}
             color="#f67e7e"
           >
@@ -298,14 +296,12 @@ const ManagePositionsScreen = () => {
           <Button
             onPress={() => {
               assignColumns(assignmentChanges, navigation);
-              setTimeout(() => {
-                renameColumn(
-                  columnToChange!.columnId,
-                  columnRenameName,
-                  navigation
-                );
-                renameInput.current?.blur();
-              }, 200);
+              renameColumn(
+                columnToChange!.columnId,
+                columnRenameName,
+                navigation
+              );
+              renameInput.current?.blur();
             }}
             color="#f67e7e"
           >

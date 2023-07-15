@@ -36,7 +36,7 @@ const ManagePagesScreen = () => {
 
   const { allPages, queryPages } = useAllPages();
 
-  const deletePage = useDeletePage();
+  const { deletePage, succesfulDeletion } = useDeletePage();
 
   const { renamePage, hasRenameError, renameError, successfulPageRename } =
     useRenamePage();
@@ -70,6 +70,13 @@ const ManagePagesScreen = () => {
       renameModal.current?.toggleModal();
     }
   }, [successfulPageRename]);
+
+  useEffect(() => {
+    if (succesfulDeletion) {
+      queryPages();
+      deleteModal.current?.toggleModal();
+    }
+  }, [succesfulDeletion]);
 
   return (
     <SettingsLayout navigation={navigation}>
@@ -178,13 +185,6 @@ const ManagePagesScreen = () => {
           <Button
             onPress={() => {
               deletePage(pageIdToChange);
-              setTimeout(() => {
-                queryPages();
-                deleteModal.current?.toggleModal();
-                setTimeout(() => {
-                  queryPages();
-                }, 200);
-              }, 200);
             }}
             color="#f67e7e"
           >

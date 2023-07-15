@@ -1,9 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useApi from "../useApiName";
+import { useState } from "react";
 export default function useDeleteColumn() {
+  const [succesfulDeletion, setSuccessfulDeletion] = useState(false);
   const getApi = useApi();
 
   const deleteColumn = (columnId: string) => {
+    setSuccessfulDeletion(false);
     let configServer = getApi();
     AsyncStorage.getItem("token").then((token) => {
       if (token == null) {
@@ -18,9 +21,11 @@ export default function useDeleteColumn() {
         headers: {
           token,
         },
+      }).then(() => {
+        setSuccessfulDeletion(true);
       });
     });
   };
 
-  return deleteColumn;
+  return { deleteColumn, succesfulDeletion };
 }

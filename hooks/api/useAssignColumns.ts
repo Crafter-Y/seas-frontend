@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useApi from "../useApiName";
 import { ManagePositionsScreenProps } from "@/screens/settings/ManagePositionsScreen";
+import { useState } from "react";
 
 export type AssignmentChange = {
   pageId: string;
@@ -9,12 +10,14 @@ export type AssignmentChange = {
 };
 
 export default function useAssignColumns() {
+  const [assignmentSuccessful, setAssignmentSuccessful] = useState(false);
   const getApi = useApi();
 
   const assignColumns = (
     changes: AssignmentChange[],
     navigation: ManagePositionsScreenProps
   ) => {
+    setAssignmentSuccessful(false);
     if (changes.length == 0) {
       return;
     }
@@ -26,7 +29,9 @@ export default function useAssignColumns() {
         return;
       }
 
+      let pendingAssignments: string[] = [];
       changes.forEach((change) => {
+        pendingAssignments.push(change.pageId + change.columnId);
         let req = new FormData();
         req.append("pageId", change.pageId);
         req.append("columnId", change.columnId);
@@ -40,10 +45,13 @@ export default function useAssignColumns() {
           headers: {
             token,
           },
+        }).then(() => {
+          pendingAssignments.pop();
+          if (pendingAssignments.length == 0) setAssignmentSuccessful(true);
         });
       });
     });
   };
 
-  return assignColumns;
+  return { assignColumns, assignmentSuccessful };
 }

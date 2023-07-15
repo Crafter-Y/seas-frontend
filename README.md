@@ -33,10 +33,11 @@
 
 - [x] always ask before erasing any data
 - [x] Remove unused styling classes
-- [ ] refactor all delete operations to await Api response before refresh
+- [x] refactor all delete operations to await Api response before refresh
 - [ ] reactivate user functionality (users get disabled, but email is still existing in DB)
 - [ ] prevent spamming buttons
 - [ ] make login authentication less buggy
+- [ ] make picker element iOS friendly
 - [ ] splash screen
 - [ ] app icon/name
-- [ ] auto-update
+- [ ] (auto-update)

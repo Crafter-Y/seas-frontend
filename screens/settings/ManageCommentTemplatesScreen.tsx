@@ -43,7 +43,7 @@ const ManageCommentTemplatesScreen = () => {
     successfulDefaultCommentCreation,
   } = useCreateDefaultComment();
 
-  const deleteDefaultComment = useDeleteDefaultComment();
+  const { deleteDefaultComment, succesfulDeletion } = useDeleteDefaultComment();
 
   const [defaultComment, setDefaultComment] = useState("");
   const [commentIdToDelete, setCommentIdToDelete] = useState("");
@@ -55,6 +55,13 @@ const ManageCommentTemplatesScreen = () => {
   useEffect(() => {
     if (successfulDefaultCommentCreation) queryAllDefaultComments();
   }, [successfulDefaultCommentCreation]);
+
+  useEffect(() => {
+    if (succesfulDeletion) {
+      queryAllDefaultComments();
+      deleteModal.current?.toggleModal();
+    }
+  }, [succesfulDeletion]);
 
   return (
     <SettingsLayout navigation={navigation}>
@@ -154,13 +161,6 @@ const ManageCommentTemplatesScreen = () => {
           <Button
             onPress={() => {
               deleteDefaultComment(commentIdToDelete);
-              setTimeout(() => {
-                queryAllDefaultComments();
-                deleteModal.current?.toggleModal();
-                setTimeout(() => {
-                  queryAllDefaultComments();
-                }, 200);
-              }, 200);
             }}
             color="#f67e7e"
           >

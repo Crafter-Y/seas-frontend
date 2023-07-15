@@ -1,9 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useApi from "../useApiName";
+import { useState } from "react";
 export default function useDeleteUser() {
+  const [succesfulDeletion, setSuccessfulDeletion] = useState(false);
   const getApi = useApi();
 
   const deleteUser = (userId: string) => {
+    setSuccessfulDeletion(false);
+
     let configServer = getApi();
     AsyncStorage.getItem("token").then((token) => {
       if (token == null) {
@@ -18,9 +22,11 @@ export default function useDeleteUser() {
         headers: {
           token,
         },
+      }).then(() => {
+        setSuccessfulDeletion(true);
       });
     });
   };
 
-  return deleteUser;
+  return { deleteUser, succesfulDeletion };
 }

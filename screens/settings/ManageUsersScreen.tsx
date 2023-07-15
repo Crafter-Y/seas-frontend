@@ -50,7 +50,7 @@ const ManageUsersScreen = () => {
   const { requestNewPassword, newPassword, successfulPasswordCreation } =
     useRequestNewPassword();
 
-  const deleteUser = useDeleteUser();
+  const { deleteUser, succesfulDeletion } = useDeleteUser();
 
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
@@ -86,6 +86,13 @@ const ManageUsersScreen = () => {
       emailInput.current?.clear();
     }
   }, [successfulUserCreation]);
+
+  useEffect(() => {
+    if (succesfulDeletion) {
+      queryUsers();
+      deleteUserModal.current?.toggleModal();
+    }
+  }, [succesfulDeletion]);
 
   return (
     <SettingsLayout navigation={navigation}>
@@ -254,13 +261,6 @@ const ManageUsersScreen = () => {
           <Button
             onPress={() => {
               deleteUser(userIdToDelete);
-              setTimeout(() => {
-                queryUsers();
-                deleteUserModal.current?.toggleModal();
-                setTimeout(() => {
-                  queryUsers();
-                }, 200);
-              }, 200);
             }}
             color="#f67e7e"
           >
