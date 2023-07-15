@@ -12,17 +12,17 @@ type APICreationReponse = {
   password: string;
 };
 
-export default function useCreateUser() {
-  const [hasCreationError, setHasCreationError] = useState(false);
-  const [creationError, setCreationError] = useState("");
-  const [successfulUserCreation, setIsSuccessfulUserCreation] = useState(false);
-  const [reactivationRequired, setReactivationRequired] = useState(false);
-  const [userCreationResponse, setUserCreationResponse] =
+export default function useReactivateUser() {
+  const [hasReactivationError, setHasReactivationError] = useState(false);
+  const [reactivationError, setReactivationError] = useState("");
+  const [successfulUserReactivation, setIsSuccessfulUserReactivation] =
+    useState(false);
+  const [userReactivationResponse, setUserReactivationResponse] =
     useState<APICreationReponse>();
 
   const getApi = useApi();
 
-  const createUser = (
+  const reactivateUser = (
     firstname: string,
     lastname: string,
     email: string,
@@ -31,58 +31,57 @@ export default function useCreateUser() {
   ) => {
     // clientside validation
 
-    setIsSuccessfulUserCreation(false);
-    setReactivationRequired(false);
+    setIsSuccessfulUserReactivation(false);
 
     if (firstname == null || firstname == "") {
-      setHasCreationError(true);
-      setCreationError("Der Vorname muss angegeben werden.");
+      setHasReactivationError(true);
+      setReactivationError("Der Vorname muss angegeben werden.");
       return;
     }
 
     if (lastname == null || lastname == "") {
-      setHasCreationError(true);
-      setCreationError("Der Nachname muss angegeben werden.");
+      setHasReactivationError(true);
+      setReactivationError("Der Nachname muss angegeben werden.");
       return;
     }
 
     if (email == null || email == "") {
-      setHasCreationError(true);
-      setCreationError("Die Email muss angegeben werden.");
+      setHasReactivationError(true);
+      setReactivationError("Die Email muss angegeben werden.");
       return;
     }
 
     if (role == null || role == "") {
-      setHasCreationError(true);
-      setCreationError("Die Rolle muss angegeben werden.");
+      setHasReactivationError(true);
+      setReactivationError("Die Rolle muss angegeben werden.");
       return;
     }
 
     if (!firstname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,23}$/)) {
-      setHasCreationError(true);
-      setCreationError(
+      setHasReactivationError(true);
+      setReactivationError(
         'Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 1-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und "-"'
       );
       return;
     }
 
     if (!lastname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,55}$/)) {
-      setHasCreationError(true);
-      setCreationError(
+      setHasReactivationError(true);
+      setReactivationError(
         'Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 1-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und "-"'
       );
       return;
     }
 
     if (!validate(email)) {
-      setHasCreationError(true);
-      setCreationError("Die angegebene Email-Adresse ist nicht gültig.");
+      setHasReactivationError(true);
+      setReactivationError("Die angegebene Email-Adresse ist nicht gültig.");
       return;
     }
 
     if (role !== "USER" && role !== "ADMIN" && role !== "MODERATOR") {
-      setHasCreationError(true);
-      setCreationError("Die angegebene Rolle ist nicht gültig.");
+      setHasReactivationError(true);
+      setReactivationError("Die angegebene Rolle ist nicht gültig.");
       return;
     }
 
@@ -98,7 +97,7 @@ export default function useCreateUser() {
       req.append("lastname", lastname);
       req.append("email", email);
       req.append("role", role);
-      fetch(`${configServer}/api/createUser/`, {
+      fetch(`${configServer}/api/reactivateUser/`, {
         method: "post",
         body: req,
         headers: {
@@ -108,25 +107,18 @@ export default function useCreateUser() {
         .then((response) => response.json())
         .then((res: ApiResponse) => {
           if (res.success) {
-            setIsSuccessfulUserCreation(true);
-            setUserCreationResponse(res.data);
-            setHasCreationError(false);
-            setCreationError("");
+            setIsSuccessfulUserReactivation(true);
+            setUserReactivationResponse(res.data);
+            setHasReactivationError(false);
+            setReactivationError("");
           } else {
-            if (res.error.message == "Reactivation Required") {
-              setHasCreationError(false);
-              setCreationError("");
-              setReactivationRequired(true);
-              return;
-            }
-
-            setHasCreationError(true);
-            setCreationError(res.error.message);
+            setHasReactivationError(true);
+            setReactivationError(res.error.message);
           }
         })
         .catch(() => {
-          setHasCreationError(true);
-          setCreationError(
+          setHasReactivationError(true);
+          setReactivationError(
             "Server nicht verfügbar. Bitte später erneut versuchen."
           );
         });
@@ -134,11 +126,10 @@ export default function useCreateUser() {
   };
 
   return {
-    createUser,
-    hasCreationError,
-    creationError,
-    successfulUserCreation,
-    userCreationResponse,
-    reactivationRequired,
+    reactivateUser,
+    hasReactivationError,
+    reactivationError,
+    successfulUserReactivation,
+    userReactivationResponse,
   };
 }

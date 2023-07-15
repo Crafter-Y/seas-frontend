@@ -26,6 +26,7 @@ import { Image } from "expo-image";
 import H1 from "@/components/elements/H1";
 import useDeleteUser from "@/hooks/api/useDeleteUser";
 import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
+import useReactivateUser from "@/hooks/api/useReactivateUser";
 
 export type ManageUsersScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -45,7 +46,16 @@ const ManageUsersScreen = () => {
     creationError,
     successfulUserCreation,
     userCreationResponse,
+    reactivationRequired,
   } = useCreateUser();
+
+  const {
+    reactivateUser,
+    hasReactivationError,
+    reactivationError,
+    successfulUserReactivation,
+    userReactivationResponse,
+  } = useReactivateUser();
 
   const { requestNewPassword, newPassword, successfulPasswordCreation } =
     useRequestNewPassword();
@@ -65,6 +75,8 @@ const ManageUsersScreen = () => {
   const deleteUserModal = useRef<ModalHandle>(null);
   const requestNewPasswordModal = useRef<ModalHandle>(null);
   const newPasswordModal = useRef<ModalHandle>(null);
+  const reactivationModal = useRef<ModalHandle>(null);
+  const afterReactivationModal = useRef<ModalHandle>(null);
 
   const [userIdToDelete, setUserIdToDelete] = useState("");
   const [userNameToDelete, setUserNameToDelete] = useState("");
@@ -79,6 +91,12 @@ const ManageUsersScreen = () => {
   }, [newPassword]);
 
   useEffect(() => {
+    if (reactivationRequired) {
+      reactivationModal.current?.toggleModal();
+    }
+  }, [reactivationRequired]);
+
+  useEffect(() => {
     if (successfulUserCreation) {
       creationModal.current?.toggleModal();
       firstNameInput.current?.clear();
@@ -86,6 +104,15 @@ const ManageUsersScreen = () => {
       emailInput.current?.clear();
     }
   }, [successfulUserCreation]);
+
+  useEffect(() => {
+    if (successfulUserReactivation) {
+      afterReactivationModal.current?.toggleModal();
+      firstNameInput.current?.clear();
+      secondNameInput.current?.clear();
+      emailInput.current?.clear();
+    }
+  }, [successfulUserReactivation]);
 
   useEffect(() => {
     if (succesfulDeletion) {
@@ -143,6 +170,11 @@ const ManageUsersScreen = () => {
         </Picker>
 
         <ErrorDisplay hasError={hasCreationError} error={creationError} />
+
+        <ErrorDisplay
+          hasError={hasReactivationError}
+          error={reactivationError}
+        />
 
         <Button
           onPress={() =>
@@ -309,6 +341,80 @@ const ManageUsersScreen = () => {
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button onPress={() => newPasswordModal.current?.toggleModal()}>
+            Fertig
+          </Button>
+        </View>
+      </Modal>
+
+      <Modal type="CENTER" ref={reactivationModal}>
+        <Text
+          style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
+        >
+          Benutzer neu aktivieren?
+        </Text>
+        <View style={tw`px-4 mt-4 gap-2`}>
+          <Text>
+            Ein ehemaliger Mitglied mit dieser Email Adresse existierte bereits.
+            Wenn dieser erneut aktiviert wird, bleiben alle ehemaligen
+            Eintragungen unter neuem Namen bestehen.
+          </Text>
+          <Text>Soll dieser Nutzer neu aktiviert werden?</Text>
+        </View>
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button
+            onPress={() => {
+              reactivateUser(firstName, secondName, email, role, navigation);
+              reactivationModal.current?.toggleModal();
+            }}
+            color="#f67e7e"
+          >
+            Ja
+          </Button>
+          <Button
+            onPress={() => {
+              reactivationModal.current?.toggleModal();
+              firstNameInput.current?.clear();
+              secondNameInput.current?.clear();
+              emailInput.current?.clear();
+            }}
+          >
+            Nein
+          </Button>
+        </View>
+      </Modal>
+
+      <Modal type="CENTER" ref={afterReactivationModal}>
+        <Text
+          style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
+        >
+          Mitglied erfolgreich reaktiviert
+        </Text>
+        <View style={tw`px-4 mt-4 gap-2`}>
+          <Text>
+            Rolle:{" "}
+            {userReactivationResponse?.role.charAt(0).toUpperCase() +
+              "" +
+              userReactivationResponse?.role.slice(1).toLowerCase()}
+          </Text>
+          <Text style={tw`text-lg`}>
+            {userReactivationResponse?.firstname +
+              " " +
+              userReactivationResponse?.lastname +
+              " (" +
+              userReactivationResponse?.email +
+              ")"}
+          </Text>
+          <Text style={tw`text-lg font-bold`}>
+            {userReactivationResponse?.password}
+          </Text>
+        </View>
+        <View style={tw`items-center mb-4`}>
+          <Button
+            onPress={() => {
+              queryUsers();
+              afterReactivationModal.current?.toggleModal();
+            }}
+          >
             Fertig
           </Button>
         </View>
