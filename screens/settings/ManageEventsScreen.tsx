@@ -1,21 +1,30 @@
-import { Text } from "react-native";
-import React, { useEffect, useState } from "react";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "@/navigator/RootNavigator";
-import { SettingsLayout } from "@/components/layouts/SettingsLayout";
-import H2 from "@/components/elements/H2";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
+import ErrorDisplay from "@/components/ErrorDisplay";
 import SettingsForm from "@/components/SettingsForm";
-import Picker from "@/components/elements/Picker";
-import { Picker as RNPicker } from "@react-native-picker/picker";
-import SingleDatePicker from "@/components/elements/SingleDatePicker";
-import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 import Button from "@/components/elements/Button";
 import Divider from "@/components/elements/Divider";
+import Form from "@/components/elements/Form";
+import H1 from "@/components/elements/H1";
+import H2 from "@/components/elements/H2";
+import Modal, { ModalHandle } from "@/components/elements/Modal";
+import Picker from "@/components/elements/Picker";
+import SingleDatePicker from "@/components/elements/SingleDatePicker";
+import TD from "@/components/elements/TD";
+import TH from "@/components/elements/TH";
+import TR from "@/components/elements/TR";
+import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import useAllRecurringEvents from "@/hooks/api/useAllRecurringEvents";
 import useCreateEvent from "@/hooks/api/useCreateEvent";
-import ErrorDisplay from "@/components/ErrorDisplay";
+import useDeleteRecurringEvent from "@/hooks/api/useDeleteRecurringEvent";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import { RootStackParamList } from "@/navigator/RootNavigator";
+import tw from "@/tailwind";
+import { Picker as RNPicker } from "@react-native-picker/picker";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Image } from "expo-image";
+import React, { useEffect, useRef, useState } from "react";
+import { Text, View } from "react-native";
+import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 
 export type ManageEventsScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -35,6 +44,12 @@ const ManageEventsScreen = () => {
     singleDateCreated,
   } = useCreateEvent();
 
+  const { deleteRecurringEvent, successfulDelete } = useDeleteRecurringEvent();
+
+  const deleteModal = useRef<ModalHandle>(null);
+
+  const { allRecurringEvents, queryRecurringEvents } = useAllRecurringEvents();
+
   const [createType, setCreateType] = useState<EventType>("UNSET");
   const [singleDate, setSingleDate] = useState<CalendarDate>(undefined);
 
@@ -44,11 +59,70 @@ const ManageEventsScreen = () => {
 
   const [monthOfYear, setMonthOfYear] = useState<Month>("JANUARY");
 
+  const [eventIdToDelete, setEventIdToDelete] = useState("");
+  const [eventNameToDelete, setEventNameToDelete] = useState("");
+
+  const weekdayMap = {
+    "1": "Montag",
+    "2": "Dienstag",
+    "3": "Mittwoch",
+    "4": "Donnerstag",
+    "5": "Freitag",
+    "6": "Samstag",
+    "7": "Sonntag",
+  };
+
+  const monthMap = {
+    "1": "Januar",
+    "2": "Februar",
+    "3": "März",
+    "4": "April",
+    "5": "Mai",
+    "6": "Juni",
+    "7": "Juli",
+    "8": "August",
+    "9": "September",
+    "10": "Oktober",
+    "11": "November",
+    "12": "Dezember",
+  };
+
+  const formatEvent = (
+    type: EventType,
+    dayOfWeek: string,
+    dayOfMonth: string,
+    monthOfYear: string
+  ): string => {
+    switch (type) {
+      case "WEEKLY":
+        return "Jede Woche " + weekdayMap[dayOfWeek as keyof typeof weekdayMap];
+      case "MONTHLY":
+        return "Jeden Monat am " + dayOfMonth + ".";
+      case "YEARLY":
+        return (
+          "Jedes Jahr am " +
+          dayOfMonth +
+          ". " +
+          monthMap[monthOfYear as keyof typeof monthMap]
+        );
+    }
+    return "";
+  };
+
   useEffect(() => {
     if (successfulEventCreation) {
-      // TODO: refresh recurring events
+      queryRecurringEvents();
     }
   }, [successfulEventCreation]);
+
+  useEffect(() => {
+    if (successfulDelete) {
+      setTimeout(() => {
+        queryRecurringEvents();
+        deleteModal.current?.toggleModal();
+      }, 200);
+    }
+  }, [successfulDelete]);
 
   return (
     <SettingsLayout navigation={navigation}>
@@ -186,6 +260,77 @@ const ManageEventsScreen = () => {
         </Button>
       </SettingsForm>
       <Divider type="HORIZONTAL" style={tw`my-4`} />
+
+      <SettingsForm style={tw`mb-8`}>
+        <Form>
+          <TH titles={["Termine", ""]}></TH>
+
+          {allRecurringEvents.map((event) => (
+            <TR key={event.taskId}>
+              <TD style={tw`justify-center`}>
+                <Text style={tw`text-lg`}>
+                  {formatEvent(
+                    event.eventType,
+                    event.dayOfWeek,
+                    event.dayOfMonth,
+                    event.eventMonth
+                  )}
+                </Text>
+              </TD>
+              <TD style={tw`justify-end flex-row items-center gap-1`}>
+                <Button
+                  color="#f67e7e"
+                  style={tw`p-1`}
+                  onPress={() => {
+                    setEventIdToDelete(event.taskId);
+                    setEventNameToDelete(
+                      formatEvent(
+                        event.eventType,
+                        event.dayOfWeek,
+                        event.dayOfMonth,
+                        event.eventMonth
+                      )
+                    );
+                    deleteModal.current?.toggleModal();
+                  }}
+                >
+                  <Image
+                    source={require("@/assets/img/close.svg")}
+                    style={{ height: 24, width: 24 }}
+                  />
+                </Button>
+              </TD>
+            </TR>
+          ))}
+        </Form>
+      </SettingsForm>
+
+      <Modal type="CENTER" ref={deleteModal}>
+        <H1 style={tw`mt-2 text-center`}>Plan löschen?</H1>
+        <Text style={tw`mx-4`}>
+          Soll der Termin{" "}
+          <Text style={tw`font-semibold`}>{eventNameToDelete}</Text> wirklich
+          glöscht werden?
+        </Text>
+        <Text style={tw`text-red-400 mx-4 mt-2`}>
+          Dadurch werden alle Eintragungen von Mitgliedern zu{" "}
+          <Text style={tw`font-semibold`}>allen</Text> zugehörigen Terminen
+          gelöscht. Dies kann nicht mehr Rückgängig gemacht werden!
+        </Text>
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button
+            onPress={() => {
+              deleteRecurringEvent(eventIdToDelete);
+            }}
+            color="#f67e7e"
+          >
+            Löschen
+          </Button>
+          <Button onPress={() => deleteModal.current?.toggleModal()}>
+            Abbrechen
+          </Button>
+        </View>
+      </Modal>
     </SettingsLayout>
   );
 };

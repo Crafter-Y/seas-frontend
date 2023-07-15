@@ -40,15 +40,15 @@
   - [x] Inline Editing functionality
   - [x] design & functionality
 
-- [ ] Recurring Events
+- [x] Recurring Events
 
-  - [ ] Create reurring event API
-  - [ ] get All recurring events API (ask for effected columns, delete)
-  - [ ] delete event API
-  - [ ] Quick event creation
-  - [ ] Manual event creation
-  - [ ] create a recurring event
-  - [ ] delete event, but ask before
+  - [x] Create reurring event API
+  - [x] get All recurring events API (ask for effected columns, delete)
+  - [x] delete event API
+  - [x] Quick event creation
+  - [x] Manual event creation
+  - [x] create a recurring event
+  - [x] delete event, but ask before
 
 - [x] Comment templates
 
@@ -68,4 +68,5 @@
 
 - [ ] always ask before erasing any data
 - [ ] Remove unused styling classes
+- [ ] refactor all delete operations to await Api response before refresh
 - [ ] reactivate user functionality (users get disabled, but email is still existing in DB)

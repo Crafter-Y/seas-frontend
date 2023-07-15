@@ -44,6 +44,14 @@ type APIResponseDefaultComment = {
   comment: string;
 };
 
+type APIResponseRecurringEvent = {
+  taskId: string;
+  eventType: "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";
+  eventMonth: string;
+  dayOfMonth: string;
+  dayOfWeek: string;
+};
+
 type EventType = "UNSET" | "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";
 
 type Weekday =
