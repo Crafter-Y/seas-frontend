@@ -26,7 +26,7 @@ export type BoardType =
   | "Wochenansicht";
 
 const BoardScreen = () => {
-  const { isAuthenticating, isAuthenticated, user } = useAuthentication();
+  const { user, hasAuthError } = useAuthentication();
   const navigation = useNavigation<BoardScreenProps>();
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
@@ -37,14 +37,10 @@ const BoardScreen = () => {
   const getApi = useApi();
 
   useEffect(() => {
-    if (!isAuthenticating) {
-      if (isAuthenticated) {
-        console.log("Authenticated");
-      } else {
-        navigation.replace("LoginScreen");
-      }
+    if (hasAuthError) {
+      navigation.replace("LoginScreen");
     }
-  }, [isAuthenticating, isAuthenticated, navigation]);
+  }, [hasAuthError]);
 
   const logout = () => {
     let configServer = getApi();

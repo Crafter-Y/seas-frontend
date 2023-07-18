@@ -38,8 +38,7 @@ const LoginScreen = () => {
 
   const { serverName, fetchServerError } = useServerName();
 
-  const { login, authError, isAuthenticating, hasAuthError, isAuthenticated } =
-    useAuthentication();
+  const { login, authError, hasAuthError, user } = useAuthentication();
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -57,10 +56,10 @@ const LoginScreen = () => {
   }, [navigation]);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (user != null) {
       navigation.replace("BoardScreen");
     }
-  }, [isAuthenticated, navigation]);
+  }, [user, navigation]);
 
   const back = () => {
     AsyncStorage.removeItem("serverId").then(() => {
@@ -174,7 +173,7 @@ const LoginScreen = () => {
               <Button onPress={submit}>Anmelden</Button>
 
               <ErrorDisplay
-                hasError={hasAuthError || isAuthenticating}
+                hasError={hasAuthError}
                 error={
                   authError == "Bad Request"
                     ? "Email oder Passwort stimmt nicht"

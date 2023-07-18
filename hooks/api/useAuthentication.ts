@@ -7,9 +7,7 @@ import useApi from "../useApiName";
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authError, setAuthError] = useState("");
-  const [isAuthenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
 
   const getApi = useApi();
 
@@ -18,16 +16,12 @@ export default function useAuthentication() {
     password: string,
     navigation: LoginScreenProps
   ) => {
-    setIsAuthenticating(true);
     setHasAuthError(false);
     setAuthError("");
-    setAuthenticated(false);
-    setUser(null);
 
     let configServer = getApi();
     AsyncStorage.getItem("serverId").then((serverId) => {
       if (serverId == null) {
-        setIsAuthenticating(false);
         navigation.replace("ServerSelectorScreen");
         return;
       }
@@ -56,9 +50,6 @@ export default function useAuthentication() {
             "Server nicht verfügbar. Bitte später erneut versuchen."
           );
           setHasAuthError(true);
-        })
-        .finally(() => {
-          setIsAuthenticating(false);
         });
     });
   };
@@ -66,7 +57,6 @@ export default function useAuthentication() {
   const populateUserData = () => {
     AsyncStorage.getItem("token").then((token) => {
       if (token == null) {
-        setIsAuthenticating(false);
         return;
       }
 
@@ -80,7 +70,7 @@ export default function useAuthentication() {
         .then((response) => response.json())
         .then((res: ApiResponse) => {
           if (res.success) {
-            setAuthenticated(true);
+            setHasAuthError(false);
             setUser(res.data.user);
           } else {
             setAuthError(res.error.message);
@@ -92,9 +82,6 @@ export default function useAuthentication() {
             "Server nicht verfügbar. Bitte später erneut versuchen."
           );
           setHasAuthError(true);
-        })
-        .finally(() => {
-          setIsAuthenticating(false);
         });
     });
   };
@@ -105,10 +92,8 @@ export default function useAuthentication() {
 
   return {
     login,
-    isAuthenticating,
     hasAuthError,
     authError,
-    isAuthenticated,
     user,
   };
 }
