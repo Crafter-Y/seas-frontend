@@ -1,15 +1,44 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginScreenProps } from "@/screens/LoginScreen";
 import { Platform } from "react-native";
 import useApi from "../useApiName";
+import { AppContext, AppContextType } from "@/App";
+import { BoardScreenProps } from "@/screens/BoardScreen";
 
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authError, setAuthError] = useState("");
+
   const [user, setUser] = useState<User | null>(null);
 
+  const { currentUser, setCurrentUser } = useContext(
+    AppContext
+  ) as AppContextType;
+
   const getApi = useApi();
+
+  const logout = (navigation: BoardScreenProps) => {
+    let configServer = getApi();
+
+    AsyncStorage.getItem("token").then((token) => {
+      if (token != null) {
+        fetch(`${configServer}/api/logout/`, {
+          headers: {
+            token,
+          },
+        }).finally(() => {
+          AsyncStorage.removeItem("token").then(() => {
+            setCurrentUser(null);
+            setUser(null);
+            navigation.replace("LoginScreen");
+          });
+        });
+      } else {
+        navigation.replace("LoginScreen");
+      }
+    });
+  };
 
   const login = (
     email: string,
@@ -55,6 +84,10 @@ export default function useAuthentication() {
   };
 
   const populateUserData = () => {
+    if (currentUser != null) {
+      setUser(currentUser);
+      return;
+    }
     AsyncStorage.getItem("token").then((token) => {
       if (token == null) {
         return;
@@ -71,6 +104,7 @@ export default function useAuthentication() {
         .then((res: ApiResponse) => {
           if (res.success) {
             setHasAuthError(false);
+            setCurrentUser(res.data.user);
             setUser(res.data.user);
           } else {
             setAuthError(res.error.message);
@@ -92,6 +126,7 @@ export default function useAuthentication() {
 
   return {
     login,
+    logout,
     hasAuthError,
     authError,
     user,

@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "@/navigator/RootNavigator";
 import tw from "@/tailwind";
@@ -20,7 +20,12 @@ const ImprintScreen = () => {
 
   return (
     <SafeAreaView style={{ margin: 0, padding: 0 }}>
-      <View style={tw`px-4 gap-2 pt-4`}>
+      <ScrollView
+        style={tw.style(
+          { backgroundColor: "#f2f2f2" },
+          `px-4 gap-2 pt-4 pb-12`
+        )}
+      >
         <Text
           style={tw`text-4xl font-bold opacity-95 underline underline-offset-2 decoration-blueAccent`}
         >
@@ -56,7 +61,7 @@ const ImprintScreen = () => {
           von entsprechenden Rechtsverletzungen werden wir diese Inhalte
           umgehend entfernen.
         </Text>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

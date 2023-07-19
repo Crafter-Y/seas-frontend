@@ -37,7 +37,7 @@
 - [x] reactivate user functionality (users get disabled, but email is still existing in DB)
 - [ ] prevent spamming buttons
 - [x] make login authentication less buggy
-- [ ] introduce global store to don't query information twice
+- [x] introduce global store to don't query information twice
 - [ ] make picker element iOS friendly
 - [ ] splash screen
 - [ ] app icon/name

@@ -6,12 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/navigator/RootNavigator";
 import tw from "@/tailwind";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import BoardHeader from "@/components/BoardHeader";
 import BoardSidebar from "@/components/BoardSidebar";
 import Footer from "@/components/Footer";
 import Board from "@/components/Board";
-import useApi from "@/hooks/useApiName";
 import useMediaQueries from "@/hooks/useMediaQueries";
 
 export type BoardScreenProps = NativeStackNavigationProp<
@@ -26,7 +24,7 @@ export type BoardType =
   | "Wochenansicht";
 
 const BoardScreen = () => {
-  const { user, hasAuthError } = useAuthentication();
+  const { user, hasAuthError, logout } = useAuthentication();
   const navigation = useNavigation<BoardScreenProps>();
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
@@ -34,33 +32,11 @@ const BoardScreen = () => {
   const { height } = useWindowDimensions();
   const { isMd } = useMediaQueries();
 
-  const getApi = useApi();
-
   useEffect(() => {
     if (hasAuthError) {
       navigation.replace("LoginScreen");
     }
   }, [hasAuthError]);
-
-  const logout = () => {
-    let configServer = getApi();
-
-    AsyncStorage.getItem("token").then((token) => {
-      if (token != null) {
-        fetch(`${configServer}/api/logout/`, {
-          headers: {
-            token,
-          },
-        }).finally(() => {
-          AsyncStorage.removeItem("token").then(() => {
-            navigation.replace("LoginScreen");
-          });
-        });
-      } else {
-        navigation.replace("LoginScreen");
-      }
-    });
-  };
 
   const changePassword = () => {
     navigation.navigate("ChangePasswordScreen");
@@ -80,7 +56,7 @@ const BoardScreen = () => {
         user={user}
         boardType={boardType}
         setBoardType={setBoardType}
-        logout={logout}
+        logout={() => logout(navigation)}
         changePassword={changePassword}
         settings={settings}
       />
@@ -89,7 +65,7 @@ const BoardScreen = () => {
           user={user}
           setBoardType={setBoardType}
           boardType={boardType}
-          logout={logout}
+          logout={() => logout(navigation)}
           changePassword={changePassword}
           settings={settings}
         />

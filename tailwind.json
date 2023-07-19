@@ -679,6 +679,11 @@
 			"paddingTop": 16
 		}
 	},
+	"pb-12": {
+		"style": {
+			"paddingBottom": 48
+		}
+	},
 	"text-center": {
 		"style": {
 			"textAlign": "center"
