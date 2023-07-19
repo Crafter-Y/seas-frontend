@@ -118,14 +118,14 @@ const ManageCommentTemplatesScreen = () => {
 
           {allDefaultComments.map((comment) => (
             <TR key={comment.commentId}>
-              <TD style={tw`justify-center`}>
+              <TD style={tw`justify-center`} cols={2}>
                 <Text style={tw`text-lg`}>
                   {comment.comment.length > 32
                     ? comment.comment.substring(0, 32) + "..."
                     : comment.comment}
                 </Text>
               </TD>
-              <TD style={tw`justify-end flex-row items-center gap-1`}>
+              <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 <Button
                   color="#f67e7e"
                   style={tw`p-1`}

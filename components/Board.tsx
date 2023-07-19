@@ -5,6 +5,9 @@ import useMediaQueries from "@/hooks/useMediaQueries";
 import { BoardType } from "@/screens/BoardScreen";
 import BoardRangePicker from "./BoardRangePicker";
 import BoardList from "./BoardList";
+import useAllPages from "@/hooks/api/useAllPages";
+import BoardPageSelector from "./BoardPageSelector";
+import Divider from "./elements/Divider";
 
 type Props = {
   boardType: BoardType;
@@ -12,6 +15,8 @@ type Props = {
 
 const Board = ({ boardType }: Props) => {
   const { isSm } = useMediaQueries();
+
+  const { allPages } = useAllPages();
 
   const today = new Date();
   const thisQuarter = Math.floor(today.getMonth() / 3);
@@ -24,9 +29,13 @@ const Board = ({ boardType }: Props) => {
   const [dateStart, setDateStart] = useState<Date>(startThisQuarter);
   const [dateEnd, setDateEnd] = useState<Date>(endThisQuarter);
 
+  const [currentPage, setCurrentPage] = useState("0");
+
   useEffect(() => {
-    console.log(dateStart, dateEnd);
-  }, [dateStart, dateEnd]);
+    if (allPages.length != 0) {
+      setCurrentPage(allPages[0].pageId);
+    }
+  }, [allPages]);
 
   return (
     <View
@@ -43,7 +52,23 @@ const Board = ({ boardType }: Props) => {
         setDateStart={setDateStart}
         setDateEnd={setDateEnd}
       />
-      <BoardList dateStart={dateStart} dateEnd={dateEnd} />
+      <BoardPageSelector
+        pages={allPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+      <Divider
+        type="HORIZONTAL"
+        style={tw.style(`mt-2 mb-6`, {
+          "mx-0": !isSm,
+          "mx-6": isSm,
+        })}
+      />
+      <BoardList
+        dateStart={dateStart}
+        dateEnd={dateEnd}
+        currentPage={currentPage}
+      />
     </View>
   );
 };

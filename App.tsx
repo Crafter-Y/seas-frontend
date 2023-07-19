@@ -4,14 +4,8 @@ import RootNavigator from "./navigator/RootNavigator";
 import utilities from "./tailwind.json";
 
 import { de, registerTranslation } from "react-native-paper-dates";
+import { AppContext } from "./helpers/AppContext";
 registerTranslation("de", de);
-
-export type AppContextType = {
-  currentUser: User | null;
-  setCurrentUser: (user: User | null) => void;
-};
-
-export const AppContext = React.createContext<AppContextType | null>(null);
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);

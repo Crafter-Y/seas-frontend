@@ -229,7 +229,7 @@ const ManageUsersScreen = () => {
           <TH titles={["Mitglieder", ""]}></TH>
           {allUsers.map((Luser) => (
             <TR key={Luser.userId}>
-              <TD>
+              <TD cols={2}>
                 <Text style={tw`text-lg`}>
                   {Luser.firstname} {Luser.lastname}
                 </Text>
@@ -240,7 +240,7 @@ const ManageUsersScreen = () => {
                 </Text>
                 <Text>{Luser.email}</Text>
               </TD>
-              <TD style={tw`justify-end flex-row items-center gap-1`}>
+              <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 {Luser.userId != "1" && Luser.userId != user?.userId && (
                   <Button
                     color="#f67e7e"

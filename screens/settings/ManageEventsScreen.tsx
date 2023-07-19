@@ -267,7 +267,7 @@ const ManageEventsScreen = () => {
 
           {allRecurringEvents.map((event) => (
             <TR key={event.taskId}>
-              <TD style={tw`justify-center`}>
+              <TD style={tw`justify-center`} cols={2}>
                 <Text style={tw`text-lg`}>
                   {formatEvent(
                     event.eventType,
@@ -277,7 +277,7 @@ const ManageEventsScreen = () => {
                   )}
                 </Text>
               </TD>
-              <TD style={tw`justify-end flex-row items-center gap-1`}>
+              <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 <Button
                   color="#f67e7e"
                   style={tw`p-1`}

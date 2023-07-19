@@ -7,18 +7,20 @@ import { ClassInput } from "twrnc/dist/esm/types";
 type Props = {
   children?: ReactNode;
   style?: ClassInput;
+  cols: number;
 };
 
-const TD = ({ children, style }: Props) => {
+const TD = ({ children, style, cols }: Props) => {
   const { isSm } = useMediaQueries();
 
   return (
     <View
       style={tw.style(
-        `flex-grow flex-shrink basis-full py-4`,
+        `py-4`,
         {
           "px-1": !isSm,
           "px-4": isSm,
+          width: 100 / cols + "%",
         },
         style
       )}

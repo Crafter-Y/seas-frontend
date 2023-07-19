@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useApi from "../useApiName";
 import { ManageEventsScreenProps } from "@/screens/settings/ManageEventsScreen";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
+import { formatDate } from "@/helpers/format";
 
 export default function useCreateEvent() {
   const [hasCreationError, setHasCreationError] = useState(false);
@@ -48,17 +49,8 @@ export default function useCreateEvent() {
           return;
         }
 
-        let year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(
-          singleDate
-        );
-        let month = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(
-          singleDate
-        );
-        let day = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(
-          singleDate
-        );
         let req = new FormData();
-        req.append("date", `${year}-${month}-${day}`);
+        req.append("date", formatDate(singleDate));
         fetch(`${configServer}/api/createSingleEvent/`, {
           method: "post",
           body: req,

@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginScreenProps } from "@/screens/LoginScreen";
 import { Platform } from "react-native";
 import useApi from "../useApiName";
-import { AppContext, AppContextType } from "@/App";
+import { AppContext, AppContextType } from "@/helpers/AppContext";
 import { BoardScreenProps } from "@/screens/BoardScreen";
 
 export default function useAuthentication() {
