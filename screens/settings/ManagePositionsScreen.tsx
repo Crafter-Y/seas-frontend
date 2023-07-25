@@ -151,13 +151,13 @@ const ManagePositionsScreen = () => {
           <TH titles={["Spalten", "Pläne", ""]}></TH>
           {allColumns.map((column) => (
             <TR key={column.columnId}>
-              <TD cols={2}>
+              <TD cols={3}>
                 <Text style={tw`text-lg`}>{column.name}</Text>
                 <Text>
                   {column.type == "COMMENT" ? "Kommentarfeld" : "Eintragefeld"}
                 </Text>
               </TD>
-              <TD cols={2}>
+              <TD cols={3}>
                 {column.pages.map((pageId) => (
                   <Text key={pageId}>
                     {
@@ -168,7 +168,7 @@ const ManagePositionsScreen = () => {
                   </Text>
                 ))}
               </TD>
-              <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
+              <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
                 <Button
                   color="#f67e7e"
                   style={tw`p-1`}

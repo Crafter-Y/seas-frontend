@@ -5,7 +5,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import ReactNativeModal from "react-native-modal";
+import ReactNativeModal, { Direction } from "react-native-modal";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 
@@ -15,6 +15,7 @@ type Props = {
   modalOpenCondition?: boolean;
   children?: React.ReactNode;
   type: ModalType;
+  swipeDirection?: Direction | Direction[];
 };
 
 export type ModalHandle = {
@@ -22,7 +23,7 @@ export type ModalHandle = {
 };
 
 export default forwardRef<ModalHandle, Props>(
-  ({ modalOpenCondition = true, children, type }: Props, ref) => {
+  ({ modalOpenCondition = true, children, type, swipeDirection = ["down"] }: Props, ref) => {
     const { height, width } = useWindowDimensions();
     const { isSm } = useMediaQueries();
 
@@ -49,7 +50,7 @@ export default forwardRef<ModalHandle, Props>(
           },
           "m-0 items-center"
         )}
-        swipeDirection={["down"]}
+        swipeDirection={swipeDirection}
         onSwipeComplete={intToggleModal}
         customBackdrop={
           <TouchableOpacity

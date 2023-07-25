@@ -27,6 +27,12 @@
 			"marginLeft": 0
 		}
 	},
+	"mx-0": {
+		"style": {
+			"marginLeft": 0,
+			"marginRight": 0
+		}
+	},
 	"mx-2": {
 		"style": {
 			"marginLeft": 8,
@@ -108,6 +114,11 @@
 	"mb-4": {
 		"style": {
 			"marginBottom": 16
+		}
+	},
+	"mb-6": {
+		"style": {
+			"marginBottom": 24
 		}
 	},
 	"mb-8": {
@@ -280,6 +291,11 @@
 			"width": 24
 		}
 	},
+	"w-8": {
+		"style": {
+			"width": 32
+		}
+	},
 	"w-96": {
 		"style": {
 			"width": 384
@@ -300,19 +316,9 @@
 			"maxWidth": 448
 		}
 	},
-	"flex-shrink": {
-		"style": {
-			"flexShrink": 1
-		}
-	},
 	"flex-grow": {
 		"style": {
 			"flexGrow": 1
-		}
-	},
-	"basis-full": {
-		"style": {
-			"flexBasis": "100%"
 		}
 	},
 	"flex-row": {
@@ -511,28 +517,16 @@
 			"backgroundColor": "rgb(209 213 219 / var(--tw-bg-opacity))"
 		}
 	},
-	"bg-gray-400": {
+	"bg-green-600": {
 		"style": {
 			"--tw-bg-opacity": 1,
-			"backgroundColor": "rgb(156 163 175 / var(--tw-bg-opacity))"
-		}
-	},
-	"bg-green-400": {
-		"style": {
-			"--tw-bg-opacity": 1,
-			"backgroundColor": "rgb(74 222 128 / var(--tw-bg-opacity))"
+			"backgroundColor": "rgb(22 163 74 / var(--tw-bg-opacity))"
 		}
 	},
 	"bg-lightgrayNeutral": {
 		"style": {
 			"--tw-bg-opacity": 1,
 			"backgroundColor": "rgb(246 247 249 / var(--tw-bg-opacity))"
-		}
-	},
-	"bg-red-400": {
-		"style": {
-			"--tw-bg-opacity": 1,
-			"backgroundColor": "rgb(248 113 113 / var(--tw-bg-opacity))"
 		}
 	},
 	"bg-transparent": {
@@ -654,6 +648,11 @@
 			"paddingBottom": 24
 		}
 	},
+	"pb-12": {
+		"style": {
+			"paddingBottom": 48
+		}
+	},
 	"pl-2": {
 		"style": {
 			"paddingLeft": 8
@@ -677,11 +676,6 @@
 	"pt-4": {
 		"style": {
 			"paddingTop": 16
-		}
-	},
-	"pb-12": {
-		"style": {
-			"paddingBottom": 48
 		}
 	},
 	"text-center": {
@@ -777,6 +771,12 @@
 		"style": {
 			"--tw-text-opacity": 1,
 			"color": "rgb(239 68 68 / var(--tw-text-opacity))"
+		}
+	},
+	"text-white": {
+		"style": {
+			"--tw-text-opacity": 1,
+			"color": "rgb(255 255 255 / var(--tw-text-opacity))"
 		}
 	},
 	"underline": {

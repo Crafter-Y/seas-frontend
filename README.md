@@ -38,7 +38,7 @@
 - [ ] prevent spamming buttons
 - [x] make login authentication less buggy
 - [x] introduce global store to don't query information twice
-- [ ] make picker element iOS friendly
+- [x] make picker element iOS friendly
 - [ ] splash screen
 - [ ] app icon/name
 - [ ] (auto-update)
