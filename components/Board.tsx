@@ -2,7 +2,7 @@ import { View } from "react-native";
 import React, { useEffect, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import { BoardType } from "@/screens/BoardScreen";
+import { BoardScreenProps, BoardType } from "@/screens/BoardScreen";
 import BoardRangePicker from "./BoardRangePicker";
 import BoardList from "./BoardList";
 import useAllPages from "@/hooks/api/useAllPages";
@@ -11,9 +11,10 @@ import Divider from "./elements/Divider";
 
 type Props = {
   boardType: BoardType;
+  navigation: BoardScreenProps;
 };
 
-const Board = ({ boardType }: Props) => {
+const Board = ({ boardType, navigation }: Props) => {
   const { isSm } = useMediaQueries();
 
   const { allPages } = useAllPages();
@@ -68,6 +69,7 @@ const Board = ({ boardType }: Props) => {
         dateStart={dateStart}
         dateEnd={dateEnd}
         currentPage={currentPage}
+        navigation={navigation}
       />
     </View>
   );

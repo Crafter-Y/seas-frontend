@@ -10,13 +10,18 @@ import useAllColumns from "@/hooks/api/useAllColumns";
 import TD from "./elements/TD";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import PressableTR from "./elements/PressableTR";
+import useAuthentication from "@/hooks/api/useAuthentication";
+import BoardAssignButton from "./BoardAssignButton";
+import useAssignUser from "@/hooks/api/useAssignUser";
+import { BoardScreenProps } from "@/screens/BoardScreen";
 
 type Props = {
   dateStart: Date;
   dateEnd: Date;
   currentPage: string;
+  navigation: BoardScreenProps;
 };
-const BoardList = ({ dateStart, dateEnd, currentPage }: Props) => {
+const BoardList = ({ dateStart, dateEnd, currentPage, navigation }: Props) => {
   const { isSm } = useMediaQueries();
 
   const lastRequest = useRef(new Date());
@@ -27,6 +32,10 @@ const BoardList = ({ dateStart, dateEnd, currentPage }: Props) => {
 
   const [titles, setTitles] = useState<string[]>([]);
 
+  const { user } = useAuthentication();
+
+  const { assignUser, assignmentSuccessful } = useAssignUser();
+
   useEffect(() => {
     lastRequest.current = new Date();
     setTimeout(() => {
@@ -34,6 +43,10 @@ const BoardList = ({ dateStart, dateEnd, currentPage }: Props) => {
       fetchData(dateStart, dateEnd);
     }, 200);
   }, [dateStart, dateEnd]);
+
+  useEffect(() => {
+    if (assignmentSuccessful) fetchData(dateStart, dateEnd);
+  }, [assignmentSuccessful]);
 
   const fetchData = (start: Date, end: Date) => {
     queryBoard(formatDate(start), formatDate(end));
@@ -67,6 +80,14 @@ const BoardList = ({ dateStart, dateEnd, currentPage }: Props) => {
       );
 
       if (usersWithCol.length == 1) {
+        if (usersWithCol[0].userId == user?.userId) {
+          return (
+            <Text style={tw`font-semibold underline`}>
+              {usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
+            </Text>
+          );
+        }
+
         return (
           <Text>
             {usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
@@ -76,12 +97,21 @@ const BoardList = ({ dateStart, dateEnd, currentPage }: Props) => {
 
       return <Text>"Unbekanntes Mitglied"</Text>;
     }
+    if (
+      row.assignments
+        .filter((assignment) => assignment.type == "POSITION")
+        .map((assignment) => assignment.value)
+        .includes(user?.userId!)
+    ) {
+      return <Text>-</Text>;
+    }
+
     return (
-      <Pressable
-        style={tw`bg-green-600 h-8 w-8 rounded-xl justify-center items-center`}
-      >
-        <Text style={tw`font-bold text-lg`}>+</Text>
-      </Pressable>
+      <BoardAssignButton
+        onPress={() =>
+          assignUser(user?.userId!, row.date, column.columnId, navigation)
+        }
+      />
     );
   };
 
@@ -118,7 +148,10 @@ const BoardList = ({ dateStart, dateEnd, currentPage }: Props) => {
       <Form style={tw`mb-4`}>
         <TH titles={titles} />
         {rows.map((row) => (
-          <PressableTR key={row.date} onPress={() => {}}>
+          <PressableTR
+            key={row.date}
+            onPress={() => console.log("pressed row")}
+          >
             <TD style={tw`justify-center`} cols={titles.length}>
               <Text>{prettyDate(row.date, !isSm)}</Text>
             </TD>

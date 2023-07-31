@@ -69,7 +69,7 @@ const BoardScreen = () => {
           changePassword={changePassword}
           settings={settings}
         />
-        <Board boardType={boardType} />
+        <Board boardType={boardType} navigation={navigation} />
         <Footer navigation={navigation} />
       </ScrollView>
     </SafeAreaView>

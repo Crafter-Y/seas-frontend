@@ -4,9 +4,7 @@
 - [Settings SVG](https://www.svgrepo.com/svg/11478/settings)
 - [Pen And Paper SVG](https://www.svgrepo.com/svg/41783/pen-and-paper)
 - [Menu SVG](https://www.svgrepo.com/svg/3034/menu)
-- [Next SVG](https://www.svgrepo.com/svg/3667/next)
 - [Previous SVG](https://www.svgrepo.com/svg/79187/left-arrow)
-- [Alert SVG](https://www.svgrepo.com/svg/204957/alert)
 - [Close SVG](https://www.svgrepo.com/svg/30681/close)
 - [Refresh SVG](https://www.svgrepo.com/svg/76889/refresh)
 - [Edit SVG](https://www.svgrepo.com/svg/56967/edit)
@@ -18,18 +16,18 @@
 
 - [ ] Board implementation
 
-  - [ ] Print export
-  - [ ] Calendar export
+  - [ ] Print export (5h)
+  - [ ] Calendar export (5h)
 
-  - [ ] display selected board columns
-  - [ ] assign field for cols where nobody is assigned
+  - [x] display selected board columns
+  - [x] assign field for cols where nobody is assigned (30min + api)
 
   - [ ] modal for event when touch
-    - [ ] self-assign to fields
-    - [ ] validation to only assign once
-    - [ ] admin force assign
-    - [ ] admin single delete
-    - [ ] comment field implementation
+    - [ ] self-assign to fields (30min)
+    - [ ] validation to only assign once (1h)
+    - [ ] admin force assign (2h)
+    - [ ] admin single delete (1h)
+    - [ ] comment field implementation (3h)
 
 - [x] always ask before erasing any data
 - [x] Remove unused styling classes
