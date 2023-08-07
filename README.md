@@ -37,6 +37,6 @@
 - [x] make login authentication less buggy
 - [x] introduce global store to don't query information twice
 - [x] make picker element iOS friendly
-- [ ] splash screen
+- [x] splash screen
 - [ ] app icon/name
 - [ ] (auto-update)
