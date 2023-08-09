@@ -1,6 +1,6 @@
 import { View, Text, Pressable } from "react-native";
 import React, { useRef } from "react";
-import { Image } from "expo-image";
+import Image from "@/components/elements/Image";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 import { ClassInput } from "twrnc/dist/esm/types";
@@ -23,7 +23,7 @@ const BoardMenuButton = ({ icon, text, pressAction, style }: Props) => {
       onPress={pressAction}
     >
       <View style={tw`flex-row gap-2`}>
-        <Image source={icon} style={tw`h-6 w-6`} />
+        <Image source={icon} size={18} />
 
         <Text
           style={tw.style({

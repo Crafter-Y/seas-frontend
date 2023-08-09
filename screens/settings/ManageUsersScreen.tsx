@@ -22,7 +22,7 @@ import TR from "@/components/elements/TR";
 import TD from "@/components/elements/TD";
 import Form from "@/components/elements/Form";
 import useAuthentication from "@/hooks/api/useAuthentication";
-import { Image } from "expo-image";
+import Image from "@/components/elements/Image";
 import H1 from "@/components/elements/H1";
 import useDeleteUser from "@/hooks/api/useDeleteUser";
 import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
@@ -255,7 +255,7 @@ const ManageUsersScreen = () => {
                   >
                     <Image
                       source={require("@/assets/img/close.svg")}
-                      style={{ height: 24, width: 24 }}
+                      size={24}
                     />
                   </Button>
                 )}
@@ -272,7 +272,7 @@ const ManageUsersScreen = () => {
                   >
                     <Image
                       source={require("@/assets/img/refresh.svg")}
-                      style={{ height: 24, width: 24 }}
+                      size={24}
                     />
                   </Button>
                 )}

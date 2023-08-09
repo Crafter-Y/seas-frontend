@@ -21,7 +21,7 @@ import tw from "@/tailwind";
 import { Picker as RNPicker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Image } from "expo-image";
+import Image from "@/components/elements/Image";
 import React, { useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
@@ -296,7 +296,7 @@ const ManageEventsScreen = () => {
                 >
                   <Image
                     source={require("@/assets/img/close.svg")}
-                    style={{ height: 24, width: 24 }}
+                    size={24}
                   />
                 </Button>
               </TD>

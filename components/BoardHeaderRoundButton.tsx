@@ -1,19 +1,20 @@
 import { Pressable } from "react-native";
 import React, { useRef } from "react";
 import tw from "@/tailwind";
-import { Image, ImageSource } from "expo-image";
+import { ImageSource } from "expo-image";
 import { useHover } from "react-native-web-hooks";
 import { ClassInput } from "twrnc/dist/esm/types";
+import Image from "@/components/elements/Image";
 
 type Props = {
   imageSource:
-    | string
-    | number
-    | string[]
-    | ImageSource
-    | ImageSource[]
-    | null
-    | undefined;
+  | string
+  | number
+  | string[]
+  | ImageSource
+  | ImageSource[]
+  | null
+  | undefined;
   onPress: () => void;
   style?: ClassInput;
 };
@@ -34,7 +35,7 @@ const BoardHeaderRoundButton = ({ imageSource, onPress, style }: Props) => {
       ref={ref}
       onPress={onPress}
     >
-      <Image source={imageSource} style={tw`h-4 w-4`} />
+      <Image source={imageSource} size={16} />
     </Pressable>
   );
 };

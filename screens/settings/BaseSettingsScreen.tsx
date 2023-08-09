@@ -2,7 +2,7 @@ import { Text, Pressable, View } from "react-native";
 import React from "react";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
-import { Image } from "expo-image";
+import Image from "@/components/elements/Image";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/navigator/RootNavigator";
@@ -60,7 +60,8 @@ const BaseSettingsScreen = () => {
               </Text>
               <Image
                 source={require("@/assets/img/previous.svg")}
-                style={tw.style(`h-4 w-4`, { transform: "rotate(180deg)" })}
+                size={16}
+                style={{ transform: "rotate(180deg)" }}
               />
             </Pressable>
           ))}

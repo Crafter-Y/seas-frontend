@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -29,7 +31,7 @@
       "eas": {
         "projectId": "04b64ca7-4272-45dc-98cb-14e129c5ac01"
       },
-      "localApi": "http://192.168.178.99:80",
+      "localApi": "http://192.168.178.41:80",
       "productionApi": "https://craftingapis.de"
     },
     "owner": "crafter_y"

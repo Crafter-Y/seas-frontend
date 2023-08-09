@@ -1,6 +1,6 @@
 import { View, Text, Pressable } from "react-native";
 import React from "react";
-import { Image } from "expo-image";
+import Image from "@/components/elements/Image";
 import tw from "@/tailwind";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/navigator/RootNavigator";
@@ -17,7 +17,7 @@ const SettingsBackButton = ({ navigation }: Props) => {
     <View style={tw.style({}, "flex-row gap-1 items-center mb-4")}>
       <Image
         source={require("@/assets/img/previous.svg")}
-        style={tw`h-4 w-4`}
+        size={16}
       />
       <Pressable onPress={() => navigation.navigate("BoardScreen")}>
         <Text style={tw.style("font-semibold underline")}>Zurück</Text>

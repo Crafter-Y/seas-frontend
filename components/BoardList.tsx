@@ -14,14 +14,17 @@ import useAuthentication from "@/hooks/api/useAuthentication";
 import BoardAssignButton from "./BoardAssignButton";
 import useAssignUser from "@/hooks/api/useAssignUser";
 import { BoardScreenProps } from "@/screens/BoardScreen";
+import Modal, { ModalHandle } from "./elements/Modal";
+import Divider from "./elements/Divider";
 
 type Props = {
   dateStart: Date;
   dateEnd: Date;
   currentPage: string;
   navigation: BoardScreenProps;
+  allPages: APIResponsePage[]
 };
-const BoardList = ({ dateStart, dateEnd, currentPage, navigation }: Props) => {
+const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Props) => {
   const { isSm } = useMediaQueries();
 
   const lastRequest = useRef(new Date());
@@ -35,6 +38,9 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation }: Props) => {
   const { user } = useAuthentication();
 
   const { assignUser, assignmentSuccessful } = useAssignUser();
+
+  const rowModal = useRef<ModalHandle>(null);
+  const [selectedRow, setSelectedRow] = useState<BoardRow>();
 
   useEffect(() => {
     lastRequest.current = new Date();
@@ -150,7 +156,10 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation }: Props) => {
         {rows.map((row) => (
           <PressableTR
             key={row.date}
-            onPress={() => console.log("pressed row")}
+            onPress={() => {
+              setSelectedRow(row)
+              rowModal.current?.toggleModal()
+            }}
           >
             <TD style={tw`justify-center`} cols={titles.length}>
               <Text>{prettyDate(row.date, !isSm)}</Text>
@@ -188,6 +197,28 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation }: Props) => {
           </PressableTR>
         ))}
       </Form>
+
+      <Modal type="CENTER" ref={rowModal}>
+        <Text style={tw`text-center text-2xl underline my-2 font-semibold`}>{selectedRow ? prettyDate(selectedRow.date, false) : ""}</Text>
+
+        <Divider type="HORIZONTAL" />
+
+        <View style={tw`px-2`}>
+          {/* Display the selected page on top */}
+          {allPages.filter(page => page.pageId == currentPage).map(page => (
+            <Text style={tw`text-lg `} key="This should not error">{page.name}:</Text>
+          ))}
+
+          {/* Other pages below */}
+          {/* TODO: In the future, it should be checked if the user has the permission to see that page/segment */}
+          {allPages.filter(page => page.pageId != currentPage).map(page => (
+            <View key={page.pageId}>
+              <Divider type="HORIZONTAL" />
+              <Text style={tw`text-lg `}>{page.name}:</Text>
+            </View>
+          ))}
+        </View>
+      </Modal>
     </View>
   );
 };

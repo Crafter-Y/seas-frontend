@@ -1,6 +1,6 @@
 import { View, Text, Pressable } from "react-native";
 import React, { useRef } from "react";
-import { Image } from "expo-image";
+import Image from "@/components/elements/Image";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 
@@ -22,7 +22,7 @@ const BoardSidebarButton = ({ icon, text, pressAction }: Props) => {
     >
       <View></View>
       <View style={tw`flex-row items-center gap-2`}>
-        <Image source={icon} style={tw`h-6 w-6`} />
+        <Image source={icon} size={18} />
         <Text
           style={tw.style({
             underline: isHovered,

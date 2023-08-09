@@ -70,6 +70,7 @@ const Board = ({ boardType, navigation }: Props) => {
         dateEnd={dateEnd}
         currentPage={currentPage}
         navigation={navigation}
+        allPages={allPages}
       />
     </View>
   );

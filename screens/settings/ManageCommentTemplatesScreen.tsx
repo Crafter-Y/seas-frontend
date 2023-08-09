@@ -2,7 +2,7 @@ import { Text, TextInput, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { Image } from "expo-image";
+import Image from "@/components/elements/Image";
 import { RootStackParamList } from "@/navigator/RootNavigator";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import H2 from "@/components/elements/H2";
@@ -137,7 +137,7 @@ const ManageCommentTemplatesScreen = () => {
                 >
                   <Image
                     source={require("@/assets/img/close.svg")}
-                    style={{ height: 24, width: 24 }}
+                    size={24}
                   />
                 </Button>
               </TD>

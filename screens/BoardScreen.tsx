@@ -11,6 +11,7 @@ import BoardSidebar from "@/components/BoardSidebar";
 import Footer from "@/components/Footer";
 import Board from "@/components/Board";
 import useMediaQueries from "@/hooks/useMediaQueries";
+import useServerName from "@/hooks/api/useServerName";
 
 export type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -27,6 +28,8 @@ const BoardScreen = () => {
   const { user, hasAuthError, logout } = useAuthentication();
   const navigation = useNavigation<BoardScreenProps>();
 
+  const { serverName } = useServerName();
+
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
 
   const { height } = useWindowDimensions();
@@ -37,6 +40,10 @@ const BoardScreen = () => {
       navigation.replace("LoginScreen");
     }
   }, [hasAuthError]);
+
+  useEffect(() => {
+    navigation.setOptions({ title: serverName ? "Plan ⋅ " + serverName : "Einteilungsplan" })
+  }, [navigation, serverName])
 
   const changePassword = () => {
     navigation.navigate("ChangePasswordScreen");

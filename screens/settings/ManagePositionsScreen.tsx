@@ -27,7 +27,7 @@ import tw from "@/tailwind";
 import { Picker as RNPicker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Image } from "expo-image";
+import Image from "@/components/elements/Image";
 import React, { useEffect, useRef, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 
@@ -179,7 +179,7 @@ const ManagePositionsScreen = () => {
                 >
                   <Image
                     source={require("@/assets/img/close.svg")}
-                    style={{ height: 24, width: 24 }}
+                    size={24}
                   />
                 </Button>
                 <Button
@@ -193,7 +193,7 @@ const ManagePositionsScreen = () => {
                 >
                   <Image
                     source={require("@/assets/img/edit.svg")}
-                    style={{ height: 24, width: 24 }}
+                    size={24}
                   />
                 </Button>
               </TD>
