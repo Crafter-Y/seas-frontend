@@ -1,0 +1,53 @@
+name: Build Preview Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Gradle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 16.14.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+          cache: "npm"
+
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          token: ${{ secrets.EXPO_TOKEN }}
+          packager: npm
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: Expo Doctor
+        run: npx expo-doctor
+
+      - name: Prebuild
+        run: npx expo prebuild --platform android
+        env:
+          CI: 1
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Run Gradle
+        run: ./gradlew assembleRelease
+        working-directory: android
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-preview
+          path: ./android/app/build/outputs/apk/
