@@ -42,7 +42,8 @@
     "react-responsive": "^9.0.2",
     "tailwind-rn": "^4.2.0",
     "twrnc": "^3.6.0",
-    "weeknumber": "^1.2.1"
+    "weeknumber": "^1.2.1",
+    "@expo/webpack-config": "^18.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

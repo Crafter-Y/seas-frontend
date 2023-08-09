@@ -23,11 +23,12 @@
   - [x] assign field for cols where nobody is assigned (30min + api)
 
   - [ ] modal for event when touch
-    - [ ] self-assign to fields (30min)
-    - [ ] validation to only assign once (1h)
+    - [x] self-assign to fields (30min)
+    - [x] validation to only assign once (1h)
     - [ ] admin force assign (2h)
-    - [ ] admin single delete (1h)
+    - [x] admin single delete (1h)
     - [ ] comment field implementation (3h)
+    - [ ] make it responsive to changes without need to close
 
 - [x] always ask before erasing any data
 - [x] Remove unused styling classes

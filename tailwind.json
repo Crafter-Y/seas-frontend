@@ -161,6 +161,11 @@
 			"marginTop": "10%"
 		}
 	},
+	"mr-2": {
+		"style": {
+			"marginRight": 8
+		}
+	},
 	"block": {
 		"style": {
 			"display": "block"
@@ -656,6 +661,16 @@
 	"pt-4": {
 		"style": {
 			"paddingTop": 16
+		}
+	},
+	"pr-2": {
+		"style": {
+			"paddingRight": 8
+		}
+	},
+	"pl-1": {
+		"style": {
+			"paddingLeft": 4
 		}
 	},
 	"text-center": {
