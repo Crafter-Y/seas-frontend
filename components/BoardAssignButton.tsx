@@ -1,27 +1,37 @@
 import { Text, Pressable } from "react-native";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 import { Entypo } from '@expo/vector-icons';
 
 type Props = {
   onPress: () => void;
-  type: "JOIN" | "EXIT"
+  color: "GREEN" | "RED" | "YELLOW"
   text?: string
   actionType?: "PLUS" | "CROSS"
 };
 
-const BoardAssignButton = ({ onPress, type, text, actionType = "PLUS" }: Props) => {
+const BoardAssignButton = ({ onPress, color = "GREEN", text, actionType = "PLUS" }: Props) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
+
+  const [badgeColor, setBadgeColor] = useState("#16a34a");
+
+  useEffect(() => {
+    switch (color) {
+      case "GREEN": setBadgeColor("#16a34a"); break
+      case "RED": setBadgeColor("#f67e7e"); break
+      case "YELLOW": setBadgeColor("#fbbd23"); break
+    }
+  }, [color])
 
   return (
     <Pressable
       onPress={onPress}
       style={tw.style(
         {
-          transform: isHovered ? "scale(1.1)" : "",
-          backgroundColor: type == "EXIT" ? "#f67e7e" : "#16a34a",
+          transform: isHovered ? "scale(1.05)" : "",
+          backgroundColor: badgeColor,
           "w-8": !text,
           "gap-1": !!text
         },

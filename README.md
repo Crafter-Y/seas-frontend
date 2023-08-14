@@ -25,10 +25,11 @@
   - [ ] modal for event when touch
     - [x] self-assign to fields (30min)
     - [x] validation to only assign once (1h)
-    - [ ] admin force assign (2h)
+    - [x] admin force assign (2h)
     - [x] admin single delete (1h)
     - [ ] comment field implementation (3h)
-    - [ ] make it responsive to changes without need to close
+    - [x] make it responsive to changes without need to close
+    - [x] delete event
 
 - [x] always ask before erasing any data
 - [x] Remove unused styling classes

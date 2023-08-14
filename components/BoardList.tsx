@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { View, Text, Pressable } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import useBoard from "@/hooks/api/useBoard";
@@ -17,6 +17,9 @@ import { BoardScreenProps } from "@/screens/BoardScreen";
 import Modal, { ModalHandle } from "./elements/Modal";
 import Divider from "./elements/Divider";
 import useUnAssignUser from "@/hooks/api/useUnAssignUser";
+import useDeleteEvent from "@/hooks/api/useDeleteEvent";
+import H1 from "./elements/H1";
+import Button from "./elements/Button";
 
 type Props = {
   dateStart: Date;
@@ -35,6 +38,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   const { rows, queryBoard } = useBoard();
   const { allColumns } = useAllColumns();
   const { allExistingUsers } = useAllExistingUsers();
+  const { deleteEvent, succesfulDeletion } = useDeleteEvent();
 
   const [titles, setTitles] = useState<string[]>([]);
 
@@ -46,9 +50,15 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   const rowModal = useRef<ModalHandle>(null);
   const [selectedRow, setSelectedRow] = useState<BoardRow>();
 
+  const selectUserModal = useRef<ModalHandle>(null);
+  const [selectedColumn, setSelectedColumn] = useState<APIResponseColumn>();
+
+  const deleteEventModal = useRef<ModalHandle>(null);
+  const [dateToDelete, setDateToDelete] = useState("");
+
   useEffect(() => {
     setRenderdAllPages(JSON.parse(JSON.stringify(allPages)).sort((a: APIResponsePage) => a.pageId != currentPage ? 1 : -1));
-  }, [allPages, currentPage, rows])
+  }, [allPages, currentPage])
 
   useEffect(() => {
     lastRequest.current = new Date();
@@ -65,6 +75,16 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   useEffect(() => {
     if (unassignmentSuccessful) fetchData(dateStart, dateEnd);
   }, [unassignmentSuccessful]);
+
+  useEffect(() => {
+    if (succesfulDeletion) {
+      deleteEventModal.current?.toggleModal();
+      rowModal.current?.toggleModal();
+      setSelectedRow(undefined)
+
+      fetchData(dateStart, dateEnd);
+    }
+  }, [succesfulDeletion])
 
   const fetchData = (start: Date, end: Date) => {
     queryBoard(formatDate(start), formatDate(end));
@@ -84,7 +104,8 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
     return "-";
   };
 
-  const getPositionForField = (column: APIResponseColumn, row: BoardRow, type: "INLINE" | "MODAL") => {
+  const getPositionForField = (column: APIResponseColumn, date: string, type: "INLINE" | "MODAL") => {
+    let row = rows.filter(row_ => row_.date == date)[0];
     let positionUsed =
       row.assignments.filter((row_) => row_.columnId == column.columnId)
         .length == 1;
@@ -110,12 +131,11 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
           );
 
           return (<BoardAssignButton
-            type="EXIT"
+            color="RED"
             actionType="CROSS"
             text="Nicht mehr teilnehmen"
             onPress={() => {
               unassignUser(user?.userId!, row.date, column.columnId, navigation)
-              rowModal.current?.toggleModal()
             }}
           />)
         }
@@ -128,12 +148,11 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
         );
 
         return (<BoardAssignButton
-          type="EXIT"
+          color="RED"
           actionType="CROSS"
           text={usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
           onPress={() => {
             unassignUser(user?.userId!, row.date, column.columnId, navigation)
-            rowModal.current?.toggleModal()
           }}
         />)
       }
@@ -142,12 +161,11 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       if (type == "INLINE" || user?.role != "ADMIN") return <Text>Unbekanntes Mitglied</Text>;
 
       return (<BoardAssignButton
-        type="EXIT"
+        color="RED"
         actionType="CROSS"
         text="Unbekanntes Mitglied"
         onPress={() => {
           unassignUser(user?.userId!, row.date, column.columnId, navigation)
-          rowModal.current?.toggleModal()
         }}
       />)
     }
@@ -161,19 +179,54 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
     ) {
       if (type == "INLINE") return <Text>-</Text>;
 
-      return (<BoardAssignButton
-        type="EXIT"
-        text="Ebenfalls teilnehmen"
-        onPress={() => {
-          assignUser(user?.userId!, row.date, column.columnId, navigation)
-          rowModal.current?.toggleModal()
-        }}
-      />)
+      return (<>
+        <BoardAssignButton
+          color="YELLOW"
+          text="Ebenfalls teilnehmen"
+          onPress={() => {
+            assignUser(user?.userId!, row.date, column.columnId, navigation)
+          }}
+        />
+        {user?.role == "ADMIN" && (
+          <BoardAssignButton
+            color="GREEN"
+            text="Mitglied eintragen"
+            onPress={() => {
+              setSelectedColumn(column);
+              selectUserModal.current?.toggleModal()
+            }}
+          />
+        )}
+      </>)
+    }
+
+    if (type == "MODAL") {
+      return (
+        <>
+          <BoardAssignButton
+            color="GREEN"
+            text="Teilnehmen"
+            onPress={() =>
+              assignUser(user?.userId!, row.date, column.columnId, navigation)
+            }
+          />
+          {user?.role == "ADMIN" && (
+            <BoardAssignButton
+              color="GREEN"
+              text="Mitglied eintragen"
+              onPress={() => {
+                setSelectedColumn(column);
+                selectUserModal.current?.toggleModal()
+              }}
+            />
+          )}
+        </>
+      );
     }
 
     return (
       <BoardAssignButton
-        type="JOIN"
+        color="GREEN"
         onPress={() =>
           assignUser(user?.userId!, row.date, column.columnId, navigation)
         }
@@ -238,7 +291,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
                 style={tw`justify-center`}
                 cols={titles.length}
               >
-                {getPositionForField(col, row, "INLINE")}
+                {getPositionForField(col, row.date, "INLINE")}
               </TD>
             ))}
             {getColsForPageAndType(currentPage, "COMMENT").map((col) => (
@@ -263,14 +316,15 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
           {renderdAllPages.map(page => (
             <View key={page.pageId}>
               <Divider type="HORIZONTAL" style={tw`my-1`} />
-              <Text style={tw`text-lg `}>{page.name}:</Text>
+              <Text style={tw`text-lg`}>{page.name}:</Text>
 
               {getColsForPageAndType(page.pageId, "POSITION").map((col) => (
                 <View
                   key={col.columnId}
-                  style={tw`flex-row gap-4 py-1 items-center`}
+                  style={tw`flex-row py-1 items-center gap-2`}
                 >
-                  <Text>{col.name}</Text>{selectedRow ? getPositionForField(col, selectedRow, "MODAL") : null}
+                  <Text style={tw`mr-4`}>{col.name}</Text>
+                  {selectedRow ? getPositionForField(col, selectedRow.date, "MODAL") : null}
                 </View>
               ))}
               {getColsForPageAndType(page.pageId, "COMMENT").map((col) => (
@@ -282,6 +336,63 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
               ))}
             </View>
           ))}
+
+          {user?.role == "ADMIN" && (
+            <>
+              <Divider type="HORIZONTAL" />
+              <Pressable style={tw`py-3`} onPress={() => {
+                setDateToDelete(selectedRow?.date!)
+                deleteEventModal.current?.toggleModal()
+              }}>
+                <Text style={tw`text-lg text-red-500 font-semibold`}>Termin löschen</Text>
+              </Pressable>
+              <Divider type="HORIZONTAL" style={tw`mb-1`} />
+            </>
+          )}
+        </View>
+      </Modal>
+
+      <Modal type="CENTER" ref={selectUserModal}>
+        <Text style={tw`text-center text-2xl underline my-2 font-semibold`}>Mitglied auswählen</Text>
+        <View style={tw`flex-row flex-wrap px-2`}>
+          {allExistingUsers.filter(user_ => user_.email != "root").filter(user_ => !user_.deleted).map(extUser => (
+            <View key={extUser.userId} style={tw`w-1/2 px-2 py-1`}>
+              <BoardAssignButton
+                color="GREEN"
+                text={extUser.firstname + " " + extUser.lastname + " " + extUser.deleted}
+                onPress={() => {
+                  assignUser(extUser.userId, selectedRow!.date, selectedColumn!.columnId, navigation)
+                  selectUserModal.current?.toggleModal()
+                }}
+              />
+            </View>
+          ))}
+        </View>
+      </Modal>
+
+      <Modal type="CENTER" ref={deleteEventModal}>
+        <H1 style={tw`mt-2 text-center`}>Plan löschen?</H1>
+        <Text style={tw`mx-4`}>
+          Soll der Termin{" "}
+          <Text style={tw`font-semibold`}>{dateToDelete.length ? prettyDate(dateToDelete, false) : ""}</Text> wirklich
+          glöscht werden?
+        </Text>
+        <Text style={tw`text-red-400 mx-4 mt-2`}>
+          Dadurch werden <Text style={tw`font-semibold`}>alle</Text> Eintragungen von Mitgliedern, sowie die Kommentare gelöscht.
+          Dies kann nicht mehr Rückgängig gemacht werden!
+        </Text>
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button
+            onPress={() => {
+              deleteEvent(dateToDelete)
+            }}
+            color="#f67e7e"
+          >
+            Löschen
+          </Button>
+          <Button onPress={() => deleteEventModal.current?.toggleModal()}>
+            Abbrechen
+          </Button>
         </View>
       </Modal>
     </View>

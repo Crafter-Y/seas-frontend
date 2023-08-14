@@ -57,6 +57,12 @@
 			"marginRight": 24
 		}
 	},
+	"my-1": {
+		"style": {
+			"marginTop": 4,
+			"marginBottom": 4
+		}
+	},
 	"my-16": {
 		"style": {
 			"marginTop": 64,
@@ -161,9 +167,9 @@
 			"marginTop": "10%"
 		}
 	},
-	"mr-2": {
+	"mr-4": {
 		"style": {
-			"marginRight": 8
+			"marginRight": 16
 		}
 	},
 	"block": {
@@ -309,6 +315,11 @@
 	"flex-row": {
 		"style": {
 			"flexDirection": "row"
+		}
+	},
+	"flex-wrap": {
+		"style": {
+			"flexWrap": "wrap"
 		}
 	},
 	"items-end": {
@@ -661,16 +672,6 @@
 	"pt-4": {
 		"style": {
 			"paddingTop": 16
-		}
-	},
-	"pr-2": {
-		"style": {
-			"paddingRight": 8
-		}
-	},
-	"pl-1": {
-		"style": {
-			"paddingLeft": 4
 		}
 	},
 	"text-center": {
