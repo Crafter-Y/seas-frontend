@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, TextInput } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -20,6 +20,7 @@ import useUnAssignUser from "@/hooks/api/useUnAssignUser";
 import useDeleteEvent from "@/hooks/api/useDeleteEvent";
 import H1 from "./elements/H1";
 import Button from "./elements/Button";
+import { Color } from "@/helpers/Constants";
 
 type Props = {
   dateStart: Date;
@@ -55,6 +56,9 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
 
   const deleteEventModal = useRef<ModalHandle>(null);
   const [dateToDelete, setDateToDelete] = useState("");
+
+  const editCommentModal = useRef<ModalHandle>(null);
+  const [commentEditValue, setCommentEditValue] = useState("");
 
   useEffect(() => {
     setRenderdAllPages(JSON.parse(JSON.stringify(allPages)).sort((a: APIResponsePage) => a.pageId != currentPage ? 1 : -1));
@@ -110,7 +114,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             color="BLUE"
             text="Kommentar bearbeiten"
             onPress={() => {
-              //
+              editCommentModal.current?.toggleModal()
             }}
           />
         )}
@@ -122,7 +126,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       color="BLUE"
       text="Kommentar hinzufügen"
       onPress={() => {
-        //
+        editCommentModal.current?.toggleModal()
       }}
     />)
   };
@@ -421,6 +425,38 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
           <Button onPress={() => deleteEventModal.current?.toggleModal()}>
             Abbrechen
           </Button>
+        </View>
+      </Modal>
+
+      <Modal type="CENTER" ref={editCommentModal}>
+        <View style={tw.style({
+          "px-6": isSm,
+          "px-4": !isSm
+        }, "py-6")}>
+          <Text style={tw`font-bold text-lg`}>Kommentar anpassen</Text>
+          <TextInput
+            multiline
+            editable
+            numberOfLines={4}
+            style={tw`border rounded-lg border-gray-400 px-2 py-1 opacity-85`}
+            placeholder="Kommentar eingeben"
+            value={commentEditValue}
+
+          />
+
+          <View style={tw`justify-center flex-row gap-2 my-4`}>
+            <Button onPress={() => deleteEventModal.current?.toggleModal()}>
+              Abbrechen
+            </Button>
+            <Button
+              onPress={() => {
+                deleteEvent(dateToDelete)
+              }}
+              color={Color.GREEN}
+            >
+              Speichern
+            </Button>
+          </View>
         </View>
       </Modal>
     </View>

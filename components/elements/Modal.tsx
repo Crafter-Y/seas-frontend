@@ -89,7 +89,6 @@ export default forwardRef<ModalHandle, Props>(
             {children}
           </ScrollView>
         </View>
-
       </ReactNativeModal>
     );
   }
