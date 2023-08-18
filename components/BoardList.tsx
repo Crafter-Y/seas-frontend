@@ -21,6 +21,8 @@ import useDeleteEvent from "@/hooks/api/useDeleteEvent";
 import H1 from "./elements/H1";
 import Button from "./elements/Button";
 import { Color } from "@/helpers/Constants";
+import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
+import useUpdateComment from "@/hooks/api/useUpdateComment";
 
 type Props = {
   dateStart: Date;
@@ -40,6 +42,8 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   const { allColumns } = useAllColumns();
   const { allExistingUsers } = useAllExistingUsers();
   const { deleteEvent, succesfulDeletion } = useDeleteEvent();
+  const { allDefaultComments } = useAllDefaultComments();
+  const { updateComment, successfulUpdate } = useUpdateComment();
 
   const [titles, setTitles] = useState<string[]>([]);
 
@@ -81,6 +85,13 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   }, [unassignmentSuccessful]);
 
   useEffect(() => {
+    if (successfulUpdate) {
+      fetchData(dateStart, dateEnd);
+      editCommentModal.current?.toggleModal()
+    }
+  }, [successfulUpdate])
+
+  useEffect(() => {
     if (succesfulDeletion) {
       deleteEventModal.current?.toggleModal();
       rowModal.current?.toggleModal();
@@ -115,6 +126,8 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             text="Kommentar bearbeiten"
             onPress={() => {
               editCommentModal.current?.toggleModal()
+              setSelectedColumn(column);
+              setCommentEditValue(value)
             }}
           />
         )}
@@ -127,6 +140,8 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       text="Kommentar hinzufügen"
       onPress={() => {
         editCommentModal.current?.toggleModal()
+        setSelectedColumn(column);
+        setCommentEditValue("")
       }}
     />)
   };
@@ -438,19 +453,29 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             multiline
             editable
             numberOfLines={4}
-            style={tw`border rounded-lg border-gray-400 px-2 py-1 opacity-85`}
+            style={tw`border rounded-lg border-gray-400 px-2 py-1 opacity-85 text-lg`}
             placeholder="Kommentar eingeben"
             value={commentEditValue}
-
+            onChangeText={setCommentEditValue}
           />
+          <View style={tw`flex-row flex-wrap gap-1 mt-1`}>
+            {allDefaultComments?.map(comment => (
+              <Pressable key={comment.commentId} style={tw`border border-gray-400 rounded-lg py-1 px-2 flex-row items-center gap-2`} onPress={() => {
+                setCommentEditValue(commentEditValue + comment.comment)
+              }}>
+                <Text style={tw`font-semibold text-green-500 text-lg`} selectable={false}>+</Text>
+                <Text style={tw`font-semibold`} selectable={false}>{comment.comment}</Text>
+              </Pressable>
+            ))}
+          </View>
 
           <View style={tw`justify-center flex-row gap-2 my-4`}>
-            <Button onPress={() => deleteEventModal.current?.toggleModal()}>
+            <Button onPress={() => editCommentModal.current?.toggleModal()}>
               Abbrechen
             </Button>
             <Button
               onPress={() => {
-                deleteEvent(dateToDelete)
+                updateComment(selectedRow!.date, selectedColumn!.columnId, commentEditValue)
               }}
               color={Color.GREEN}
             >

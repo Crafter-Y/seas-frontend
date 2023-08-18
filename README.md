@@ -29,7 +29,7 @@ SEAS - Kirchengemeinden - Selbsteinteilungs- & Administrationssoftware (Ehml. CS
     - [x] validation to only assign once (1h)
     - [x] admin force assign (2h)
     - [x] admin single delete (1h)
-    - [ ] comment field implementation (3h)
+    - [x] comment field implementation (3h)
     - [x] make it responsive to changes without need to close
     - [x] delete event
 
@@ -45,4 +45,5 @@ SEAS - Kirchengemeinden - Selbsteinteilungs- & Administrationssoftware (Ehml. CS
 - [x] app icon/name
 - [ ] settings first section web header glitch fix
 - [ ] board moodal scroll android lag fix
+- [ ] global board state & refresh on scroll drag
 - [ ] (auto-update)
