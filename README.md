@@ -1,3 +1,5 @@
+SEAS - Selbsteinteilungs- & Administrationssoftware (Ehml. CSA-Frontend Church Staff Allocator)
+
 ## Ressources
 
 - [Logout SVG](https://www.svgrepo.com/svg/115080/logout)
@@ -35,10 +37,11 @@
 - [x] Remove unused styling classes
 - [x] refactor all delete operations to await Api response before refresh
 - [x] reactivate user functionality (users get disabled, but email is still existing in DB)
-- [ ] prevent spamming buttons
+- [ ] prevent spamming buttons in settings
 - [x] make login authentication less buggy
 - [x] introduce global store to don't query information twice
 - [x] make picker element iOS friendly
 - [x] splash screen
-- [ ] app icon/name
+- [x] app icon/name
+- [ ] settings first section web header glitch fix
 - [ ] (auto-update)

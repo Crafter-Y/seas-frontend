@@ -16,6 +16,7 @@ import SettingsBackButton from "../SettingsBackButton";
 import Divider from "../elements/Divider";
 import H1 from "../elements/H1";
 import { useHover } from "react-native-web-hooks";
+import { Color } from "@/helpers/Constants";
 
 type Props = {
   children: React.ReactNode;
@@ -80,8 +81,7 @@ const InlineNavigationButton = ({
       <View
         style={tw.style(
           {
-            "bg-gray-300": actualSetting != setting,
-            "bg-blueAccent": actualSetting == setting,
+            backgroundColor: actualSetting == setting ? Color.BLUE : Color.GRAY
           },
           "w-1 h-8 rounded-l-md"
         )}

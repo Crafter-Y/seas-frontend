@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import Image from "@/components/elements/Image";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
+import { Color } from "@/helpers/Constants";
 
 type Props = {
   icon: string;
@@ -37,7 +38,7 @@ const BoardSidebarButton = ({ icon, text, pressAction }: Props) => {
       <View
         style={tw.style(
           {
-            "bg-blueAccent": isHovered,
+            backgroundColor: isHovered ? Color.BLUE : undefined
           },
           `w-1 h-8 rounded-l-md`
         )}

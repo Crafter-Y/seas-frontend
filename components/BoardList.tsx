@@ -91,17 +91,20 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
     console.log("query", start, end);
   };
 
-  const getCommentForField = (column: APIResponseColumn, row: BoardRow) => {
+  const getCommentForField = (column: APIResponseColumn, date: string, type: "INLINE" | "MODAL") => {
+    let row = rows.filter(row_ => row_.date == date)[0];
+
     let commentExist =
       row.assignments.filter((row_) => row_.columnId == column.columnId)
         .length == 1;
 
     if (commentExist) {
-      return row.assignments.filter(
+      let value = row.assignments.filter(
         (row_) => row_.columnId == column.columnId
       )[0].value;
+      return (<Text>{value}</Text>)
     }
-    return "-";
+    return <Text>-</Text>;
   };
 
   const getPositionForField = (column: APIResponseColumn, date: string, type: "INLINE" | "MODAL") => {
@@ -300,7 +303,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
                 style={tw`justify-center`}
                 cols={titles.length}
               >
-                <Text>{getCommentForField(col, row)}</Text>
+                {getCommentForField(col, row.date, "INLINE")}
               </TD>
             ))}
           </PressableTR>
@@ -330,8 +333,10 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
               {getColsForPageAndType(page.pageId, "COMMENT").map((col) => (
                 <View
                   key={col.columnId}
+                  style={tw`flex-row py-1 items-center gap-2`}
                 >
-                  <Text>{col.name}</Text>
+                  <Text style={tw`mr-4`}>{col.name}</Text>
+                  {selectedRow ? getCommentForField(col, selectedRow.date, "MODAL") : null}
                 </View>
               ))}
             </View>
@@ -356,10 +361,10 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
         <Text style={tw`text-center text-2xl underline my-2 font-semibold`}>Mitglied auswählen</Text>
         <View style={tw`flex-row flex-wrap px-2`}>
           {allExistingUsers.filter(user_ => user_.email != "root").filter(user_ => !user_.deleted).map(extUser => (
-            <View key={extUser.userId} style={tw`w-1/2 px-2 py-1`}>
+            <View key={extUser.userId} style={tw`px-2 py-1`}>
               <BoardAssignButton
                 color="GREEN"
-                text={extUser.firstname + " " + extUser.lastname + " " + extUser.deleted}
+                text={extUser.firstname + " " + extUser.lastname}
                 onPress={() => {
                   assignUser(extUser.userId, selectedRow!.date, selectedColumn!.columnId, navigation)
                   selectUserModal.current?.toggleModal()
@@ -371,7 +376,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       </Modal>
 
       <Modal type="CENTER" ref={deleteEventModal}>
-        <H1 style={tw`mt-2 text-center`}>Plan löschen?</H1>
+        <H1 style={tw`mt-2 text-center`}>Termin löschen?</H1>
         <Text style={tw`mx-4`}>
           Soll der Termin{" "}
           <Text style={tw`font-semibold`}>{dateToDelete.length ? prettyDate(dateToDelete, false) : ""}</Text> wirklich

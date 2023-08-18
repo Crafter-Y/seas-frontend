@@ -108,6 +108,10 @@
   margin-left: 1rem
 }
 
+.mr-4 {
+  margin-right: 1rem
+}
+
 .mt-1 {
   margin-top: 0.25rem
 }
@@ -130,10 +134,6 @@
 
 .mt-\[10\%\] {
   margin-top: 10%
-}
-
-.mr-4 {
-  margin-right: 1rem
 }
 
 .block {
@@ -375,29 +375,14 @@
   background-color: rgb(0 0 0 / var(--tw-bg-opacity))
 }
 
-.bg-blueAccent {
-  --tw-bg-opacity: 1;
-  background-color: rgb(56 130 214 / var(--tw-bg-opacity))
-}
-
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity))
 }
 
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity))
-}
-
 .bg-green-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity))
-}
-
-.bg-lightgrayNeutral {
-  --tw-bg-opacity: 1;
-  background-color: rgb(246 247 249 / var(--tw-bg-opacity))
 }
 
 .bg-transparent {
@@ -479,6 +464,11 @@
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem
 }
 
 .py-4 {
@@ -600,10 +590,6 @@
 
 .underline {
   text-decoration-line: underline
-}
-
-.decoration-blueAccent {
-  text-decoration-color: #3882d6
 }
 
 .opacity-80 {

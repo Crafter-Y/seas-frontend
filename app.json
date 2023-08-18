@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CSA Frontend",
-    "slug": "csa-frontend",
+    "name": "SEAS - Selbsteinteilungs- & Administrationssoftware",
+    "slug": "seas-frontend",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "de.craftery.csafrontend"
+      "package": "de.craftery.seasfrontend"
     },
     "web": {
       "favicon": "./assets/favicon.png"

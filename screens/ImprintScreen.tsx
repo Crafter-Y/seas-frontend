@@ -27,7 +27,7 @@ const ImprintScreen = () => {
         )}
       >
         <Text
-          style={tw`text-4xl font-bold opacity-95 underline underline-offset-2 decoration-blueAccent`}
+          style={tw`text-4xl font-bold opacity-95 underline`}
         >
           Impressum
         </Text>

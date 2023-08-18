@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { BoardType } from "@/screens/BoardScreen";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
+import { Color } from "@/helpers/Constants";
 
 type Props = {
   boardType: BoardType;
@@ -41,8 +42,7 @@ const BoardSidebarNavigationButton = ({
       <View
         style={tw.style(
           {
-            "bg-blueAccent": boardType == currentBoardType,
-            "bg-gray-300": boardType != currentBoardType,
+            backgroundColor: boardType == currentBoardType ? Color.BLUE : Color.GRAY
           },
           `w-1 h-8 rounded-l-md`
         )}

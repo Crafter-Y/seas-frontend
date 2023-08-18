@@ -10,6 +10,7 @@ import BoardMenuButton from "./BoardMenuButton";
 import BoardHeaderRoundButton from "./BoardHeaderRoundButton";
 import Divider from "./elements/Divider";
 import Modal, { ModalHandle } from "./elements/Modal";
+import Toast from 'react-native-toast-message';
 
 type BoardHeaderProps = {
   user: User | null;
@@ -66,11 +67,19 @@ const BoardHeader = ({
         >
           <BoardHeaderRoundButton
             imageSource={require("@/assets/img/calendar.svg")}
-            onPress={() => {}}
+            onPress={() => Toast.show({
+              type: "error",
+              text1: "Noch nicht implementiert",
+              text2: "Diese Funktion ist noch nicht implementiert",
+            })}
           />
           <BoardHeaderRoundButton
             imageSource={require("@/assets/img/print.svg")}
-            onPress={() => {}}
+            onPress={() => Toast.show({
+              type: "error",
+              text1: "Noch nicht implementiert",
+              text2: "Diese Funktion ist noch nicht implementiert",
+            })}
           />
         </View>
         <BoardHeaderRoundButton

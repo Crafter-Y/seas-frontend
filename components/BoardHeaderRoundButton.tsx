@@ -5,6 +5,7 @@ import { ImageSource } from "expo-image";
 import { useHover } from "react-native-web-hooks";
 import { ClassInput } from "twrnc/dist/esm/types";
 import Image from "@/components/elements/Image";
+import { Color } from "@/helpers/Constants";
 
 type Props = {
   imageSource:
@@ -27,7 +28,7 @@ const BoardHeaderRoundButton = ({ imageSource, onPress, style }: Props) => {
     <Pressable
       style={tw.style(
         {
-          "bg-lightgrayNeutral": isHovered,
+          backgroundColor: isHovered ? Color.LIGHT_GRAY : undefined
         },
         `items-center justify-center h-10 w-10 rounded-full`,
         style

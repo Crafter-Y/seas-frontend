@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import Board from "@/components/Board";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import useServerName from "@/hooks/api/useServerName";
+import { Color } from "@/helpers/Constants";
 
 export type BoardScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -55,7 +56,7 @@ const BoardScreen = () => {
 
   return (
     <SafeAreaView
-      style={tw.style("m-0 p-0 bg-lightgrayNeutral flex flex-row", {
+      style={tw.style(`m-0 p-0 bg-[${Color.LIGHT_GRAY}] flex flex-row`, {
         height: isMd ? height : undefined,
       })}
     >

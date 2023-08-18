@@ -6,6 +6,7 @@ import utilities from "./tailwind.json";
 
 import { de, registerTranslation } from "react-native-paper-dates";
 import { AppContext } from "./helpers/AppContext";
+import Toast from "react-native-toast-message";
 registerTranslation("de", de);
 
 // this does not remove the console warnings, but the inapp development warnings
@@ -20,6 +21,9 @@ export default function App() {
       <AppContext.Provider value={{ currentUser: currentUser, setCurrentUser }}>
         <RootNavigator />
       </AppContext.Provider>
+      <Toast
+        visibilityTime={1500}
+      />
     </TailwindProvider>
   );
 }

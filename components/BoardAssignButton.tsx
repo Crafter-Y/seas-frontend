@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 import { Entypo } from '@expo/vector-icons';
+import { Color } from "@/helpers/Constants";
 
 type Props = {
   onPress: () => void;
@@ -19,9 +20,9 @@ const BoardAssignButton = ({ onPress, color = "GREEN", text, actionType = "PLUS"
 
   useEffect(() => {
     switch (color) {
-      case "GREEN": setBadgeColor("#16a34a"); break
-      case "RED": setBadgeColor("#f67e7e"); break
-      case "YELLOW": setBadgeColor("#fbbd23"); break
+      case "GREEN": setBadgeColor(Color.GREEN); break
+      case "RED": setBadgeColor(Color.RED); break
+      case "YELLOW": setBadgeColor(Color.YELLOW); break
     }
   }, [color])
 

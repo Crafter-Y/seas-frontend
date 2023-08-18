@@ -8,6 +8,7 @@ import useQuarterState from "@/hooks/useQuarterState";
 import useMonthState from "@/hooks/useMonthState";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import useWeekState from "@/hooks/useWeekState";
+import { Color } from "@/helpers/Constants";
 
 type Props = {
   boardType: BoardType;
@@ -170,7 +171,7 @@ const BoardRangePicker = ({ boardType, setDateEnd, setDateStart }: Props) => {
         </Text>
       </Pressable>
       <Pressable
-        style={tw`border rounded-sm px-2 py-1 bg-gray-300 items-center w-32`}
+        style={tw`border rounded-sm px-2 py-1 bg-[${Color.GRAY}] items-center w-32`}
         onPress={middleAction}
       >
         {boardType == "Jahresansicht" && (
