@@ -102,9 +102,29 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       let value = row.assignments.filter(
         (row_) => row_.columnId == column.columnId
       )[0].value;
-      return (<Text>{value}</Text>)
+      return (<>
+        <Text>{value}</Text>
+        {(user?.role == "ADMIN" || user?.role == "MODERATOR") && type == "MODAL" && (
+          <BoardAssignButton
+            style={tw`ml-2`}
+            color="BLUE"
+            text="Kommentar bearbeiten"
+            onPress={() => {
+              //
+            }}
+          />
+        )}
+      </>)
     }
-    return <Text>-</Text>;
+    if (type == "INLINE" || (user?.role != "ADMIN" && user?.role != "MODERATOR")) return <Text>-</Text>;
+
+    return (<BoardAssignButton
+      color="BLUE"
+      text="Kommentar hinzufügen"
+      onPress={() => {
+        //
+      }}
+    />)
   };
 
   const getPositionForField = (column: APIResponseColumn, date: string, type: "INLINE" | "MODAL") => {
@@ -310,7 +330,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
         ))}
       </Form>
 
-      <Modal type="CENTER" ref={rowModal}>
+      <Modal type="CENTER" ref={rowModal} swipeDirection={[]}>
         <Text style={tw`text-center text-2xl underline my-2 font-semibold`}>{selectedRow ? prettyDate(selectedRow.date, false) : ""}</Text>
 
         <View style={tw`px-2`}>
@@ -333,10 +353,13 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
               {getColsForPageAndType(page.pageId, "COMMENT").map((col) => (
                 <View
                   key={col.columnId}
-                  style={tw`flex-row py-1 items-center gap-2`}
+                  style={tw`py-1`}
                 >
-                  <Text style={tw`mr-4`}>{col.name}</Text>
-                  {selectedRow ? getCommentForField(col, selectedRow.date, "MODAL") : null}
+                  <Text style={tw`mr-4`}>{col.name}:</Text>
+                  <View style={tw`flex-row mt-1 flex-wrap`}>
+                    <Divider type="VERTICAL" style={tw`mr-1`} />
+                    {selectedRow ? getCommentForField(col, selectedRow.date, "MODAL") : null}
+                  </View>
                 </View>
               ))}
             </View>
@@ -344,7 +367,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
 
           {user?.role == "ADMIN" && (
             <>
-              <Divider type="HORIZONTAL" />
+              <Divider type="HORIZONTAL" style={tw`mt-1`} />
               <Pressable style={tw`py-3`} onPress={() => {
                 setDateToDelete(selectedRow?.date!)
                 deleteEventModal.current?.toggleModal()

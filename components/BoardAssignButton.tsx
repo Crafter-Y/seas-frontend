@@ -4,15 +4,17 @@ import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 import { Entypo } from '@expo/vector-icons';
 import { Color } from "@/helpers/Constants";
+import { ClassInput } from "twrnc/dist/esm/types";
 
 type Props = {
   onPress: () => void;
-  color: "GREEN" | "RED" | "YELLOW"
+  color: "GREEN" | "RED" | "YELLOW" | "BLUE"
   text?: string
   actionType?: "PLUS" | "CROSS"
+  style?: ClassInput;
 };
 
-const BoardAssignButton = ({ onPress, color = "GREEN", text, actionType = "PLUS" }: Props) => {
+const BoardAssignButton = ({ onPress, color = "GREEN", text, actionType = "PLUS", style }: Props) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
 
@@ -23,6 +25,7 @@ const BoardAssignButton = ({ onPress, color = "GREEN", text, actionType = "PLUS"
       case "GREEN": setBadgeColor(Color.GREEN); break
       case "RED": setBadgeColor(Color.RED); break
       case "YELLOW": setBadgeColor(Color.YELLOW); break
+      case "BLUE": setBadgeColor(Color.BLUE); break
     }
   }, [color])
 
@@ -36,7 +39,8 @@ const BoardAssignButton = ({ onPress, color = "GREEN", text, actionType = "PLUS"
           "w-8": !text,
           "gap-1": !!text
         },
-        `h-8 rounded-xl justify-center items-center flex-row px-2`
+        `h-8 rounded-xl justify-center items-center flex-row px-2`,
+        style
       )}
       ref={ref}
     >

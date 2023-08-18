@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SEAS - Selbsteinteilungs- & Administrationssoftware",
-    "slug": "seas-frontend",
+    "name": "SEAS - Kirchengemeinden",
+    "slug": "csa-frontend",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",

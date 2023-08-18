@@ -1,4 +1,4 @@
-SEAS - Selbsteinteilungs- & Administrationssoftware (Ehml. CSA-Frontend Church Staff Allocator)
+SEAS - Kirchengemeinden - Selbsteinteilungs- & Administrationssoftware (Ehml. CSA-Frontend - Church Staff Allocator)
 
 ## Ressources
 
@@ -44,4 +44,5 @@ SEAS - Selbsteinteilungs- & Administrationssoftware (Ehml. CSA-Frontend Church S
 - [x] splash screen
 - [x] app icon/name
 - [ ] settings first section web header glitch fix
+- [ ] board moodal scroll android lag fix
 - [ ] (auto-update)

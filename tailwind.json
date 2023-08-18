@@ -132,9 +132,19 @@
 			"marginBottom": 32
 		}
 	},
+	"ml-2": {
+		"style": {
+			"marginLeft": 8
+		}
+	},
 	"ml-4": {
 		"style": {
 			"marginLeft": 16
+		}
+	},
+	"mr-1": {
+		"style": {
+			"marginRight": 4
 		}
 	},
 	"mr-4": {

@@ -3,6 +3,7 @@ import {
   TouchableOpacity,
   View,
   useWindowDimensions,
+  ScrollView
 } from "react-native";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import ReactNativeModal, { Direction } from "react-native-modal";
@@ -65,24 +66,30 @@ export default forwardRef<ModalHandle, Props>(
           ></TouchableOpacity>
         }
       >
-        <View
-          style={tw.style(
-            {
-              "w-1/2": Platform.OS == "web",
-              "rounded-md": Platform.OS == "web" || type == "MOBILE_BOTTOM",
-              "rounded-t-xl": Platform.OS != "web" && type == "MOBILE_BOTTOM",
-              width:
-                Platform.OS == "web"
-                  ? isSm
-                    ? width / 2
-                    : width * 0.75
-                  : width,
-            },
-            `bg-white shadow-lg`
-          )}
-        >
-          {children}
+        <View style={tw.style({ maxHeight: height * 0.8 })}>
+          <ScrollView
+            nestedScrollEnabled={true}
+            decelerationRate={0.5}
+            style={tw.style(
+              {
+                flexGrow: 0,
+                "w-1/2": Platform.OS == "web",
+                "rounded-md": Platform.OS == "web" || type == "MOBILE_BOTTOM",
+                "rounded-t-xl": Platform.OS != "web" && type == "MOBILE_BOTTOM",
+                width:
+                  Platform.OS == "web"
+                    ? isSm
+                      ? width / 2
+                      : width * 0.75
+                    : width,
+              },
+              `bg-white shadow-lg`
+            )}
+          >
+            {children}
+          </ScrollView>
         </View>
+
       </ReactNativeModal>
     );
   }

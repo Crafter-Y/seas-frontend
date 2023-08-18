@@ -10,7 +10,9 @@ type Props = {
 const TR = ({ children, onPress }: Props) => {
   return (
     <Pressable
-      style={tw`flex-row w-full bg-white border-t border-gray-300 h-16`}
+      style={tw.style({
+        minHeight: 64
+      }, `flex-row w-full bg-white border-t border-gray-300`)}
       onPress={onPress}
     >
       {children}
