@@ -1,6 +1,6 @@
 import { Text, Platform, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/navigator/RootNavigator";
 import { useNavigation } from "@react-navigation/native";
@@ -11,6 +11,7 @@ import useServerName from "@/hooks/api/useServerName";
 import Input from "@/components/elements/Input";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";
+import Image from "@/components/elements/Image";
 
 type ServerSelectorScreenProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -24,7 +25,7 @@ type WebConfig = {
 const ServerSelectorScreen = () => {
   const navigation = useNavigation<ServerSelectorScreenProps>();
 
-  const { height } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
 
   const [serverId, setServerId] = useState("");
 
@@ -32,15 +33,10 @@ const ServerSelectorScreen = () => {
 
   const [inputError, setInputError] = useState("");
 
-  const [shouldCheckRedirect, setShouldCheck] = useState(true);
-
-  const [isApiError, setIsApiError] = useState(false);
-
   const {
     fetchServerName,
-    fetchIsServerError,
-    fetchServerError,
-    isFetchServerLoading,
+    fetchSuccessful,
+    fetchServerError
   } = useServerName();
 
   useEffect(() => {
@@ -57,25 +53,21 @@ const ServerSelectorScreen = () => {
             return;
           }
         });
+    } else {
+      AsyncStorage.getItem("serverId").then((res) => {
+        if (res !== null) {
+          navigation.replace("LoginScreen");
+        }
+      });
     }
   }, [navigation]);
 
   useEffect(() => {
-    AsyncStorage.getItem("serverId").then((res) => {
-      if (!isFetchServerLoading && shouldCheckRedirect && res !== null) {
-        setShouldCheck(false);
-        setIsApiError(fetchIsServerError);
-        if (fetchIsServerError) {
-        } else {
-          navigation.replace("LoginScreen");
-        }
-      }
-    });
-  }, [shouldCheckRedirect, fetchIsServerError, isFetchServerLoading]);
+    if (fetchSuccessful) navigation.replace("LoginScreen");
+  }, [fetchSuccessful])
 
-  const login = () => {
+  const login = async () => {
     setIsError(false);
-    setIsApiError(false);
     if (serverId.length == 0) {
       setIsError(true);
       setInputError("Du musst eine Server ID angeben.");
@@ -88,9 +80,8 @@ const ServerSelectorScreen = () => {
       return;
     }
 
-    AsyncStorage.setItem("serverId", serverId);
+    await AsyncStorage.setItem("serverId", serverId);
 
-    setShouldCheck(true);
     fetchServerName();
   };
 
@@ -100,11 +91,17 @@ const ServerSelectorScreen = () => {
         height: height,
       })}
     >
+      <View style={tw`items-center`}>
+        <Image source={require("@/assets/adaptive-icon.png")} style={{
+          height: Math.min(height, width) / 2,
+          width: Math.min(height, width) / 2,
+        }} />
+      </View>
       <Text style={tw`w-full text-center mt-6 text-2xl font-bold`}>
         Willkommen in der Serverauswahl
       </Text>
       <View style={tw`px-4`}>
-        <Text style={tw`w-full mt-12 text-lg`}>
+        <Text style={tw`w-full mt-6 text-lg`}>
           Zuerst muss die Server ID der Gemeinde eingegeben werden
         </Text>
         <Input
@@ -114,14 +111,7 @@ const ServerSelectorScreen = () => {
           style={"mt-1"}
         ></Input>
         <ErrorDisplay hasError={isError} error={inputError} />
-        <ErrorDisplay
-          hasError={isApiError}
-          error={
-            fetchServerError == "Not found"
-              ? "Diese ID existiert nicht!"
-              : fetchServerError
-          }
-        />
+        <ErrorDisplay hasError={!!fetchServerError} error={fetchServerError || ""} />
 
         <Text>Dies kann hinterher noch geändert werden.</Text>
         <Button onPress={login}>Speichern</Button>

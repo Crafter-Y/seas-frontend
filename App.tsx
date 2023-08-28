@@ -18,7 +18,7 @@ export default function App() {
   return (
     // @ts-ignore - type wrong somehow
     <TailwindProvider utilities={utilities}>
-      <AppContext.Provider value={{ currentUser: currentUser, setCurrentUser }}>
+      <AppContext.Provider value={{ currentUser, setCurrentUser }}>
         <RootNavigator />
       </AppContext.Provider>
       <Toast

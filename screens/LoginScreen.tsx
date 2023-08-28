@@ -36,7 +36,7 @@ const LoginScreen = () => {
 
   const isWeb = Platform.OS == "web";
 
-  const { serverName, fetchServerError } = useServerName();
+  const { serverName } = useServerName();
 
   const { login, authError, hasAuthError, user } = useAuthentication();
 

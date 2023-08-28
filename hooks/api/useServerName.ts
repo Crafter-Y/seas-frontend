@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useApi from "../useApiName";
 
 export default function useServerName() {
-  const [serverName, setName] = useState("");
-  const [fetchServerError, setError] = useState("");
-  const [fetchIsServerError, setIsError] = useState(false);
-  const [isFetchServerLoading, setIsLoading] = useState(true);
+  const [name, setName] = useState("");
+  const [fetchSuccessful, setFetchSuccessful] = useState(false);
+  const [fetchServerError, setFetchServerError] = useState<string | null>(null);
 
   const getApi = useApi();
 
@@ -15,45 +14,34 @@ export default function useServerName() {
   }, []);
 
   const fetchServerName = () => {
-    setIsLoading(true);
-    setIsError(false);
-    setError("");
+    setFetchSuccessful(false);
+    setFetchServerError(null)
     setName("");
+
     let configServer = getApi();
 
     AsyncStorage.getItem("serverId").then((serverId) => {
       if (serverId == null) {
-        setIsError(true);
-        setError("Im Cache befindet sich keine ID");
-        setIsLoading(false);
         return;
       }
 
-      fetch(`${configServer}/api/products/${serverId}`)
+      fetch(`${configServer}/api/v1/products/${serverId}`)
         .then((response) => response.json())
         .then((res: ApiResponse) => {
           if (res.success) {
             setName(res.data.name);
+            setFetchSuccessful(true);
           } else {
-            setError(res.error.message);
-            setIsError(true);
+            setFetchServerError(res.data.error)
           }
         })
-        .catch(() => {
-          setError("Server nicht verfügbar. Bitte später erneut versuchen.");
-          setIsError(true);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
     });
   };
 
   return {
     fetchServerName,
-    serverName,
-    fetchIsServerError,
-    fetchServerError,
-    isFetchServerLoading,
+    serverName: name,
+    fetchSuccessful,
+    fetchServerError
   };
 }
