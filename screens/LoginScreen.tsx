@@ -175,7 +175,7 @@ const LoginScreen = () => {
               <ErrorDisplay
                 hasError={hasAuthError}
                 error={
-                  authError == "Bad Request"
+                  authError == "Wrong credentials"
                     ? "Email oder Passwort stimmt nicht"
                     : authError
                 }

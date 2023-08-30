@@ -312,11 +312,6 @@
 			"width": "100%"
 		}
 	},
-	"w-16": {
-		"style": {
-			"width": 64
-		}
-	},
 	"max-w-md": {
 		"style": {
 			"maxWidth": 448

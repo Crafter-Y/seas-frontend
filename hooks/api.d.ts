@@ -10,7 +10,7 @@ type ApiResponse = {
 };
 
 type User = {
-  userId: string;
+  userId: number;
   firstname: string;
   lastname: string;
   email: string;

@@ -114,7 +114,7 @@ const ChangePasswordScreen = () => {
             returnKeyType="done"
           ></Input>
 
-          <ErrorDisplay hasError={hasUpdateError} error={updateError} />
+          <ErrorDisplay hasError={hasUpdateError} error={updateError == "Wrong password" ? "Das eingegebene Passwort stimmt nicht" : updateError} />
 
           <Button
             onPress={() =>

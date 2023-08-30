@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginScreenProps } from "@/screens/LoginScreen";
 import { Platform } from "react-native";
 import useApi from "../useApiName";
-import { AppContext, AppContextType } from "@/helpers/AppContext";
 import { BoardScreenProps } from "@/screens/BoardScreen";
+import decode from "jwt-decode";
 
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
@@ -12,31 +12,12 @@ export default function useAuthentication() {
 
   const [user, setUser] = useState<User | null>(null);
 
-  const { currentUser, setCurrentUser } = useContext(
-    AppContext
-  ) as AppContextType;
-
   const getApi = useApi();
 
   const logout = (navigation: BoardScreenProps) => {
-    let configServer = getApi();
-
-    AsyncStorage.getItem("token").then((token) => {
-      if (token != null) {
-        fetch(`${configServer}/api/logout/`, {
-          headers: {
-            token,
-          },
-        }).finally(() => {
-          AsyncStorage.removeItem("token").then(() => {
-            setCurrentUser(null);
-            setUser(null);
-            navigation.replace("LoginScreen");
-          });
-        });
-      } else {
-        navigation.replace("LoginScreen");
-      }
+    AsyncStorage.removeItem("token").then(() => {
+      setUser(null);
+      navigation.replace("LoginScreen");
     });
   };
 
@@ -55,13 +36,17 @@ export default function useAuthentication() {
         return;
       }
 
-      let req = new FormData();
-      req.append("email", email);
-      req.append("password", password);
-      req.append("expiration", Platform.OS == "web" ? "short" : "long");
-      fetch(`${configServer}/api/authenticate/${serverId}`, {
+      fetch(`${configServer}/api/v1/auth/${serverId}`, {
         method: "post",
-        body: req,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          expiration: Platform.OS == "web" ? "short" : "long"
+        }),
       })
         .then((response) => response.json())
         .then((res: ApiResponse) => {
@@ -70,7 +55,7 @@ export default function useAuthentication() {
               populateUserData();
             });
           } else {
-            setAuthError(res.error.message);
+            setAuthError(res.data.error);
             setHasAuthError(true);
           }
         })
@@ -84,39 +69,34 @@ export default function useAuthentication() {
   };
 
   const populateUserData = () => {
-    if (currentUser != null) {
-      setUser(currentUser);
-      return;
-    }
     AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
+      if (token == null || token == undefined) {
         return;
       }
 
-      let configServer = getApi();
+      let tokenContents: {
+        productId: number,
+        userId: number,
+        email: string,
+        firstname: string,
+        lastname: string,
+        role: Role,
+        exp: number
+      } = decode(token)
 
-      fetch(`${configServer}/api/getCurrentUserInfo/`, {
-        headers: {
-          token,
-        },
+      if (new Date().getTime() / 1000 > tokenContents.exp) {
+        AsyncStorage.removeItem("token");
+        return;
+      }
+
+      setUser({
+        userId: tokenContents.userId,
+        firstname: tokenContents.firstname,
+        lastname: tokenContents.lastname,
+        email: tokenContents.email,
+        role: tokenContents.role
       })
-        .then((response) => response.json())
-        .then((res: ApiResponse) => {
-          if (res.success) {
-            setHasAuthError(false);
-            setCurrentUser(res.data.user);
-            setUser(res.data.user);
-          } else {
-            setAuthError(res.error.message);
-            setHasAuthError(true);
-          }
-        })
-        .catch(() => {
-          setAuthError(
-            "Server nicht verfügbar. Bitte später erneut versuchen."
-          );
-          setHasAuthError(true);
-        });
+      setHasAuthError(false);
     });
   };
 

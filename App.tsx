@@ -5,7 +5,6 @@ import RootNavigator from "./navigator/RootNavigator";
 import utilities from "./tailwind.json";
 
 import { de, registerTranslation } from "react-native-paper-dates";
-import { AppContext } from "./helpers/AppContext";
 import Toast from "react-native-toast-message";
 registerTranslation("de", de);
 
@@ -13,14 +12,10 @@ registerTranslation("de", de);
 LogBox.ignoreLogs(["new NativeEventEmitter"])
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-
   return (
     // @ts-ignore - type wrong somehow
     <TailwindProvider utilities={utilities}>
-      <AppContext.Provider value={{ currentUser, setCurrentUser }}>
-        <RootNavigator />
-      </AppContext.Provider>
+      <RootNavigator />
       <Toast
         visibilityTime={1500}
       />

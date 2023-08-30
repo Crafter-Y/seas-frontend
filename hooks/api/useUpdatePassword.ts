@@ -56,22 +56,25 @@ export default function useUpdatePassword() {
       let req = new FormData();
       req.append("oldPassword", oldPassword);
       req.append("newPassword", newPassword1);
-      fetch(`${configServer}/api/changePassword/`, {
-        method: "post",
-        body: req,
+      fetch(`${configServer}/api/v1/users/`, {
+        method: "PATCH",
+        body: JSON.stringify({ oldPassword, newPassword: newPassword1 }),
         headers: {
-          token,
-        },
+          'Authorization': "Bearer " + token,
+          'Content-Type': 'application/json'
+        }
       })
         .then((response) => response.json())
-        .then((res: ApiResponse) => {
+        .then(async (res: ApiResponse) => {
           if (res.success) {
-            navigation.replace("LoginScreen");
             setHasUpdateError(false);
             setUpdateError("");
+
+            await AsyncStorage.removeItem("token");
+            navigation.replace("LoginScreen");
           } else {
             setHasUpdateError(true);
-            setUpdateError(res.error.message);
+            setUpdateError(res.data.error);
           }
         })
         .catch(() => {
