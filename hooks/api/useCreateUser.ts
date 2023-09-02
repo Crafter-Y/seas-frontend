@@ -98,22 +98,34 @@ export default function useCreateUser() {
       req.append("lastname", lastname);
       req.append("email", email);
       req.append("role", role);
-      fetch(`${configServer}/api/createUser/`, {
+      fetch(`${configServer}/api/v1/users`, {
         method: "post",
-        body: req,
+        body: JSON.stringify({
+          firstname,
+          lastname,
+          email,
+          role
+        }),
         headers: {
-          token,
-        },
+          'Authorization': "Bearer " + token,
+          'Content-Type': 'application/json'
+        }
       })
         .then((response) => response.json())
         .then((res: ApiResponse) => {
           if (res.success) {
             setIsSuccessfulUserCreation(true);
-            setUserCreationResponse(res.data);
+            setUserCreationResponse({
+              firstname,
+              lastname,
+              email,
+              password: res.data.password,
+              role
+            });
             setHasCreationError(false);
             setCreationError("");
           } else {
-            if (res.error.message == "Reactivation Required") {
+            if (res.error == "Reactivation required") {
               setHasCreationError(false);
               setCreationError("");
               setReactivationRequired(true);
@@ -121,7 +133,7 @@ export default function useCreateUser() {
             }
 
             setHasCreationError(true);
-            setCreationError(res.error.message);
+            setCreationError(res.error);
           }
         })
         .catch(() => {

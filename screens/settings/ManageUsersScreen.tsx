@@ -78,10 +78,10 @@ const ManageUsersScreen = () => {
   const reactivationModal = useRef<ModalHandle>(null);
   const afterReactivationModal = useRef<ModalHandle>(null);
 
-  const [userIdToDelete, setUserIdToDelete] = useState("");
+  const [userIdToDelete, setUserIdToDelete] = useState(0);
   const [userNameToDelete, setUserNameToDelete] = useState("");
 
-  const [userIdForNewPassword, setUserIdForNewPassword] = useState("");
+  const [userIdForNewPassword, setUserIdForNewPassword] = useState(0);
   const [userNameForNewPassword, setUserNameForNewPassword] = useState("");
 
   const { user } = useAuthentication();
@@ -228,7 +228,7 @@ const ManageUsersScreen = () => {
         <Form>
           <TH titles={["Mitglieder", ""]}></TH>
           {allUsers.map((Luser) => (
-            <TR key={Luser.userId}>
+            <TR key={Luser.id}>
               <TD cols={2}>
                 <Text style={tw`text-lg`}>
                   {Luser.firstname} {Luser.lastname}
@@ -241,12 +241,12 @@ const ManageUsersScreen = () => {
                 <Text>{Luser.email}</Text>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
-                {Luser.userId != "1" && Luser.userId != user?.userId && (
+                {Luser.email != "root" && Luser.id != user?.userId && (
                   <Button
                     color="#f67e7e"
                     style={tw`p-1`}
                     onPress={() => {
-                      setUserIdToDelete(Luser.userId);
+                      setUserIdToDelete(Luser.id);
                       setUserNameToDelete(
                         `${Luser.firstname} ${Luser.lastname}`
                       );
@@ -259,11 +259,11 @@ const ManageUsersScreen = () => {
                     />
                   </Button>
                 )}
-                {Luser.userId != user?.userId && (
+                {Luser.id != user?.userId && (
                   <Button
                     style={tw`p-1`}
                     onPress={() => {
-                      setUserIdForNewPassword(Luser.userId);
+                      setUserIdForNewPassword(Luser.id);
                       setUserNameForNewPassword(
                         `${Luser.firstname} ${Luser.lastname}`
                       );

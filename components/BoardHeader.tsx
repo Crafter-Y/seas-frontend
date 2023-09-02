@@ -51,11 +51,12 @@ const BoardHeader = ({
               "text-xl": isLg,
               "text-lg": !isLg,
               "ml-4": isLg,
+              "text-red-500": !serverName
             },
             "font-bold"
           )}
         >
-          {serverName}
+          {serverName ? serverName : "Server zur Zeit nicht erreichbar"}
         </Text>
         <View
           style={tw.style(

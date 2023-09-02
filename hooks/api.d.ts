@@ -20,11 +20,17 @@ type User = {
 type Role = "ADMIN" | "USER" | "MODERATOR";
 
 type APIResponseUser = {
-  userId: string;
+  id: number;
+  firstname: string;
+  lastname: string;
+  deleted: boolean,
+};
+
+type APIFullResponseUser = {
+  id: number;
   firstname: string;
   lastname: string;
   email: string;
-  deleted: boolean,
   role: Role;
 };
 

@@ -14,18 +14,19 @@ export default function useAllExistingUsers() {
         return;
       }
 
-      fetch(`${configServer}/api/getAllExistingUsers/`, {
+      fetch(`${configServer}/api/v1/users/`, {
         headers: {
-          token,
-        },
+          'Authorization': "Bearer " + token,
+          'Content-Type': 'application/json'
+        }
       })
         .then((response) => response.json())
         .then((res: ApiResponse) => {
           if (res.success) {
-            setAllUsers(res.data);
+            setAllUsers(res.data.users);
           }
         })
-        .catch(() => {});
+        .catch(() => { });
     });
   };
 

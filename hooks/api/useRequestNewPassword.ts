@@ -8,27 +8,25 @@ export default function useRequestNewPassword() {
 
   const getApi = useApi();
 
-  const requestNewPassword = (userId: string) => {
+  const requestNewPassword = (userId: number) => {
     let configServer = getApi();
     AsyncStorage.getItem("token").then((token) => {
       if (token == null) {
         return;
       }
 
-      let req = new FormData();
-      req.append("userId", userId);
-      fetch(`${configServer}/api/newUserPassword/`, {
-        method: "post",
-        body: req,
+      fetch(`${configServer}/api/v1/users/${userId}`, {
+        method: "PATCH",
         headers: {
-          token,
-        },
+          'Authorization': "Bearer " + token,
+          'Content-Type': 'application/json'
+        }
       })
         .then((response) => response.json())
         .then((res: ApiResponse) => {
           if (res.success) {
             setSuccessfulPasswordCreation(true);
-            setNewPassword(res.data.newPassword);
+            setNewPassword(res.data.password);
           }
         });
     });

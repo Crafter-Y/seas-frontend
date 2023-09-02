@@ -5,7 +5,7 @@ export default function useDeleteUser() {
   const [succesfulDeletion, setSuccessfulDeletion] = useState(false);
   const getApi = useApi();
 
-  const deleteUser = (userId: string) => {
+  const deleteUser = (userId: number) => {
     setSuccessfulDeletion(false);
 
     let configServer = getApi();
@@ -15,13 +15,13 @@ export default function useDeleteUser() {
       }
 
       let req = new FormData();
-      req.append("userId", userId);
-      fetch(`${configServer}/api/deleteUser/`, {
-        method: "post",
-        body: req,
+      req.append("userId", userId + "");
+      fetch(`${configServer}/api/v1/users/${userId}`, {
+        method: "delete",
         headers: {
-          token,
-        },
+          'Authorization': "Bearer " + token,
+          'Content-Type': 'application/json'
+        }
       }).then(() => {
         setSuccessfulDeletion(true);
       });
