@@ -1,16 +1,14 @@
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "../useApiName";
 import { ManagePagesScreenProps } from "@/screens/settings/ManagePagesScreen";
+import { requestApi } from "@/helpers/api";
 
 export default function useCreatePage() {
   const [hasCreationError, setHasCreationError] = useState(false);
   const [creationError, setCreationError] = useState("");
   const [successfulPageCreation, setIsSuccessfulPageCreation] = useState(false);
 
-  const getApi = useApi();
-
-  const createPage = (name: string, navigation: ManagePagesScreenProps) => {
+  const createPage = async (name: string, navigation: ManagePagesScreenProps) => {
     // clientside validation
 
     setIsSuccessfulPageCreation(false);
@@ -21,40 +19,26 @@ export default function useCreatePage() {
       return;
     }
 
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        navigation.replace("LoginScreen");
-        return;
-      }
+    let res = await requestApi(`pages`, "POST", {
+      name
+    })
 
-      let req = new FormData();
-      req.append("pageName", name);
-      fetch(`${configServer}/api/createPage/`, {
-        method: "post",
-        body: req,
-        headers: {
-          token,
-        },
-      })
-        .then((response) => response.json())
-        .then((res: ApiResponse) => {
-          if (res.success) {
-            setHasCreationError(false);
-            setCreationError("");
-            setIsSuccessfulPageCreation(true);
-          } else {
-            setHasCreationError(true);
-            setCreationError(res.error.message);
-          }
-        })
-        .catch(() => {
-          setHasCreationError(true);
-          setCreationError(
-            "Server nicht verfügbar. Bitte später erneut versuchen."
-          );
-        });
-    });
+    if (res == null) {
+      setHasCreationError(true);
+      setCreationError(
+        "Server nicht verfügbar. Bitte später erneut versuchen."
+      );
+      return;
+    }
+
+    if (res.success) {
+      setHasCreationError(false);
+      setCreationError("");
+      setIsSuccessfulPageCreation(true);
+    } else {
+      setHasCreationError(true);
+      setCreationError(res.error);
+    }
   };
 
   return {

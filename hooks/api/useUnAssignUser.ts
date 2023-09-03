@@ -8,9 +8,9 @@ export default function useUnAssignUser() {
   const getApi = useApi();
 
   const unassignUser = (
-    userId: string,
+    userId: number,
     rowDate: string,
-    columnId: string,
+    columnId: number,
     navigation: BoardScreenProps
   ) => {
     setUnassignmentSuccessful(false);
@@ -23,9 +23,9 @@ export default function useUnAssignUser() {
       }
 
       let req = new FormData();
-      req.append("userId", userId);
+      req.append("userId", userId + "");
       req.append("date", rowDate);
-      req.append("columnId", columnId);
+      req.append("columnId", columnId + "");
 
       fetch(`${configServer}/api/unassignUser/`, {
         method: "post",

@@ -48,7 +48,7 @@ const ManagePagesScreen = () => {
   const deleteModal = useRef<ModalHandle>(null);
   const renameModal = useRef<ModalHandle>(null);
 
-  const [pageIdToChange, setPageIdToChange] = useState("");
+  const [pageIdToChange, setPageIdToChange] = useState(0);
   const [pageNameToChange, setPageNameToChange] = useState("");
 
   const [pageRenameName, setPageRenameName] = useState("");
@@ -61,7 +61,10 @@ const ManagePagesScreen = () => {
   } = useCreatePage();
 
   useEffect(() => {
-    if (successfulPageCreation) queryPages();
+    if (successfulPageCreation) {
+      queryPages();
+      input.current?.clear();
+    }
   }, [successfulPageCreation]);
 
   useEffect(() => {
@@ -131,7 +134,7 @@ const ManagePagesScreen = () => {
           <TH titles={["Pläne", ""]} />
 
           {allPages.map((page) => (
-            <TR key={page.pageId}>
+            <TR key={page.id}>
               <TD style={tw`justify-center`} cols={2}>
                 <Text style={tw`text-lg`}>{page.name}</Text>
               </TD>
@@ -140,7 +143,7 @@ const ManagePagesScreen = () => {
                   color="#f67e7e"
                   style={tw`p-1`}
                   onPress={() => {
-                    setPageIdToChange(page.pageId);
+                    setPageIdToChange(page.id);
                     setPageNameToChange(page.name);
                     deleteModal.current?.toggleModal();
                   }}
@@ -154,7 +157,7 @@ const ManagePagesScreen = () => {
                 <Button
                   style={tw`p-1`}
                   onPress={() => {
-                    setPageIdToChange(page.pageId);
+                    setPageIdToChange(page.id);
                     setPageNameToChange(page.name);
                     renameModal.current?.toggleModal();
                   }}

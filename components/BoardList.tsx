@@ -27,7 +27,7 @@ import useUpdateComment from "@/hooks/api/useUpdateComment";
 type Props = {
   dateStart: Date;
   dateEnd: Date;
-  currentPage: string;
+  currentPage: number;
   navigation: BoardScreenProps;
   allPages: APIResponsePage[]
 };
@@ -65,7 +65,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   const [commentEditValue, setCommentEditValue] = useState("");
 
   useEffect(() => {
-    setRenderdAllPages(JSON.parse(JSON.stringify(allPages)).sort((a: APIResponsePage) => a.pageId != currentPage ? 1 : -1));
+    setRenderdAllPages(JSON.parse(JSON.stringify(allPages)).sort((a: APIResponsePage) => a.id != currentPage ? 1 : -1));
   }, [allPages, currentPage])
 
   useEffect(() => {
@@ -110,12 +110,12 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
     let row = rows.filter(row_ => row_.date == date)[0];
 
     let commentExist =
-      row.assignments.filter((row_) => row_.columnId == column.columnId)
+      row.assignments.filter((row_) => row_.id == column.id)
         .length == 1;
 
     if (commentExist) {
       let value = row.assignments.filter(
-        (row_) => row_.columnId == column.columnId
+        (row_) => row_.id == column.id
       )[0].value;
       return (<>
         <Text>{value}</Text>
@@ -149,21 +149,21 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   const getPositionForField = (column: APIResponseColumn, date: string, type: "INLINE" | "MODAL") => {
     let row = rows.filter(row_ => row_.date == date)[0];
     let positionUsed =
-      row.assignments.filter((row_) => row_.columnId == column.columnId)
+      row.assignments.filter((row_) => row_.id == column.id)
         .length == 1;
 
     if (positionUsed) {
       let usersWithCol = allExistingUsers.filter(
         (user) =>
-          user.userId ==
-          row.assignments.filter((row_) => row_.columnId == column.columnId)[0]
+          user.id + "" ==
+          row.assignments.filter((row_) => row_.id == column.id)[0]
             .value
       );
 
       // The user exists
       if (usersWithCol.length == 1) {
         // This is the current user
-        if (usersWithCol[0].userId == user?.userId) {
+        if (usersWithCol[0].id == user?.id) {
 
           // underlined name for the inline view
           if (type == "INLINE") return (
@@ -177,7 +177,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             actionType="CROSS"
             text="Nicht mehr teilnehmen"
             onPress={() => {
-              unassignUser(user?.userId!, row.date, column.columnId, navigation)
+              unassignUser(user?.id!, row.date, column.id, navigation)
             }}
           />)
         }
@@ -194,7 +194,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
           actionType="CROSS"
           text={usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
           onPress={() => {
-            unassignUser(user?.userId!, row.date, column.columnId, navigation)
+            unassignUser(user?.id!, row.date, column.id, navigation)
           }}
         />)
       }
@@ -207,7 +207,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
         actionType="CROSS"
         text="Unbekanntes Mitglied"
         onPress={() => {
-          unassignUser(user?.userId!, row.date, column.columnId, navigation)
+          unassignUser(user?.id!, row.date, column.id, navigation)
         }}
       />)
     }
@@ -217,7 +217,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       row.assignments
         .filter((assignment) => assignment.type == "POSITION")
         .map((assignment) => assignment.value)
-        .includes(user?.userId!)
+        .includes(user?.id! + "")
     ) {
       if (type == "INLINE") return <Text>-</Text>;
 
@@ -226,7 +226,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
           color="YELLOW"
           text="Ebenfalls teilnehmen"
           onPress={() => {
-            assignUser(user?.userId!, row.date, column.columnId, navigation)
+            assignUser(user?.id!, row.date, column.id, navigation)
           }}
         />
         {user?.role == "ADMIN" && (
@@ -249,7 +249,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             color="GREEN"
             text="Teilnehmen"
             onPress={() =>
-              assignUser(user?.userId!, row.date, column.columnId, navigation)
+              assignUser(user?.id!, row.date, column.id, navigation)
             }
           />
           {user?.role == "ADMIN" && (
@@ -270,7 +270,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       <BoardAssignButton
         color="GREEN"
         onPress={() =>
-          assignUser(user?.userId!, row.date, column.columnId, navigation)
+          assignUser(user?.id!, row.date, column.id, navigation)
         }
       />
     );
@@ -299,7 +299,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
     setTitles(titles);
   }, [currentPage, allColumns]);
 
-  const getColsForPageAndType = (page: string, type: ColumnType) => {
+  const getColsForPageAndType = (page: number, type: ColumnType) => {
     return allColumns.filter(
       (col) =>
         col.pages.includes("page_" + page) &&
@@ -329,7 +329,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             </TD>
             {getColsForPageAndType(currentPage, "POSITION").map((col) => (
               <TD
-                key={col.columnId}
+                key={col.id}
                 style={tw`justify-center`}
                 cols={titles.length}
               >
@@ -338,7 +338,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             ))}
             {getColsForPageAndType(currentPage, "COMMENT").map((col) => (
               <TD
-                key={col.columnId}
+                key={col.id}
                 style={tw`justify-center`}
                 cols={titles.length}
               >
@@ -356,22 +356,22 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
           {/* Display all pages, sort the currentPage to first */}
           {/* TODO: In the future, it should be checked if the user has the permission to see that page/segment */}
           {renderdAllPages.map(page => (
-            <View key={page.pageId}>
+            <View key={page.id}>
               <Divider type="HORIZONTAL" style={tw`my-1`} />
               <Text style={tw`text-lg`}>{page.name}:</Text>
 
-              {getColsForPageAndType(page.pageId, "POSITION").map((col) => (
+              {getColsForPageAndType(page.id, "POSITION").map((col) => (
                 <View
-                  key={col.columnId}
+                  key={col.id}
                   style={tw`flex-row py-1 items-center gap-2`}
                 >
                   <Text style={tw`mr-4`}>{col.name}</Text>
                   {selectedRow ? getPositionForField(col, selectedRow.date, "MODAL") : null}
                 </View>
               ))}
-              {getColsForPageAndType(page.pageId, "COMMENT").map((col) => (
+              {getColsForPageAndType(page.id, "COMMENT").map((col) => (
                 <View
-                  key={col.columnId}
+                  key={col.id}
                   style={tw`py-1`}
                 >
                   <Text style={tw`mr-4`}>{col.name}:</Text>
@@ -402,13 +402,13 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       <Modal type="CENTER" ref={selectUserModal}>
         <Text style={tw`text-center text-2xl underline my-2 font-semibold`}>Mitglied auswählen</Text>
         <View style={tw`flex-row flex-wrap px-2`}>
-          {allExistingUsers.filter(user_ => user_.email != "root").filter(user_ => !user_.deleted).map(extUser => (
-            <View key={extUser.userId} style={tw`px-2 py-1`}>
+          {allExistingUsers.filter(user_ => user_.firstname != "root").filter(user_ => !user_.deleted).map(extUser => (
+            <View key={extUser.id} style={tw`px-2 py-1`}>
               <BoardAssignButton
                 color="GREEN"
                 text={extUser.firstname + " " + extUser.lastname}
                 onPress={() => {
-                  assignUser(extUser.userId, selectedRow!.date, selectedColumn!.columnId, navigation)
+                  assignUser(extUser.id, selectedRow!.date, selectedColumn!.id, navigation)
                   selectUserModal.current?.toggleModal()
                 }}
               />
@@ -475,7 +475,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             </Button>
             <Button
               onPress={() => {
-                updateComment(selectedRow!.date, selectedColumn!.columnId, commentEditValue)
+                updateComment(selectedRow!.date, selectedColumn!.id, commentEditValue)
               }}
               color={Color.GREEN}
             >

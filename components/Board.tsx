@@ -30,11 +30,11 @@ const Board = ({ boardType, navigation }: Props) => {
   const [dateStart, setDateStart] = useState<Date>(startThisQuarter);
   const [dateEnd, setDateEnd] = useState<Date>(endThisQuarter);
 
-  const [currentPage, setCurrentPage] = useState("0");
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     if (allPages.length != 0) {
-      setCurrentPage(allPages[0].pageId);
+      setCurrentPage(allPages[0].id);
     }
   }, [allPages]);
 

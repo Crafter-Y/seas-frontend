@@ -8,9 +8,9 @@ export default function useAssignUser() {
   const getApi = useApi();
 
   const assignUser = (
-    userId: string,
+    userId: number,
     rowDate: string,
-    columnId: string,
+    columnId: number,
     navigation: BoardScreenProps
   ) => {
     setAssignmentSuccessful(false);
@@ -23,9 +23,9 @@ export default function useAssignUser() {
       }
 
       let req = new FormData();
-      req.append("userId", userId);
+      req.append("userId", userId + "");
       req.append("date", rowDate);
-      req.append("columnId", columnId);
+      req.append("columnId", columnId + "");
 
       fetch(`${configServer}/api/assignUser/`, {
         method: "post",

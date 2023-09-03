@@ -1,41 +1,34 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "../useApiName";
+import { requestApiWithoutCredentials } from "@/helpers/api";
 
 export default function useServerName() {
   const [name, setName] = useState("");
   const [fetchSuccessful, setFetchSuccessful] = useState(false);
   const [fetchServerError, setFetchServerError] = useState<string | null>(null);
 
-  const getApi = useApi();
-
   useEffect(() => {
     fetchServerName();
   }, []);
 
-  const fetchServerName = () => {
+  const fetchServerName = async () => {
     setFetchSuccessful(false);
     setFetchServerError(null)
     setName("");
 
-    let configServer = getApi();
+    let serverId = await AsyncStorage.getItem("serverId");
+    if (serverId == null) return;
 
-    AsyncStorage.getItem("serverId").then((serverId) => {
-      if (serverId == null) {
-        return;
-      }
+    let res = await requestApiWithoutCredentials(`products/${serverId}`, "GET")
 
-      fetch(`${configServer}/api/v1/products/${serverId}`)
-        .then((response) => response.json())
-        .then((res: ApiResponse) => {
-          if (res.success) {
-            setName(res.data.name);
-            setFetchSuccessful(true);
-          } else {
-            setFetchServerError(res.data.error)
-          }
-        })
-    });
+    if (res == null) return;
+
+    if (res.success) {
+      setName(res.data.name);
+      setFetchSuccessful(true);
+    } else {
+      setFetchServerError(res.data.error)
+    }
   };
 
   return {

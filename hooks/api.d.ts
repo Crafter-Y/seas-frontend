@@ -10,7 +10,7 @@ type ApiResponse = {
 };
 
 type User = {
-  userId: number;
+  id: number;
   firstname: string;
   lastname: string;
   email: string;
@@ -35,7 +35,7 @@ type APIFullResponseUser = {
 };
 
 type APIResponsePage = {
-  pageId: string;
+  id: number;
   name: string;
 };
 
@@ -45,7 +45,7 @@ type BoardRow = {
 };
 
 type BoardAssignment = {
-  columnId: string;
+  id: number;
   type: ColumnType;
   value: string;
 };
@@ -53,7 +53,7 @@ type BoardAssignment = {
 type ColumnType = "POSITION" | "COMMENT";
 
 type APIResponseColumn = {
-  columnId: string;
+  id: number;
   name: string;
   type: ColumnType;
   pages: string[];

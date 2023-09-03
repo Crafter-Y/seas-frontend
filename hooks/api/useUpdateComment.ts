@@ -5,7 +5,7 @@ export default function useUpdateComment() {
     const [successfulUpdate, setSuccessfulUpdate] = useState(false);
     const getApi = useApi();
 
-    const updateComment = (date: string, columnId: string, comment: string) => {
+    const updateComment = (date: string, columnId: number, comment: string) => {
         setSuccessfulUpdate(false);
         let configServer = getApi();
         AsyncStorage.getItem("token").then((token) => {
@@ -15,7 +15,7 @@ export default function useUpdateComment() {
 
             let req = new FormData();
             req.append("date", date);
-            req.append("columnId", columnId);
+            req.append("columnId", columnId + "");
             req.append("comment", comment);
             fetch(`${configServer}/api/updateComment/`, {
                 method: "post",
