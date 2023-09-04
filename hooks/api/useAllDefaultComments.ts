@@ -1,34 +1,17 @@
 import { useEffect, useState } from "react";
-import useApi from "../useApiName";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { requestApi } from "@/helpers/api";
 
 export default function useAllDefaultComments() {
   const [allDefaultComments, setAllDefaultComments] = useState<
     APIResponseDefaultComment[]
   >([]);
 
-  const getApi = useApi();
+  const queryAllDefaultComments = async () => {
+    let res = await requestApi("defaultcomments", "GET")
 
-  const queryAllDefaultComments = () => {
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        return;
-      }
+    if (res == null || !res.success) return;
 
-      fetch(`${configServer}/api/getAllCommentTemplates/`, {
-        headers: {
-          token,
-        },
-      })
-        .then((response) => response.json())
-        .then((res: ApiResponse) => {
-          if (res.success) {
-            setAllDefaultComments(res.data);
-          }
-        })
-        .catch(() => {});
-    });
+    setAllDefaultComments(res.data.defaultComments);
   };
 
   useEffect(() => {

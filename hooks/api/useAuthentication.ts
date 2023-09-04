@@ -4,7 +4,7 @@ import { LoginScreenProps } from "@/screens/LoginScreen";
 import { Platform } from "react-native";
 import { BoardScreenProps } from "@/screens/BoardScreen";
 import decode from "jwt-decode";
-import { requestApiWithoutCredentials } from "@/helpers/api";
+import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
 
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
@@ -75,6 +75,9 @@ export default function useAuthentication() {
       AsyncStorage.removeItem("token");
       return;
     }
+
+    let res = await requestApi("auth/validate", "GET");
+    if (!res || !res.success) return;
 
     setUser({
       id: tokenContents.userId,

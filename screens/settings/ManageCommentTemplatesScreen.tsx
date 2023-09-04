@@ -46,7 +46,7 @@ const ManageCommentTemplatesScreen = () => {
   const { deleteDefaultComment, succesfulDeletion } = useDeleteDefaultComment();
 
   const [defaultComment, setDefaultComment] = useState("");
-  const [commentIdToDelete, setCommentIdToDelete] = useState("");
+  const [commentIdToDelete, setCommentIdToDelete] = useState(0);
   const [commentToDelete, setCommentToDelete] = useState("");
 
   const commentInput = useRef<TextInput>(null);
@@ -90,7 +90,7 @@ const ManageCommentTemplatesScreen = () => {
           secureTextEntry={false}
           ref={commentInput}
           onSubmitEditing={() => {
-            createDefaultComment(defaultComment, navigation);
+            createDefaultComment(defaultComment);
             commentInput.current?.clear();
             commentInput.current?.blur();
           }}
@@ -101,7 +101,7 @@ const ManageCommentTemplatesScreen = () => {
 
         <Button
           onPress={() => {
-            createDefaultComment(defaultComment, navigation);
+            createDefaultComment(defaultComment);
             commentInput.current?.clear();
             commentInput.current?.blur();
           }}
@@ -117,7 +117,7 @@ const ManageCommentTemplatesScreen = () => {
           <TH titles={["Kommentare", ""]}></TH>
 
           {allDefaultComments.map((comment) => (
-            <TR key={comment.commentId}>
+            <TR key={comment.id}>
               <TD style={tw`justify-center`} cols={2}>
                 <Text style={tw`text-lg`}>
                   {comment.comment.length > 32
@@ -130,7 +130,7 @@ const ManageCommentTemplatesScreen = () => {
                   color="#f67e7e"
                   style={tw`p-1`}
                   onPress={() => {
-                    setCommentIdToDelete(comment.commentId);
+                    setCommentIdToDelete(comment.id);
                     setCommentToDelete(comment.comment);
                     deleteModal.current?.toggleModal();
                   }}

@@ -60,7 +60,7 @@ type APIResponseColumn = {
 };
 
 type APIResponseDefaultComment = {
-  commentId: string;
+  id: number;
   comment: string;
 };
 
