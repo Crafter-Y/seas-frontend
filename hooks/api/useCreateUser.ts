@@ -1,8 +1,6 @@
 import { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "../useApiName";
-import { ManageUsersScreenProps } from "@/screens/settings/ManageUsersScreen";
 import { validate } from "email-validator";
+import { requestApi } from "@/helpers/api";
 
 type APICreationReponse = {
   firstname: string;
@@ -20,14 +18,11 @@ export default function useCreateUser() {
   const [userCreationResponse, setUserCreationResponse] =
     useState<APICreationReponse>();
 
-  const getApi = useApi();
-
-  const createUser = (
+  const createUser = async (
     firstname: string,
     lastname: string,
     email: string,
     role: string,
-    navigation: ManageUsersScreenProps
   ) => {
     // clientside validation
 
@@ -86,63 +81,45 @@ export default function useCreateUser() {
       return;
     }
 
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        navigation.replace("LoginScreen");
+    let res = await requestApi("users", "POST", {
+      firstname,
+      lastname,
+      email,
+      role
+    })
+
+    if (res == null) {
+      setHasCreationError(true);
+      setCreationError(
+        "Server nicht verfügbar. Bitte später erneut versuchen."
+      );
+      return;
+    }
+
+    if (res.success) {
+      setIsSuccessfulUserCreation(true);
+      setUserCreationResponse({
+        firstname,
+        lastname,
+        email,
+        password: res.data.password,
+        role
+      });
+      setHasCreationError(false);
+      setCreationError("");
+    } else {
+      if (res.data.error == "Reactivation required") {
+        console.log("reactivation required here")
+        setHasCreationError(false);
+        setCreationError("");
+        setReactivationRequired(true);
         return;
       }
 
-      let req = new FormData();
-      req.append("firstname", firstname);
-      req.append("lastname", lastname);
-      req.append("email", email);
-      req.append("role", role);
-      fetch(`${configServer}/api/v1/users`, {
-        method: "post",
-        body: JSON.stringify({
-          firstname,
-          lastname,
-          email,
-          role
-        }),
-        headers: {
-          'Authorization': "Bearer " + token,
-          'Content-Type': 'application/json'
-        }
-      })
-        .then((response) => response.json())
-        .then((res: ApiResponse) => {
-          if (res.success) {
-            setIsSuccessfulUserCreation(true);
-            setUserCreationResponse({
-              firstname,
-              lastname,
-              email,
-              password: res.data.password,
-              role
-            });
-            setHasCreationError(false);
-            setCreationError("");
-          } else {
-            if (res.error == "Reactivation required") {
-              setHasCreationError(false);
-              setCreationError("");
-              setReactivationRequired(true);
-              return;
-            }
+      setHasCreationError(true);
+      setCreationError(res.data.error);
+    }
 
-            setHasCreationError(true);
-            setCreationError(res.error);
-          }
-        })
-        .catch(() => {
-          setHasCreationError(true);
-          setCreationError(
-            "Server nicht verfügbar. Bitte später erneut versuchen."
-          );
-        });
-    });
   };
 
   return {

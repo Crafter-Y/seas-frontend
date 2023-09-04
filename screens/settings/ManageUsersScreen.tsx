@@ -92,6 +92,7 @@ const ManageUsersScreen = () => {
 
   useEffect(() => {
     if (reactivationRequired) {
+      console.log("Reactivation required")
       reactivationModal.current?.toggleModal();
     }
   }, [reactivationRequired]);
@@ -178,7 +179,7 @@ const ManageUsersScreen = () => {
 
         <Button
           onPress={() =>
-            createUser(firstName, secondName, email, role, navigation)
+            createUser(firstName, secondName, email, role)
           }
         >
           Nutzer erstellen
@@ -241,7 +242,7 @@ const ManageUsersScreen = () => {
                 <Text>{Luser.email}</Text>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
-                {Luser.email != "root" && Luser.id != user?.userId && (
+                {Luser.email != "root" && Luser.id != user?.id && (
                   <Button
                     color="#f67e7e"
                     style={tw`p-1`}
@@ -259,7 +260,7 @@ const ManageUsersScreen = () => {
                     />
                   </Button>
                 )}
-                {Luser.id != user?.userId && (
+                {Luser.id != user?.id && (
                   <Button
                     style={tw`p-1`}
                     onPress={() => {
@@ -363,7 +364,7 @@ const ManageUsersScreen = () => {
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
             onPress={() => {
-              reactivateUser(firstName, secondName, email, role, navigation);
+              reactivateUser(firstName, secondName, email, role);
               reactivationModal.current?.toggleModal();
             }}
             color="#f67e7e"

@@ -1,8 +1,6 @@
 import { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "../useApiName";
-import { ManageUsersScreenProps } from "@/screens/settings/ManageUsersScreen";
 import { validate } from "email-validator";
+import { requestApi } from "@/helpers/api";
 
 type APICreationReponse = {
   firstname: string;
@@ -20,14 +18,11 @@ export default function useReactivateUser() {
   const [userReactivationResponse, setUserReactivationResponse] =
     useState<APICreationReponse>();
 
-  const getApi = useApi();
-
-  const reactivateUser = (
+  const reactivateUser = async (
     firstname: string,
     lastname: string,
     email: string,
     role: string,
-    navigation: ManageUsersScreenProps
   ) => {
     // clientside validation
 
@@ -85,44 +80,30 @@ export default function useReactivateUser() {
       return;
     }
 
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        navigation.replace("LoginScreen");
-        return;
-      }
+    let res = await requestApi("users", "PUT", {
+      firstname,
+      lastname,
+      email,
+      role
+    })
 
-      let req = new FormData();
-      req.append("firstname", firstname);
-      req.append("lastname", lastname);
-      req.append("email", email);
-      req.append("role", role);
-      fetch(`${configServer}/api/reactivateUser/`, {
-        method: "post",
-        body: req,
-        headers: {
-          token,
-        },
-      })
-        .then((response) => response.json())
-        .then((res: ApiResponse) => {
-          if (res.success) {
-            setIsSuccessfulUserReactivation(true);
-            setUserReactivationResponse(res.data);
-            setHasReactivationError(false);
-            setReactivationError("");
-          } else {
-            setHasReactivationError(true);
-            setReactivationError(res.error.message);
-          }
-        })
-        .catch(() => {
-          setHasReactivationError(true);
-          setReactivationError(
-            "Server nicht verfügbar. Bitte später erneut versuchen."
-          );
-        });
-    });
+    if (res == null) {
+      setHasReactivationError(true);
+      setReactivationError(
+        "Server nicht verfügbar. Bitte später erneut versuchen."
+      );
+      return;
+    }
+
+    if (res.success) {
+      setIsSuccessfulUserReactivation(true);
+      setUserReactivationResponse(res.data.user);
+      setHasReactivationError(false);
+      setReactivationError("");
+    } else {
+      setHasReactivationError(true);
+      setReactivationError(res.error);
+    }
   };
 
   return {
