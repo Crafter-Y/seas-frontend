@@ -282,7 +282,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
 
     allColumns.forEach((column) => {
       if (
-        column.pages.includes("page_" + currentPage) &&
+        column.pages.includes(currentPage) &&
         column.type == "POSITION"
       ) {
         titles.push(column.name);
@@ -290,7 +290,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
     });
     allColumns.forEach((column) => {
       if (
-        column.pages.includes("page_" + currentPage) &&
+        column.pages.includes(currentPage) &&
         column.type == "COMMENT"
       ) {
         titles.push(column.name);
@@ -302,7 +302,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   const getColsForPageAndType = (page: number, type: ColumnType) => {
     return allColumns.filter(
       (col) =>
-        col.pages.includes("page_" + page) &&
+        col.pages.includes(page) &&
         col.type == type
     )
   }
@@ -460,7 +460,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
           />
           <View style={tw`flex-row flex-wrap gap-1 mt-1`}>
             {allDefaultComments?.map(comment => (
-              <Pressable key={comment.commentId} style={tw`border border-gray-400 rounded-lg py-1 px-2 flex-row items-center gap-2`} onPress={() => {
+              <Pressable key={comment.id} style={tw`border border-gray-400 rounded-lg py-1 px-2 flex-row items-center gap-2`} onPress={() => {
                 setCommentEditValue(commentEditValue + comment.comment)
               }}>
                 <Text style={tw`font-semibold text-green-500 text-lg`} selectable={false}>+</Text>

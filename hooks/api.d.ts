@@ -56,7 +56,7 @@ type APIResponseColumn = {
   id: number;
   name: string;
   type: ColumnType;
-  pages: string[];
+  pages: number[];
 };
 
 type APIResponseDefaultComment = {

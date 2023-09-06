@@ -1,32 +1,15 @@
 import { useEffect, useState } from "react";
-import useApi from "../useApiName";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { requestApi } from "@/helpers/api";
 
 export default function useAllColumns() {
   const [allColumns, setAllColumns] = useState<APIResponseColumn[]>([]);
 
-  const getApi = useApi();
+  const queryColumns = async () => {
+    let res = await requestApi("columns", "GET");
 
-  const queryColumns = () => {
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        return;
-      }
-
-      fetch(`${configServer}/api/getAllColumns/`, {
-        headers: {
-          token,
-        },
-      })
-        .then((response) => response.json())
-        .then((res: ApiResponse) => {
-          if (res.success) {
-            setAllColumns(res.data);
-          }
-        })
-        .catch(() => {});
-    });
+    if (res && res.success) {
+      setAllColumns(res.data.columns);
+    }
   };
 
   useEffect(() => {

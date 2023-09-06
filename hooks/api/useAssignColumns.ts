@@ -1,56 +1,36 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "../useApiName";
-import { ManagePositionsScreenProps } from "@/screens/settings/ManagePositionsScreen";
 import { useState } from "react";
+import { requestApi } from "@/helpers/api";
 
 export type AssignmentChange = {
-  pageId: string;
-  columnId: string;
+  pageId: number;
+  columnId: number;
   isAssigned: boolean;
 };
 
 export default function useAssignColumns() {
   const [assignmentSuccessful, setAssignmentSuccessful] = useState(false);
-  const getApi = useApi();
 
-  const assignColumns = (
-    changes: AssignmentChange[],
-    navigation: ManagePositionsScreenProps
-  ) => {
+  const assignColumns = (changes: AssignmentChange[]) => {
     setAssignmentSuccessful(false);
     if (changes.length == 0) {
+      setAssignmentSuccessful(true);
       return;
     }
 
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        navigation.replace("LoginScreen");
-        return;
-      }
+    let pendingAssignments: string[] = [];
+    changes.forEach(async (change) => {
+      pendingAssignments.push(change.pageId + "" + change.columnId);
 
-      let pendingAssignments: string[] = [];
-      changes.forEach((change) => {
-        pendingAssignments.push(change.pageId + change.columnId);
-        let req = new FormData();
-        req.append("pageId", change.pageId);
-        req.append("columnId", change.columnId);
-        if (change.isAssigned) {
-          req.append("assign", "Yes, please assign me");
-        }
+      await requestApi("columns/assign", "PATCH", {
+        columnId: change.columnId,
+        pageId: change.pageId,
+        assign: change.isAssigned
+      })
 
-        fetch(`${configServer}/api/assignColumn/`, {
-          method: "post",
-          body: req,
-          headers: {
-            token,
-          },
-        }).then(() => {
-          pendingAssignments.pop();
-          if (pendingAssignments.length == 0) setAssignmentSuccessful(true);
-        });
-      });
+      pendingAssignments.pop();
+      if (pendingAssignments.length == 0) setAssignmentSuccessful(true);
     });
+
   };
 
   return { assignColumns, assignmentSuccessful };

@@ -135,7 +135,7 @@ const ManagePositionsScreen = () => {
 
         <Button
           onPress={() => {
-            createColumn(columnName, columnType, navigation);
+            createColumn(columnName, columnType);
             columnNameInput.current?.blur();
             columnNameInput.current?.clear();
           }}
@@ -150,7 +150,7 @@ const ManagePositionsScreen = () => {
         <Form>
           <TH titles={["Spalten", "Pläne", ""]}></TH>
           {allColumns.map((column) => (
-            <TR key={column.columnId}>
+            <TR key={column.id}>
               <TD cols={3}>
                 <Text style={tw`text-lg`}>{column.name}</Text>
                 <Text>
@@ -162,7 +162,7 @@ const ManagePositionsScreen = () => {
                   <Text key={pageId}>
                     {
                       allPages.filter(
-                        (page) => "page_" + page.pageId == pageId
+                        (page) => page.id == pageId
                       )[0]?.name
                     }
                   </Text>
@@ -216,7 +216,7 @@ const ManagePositionsScreen = () => {
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
             onPress={() => {
-              deleteColumn(columnToChange!.columnId);
+              deleteColumn(columnToChange!.id);
             }}
             color="#f67e7e"
           >
@@ -242,9 +242,8 @@ const ManagePositionsScreen = () => {
           ref={renameInput}
           onSubmitEditing={() => {
             renameColumn(
-              columnToChange!.columnId,
-              columnRenameName,
-              navigation
+              columnToChange!.id,
+              columnRenameName
             );
             renameInput.current?.blur();
           }}
@@ -261,17 +260,17 @@ const ManagePositionsScreen = () => {
         {allPages.map((page) => (
           <Checkbox
             label={page.name}
-            key={page.pageId}
-            defaultValue={columnToChange?.pages.includes("page_" + page.pageId)}
+            key={page.id}
+            defaultValue={columnToChange?.pages.includes(page.id)}
             onChange={(isAssigned) => {
               if (
-                columnToChange?.pages.includes("page_" + page.pageId) ==
+                columnToChange?.pages.includes(page.id) ==
                 isAssigned
               ) {
                 // thing has changed - add it to the changes array
                 assignmentChanges.push({
-                  pageId: page.pageId,
-                  columnId: columnToChange!.columnId,
+                  pageId: page.id,
+                  columnId: columnToChange!.id,
                   isAssigned: !isAssigned,
                 });
               } else {
@@ -279,8 +278,8 @@ const ManagePositionsScreen = () => {
                 const index = assignmentChanges.indexOf(
                   assignmentChanges.filter(
                     (entr) =>
-                      entr.columnId == columnToChange!.columnId &&
-                      entr.pageId == page.pageId
+                      entr.columnId == columnToChange!.id &&
+                      entr.pageId == page.id
                   )[0]
                 );
 
@@ -295,11 +294,10 @@ const ManagePositionsScreen = () => {
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
             onPress={() => {
-              assignColumns(assignmentChanges, navigation);
+              assignColumns(assignmentChanges);
               renameColumn(
-                columnToChange!.columnId,
-                columnRenameName,
-                navigation
+                columnToChange!.id,
+                columnRenameName
               );
               renameInput.current?.blur();
             }}
