@@ -40,7 +40,7 @@ export default function useCreateDefaultComment() {
       setIsSuccessfulDefaultCommentCreation(true);
     } else {
       setHasCreationError(true);
-      setCreationError(res.error.message);
+      setCreationError(res.data.error);
     }
   };
 

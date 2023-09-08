@@ -5,7 +5,7 @@ export default function useDeleteRecurringEvent() {
   const [successfulDelete, setSuccessfulDelete] = useState(false);
   const getApi = useApi();
 
-  const deleteRecurringEvent = (taskId: string) => {
+  const deleteRecurringEvent = (taskId: number) => {
     setSuccessfulDelete(false);
     let configServer = getApi();
     AsyncStorage.getItem("token").then((token) => {
@@ -14,7 +14,7 @@ export default function useDeleteRecurringEvent() {
       }
 
       let req = new FormData();
-      req.append("taskId", taskId);
+      req.append("taskId", taskId + "");
       fetch(`${configServer}/api/deleteRecurringEvent/`, {
         method: "post",
         body: req,

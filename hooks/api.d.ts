@@ -64,12 +64,20 @@ type APIResponseDefaultComment = {
   comment: string;
 };
 
-type APIResponseRecurringEvent = {
-  taskId: string;
-  eventType: "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";
-  eventMonth: string;
-  dayOfMonth: string;
-  dayOfWeek: string;
+type APIRecurringEventsResponse = {
+  weeklyEvents: {
+    id: number,
+    day: number
+  }[],
+  monthlyEvents: {
+    id: number,
+    day: number
+  }[],
+  yearlyEvents: {
+    id: number,
+    day: number,
+    month: number
+  }[],
 };
 
 type EventType = "UNSET" | "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";

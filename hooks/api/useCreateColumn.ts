@@ -46,7 +46,7 @@ export default function useCreateColumn() {
       setCreationError("");
     } else {
       setHasCreationError(true);
-      setCreationError(res.error);
+      setCreationError(res.data.error);
     }
   };
 

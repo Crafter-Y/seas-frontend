@@ -37,7 +37,7 @@ export default function useCreatePage() {
       setIsSuccessfulPageCreation(true);
     } else {
       setHasCreationError(true);
-      setCreationError(res.error);
+      setCreationError(res.data.error);
     }
   };
 

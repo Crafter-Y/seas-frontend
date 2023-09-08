@@ -46,7 +46,7 @@ export default function useRenameColumn() {
       setIsSuccessfulColumnRename(true);
     } else {
       setHasRenameError(true);
-      setRenameError(res.error);
+      setRenameError(res.data.error);
     }
   };
 

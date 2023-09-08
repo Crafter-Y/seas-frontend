@@ -102,7 +102,7 @@ export default function useReactivateUser() {
       setReactivationError("");
     } else {
       setHasReactivationError(true);
-      setReactivationError(res.error);
+      setReactivationError(res.data.error);
     }
   };
 

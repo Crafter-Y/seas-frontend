@@ -1,34 +1,52 @@
 import { useEffect, useState } from "react";
-import useApi from "../useApiName";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { requestApi } from "@/helpers/api";
 
 export default function useAllRecurringEvents() {
-  const [allRecurringEvents, setAllRecurringEvents] = useState<
-    APIResponseRecurringEvent[]
-  >([]);
+  const [allRecurringEvents, setAllRecurringEvents] = useState<DisplayableRecurringEvent[]>([]);
 
-  const getApi = useApi();
+  type DisplayableRecurringEvent = {
+    id: number,
+    eventType: "YEARLY" | "MONTHLY" | "WEEKLY",
+    dayOfWeek?: number,
+    dayOfMonth?: number,
+    eventMonth?: number
+  }
 
-  const queryRecurringEvents = (): void => {
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        return;
-      }
+  const queryRecurringEvents = async () => {
+    let res = await requestApi("events", "GET");
 
-      fetch(`${configServer}/api/getAllRecurringEvents/`, {
-        headers: {
-          token,
-        },
-      })
-        .then((response) => response.json())
-        .then((res: ApiResponse) => {
-          if (res.success) {
-            setAllRecurringEvents(res.data);
-          }
+    if (res != null && res.success) {
+      let resData: APIRecurringEventsResponse = res.data;
+
+      let allRecurringEvents: DisplayableRecurringEvent[] = []
+
+      resData.weeklyEvents.forEach(el => {
+        allRecurringEvents.push({
+          id: el.id,
+          eventType: "WEEKLY",
+          dayOfWeek: el.day
         })
-        .catch(() => {});
-    });
+      })
+
+      resData.monthlyEvents.forEach(el => {
+        allRecurringEvents.push({
+          id: el.id,
+          eventType: "MONTHLY",
+          dayOfMonth: el.day
+        })
+      })
+
+      resData.yearlyEvents.forEach(el => {
+        allRecurringEvents.push({
+          id: el.id,
+          eventType: "YEARLY",
+          dayOfMonth: el.day,
+          eventMonth: el.month
+        })
+      })
+
+      setAllRecurringEvents(allRecurringEvents);
+    }
   };
 
   useEffect(() => {

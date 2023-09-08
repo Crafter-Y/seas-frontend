@@ -53,45 +53,45 @@ const ManageEventsScreen = () => {
   const [createType, setCreateType] = useState<EventType>("UNSET");
   const [singleDate, setSingleDate] = useState<CalendarDate>(undefined);
 
-  const [dayOfWeek, setDayOfWeek] = useState<Weekday>("MONDAY");
+  const [dayOfWeek, setDayOfWeek] = useState("1");
 
   const [dayOfMonth, setDayOfMonth] = useState("1");
 
-  const [monthOfYear, setMonthOfYear] = useState<Month>("JANUARY");
+  const [monthOfYear, setMonthOfYear] = useState("1");
 
-  const [eventIdToDelete, setEventIdToDelete] = useState("");
+  const [eventIdToDelete, setEventIdToDelete] = useState(0);
   const [eventNameToDelete, setEventNameToDelete] = useState("");
 
   const weekdayMap = {
-    "1": "Montag",
-    "2": "Dienstag",
-    "3": "Mittwoch",
-    "4": "Donnerstag",
-    "5": "Freitag",
-    "6": "Samstag",
-    "7": "Sonntag",
+    1: "Montag",
+    2: "Dienstag",
+    3: "Mittwoch",
+    4: "Donnerstag",
+    5: "Freitag",
+    6: "Samstag",
+    7: "Sonntag",
   };
 
   const monthMap = {
-    "1": "Januar",
-    "2": "Februar",
-    "3": "März",
-    "4": "April",
-    "5": "Mai",
-    "6": "Juni",
-    "7": "Juli",
-    "8": "August",
-    "9": "September",
-    "10": "Oktober",
-    "11": "November",
-    "12": "Dezember",
+    1: "Januar",
+    2: "Februar",
+    3: "März",
+    4: "April",
+    5: "Mai",
+    6: "Juni",
+    7: "Juli",
+    8: "August",
+    9: "September",
+    10: "Oktober",
+    11: "November",
+    12: "Dezember",
   };
 
   const formatEvent = (
     type: EventType,
-    dayOfWeek: string,
-    dayOfMonth: string,
-    monthOfYear: string
+    dayOfWeek: number,
+    dayOfMonth: number,
+    monthOfYear: number
   ): string => {
     switch (type) {
       case "WEEKLY":
@@ -164,15 +164,15 @@ const ManageEventsScreen = () => {
         {createType == "WEEKLY" && (
           <Picker
             selectedValue={dayOfWeek}
-            onValueChange={(item) => setDayOfWeek(item as Weekday)}
+            onValueChange={(item) => setDayOfWeek(item)}
           >
-            <RNPicker.Item label="Montags" value="MONDAY" />
-            <RNPicker.Item label="Dienstags" value="TUESDAY" />
-            <RNPicker.Item label="Mittwochs" value="WEDNESDAY" />
-            <RNPicker.Item label="Donnerstags" value="THURSDAY" />
-            <RNPicker.Item label="Freitags" value="FRIDAY" />
-            <RNPicker.Item label="Samstags" value="SATURDAY" />
-            <RNPicker.Item label="Sonntags" value="SUNDAY" />
+            <RNPicker.Item label="Montags" value="1" />
+            <RNPicker.Item label="Dienstags" value="2" />
+            <RNPicker.Item label="Mittwochs" value="3" />
+            <RNPicker.Item label="Donnerstags" value="4" />
+            <RNPicker.Item label="Freitags" value="5" />
+            <RNPicker.Item label="Samstags" value="6" />
+            <RNPicker.Item label="Sonntags" value="7" />
           </Picker>
         )}
 
@@ -199,20 +199,20 @@ const ManageEventsScreen = () => {
           <Picker
             key={1}
             selectedValue={monthOfYear}
-            onValueChange={(item) => setMonthOfYear(item as Month)}
+            onValueChange={(item) => setMonthOfYear(item)}
           >
-            <RNPicker.Item label="Januar" value="JANUARY" />
-            <RNPicker.Item label="Februar" value="FEBRUARY" />
-            <RNPicker.Item label="März" value="MARCH" />
-            <RNPicker.Item label="April" value="APRIL" />
-            <RNPicker.Item label="Mai" value="MAY" />
-            <RNPicker.Item label="Juni" value="JUNE" />
-            <RNPicker.Item label="Juli" value="JULI" />
-            <RNPicker.Item label="August" value="AUGUST" />
-            <RNPicker.Item label="September" value="SEPTEMBER" />
-            <RNPicker.Item label="Oktober" value="OCTOBER" />
-            <RNPicker.Item label="November" value="NOVEMBER" />
-            <RNPicker.Item label="Dezember" value="DECEMBER" />
+            <RNPicker.Item label="Januar" value="1" />
+            <RNPicker.Item label="Februar" value="2" />
+            <RNPicker.Item label="März" value="3" />
+            <RNPicker.Item label="April" value="4" />
+            <RNPicker.Item label="Mai" value="5" />
+            <RNPicker.Item label="Juni" value="6" />
+            <RNPicker.Item label="Juli" value="7" />
+            <RNPicker.Item label="August" value="8" />
+            <RNPicker.Item label="September" value="9" />
+            <RNPicker.Item label="Oktober" value="10" />
+            <RNPicker.Item label="November" value="11" />
+            <RNPicker.Item label="Dezember" value="12" />
           </Picker>,
           <Picker
             key={2}
@@ -247,12 +247,11 @@ const ManageEventsScreen = () => {
         <Button
           onPress={() => {
             createEvent(
-              navigation,
               createType,
               singleDate,
-              dayOfWeek,
-              dayOfMonth,
-              monthOfYear
+              Number(dayOfWeek),
+              Number(dayOfMonth),
+              Number(monthOfYear)
             );
           }}
         >
@@ -265,15 +264,15 @@ const ManageEventsScreen = () => {
         <Form>
           <TH titles={["Termine", ""]}></TH>
 
-          {allRecurringEvents.map((event) => (
-            <TR key={event.taskId}>
+          {allRecurringEvents?.map((event) => (
+            <TR key={event.id + event.eventType}>
               <TD style={tw`justify-center`} cols={2}>
                 <Text style={tw`text-lg`}>
                   {formatEvent(
                     event.eventType,
-                    event.dayOfWeek,
-                    event.dayOfMonth,
-                    event.eventMonth
+                    event.dayOfWeek || 0,
+                    event.dayOfMonth || 0,
+                    event.eventMonth || 0
                   )}
                 </Text>
               </TD>
@@ -282,13 +281,13 @@ const ManageEventsScreen = () => {
                   color="#f67e7e"
                   style={tw`p-1`}
                   onPress={() => {
-                    setEventIdToDelete(event.taskId);
+                    setEventIdToDelete(event.id);
                     setEventNameToDelete(
                       formatEvent(
                         event.eventType,
-                        event.dayOfWeek,
-                        event.dayOfMonth,
-                        event.eventMonth
+                        event.dayOfWeek || 0,
+                        event.dayOfMonth || 0,
+                        event.eventMonth || 0
                       )
                     );
                     deleteModal.current?.toggleModal();

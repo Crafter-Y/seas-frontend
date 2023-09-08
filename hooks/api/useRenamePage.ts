@@ -52,7 +52,7 @@ export default function useRenamePage() {
       setIsSuccessfulPageRename(true);
     } else {
       setHasRenameError(true);
-      setRenameError(res.error);
+      setRenameError(res.data.error);
     }
   };
 
