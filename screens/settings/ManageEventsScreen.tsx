@@ -61,6 +61,7 @@ const ManageEventsScreen = () => {
 
   const [eventIdToDelete, setEventIdToDelete] = useState(0);
   const [eventNameToDelete, setEventNameToDelete] = useState("");
+  const [eventTypeToDelete, setEventTypeToDelete] = useState<"YEARLY" | "MONTHLY" | "WEEKLY">();
 
   const weekdayMap = {
     1: "Montag",
@@ -282,6 +283,7 @@ const ManageEventsScreen = () => {
                   style={tw`p-1`}
                   onPress={() => {
                     setEventIdToDelete(event.id);
+                    setEventTypeToDelete(event.eventType)
                     setEventNameToDelete(
                       formatEvent(
                         event.eventType,
@@ -319,7 +321,7 @@ const ManageEventsScreen = () => {
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
             onPress={() => {
-              deleteRecurringEvent(eventIdToDelete);
+              deleteRecurringEvent(eventIdToDelete, eventTypeToDelete!);
             }}
             color="#f67e7e"
           >

@@ -1,32 +1,27 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "../useApiName";
 import { useState } from "react";
+import { requestApi } from "@/helpers/api";
 export default function useDeleteRecurringEvent() {
   const [successfulDelete, setSuccessfulDelete] = useState(false);
-  const getApi = useApi();
 
-  const deleteRecurringEvent = (taskId: number) => {
+  const deleteRecurringEvent = async (taskId: number, type: "YEARLY" | "MONTHLY" | "WEEKLY") => {
     setSuccessfulDelete(false);
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        return;
-      }
 
-      let req = new FormData();
-      req.append("taskId", taskId + "");
-      fetch(`${configServer}/api/deleteRecurringEvent/`, {
-        method: "post",
-        body: req,
-        headers: {
-          token,
-        },
-      })
-        .then((response) => response.json())
-        .then((res: ApiResponse) => {
-          if (res.success) setSuccessfulDelete(true);
-        });
-    });
+    let res: ApiResponse | null = null;
+    switch (type) {
+      case "MONTHLY": {
+        res = await requestApi(`events/monthly/${taskId}`, "DELETE")
+        break;
+      }
+      case "WEEKLY": {
+        res = await requestApi(`events/weekly/${taskId}`, "DELETE")
+        break;
+      }
+      case "YEARLY": {
+        res = await requestApi(`events/yearly/${taskId}`, "DELETE")
+        break;
+      }
+    }
+    if (res && res.success) setSuccessfulDelete(true);
   };
 
   return { deleteRecurringEvent, successfulDelete };
