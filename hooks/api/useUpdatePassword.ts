@@ -1,15 +1,13 @@
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ChangePasswordScreenProps } from "@/screens/ChangePasswordScreen";
-import useApi from "../useApiName";
+import { requestApi } from "@/helpers/api";
 
 export default function useUpdatePassword() {
   const [hasUpdateError, setHasUpdateError] = useState(false);
   const [updateError, setUpdateError] = useState("");
 
-  const getApi = useApi();
-
-  const updatePassword = (
+  const updatePassword = async (
     oldPassword: string,
     newPassword1: string,
     newPassword2: string,
@@ -46,44 +44,29 @@ export default function useUpdatePassword() {
       return;
     }
 
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        navigation.replace("LoginScreen");
-        return;
-      }
+    let res = await requestApi("users", "PATCH", {
+      oldPassword,
+      newPassword: newPassword1
+    })
 
-      let req = new FormData();
-      req.append("oldPassword", oldPassword);
-      req.append("newPassword", newPassword1);
-      fetch(`${configServer}/api/v1/users/`, {
-        method: "PATCH",
-        body: JSON.stringify({ oldPassword, newPassword: newPassword1 }),
-        headers: {
-          'Authorization': "Bearer " + token,
-          'Content-Type': 'application/json'
-        }
-      })
-        .then((response) => response.json())
-        .then(async (res: ApiResponse) => {
-          if (res.success) {
-            setHasUpdateError(false);
-            setUpdateError("");
+    if (res == null) {
+      setHasUpdateError(true);
+      setUpdateError(
+        "Server nicht verfügbar. Bitte später erneut versuchen."
+      );
+      return;
+    }
 
-            await AsyncStorage.removeItem("token");
-            navigation.replace("LoginScreen");
-          } else {
-            setHasUpdateError(true);
-            setUpdateError(res.data.error);
-          }
-        })
-        .catch(() => {
-          setHasUpdateError(true);
-          setUpdateError(
-            "Server nicht verfügbar. Bitte später erneut versuchen."
-          );
-        });
-    });
+    if (res.success) {
+      setHasUpdateError(false);
+      setUpdateError("");
+
+      await AsyncStorage.removeItem("token");
+      navigation.replace("LoginScreen");
+    } else {
+      setHasUpdateError(true);
+      setUpdateError(res.data.error);
+    }
   };
 
   return { updatePassword, hasUpdateError, updateError };

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ManagePagesScreenProps } from "@/screens/settings/ManagePagesScreen";
 import { requestApi } from "@/helpers/api";
 

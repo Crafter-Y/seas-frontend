@@ -27,7 +27,7 @@ export default function useUnAssignUser() {
       req.append("date", rowDate);
       req.append("columnId", columnId + "");
 
-      fetch(`${configServer}/api/unassignUser/`, {
+      fetch(`${configServer}/api/unassignUser/`, {  // TODO: deprecated api usage
         method: "post",
         body: req,
         headers: {

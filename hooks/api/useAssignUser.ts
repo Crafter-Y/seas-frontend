@@ -27,7 +27,7 @@ export default function useAssignUser() {
       req.append("date", rowDate);
       req.append("columnId", columnId + "");
 
-      fetch(`${configServer}/api/assignUser/`, {
+      fetch(`${configServer}/api/assignUser/`, { // TODO: deprecated api usage
         method: "post",
         body: req,
         headers: {

@@ -17,7 +17,7 @@ export default function useBoard() {
       let req = new FormData();
       req.append("fromDate", fromDate);
       req.append("toDate", toDate);
-      fetch(`${configServer}/api/board/`, {
+      fetch(`${configServer}/api/board/`, {  // TODO: deprecated api usage
         method: "post",
         body: req,
         headers: {
@@ -30,7 +30,7 @@ export default function useBoard() {
             setRows(res.data);
           }
         })
-        .catch(() => {});
+        .catch(() => { });
     });
   };
 

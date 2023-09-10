@@ -17,7 +17,7 @@ export default function useUpdateComment() {
             req.append("date", date);
             req.append("columnId", columnId + "");
             req.append("comment", comment);
-            fetch(`${configServer}/api/updateComment/`, {
+            fetch(`${configServer}/api/updateComment/`, {  // TODO: deprecated api usage
                 method: "post",
                 body: req,
                 headers: {

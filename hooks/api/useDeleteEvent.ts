@@ -15,7 +15,7 @@ export default function useDeleteEvent() {
 
       let req = new FormData();
       req.append("date", date);
-      fetch(`${configServer}/api/deleteEvent/`, {
+      fetch(`${configServer}/api/deleteEvent/`, {  // TODO: deprecated api usage
         method: "post",
         body: req,
         headers: {
