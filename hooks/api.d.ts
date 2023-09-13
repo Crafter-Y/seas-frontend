@@ -40,15 +40,22 @@ type APIResponsePage = {
 };
 
 type BoardRow = {
-  date: string;
+  comments: BoardComment[];
   assignments: BoardAssignment[];
+  date: string;
 };
 
 type BoardAssignment = {
   id: number;
-  type: ColumnType;
-  value: string;
+  userId: number;
+  boardColumnId: number;
 };
+
+type BoardComment = {
+  id: number;
+  boardColumnId: number;
+  text: string;
+}
 
 type ColumnType = "POSITION" | "COMMENT";
 

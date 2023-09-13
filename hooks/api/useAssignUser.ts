@@ -1,42 +1,19 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "../useApiName";
 import { useState } from "react";
-import { BoardScreenProps } from "@/screens/BoardScreen";
+import { requestApi } from "@/helpers/api";
 
 export default function useAssignUser() {
   const [assignmentSuccessful, setAssignmentSuccessful] = useState(false);
-  const getApi = useApi();
 
-  const assignUser = (
+  const assignUser = async (
     userId: number,
     rowDate: string,
-    columnId: number,
-    navigation: BoardScreenProps
+    columnId: number
   ) => {
     setAssignmentSuccessful(false);
 
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        navigation.replace("LoginScreen");
-        return;
-      }
+    await requestApi("board/assignments", "PUT", { userId, date: rowDate, columnId })
 
-      let req = new FormData();
-      req.append("userId", userId + "");
-      req.append("date", rowDate);
-      req.append("columnId", columnId + "");
-
-      fetch(`${configServer}/api/assignUser/`, { // TODO: deprecated api usage
-        method: "post",
-        body: req,
-        headers: {
-          token,
-        },
-      }).then(() => {
-        setAssignmentSuccessful(true);
-      });
-    });
+    setAssignmentSuccessful(true);
   };
 
   return { assignUser, assignmentSuccessful };

@@ -110,13 +110,13 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
     let row = rows.filter(row_ => row_.date == date)[0];
 
     let commentExist =
-      row.assignments.filter((row_) => row_.id == column.id)
+      row.comments.filter((row_) => row_.boardColumnId == column.id)
         .length == 1;
 
     if (commentExist) {
-      let value = row.assignments.filter(
-        (row_) => row_.id == column.id
-      )[0].value;
+      let value = row.comments.filter(
+        (row_) => row_.boardColumnId == column.id
+      )[0].text;
       return (<>
         <Text>{value}</Text>
         {(user?.role == "ADMIN" || user?.role == "MODERATOR") && type == "MODAL" && (
@@ -149,16 +149,12 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   const getPositionForField = (column: APIResponseColumn, date: string, type: "INLINE" | "MODAL") => {
     let row = rows.filter(row_ => row_.date == date)[0];
     let positionUsed =
-      row.assignments.filter((row_) => row_.id == column.id)
+      row.assignments.filter((row_) => row_.boardColumnId == column.id)
         .length == 1;
 
     if (positionUsed) {
-      let usersWithCol = allExistingUsers.filter(
-        (user) =>
-          user.id + "" ==
-          row.assignments.filter((row_) => row_.id == column.id)[0]
-            .value
-      );
+      let assignment = row.assignments.filter((row_) => row_.boardColumnId == column.id)[0];
+      let usersWithCol = allExistingUsers.filter((user) => user.id == assignment.userId);
 
       // The user exists
       if (usersWithCol.length == 1) {
@@ -177,7 +173,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             actionType="CROSS"
             text="Nicht mehr teilnehmen"
             onPress={() => {
-              unassignUser(user?.id!, row.date, column.id, navigation)
+              unassignUser(assignment.id)
             }}
           />)
         }
@@ -194,7 +190,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
           actionType="CROSS"
           text={usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
           onPress={() => {
-            unassignUser(user?.id!, row.date, column.id, navigation)
+            unassignUser(assignment.id)
           }}
         />)
       }
@@ -207,7 +203,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
         actionType="CROSS"
         text="Unbekanntes Mitglied"
         onPress={() => {
-          unassignUser(user?.id!, row.date, column.id, navigation)
+          unassignUser(assignment.id)
         }}
       />)
     }
@@ -215,9 +211,8 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
     // Nobody is assigned
     if (
       row.assignments
-        .filter((assignment) => assignment.type == "POSITION")
-        .map((assignment) => assignment.value)
-        .includes(user?.id! + "")
+        .map((assignment) => assignment.userId)
+        .includes(user?.id!)
     ) {
       if (type == "INLINE") return <Text>-</Text>;
 
@@ -226,7 +221,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
           color="YELLOW"
           text="Ebenfalls teilnehmen"
           onPress={() => {
-            assignUser(user?.id!, row.date, column.id, navigation)
+            assignUser(user?.id!, row.date, column.id)
           }}
         />
         {user?.role == "ADMIN" && (
@@ -249,7 +244,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
             color="GREEN"
             text="Teilnehmen"
             onPress={() =>
-              assignUser(user?.id!, row.date, column.id, navigation)
+              assignUser(user?.id!, row.date, column.id)
             }
           />
           {user?.role == "ADMIN" && (
@@ -270,7 +265,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       <BoardAssignButton
         color="GREEN"
         onPress={() =>
-          assignUser(user?.id!, row.date, column.id, navigation)
+          assignUser(user?.id!, row.date, column.id)
         }
       />
     );
@@ -408,7 +403,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
                 color="GREEN"
                 text={extUser.firstname + " " + extUser.lastname}
                 onPress={() => {
-                  assignUser(extUser.id, selectedRow!.date, selectedColumn!.id, navigation)
+                  assignUser(extUser.id, selectedRow!.date, selectedColumn!.id)
                   selectUserModal.current?.toggleModal()
                 }}
               />

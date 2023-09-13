@@ -1,42 +1,15 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "../useApiName";
 import { useState } from "react";
-import { BoardScreenProps } from "@/screens/BoardScreen";
+import { requestApi } from "@/helpers/api";
 
 export default function useUnAssignUser() {
   const [unassignmentSuccessful, setUnassignmentSuccessful] = useState(false);
-  const getApi = useApi();
 
-  const unassignUser = (
-    userId: number,
-    rowDate: string,
-    columnId: number,
-    navigation: BoardScreenProps
-  ) => {
+  const unassignUser = async (assignmentId: number) => {
     setUnassignmentSuccessful(false);
 
-    let configServer = getApi();
-    AsyncStorage.getItem("token").then((token) => {
-      if (token == null) {
-        navigation.replace("LoginScreen");
-        return;
-      }
+    await requestApi(`board/assignments/${assignmentId}`, "DELETE")
 
-      let req = new FormData();
-      req.append("userId", userId + "");
-      req.append("date", rowDate);
-      req.append("columnId", columnId + "");
-
-      fetch(`${configServer}/api/unassignUser/`, {  // TODO: deprecated api usage
-        method: "post",
-        body: req,
-        headers: {
-          token,
-        },
-      }).then(() => {
-        setUnassignmentSuccessful(true);
-      });
-    });
+    setUnassignmentSuccessful(true);
   };
 
   return { unassignUser, unassignmentSuccessful };
