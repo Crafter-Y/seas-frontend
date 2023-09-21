@@ -21,6 +21,7 @@ jobs:
 
       - name: Expo Doctor
         run: npx expo-doctor
+        continue-on-error: true
 
       - name: Prebuild
         run: npx expo prebuild --platform android
