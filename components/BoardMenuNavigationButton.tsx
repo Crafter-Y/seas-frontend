@@ -1,9 +1,9 @@
 import { View, Text, Pressable } from "react-native";
 import React, { useRef } from "react";
-import { BoardType } from "@/screens/BoardScreen";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 import { Color } from "@/helpers/Constants";
+import { BoardType } from "@/app/board";
 
 type Props = {
   boardType: BoardType;

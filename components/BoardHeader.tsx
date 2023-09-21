@@ -5,12 +5,12 @@ import useMediaQueries from "@/hooks/useMediaQueries";
 import useServerName from "@/hooks/api/useServerName";
 import { Platform } from "react-native";
 import BoardMenuNavigationButton from "./BoardMenuNavigationButton";
-import { BoardType } from "@/screens/BoardScreen";
 import BoardMenuButton from "./BoardMenuButton";
 import BoardHeaderRoundButton from "./BoardHeaderRoundButton";
 import Divider from "./elements/Divider";
 import Modal, { ModalHandle } from "./elements/Modal";
 import Toast from 'react-native-toast-message';
+import { BoardType } from "@/app/board";
 
 type BoardHeaderProps = {
   user: User | null;

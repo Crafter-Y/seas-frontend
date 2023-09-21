@@ -13,8 +13,7 @@ export default function useRenamePage() {
 
   const renamePage = async (
     pageId: number,
-    newName: string,
-    navigation: ManagePagesScreenProps
+    newName: string
   ) => {
     // clientside validation
 

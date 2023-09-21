@@ -1,19 +1,14 @@
 import { View, Text, Platform, Linking } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "@/navigator/RootNavigator";
 import { ClassInput } from "twrnc/dist/esm/types";
+import { router } from "expo-router";
 
 type Props = {
-  navigation: NativeStackNavigationProp<
-    RootStackParamList,
-    keyof RootStackParamList
-  >;
   style?: ClassInput;
 };
 
-const Footer = ({ navigation, style = {} }: Props) => {
+const Footer = ({ style = {} }: Props) => {
   const mailtoReport = () => {
     let url = "mailto:helmut_h_haase@yahoo.de";
     Linking.canOpenURL(url).then((supported) => {
@@ -36,7 +31,7 @@ const Footer = ({ navigation, style = {} }: Props) => {
           `text-xs opacity-80 w-full text-center underline`
         )}
         onPress={() => {
-          navigation.navigate("ImprintScreen");
+          router.push("/imprint");
         }}
       >
         Impressum

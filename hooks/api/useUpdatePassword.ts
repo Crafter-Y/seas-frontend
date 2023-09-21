@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ChangePasswordScreenProps } from "@/screens/ChangePasswordScreen";
 import { requestApi } from "@/helpers/api";
+import { Router } from "expo-router/src/types";
 
 export default function useUpdatePassword() {
   const [hasUpdateError, setHasUpdateError] = useState(false);
@@ -11,7 +11,7 @@ export default function useUpdatePassword() {
     oldPassword: string,
     newPassword1: string,
     newPassword2: string,
-    navigation: ChangePasswordScreenProps
+    router: Router
   ) => {
     if (newPassword1 !== newPassword2) {
       setHasUpdateError(true);
@@ -62,7 +62,7 @@ export default function useUpdatePassword() {
       setUpdateError("");
 
       await AsyncStorage.removeItem("token");
-      navigation.replace("LoginScreen");
+      router.replace("/login");
     } else {
       setHasUpdateError(true);
       setUpdateError(res.data.error);

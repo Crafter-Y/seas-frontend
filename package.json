@@ -1,6 +1,7 @@
 {
   "name": "csa-frontend",
   "version": "1.0.0",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -9,9 +10,9 @@
     "dev": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\" \"expo start --web\"",
     "build:tailwind": "tailwindcss --input input.css --output tailwind.css --no-autoprefixer && tailwind-rn",
     "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\"",
-    "build:web": "expo export:web",
+    "build:web": "expo export --platform web",
     "build:android": "eas build --platform android --local",
-    "serve": "serve ./web-build/",
+    "serve": "serve ./dist/",
     "eas-build-pre-install": "npm config set legacy-peer-deps true"
   },
   "dependencies": {
@@ -26,7 +27,10 @@
     "email-validator": "^2.0.4",
     "expo": "~49.0.6",
     "expo-checkbox": "~2.4.0",
-    "expo-image": "~1.3.2",
+    "expo-constants": "~14.4.2",
+    "expo-image": "~1.3.3",
+    "expo-linking": "~5.0.2",
+    "expo-router": "^2.0.0",
     "expo-screen-orientation": "~6.0.5",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
@@ -56,7 +60,7 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "concurrently": "^8.0.1",
     "postcss": "^8.4.21",
-    "tailwindcss": "^3.3.1",
+    "tailwindcss": "^3.3.3",
     "typescript": "^5.1.3"
   },
   "private": true

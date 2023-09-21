@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LoginScreenProps } from "@/screens/LoginScreen";
 import { Platform } from "react-native";
-import { BoardScreenProps } from "@/screens/BoardScreen";
 import decode from "jwt-decode";
 import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
+import { Router } from "expo-router/build/types";
 
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
@@ -12,23 +11,23 @@ export default function useAuthentication() {
 
   const [user, setUser] = useState<User | null>(null);
 
-  const logout = async (navigation: BoardScreenProps) => {
+  const logout = async (router: Router) => {
     await AsyncStorage.removeItem("token")
     setUser(null);
-    navigation.replace("LoginScreen");
+    router.replace("/login");
   };
 
   const login = async (
     email: string,
     password: string,
-    navigation: LoginScreenProps
+    router: Router
   ) => {
     setHasAuthError(false);
     setAuthError("");
 
     let serverId = await AsyncStorage.getItem("serverId");
     if (serverId == null) {
-      navigation.replace("ServerSelectorScreen");
+      router.replace("/");
       return;
     }
 

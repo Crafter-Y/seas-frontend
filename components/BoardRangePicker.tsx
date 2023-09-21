@@ -1,6 +1,5 @@
 import { View, Text, Pressable } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { BoardType } from "@/screens/BoardScreen";
 import tw from "@/tailwind";
 import useYearState from "@/hooks/useYearState";
 import { Entypo } from "@expo/vector-icons";
@@ -9,14 +8,14 @@ import useMonthState from "@/hooks/useMonthState";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import useWeekState from "@/hooks/useWeekState";
 import { Color } from "@/helpers/Constants";
+import { BoardType } from "@/app/board";
 
 type Props = {
   boardType: BoardType;
-  setDateStart: (date: Date) => void;
-  setDateEnd: (date: Date) => void;
+  queryPageChange: (from: Date, to: Date) => void
 };
 
-const BoardRangePicker = ({ boardType, setDateEnd, setDateStart }: Props) => {
+const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   const { beforeYear, currentYear, nextYear, setCurrentYear } = useYearState();
   const { beforeQuarter, currentQuarter, nextQuarter, setCurrentQuarter } =
     useQuarterState();
@@ -62,23 +61,20 @@ const BoardRangePicker = ({ boardType, setDateEnd, setDateStart }: Props) => {
       setBackText(beforeYear + "");
       setNextText(nextYear + "");
 
-      setDateStart(new Date(currentYear, 0, 1));
-      setDateEnd(new Date(currentYear, 11, 31));
+      queryPageChange(new Date(currentYear, 0, 1), new Date(currentYear, 11, 31))
     } else if (boardType == "Quartal Ansicht") {
       setBackText(beforeQuarter + ". Quartal");
       setNextText(nextQuarter + ". Quartal");
       setThisText(currentQuarter + ". Quartal");
 
       let startThisQuarter = new Date(currentYear, (currentQuarter - 1) * 3, 1);
-      setDateStart(startThisQuarter);
-      setDateEnd(new Date(currentYear, startThisQuarter.getMonth() + 3, 0));
+      queryPageChange(startThisQuarter, new Date(currentYear, startThisQuarter.getMonth() + 3, 0));
     } else if (boardType == "Monatsansicht") {
       setBackText(months[beforeMonth - 1]);
       setNextText(months[nextMonth - 1]);
       setThisText(months[currentMonth - 1]);
 
-      setDateStart(new Date(currentYear, currentMonth - 1, 1));
-      setDateEnd(new Date(currentYear, currentMonth, 0));
+      queryPageChange(new Date(currentYear, currentMonth - 1, 1), new Date(currentYear, currentMonth, 0));
     } else {
       setBackText("KW " + beforeWeek);
       setNextText("KW " + nextWeek);
@@ -87,8 +83,7 @@ const BoardRangePicker = ({ boardType, setDateEnd, setDateStart }: Props) => {
       let weekStart = getDateByWeek(currentWeek, currentYear);
       let weekEnd = new Date(weekStart);
       weekEnd.setDate(weekStart.getDate() + 6);
-      setDateStart(weekStart);
-      setDateEnd(weekEnd);
+      queryPageChange(weekStart, weekEnd);
     }
   }, [
     boardType,

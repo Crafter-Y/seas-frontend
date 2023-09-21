@@ -2,8 +2,7 @@ import { View, Text, Pressable, TextInput } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import useBoard from "@/hooks/api/useBoard";
-import { formatDate, prettyDate } from "@/helpers/format";
+import { prettyDate } from "@/helpers/format";
 import Form from "@/components/elements/Form";
 import TH from "./elements/TH";
 import useAllColumns from "@/hooks/api/useAllColumns";
@@ -13,7 +12,6 @@ import PressableTR from "./elements/PressableTR";
 import useAuthentication from "@/hooks/api/useAuthentication";
 import BoardAssignButton from "./BoardAssignButton";
 import useAssignUser from "@/hooks/api/useAssignUser";
-import { BoardScreenProps } from "@/screens/BoardScreen";
 import Modal, { ModalHandle } from "./elements/Modal";
 import Divider from "./elements/Divider";
 import useUnAssignUser from "@/hooks/api/useUnAssignUser";
@@ -25,20 +23,16 @@ import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
 import useUpdateComment from "@/hooks/api/useUpdateComment";
 
 type Props = {
-  dateStart: Date;
-  dateEnd: Date;
   currentPage: number;
-  navigation: BoardScreenProps;
-  allPages: APIResponsePage[]
+  allPages: APIResponsePage[];
+  rows: BoardRow[];
+  fetchData: () => void
 };
-const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Props) => {
+const BoardList = ({ currentPage, allPages, rows, fetchData }: Props) => {
   const { isSm } = useMediaQueries();
 
   const [renderdAllPages, setRenderdAllPages] = useState<APIResponsePage[]>([])
 
-  const lastRequest = useRef(new Date());
-
-  const { rows, queryBoard } = useBoard();
   const { allColumns } = useAllColumns();
   const { allExistingUsers } = useAllExistingUsers();
   const { deleteEvent, succesfulDeletion } = useDeleteEvent();
@@ -69,24 +63,16 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
   }, [allPages, currentPage])
 
   useEffect(() => {
-    lastRequest.current = new Date();
-    setTimeout(() => {
-      if (new Date().getTime() - lastRequest.current.getTime() < 200) return;
-      fetchData(dateStart, dateEnd);
-    }, 200);
-  }, [dateStart, dateEnd]);
-
-  useEffect(() => {
-    if (assignmentSuccessful) fetchData(dateStart, dateEnd);
+    if (assignmentSuccessful) fetchData();
   }, [assignmentSuccessful]);
 
   useEffect(() => {
-    if (unassignmentSuccessful) fetchData(dateStart, dateEnd);
+    if (unassignmentSuccessful) fetchData();
   }, [unassignmentSuccessful]);
 
   useEffect(() => {
     if (successfulUpdate) {
-      fetchData(dateStart, dateEnd);
+      fetchData();
       editCommentModal.current?.toggleModal()
     }
   }, [successfulUpdate])
@@ -97,18 +83,13 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
       rowModal.current?.toggleModal();
       setSelectedRow(undefined)
 
-      fetchData(dateStart, dateEnd);
+      fetchData();
     }
   }, [succesfulDeletion])
 
-  const fetchData = (start: Date, end: Date) => {
-    queryBoard(formatDate(start), formatDate(end));
-    console.log("query", start, end);
-  };
-
   const getCommentForField = (column: APIResponseColumn, date: string, type: "INLINE" | "MODAL") => {
     let row = rows.filter(row_ => row_.date == date)[0];
-
+    if (!row) return;
     let commentExist =
       row.comments.filter((row_) => row_.boardColumnId == column.id)
         .length == 1;
@@ -148,6 +129,7 @@ const BoardList = ({ dateStart, dateEnd, currentPage, navigation, allPages }: Pr
 
   const getPositionForField = (column: APIResponseColumn, date: string, type: "INLINE" | "MODAL") => {
     let row = rows.filter(row_ => row_.date == date)[0];
+    if (!row) return;
     let positionUsed =
       row.assignments.filter((row_) => row_.boardColumnId == column.id)
         .length == 1;

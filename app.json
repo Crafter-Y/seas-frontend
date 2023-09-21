@@ -2,6 +2,7 @@
   "expo": {
     "name": "SEAS - Kirchengemeinden",
     "slug": "csa-frontend",
+    "scheme": "seas-kirchengemeinde",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -25,15 +26,19 @@
       "package": "de.craftery.seasfrontend"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     },
     "extra": {
       "eas": {
         "projectId": "04b64ca7-4272-45dc-98cb-14e129c5ac01"
       },
       "localApi": "http://192.168.178.41:3000",
-      "productionApi": "https://craftingapis.de"
+      "productionApi": "http://192.168.178.41:3000"
     },
-    "owner": "crafter_y"
+    "owner": "crafter_y",
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

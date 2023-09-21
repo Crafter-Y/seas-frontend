@@ -1,20 +1,22 @@
 import { View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import { BoardScreenProps, BoardType } from "@/screens/BoardScreen";
 import BoardRangePicker from "./BoardRangePicker";
 import BoardList from "./BoardList";
 import useAllPages from "@/hooks/api/useAllPages";
 import BoardPageSelector from "./BoardPageSelector";
 import Divider from "./elements/Divider";
+import { formatDate } from "@/helpers/format";
+import { BoardType } from "@/app/board";
 
 type Props = {
   boardType: BoardType;
-  navigation: BoardScreenProps;
+  rows: BoardRow[];
+  queryBoard: (fromDate: string, toDate: string) => Promise<void>
 };
 
-const Board = ({ boardType, navigation }: Props) => {
+const Board = ({ boardType, rows, queryBoard }: Props) => {
   const { isSm } = useMediaQueries();
 
   const { allPages } = useAllPages();
@@ -31,6 +33,14 @@ const Board = ({ boardType, navigation }: Props) => {
   const [dateEnd, setDateEnd] = useState<Date>(endThisQuarter);
 
   const [currentPage, setCurrentPage] = useState(0);
+
+  const fetchData = (start: Date, end: Date) => {
+    setDateStart(start);
+    setDateEnd(end)
+
+    queryBoard(formatDate(start), formatDate(end));
+    console.log("query", start, end);
+  };
 
   useEffect(() => {
     if (allPages.length != 0) {
@@ -50,8 +60,7 @@ const Board = ({ boardType, navigation }: Props) => {
     >
       <BoardRangePicker
         boardType={boardType}
-        setDateStart={setDateStart}
-        setDateEnd={setDateEnd}
+        queryPageChange={fetchData}
       />
       <BoardPageSelector
         pages={allPages}
@@ -66,11 +75,12 @@ const Board = ({ boardType, navigation }: Props) => {
         })}
       />
       <BoardList
-        dateStart={dateStart}
-        dateEnd={dateEnd}
         currentPage={currentPage}
-        navigation={navigation}
         allPages={allPages}
+        rows={rows}
+        fetchData={() => {
+          fetchData(dateStart, dateEnd)
+        }}
       />
     </View>
   );

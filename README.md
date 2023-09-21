@@ -22,8 +22,6 @@ SEAS - Kirchengemeinden - Selbsteinteilungs- & Administrationssoftware (Ehml. CS
   - [ ] Calendar export (5h)
 
 - [ ] prevent spamming buttons in settings
-- [ ] switch to expo router and nativewind
-- [ ] settings first section web header glitch fix
 - [ ] board modal scroll android lag fix
 - [ ] global board state & refresh on scroll drag
 - [ ] fix production crash on board load?

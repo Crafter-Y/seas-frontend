@@ -2,10 +2,10 @@ import { View, Text, useWindowDimensions } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import { BoardType } from "@/screens/BoardScreen";
 import BoardSidebarButton from "./BoardSidebarButton";
 import BoardSidebarNavigationButton from "./BoardSidebarNavigationButton";
 import Divider from "./elements/Divider";
+import { BoardType } from "@/app/board";
 
 const BoardSidebar = (props: {
   user: User | null;

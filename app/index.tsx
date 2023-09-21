@@ -1,30 +1,15 @@
-import { Text, Platform, View, useWindowDimensions } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useContext, useEffect, useState } from "react";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "@/navigator/RootNavigator";
-import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import tw from "@/tailwind";
-import webConfig from "@/assets/config.json";
-import useServerName from "@/hooks/api/useServerName";
-import Input from "@/components/elements/Input";
-import ErrorDisplay from "@/components/ErrorDisplay";
-import Button from "@/components/elements/Button";
+import tw from '@/tailwind';
+import { Platform, Text, View, useWindowDimensions } from 'react-native';
 import Image from "@/components/elements/Image";
+import Input from '@/components/elements/Input';
+import ErrorDisplay from '@/components/ErrorDisplay';
+import Button from '@/components/elements/Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
+import useServerName from '@/hooks/api/useServerName';
+import { router } from 'expo-router';
 
-type ServerSelectorScreenProps = NativeStackNavigationProp<
-  RootStackParamList,
-  "ServerSelectorScreen"
->;
-
-type WebConfig = {
-  serverId: string;
-};
-
-const ServerSelectorScreen = () => {
-  const navigation = useNavigation<ServerSelectorScreenProps>();
-
+export default function ServerSelectorScreen() {
   const { height, width } = useWindowDimensions();
 
   const [serverId, setServerId] = useState("");
@@ -40,30 +25,25 @@ const ServerSelectorScreen = () => {
   } = useServerName();
 
   useEffect(() => {
-    navigation.setOptions({ title: "Server auswählen" });
     if (Platform.OS == "web") {
-      // @ts-ignore - webpack magic
-      let config: string = webConfig;
-      fetch(config)
-        .then((res) => res.json())
-        .then((json: WebConfig) => {
-          if (json.serverId) {
-            AsyncStorage.setItem("serverId", json.serverId);
-            navigation.replace("LoginScreen");
-            return;
-          }
-        });
+      setTimeout(() => {
+        router.replace("/login")
+      }, 1)
     } else {
       AsyncStorage.getItem("serverId").then((res) => {
         if (res !== null) {
-          navigation.replace("LoginScreen");
+          setTimeout(() => {
+            router.replace("/login")
+          }, 1)
         }
       });
     }
-  }, [navigation]);
+  }, []);
 
   useEffect(() => {
-    if (fetchSuccessful) navigation.replace("LoginScreen");
+    if (fetchSuccessful) setTimeout(() => {
+      router.replace("/login")
+    }, 1)
   }, [fetchSuccessful])
 
   const login = async () => {
@@ -86,11 +66,7 @@ const ServerSelectorScreen = () => {
   };
 
   return (
-    <SafeAreaView
-      style={tw.style({
-        height: height,
-      })}
-    >
+    <View>
       <View style={tw`items-center`}>
         <Image source={require("@/assets/adaptive-icon.png")} style={{
           height: Math.min(height, width) / 2,
@@ -116,8 +92,6 @@ const ServerSelectorScreen = () => {
         <Text>Dies kann hinterher noch geändert werden.</Text>
         <Button onPress={login}>Speichern</Button>
       </View>
-    </SafeAreaView>
+    </View>
   );
-};
-
-export default ServerSelectorScreen;
+}

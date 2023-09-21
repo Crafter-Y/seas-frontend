@@ -3,57 +3,45 @@ import {
   Text,
   useWindowDimensions,
   Pressable,
-  ScrollView,
+  ScrollView
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "@/tailwind";
 import Footer from "@/components/Footer";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "@/navigator/RootNavigator";
 import SettingsBackButton from "../SettingsBackButton";
 import Divider from "../elements/Divider";
 import H1 from "../elements/H1";
 import { useHover } from "react-native-web-hooks";
 import { Color } from "@/helpers/Constants";
+import { Stack, router } from "expo-router";
 
 type Props = {
-  children: React.ReactNode;
-  navigation: NativeStackNavigationProp<
-    RootStackParamList,
-    keyof RootStackParamList
-  >;
+  children: React.ReactNode
+  actualSetting: string
 };
 
 export const settingsSections = {
-  ManageUsersScreen: "Mitglieder verwalten",
-  ManagePositionsScreen: "Spalten verwalten",
-  ManageEventsScreen: "Termine verwalten",
-  ManageCommentTemplatesScreen: "Kommentarvorlagen",
-  ManagePagesScreen: "Pläne verwalten",
+  users: "Mitglieder verwalten",
+  positions: "Spalten verwalten",
+  events: "Termine verwalten",
+  comments: "Kommentarvorlagen",
+  pages: "Pläne verwalten",
 };
 
 const settingsTitles = {
   ...settingsSections,
-  BaseSettingsScreen: "Einstellungen",
+  settings: "Einstellungen",
 };
 
 type NavigationButtonProps = {
-  navigation: NativeStackNavigationProp<
-    RootStackParamList,
-    keyof RootStackParamList
-  >;
-  setting: keyof RootStackParamList;
-  actualSetting: keyof RootStackParamList;
-  onPress: () => void;
+  setting: string;
+  actualSetting: string
 };
 
 const InlineNavigationButton = ({
-  navigation,
   setting,
-  actualSetting,
-  onPress,
+  actualSetting
 }: NavigationButtonProps) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
@@ -62,9 +50,7 @@ const InlineNavigationButton = ({
     <View style={tw.style("items-center mt-2 gap-3 flex-row -mr-2")}>
       <Pressable
         onPress={() => {
-          if (navigation.getState().routes.length > 2) navigation.pop();
-          navigation.navigate(setting as keyof typeof settingsSections);
-          onPress();
+          router.replace(`/settings/${setting}`)
         }}
         ref={ref}
       >
@@ -90,39 +76,19 @@ const InlineNavigationButton = ({
   );
 };
 
-export const SettingsLayout = ({ children, navigation }: Props) => {
+export const SettingsLayout = ({ children, actualSetting }: Props) => {
   const { height } = useWindowDimensions();
 
   const { isMd } = useMediaQueries();
-
-  const getRouteName = () => {
-    return navigation.getState().routes[navigation.getState().routes.length - 1]
-      .name;
-  };
-
-  const processWindow = () => {
-    navigation.setOptions({
-      title: settingsTitles[getRouteName() as keyof typeof settingsTitles],
-    });
-    if (!isMd) {
-      navigation.setOptions({ headerShown: true });
-    } else {
-      navigation.setOptions({ headerShown: false });
-    }
-  };
-
-  useEffect(() => {
-    processWindow();
-  }, [isMd, navigation, getRouteName()]);
 
   return (
     <View
       style={{
         flexDirection: "row",
-        //minHeight: height,
         backgroundColor: "#f2f2f2",
       }}
     >
+      <Stack.Screen options={{ headerShown: !isMd, title: "Einstellungen" }} />
       <View
         style={tw.style(
           {
@@ -132,19 +98,16 @@ export const SettingsLayout = ({ children, navigation }: Props) => {
           "w-1/3 items-end justify-center pl-4"
         )}
       >
-        <SettingsBackButton navigation={navigation} />
+        <SettingsBackButton />
         <H1 style={tw`text-right`}>Einstellungen</H1>
         {Object.keys(settingsSections).map((setting) => (
           <InlineNavigationButton
-            onPress={processWindow}
+            actualSetting={actualSetting}
             key={setting}
-            navigation={navigation}
             setting={setting as keyof typeof settingsTitles}
-            actualSetting={getRouteName()}
           />
         ))}
         <Footer
-          navigation={navigation}
           style={tw.style(
             {
               hidden: !isMd,

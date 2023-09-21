@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ManagePagesScreenProps } from "@/screens/settings/ManagePagesScreen";
 import { requestApi } from "@/helpers/api";
 
 export default function useCreatePage() {
@@ -7,7 +6,7 @@ export default function useCreatePage() {
   const [creationError, setCreationError] = useState("");
   const [successfulPageCreation, setIsSuccessfulPageCreation] = useState(false);
 
-  const createPage = async (name: string, navigation: ManagePagesScreenProps) => {
+  const createPage = async (name: string) => {
     // clientside validation
 
     setIsSuccessfulPageCreation(false);
