@@ -19,15 +19,19 @@ export default function useServerName() {
     let serverId = await AsyncStorage.getItem("serverId");
     if (serverId == null) return;
 
-    let res = await requestApiWithoutCredentials(`products/${serverId}`, "GET")
+    try {
+      let res = await requestApiWithoutCredentials(`products/${serverId}`, "GET")
 
-    if (res == null) return;
-
-    if (res.success) {
-      setName(res.data.name);
-      setFetchSuccessful(true);
-    } else {
-      setFetchServerError(res.data.error)
+      if (res.success) {
+        setName(res.data.name);
+        setFetchSuccessful(true);
+      } else {
+        setFetchServerError(res.data.error)
+        setFetchSuccessful(false);
+      }
+    } catch (e) {
+      setFetchServerError(e + "")
+      setFetchSuccessful(false);
     }
   };
 

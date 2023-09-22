@@ -31,7 +31,7 @@ export default function ServerSelectorScreen() {
 
     const isWeb = Platform.OS == "web";
 
-    const { serverName } = useServerName();
+    const { serverName, fetchServerError } = useServerName();
 
     const { login, authError, hasAuthError, user } = useAuthentication();
 
@@ -60,6 +60,10 @@ export default function ServerSelectorScreen() {
     useEffect(() => {
         if (Platform.OS == "web" && serverName && segments[0] == "login") document.title = "Login ⋅ " + serverName
     }, [serverName, segments])
+
+    useEffect(() => {
+        if (Platform.OS != "web" && !serverName && fetchServerError) setTimeout(() => { router.replace("/") }, 1)
+    }, [serverName, fetchServerError])
 
     useEffect(() => {
         if (user != null) {

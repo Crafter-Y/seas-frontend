@@ -31,26 +31,26 @@ export default function useAuthentication() {
       return;
     }
 
-    let res = await requestApiWithoutCredentials(`auth/${serverId}`, "POST", {
-      email,
-      password,
-      expiration: Platform.OS == "web" ? "short" : "long"
-    })
+    try {
+      let res = await requestApiWithoutCredentials(`auth/${serverId}`, "POST", {
+        email,
+        password,
+        expiration: Platform.OS == "web" ? "short" : "long"
+      })
 
-    if (res == null) {
-      setAuthError("Server nicht verfügbar. Bitte später erneut versuchen.");
+      if (res.success) {
+        AsyncStorage.setItem("token", res.data.token).then(() => {
+          populateUserData();
+        });
+      } else {
+        setAuthError(res.data.error);
+        setHasAuthError(true);
+      }
+    } catch (e) {
+      setAuthError(e + "e");
       setHasAuthError(true);
-      return;
     }
 
-    if (res.success) {
-      AsyncStorage.setItem("token", res.data.token).then(() => {
-        populateUserData();
-      });
-    } else {
-      setAuthError(res.data.error);
-      setHasAuthError(true);
-    }
   };
 
   const populateUserData = async () => {

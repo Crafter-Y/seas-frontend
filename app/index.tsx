@@ -29,14 +29,6 @@ export default function ServerSelectorScreen() {
       setTimeout(() => {
         router.replace("/login")
       }, 1)
-    } else {
-      AsyncStorage.getItem("serverId").then((res) => {
-        if (res !== null) {
-          setTimeout(() => {
-            router.replace("/login")
-          }, 1)
-        }
-      });
     }
   }, []);
 

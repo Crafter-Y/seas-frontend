@@ -33,7 +33,7 @@ const requestApi = async (endpoint: string, method: RequestMethod, body: object 
     }
 }
 
-const requestApiWithoutCredentials = async (endpoint: string, method: RequestMethod, body: object | undefined = undefined): Promise<ApiResponse | null> => {
+const requestApiWithoutCredentials = async (endpoint: string, method: RequestMethod, body: object | undefined = undefined): Promise<ApiResponse> => {
     try {
         let rawResponse = await fetch(`${getApi()}/api/v1/${endpoint}`, {
             method,
@@ -46,8 +46,9 @@ const requestApiWithoutCredentials = async (endpoint: string, method: RequestMet
 
         return response;
     } catch (e) {
-        console.log(e)
-        return null;
+        //console.log(e)
+        //return null;
+        throw e;
     }
 }
 
