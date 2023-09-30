@@ -27,6 +27,7 @@ export const settingsSections = {
   events: "Termine verwalten",
   comments: "Kommentarvorlagen",
   pages: "Pläne verwalten",
+  modules: "Module verwalten"
 };
 
 const settingsTitles = {

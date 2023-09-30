@@ -46,8 +46,6 @@ const requestApiWithoutCredentials = async (endpoint: string, method: RequestMet
 
         return response;
     } catch (e) {
-        //console.log(e)
-        //return null;
         throw e;
     }
 }

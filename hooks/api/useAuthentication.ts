@@ -4,16 +4,17 @@ import { Platform } from "react-native";
 import decode from "jwt-decode";
 import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
 import { Router } from "expo-router/build/types";
+import { Store } from "@/helpers/store";
 
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authError, setAuthError] = useState("");
 
-  const [user, setUser] = useState<User | null>(null);
+  const user = Store.useState(state => state.user)
 
   const logout = async (router: Router) => {
     await AsyncStorage.removeItem("token")
-    setUser(null);
+    Store.update(state => { state.user = null })
     router.replace("/login");
   };
 
@@ -78,18 +79,20 @@ export default function useAuthentication() {
     let res = await requestApi("auth/validate", "GET");
     if (!res || !res.success) return;
 
-    setUser({
-      id: tokenContents.userId,
-      firstname: tokenContents.firstname,
-      lastname: tokenContents.lastname,
-      email: tokenContents.email,
-      role: tokenContents.role
+    Store.update(state => {
+      state.user = {
+        id: tokenContents.userId,
+        firstname: tokenContents.firstname,
+        lastname: tokenContents.lastname,
+        email: tokenContents.email,
+        role: tokenContents.role
+      }
     })
     setHasAuthError(false);
   };
 
   useEffect(() => {
-    populateUserData();
+    if (!user) populateUserData();
   }, []);
 
   return {

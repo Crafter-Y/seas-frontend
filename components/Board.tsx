@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import BoardRangePicker from "./BoardRangePicker";
@@ -9,6 +9,7 @@ import BoardPageSelector from "./BoardPageSelector";
 import Divider from "./elements/Divider";
 import { formatDate } from "@/helpers/format";
 import { BoardType } from "@/app/board";
+import { Store } from "@/helpers/store";
 
 type Props = {
   boardType: BoardType;
@@ -32,8 +33,6 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
   const [dateStart, setDateStart] = useState<Date>(startThisQuarter);
   const [dateEnd, setDateEnd] = useState<Date>(endThisQuarter);
 
-  const [currentPage, setCurrentPage] = useState(0);
-
   const fetchData = (start: Date, end: Date) => {
     setDateStart(start);
     setDateEnd(end)
@@ -44,7 +43,7 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
 
   useEffect(() => {
     if (allPages.length != 0) {
-      setCurrentPage(allPages[0].id);
+      Store.update(state => { state.currentPage = allPages[0].id })
     }
   }, [allPages]);
 
@@ -62,11 +61,7 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
         boardType={boardType}
         queryPageChange={fetchData}
       />
-      <BoardPageSelector
-        pages={allPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <BoardPageSelector />
       <Divider
         type="HORIZONTAL"
         style={tw.style(`mt-2 mb-6`, {
@@ -75,8 +70,6 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
         })}
       />
       <BoardList
-        currentPage={currentPage}
-        allPages={allPages}
         rows={rows}
         fetchData={() => {
           fetchData(dateStart, dateEnd)

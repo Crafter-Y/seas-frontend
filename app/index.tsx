@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import useServerName from '@/hooks/api/useServerName';
 import { router } from 'expo-router';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ServerSelectorScreen() {
   const { height, width } = useWindowDimensions();
@@ -58,7 +59,7 @@ export default function ServerSelectorScreen() {
   };
 
   return (
-    <View>
+    <SafeAreaView>
       <View style={tw`items-center`}>
         <Image source={require("@/assets/adaptive-icon.png")} style={{
           height: Math.min(height, width) / 2,
@@ -84,6 +85,6 @@ export default function ServerSelectorScreen() {
         <Text>Dies kann hinterher noch geändert werden.</Text>
         <Button onPress={login}>Speichern</Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

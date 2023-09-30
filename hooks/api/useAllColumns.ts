@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import { requestApi } from "@/helpers/api";
+import { Store } from "@/helpers/store";
 
 export default function useAllColumns() {
-  const [allColumns, setAllColumns] = useState<APIResponseColumn[]>([]);
+  const allColumns = Store.useState(state => state.allColumns)
 
   const queryColumns = async () => {
     let res = await requestApi("columns", "GET");
 
     if (res && res.success) {
-      setAllColumns(res.data.columns);
+      Store.update(state => { state.allColumns = res?.data.columns })
     }
   };
 
   useEffect(() => {
-    queryColumns();
+    if (allColumns.length == 0) queryColumns();
   }, []);
 
   return { allColumns, queryColumns };

@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { requestApi } from "@/helpers/api";
+import { Store } from "@/helpers/store";
 
 export default function useAllExistingUsers() {
-  const [allExistingUsers, setAllUsers] = useState<APIResponseUser[]>([]);
+  const allExistingUsers = Store.useState(state => state.allExistingUsers)
 
   const queryUsers = async () => {
     let res = await requestApi("users", "GET")
     if (res && res.success) {
-      setAllUsers(res.data.users);
+      Store.update(state => { state.allExistingUsers = res?.data.users })
     }
   };
 
   useEffect(() => {
-    queryUsers();
+    if (allExistingUsers.length == 0) queryUsers();
   }, []);
 
   return { allExistingUsers, queryUsers };

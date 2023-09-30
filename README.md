@@ -22,7 +22,5 @@ SEAS - Kirchengemeinden - Selbsteinteilungs- & Administrationssoftware (Ehml. CS
   - [ ] Calendar export (5h)
 
 - [ ] prevent spamming buttons in settings
-- [ ] board modal scroll android lag fix
-- [ ] global board state & refresh on scroll drag
 - [ ] fix production crash on board load?
 - [ ] (auto-update)

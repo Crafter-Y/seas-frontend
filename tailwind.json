@@ -25,10 +25,22 @@
 			"marginRight": 24
 		}
 	},
+	"my-1": {
+		"style": {
+			"marginTop": 4,
+			"marginBottom": 4
+		}
+	},
 	"my-16": {
 		"style": {
 			"marginTop": 64,
 			"marginBottom": 64
+		}
+	},
+	"my-2": {
+		"style": {
+			"marginTop": 8,
+			"marginBottom": 8
 		}
 	},
 	"my-4": {
@@ -46,6 +58,11 @@
 	"mb-0": {
 		"style": {
 			"marginBottom": 0
+		}
+	},
+	"mb-1": {
+		"style": {
+			"marginBottom": 4
 		}
 	},
 	"mb-12": {
@@ -68,9 +85,24 @@
 			"marginBottom": 32
 		}
 	},
+	"ml-2": {
+		"style": {
+			"marginLeft": 8
+		}
+	},
 	"ml-4": {
 		"style": {
 			"marginLeft": 16
+		}
+	},
+	"mr-1": {
+		"style": {
+			"marginRight": 4
+		}
+	},
+	"mr-4": {
+		"style": {
+			"marginRight": 16
 		}
 	},
 	"mt-1": {
@@ -163,6 +195,11 @@
 			"flexDirection": "row"
 		}
 	},
+	"flex-wrap": {
+		"style": {
+			"flexWrap": "wrap"
+		}
+	},
 	"items-end": {
 		"style": {
 			"alignItems": "flex-end"
@@ -188,12 +225,36 @@
 			"justifyContent": "space-between"
 		}
 	},
+	"rounded-lg": {
+		"style": {
+			"borderTopLeftRadius": 8,
+			"borderTopRightRadius": 8,
+			"borderBottomRightRadius": 8,
+			"borderBottomLeftRadius": 8
+		}
+	},
 	"rounded-md": {
 		"style": {
 			"borderTopLeftRadius": 6,
 			"borderTopRightRadius": 6,
 			"borderBottomRightRadius": 6,
 			"borderBottomLeftRadius": 6
+		}
+	},
+	"border": {
+		"style": {
+			"borderTopWidth": 1,
+			"borderRightWidth": 1,
+			"borderBottomWidth": 1,
+			"borderLeftWidth": 1
+		}
+	},
+	"border-2": {
+		"style": {
+			"borderTopWidth": 2,
+			"borderRightWidth": 2,
+			"borderBottomWidth": 2,
+			"borderLeftWidth": 2
 		}
 	},
 	"border-l": {
@@ -271,10 +332,28 @@
 			"paddingRight": 16
 		}
 	},
+	"py-1": {
+		"style": {
+			"paddingTop": 4,
+			"paddingBottom": 4
+		}
+	},
+	"py-3": {
+		"style": {
+			"paddingTop": 12,
+			"paddingBottom": 12
+		}
+	},
 	"py-6": {
 		"style": {
 			"paddingTop": 24,
 			"paddingBottom": 24
+		}
+	},
+	"px-6": {
+		"style": {
+			"paddingLeft": 24,
+			"paddingRight": 24
 		}
 	},
 	"pb-12": {
@@ -346,6 +425,12 @@
 		"style": {
 			"--tw-text-opacity": 1,
 			"color": "rgb(248 113 113 / var(--tw-text-opacity))"
+		}
+	},
+	"text-red-500": {
+		"style": {
+			"--tw-text-opacity": 1,
+			"color": "rgb(239 68 68 / var(--tw-text-opacity))"
 		}
 	},
 	"underline": {

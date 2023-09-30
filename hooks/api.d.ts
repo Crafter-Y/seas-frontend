@@ -87,6 +87,11 @@ type APIRecurringEventsResponse = {
   }[],
 };
 
+type APIModuleStatus = {
+  moduleCalendar: boolean
+  modulePrint: boolean
+}
+
 type EventType = "UNSET" | "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";
 
 type Weekday =

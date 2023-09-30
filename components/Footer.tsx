@@ -28,7 +28,7 @@ const Footer = ({ style = {} }: Props) => {
           {
             hidden: Platform.OS != "web",
           },
-          `text-xs opacity-80 w-full text-center underline`
+          `text-xs opacity-80 text-center underline`
         )}
         onPress={() => {
           router.push("/imprint");

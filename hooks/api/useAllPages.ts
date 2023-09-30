@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { requestApi } from "@/helpers/api";
+import { Store } from "@/helpers/store";
 
 export default function useAllPages() {
-  const [allPages, setAllPages] = useState<APIResponsePage[]>([]);
+  const allPages = Store.useState(state => state.allPages)
 
   const queryPages = async () => {
     let res = await requestApi("pages", "GET");
 
     if (res && res.success) {
-      setAllPages(res.data.pages);
+      Store.update(state => { state.allPages = res?.data.pages })
     }
   };
 
   useEffect(() => {
-    queryPages();
+    if (allPages.length == 0) queryPages();
   }, []);
 
   return { allPages, queryPages };

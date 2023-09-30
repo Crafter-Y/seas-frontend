@@ -34,7 +34,7 @@
         "projectId": "04b64ca7-4272-45dc-98cb-14e129c5ac01"
       },
       "localApi": "http://192.168.178.41:3000",
-      "productionApi": "http://192.168.178.41:3000"
+      "productionApi": "https://seas-kirchengemeinden.craftingapis.de"
     },
     "owner": "crafter_y",
     "plugins": [
