@@ -40,7 +40,7 @@ const BoardSidebarButton = ({ icon, text, pressAction }: Props) => {
           {
             backgroundColor: isHovered ? Color.BLUE : undefined
           },
-          `w-1 h-8 rounded-l-md`
+          "w-1 h-8 rounded-l-md"
         )}
       ></View>
     </Pressable>

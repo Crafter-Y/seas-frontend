@@ -56,7 +56,7 @@ export default forwardRef<TextInput, Props>(
             fontSize: 18,
           },
           style,
-          `border border-black border-opacity-20 rounded-xl px-2`
+          "border border-black border-opacity-20 rounded-xl px-2"
         )}
         autoFocus={autoFocus ? autoFocus : false}
         onChangeText={(text) => {

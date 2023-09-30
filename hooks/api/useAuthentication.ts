@@ -10,11 +10,11 @@ export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authError, setAuthError] = useState("");
 
-  const user = Store.useState(state => state.user)
+  const user = Store.useState(state => state.user);
 
   const logout = async (router: Router) => {
-    await AsyncStorage.removeItem("token")
-    Store.update(state => { state.user = null })
+    await AsyncStorage.removeItem("token");
+    Store.update(state => { state.user = null; });
     router.replace("/login");
   };
 
@@ -26,18 +26,18 @@ export default function useAuthentication() {
     setHasAuthError(false);
     setAuthError("");
 
-    let serverId = await AsyncStorage.getItem("serverId");
+    const serverId = await AsyncStorage.getItem("serverId");
     if (serverId == null) {
       router.replace("/");
       return;
     }
 
     try {
-      let res = await requestApiWithoutCredentials(`auth/${serverId}`, "POST", {
+      const res = await requestApiWithoutCredentials(`auth/${serverId}`, "POST", {
         email,
         password,
         expiration: Platform.OS == "web" ? "short" : "long"
-      })
+      });
 
       if (res.success) {
         AsyncStorage.setItem("token", res.data.token).then(() => {
@@ -55,13 +55,13 @@ export default function useAuthentication() {
   };
 
   const populateUserData = async () => {
-    let token = await AsyncStorage.getItem("token");
+    const token = await AsyncStorage.getItem("token");
 
     if (token == null || token == undefined) {
       return;
     }
 
-    let tokenContents: {
+    const tokenContents: {
       productId: number,
       userId: number,
       email: string,
@@ -69,14 +69,14 @@ export default function useAuthentication() {
       lastname: string,
       role: Role,
       exp: number
-    } = decode(token)
+    } = decode(token);
 
     if (new Date().getTime() / 1000 > tokenContents.exp) {
       AsyncStorage.removeItem("token");
       return;
     }
 
-    let res = await requestApi("auth/validate", "GET");
+    const res = await requestApi("auth/validate", "GET");
     if (!res || !res.success) return;
 
     Store.update(state => {
@@ -86,8 +86,8 @@ export default function useAuthentication() {
         lastname: tokenContents.lastname,
         email: tokenContents.email,
         role: tokenContents.role
-      }
-    })
+      };
+    });
     setHasAuthError(false);
   };
 

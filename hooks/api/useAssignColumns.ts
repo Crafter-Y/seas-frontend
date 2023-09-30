@@ -17,7 +17,7 @@ export default function useAssignColumns() {
       return;
     }
 
-    let pendingAssignments: string[] = [];
+    const pendingAssignments: string[] = [];
     changes.forEach(async (change) => {
       pendingAssignments.push(change.pageId + "" + change.columnId);
 
@@ -25,7 +25,7 @@ export default function useAssignColumns() {
         columnId: change.columnId,
         pageId: change.pageId,
         assign: change.isAssigned
-      })
+      });
 
       pendingAssignments.pop();
       if (pendingAssignments.length == 0) setAssignmentSuccessful(true);

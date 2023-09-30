@@ -3,13 +3,13 @@ import { requestApi } from "@/helpers/api";
 import { Store } from "@/helpers/store";
 
 export default function useAllPages() {
-  const allPages = Store.useState(state => state.allPages)
+  const allPages = Store.useState(state => state.allPages);
 
   const queryPages = async () => {
-    let res = await requestApi("pages", "GET");
+    const res = await requestApi("pages", "GET");
 
     if (res && res.success) {
-      Store.update(state => { state.allPages = res?.data.pages })
+      Store.update(state => { state.allPages = res?.data.pages; });
     }
   };
 

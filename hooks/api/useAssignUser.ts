@@ -11,7 +11,7 @@ export default function useAssignUser() {
   ) => {
     setAssignmentSuccessful(false);
 
-    await requestApi("board/assignments", "PUT", { userId, date: rowDate, columnId })
+    await requestApi("board/assignments", "PUT", { userId, date: rowDate, columnId });
 
     setAssignmentSuccessful(true);
   };

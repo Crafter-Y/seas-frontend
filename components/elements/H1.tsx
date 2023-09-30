@@ -11,7 +11,7 @@ type Props = {
 const H1 = ({ children, style }: Props) => {
   return (
     <Text
-      style={tw.style(`text-4xl font-bold opacity-85 underline mb-4`, style)}
+      style={tw.style("text-4xl font-bold opacity-85 underline mb-4", style)}
     >
       {children}
     </Text>

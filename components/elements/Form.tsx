@@ -10,7 +10,7 @@ type Props = {
 
 const Form = ({ children, style }: Props) => {
   return (
-    <View style={tw.style(`rounded-t-lg shadow-lg`, style)}>{children}</View>
+    <View style={tw.style("rounded-t-lg shadow-lg", style)}>{children}</View>
   );
 };
 

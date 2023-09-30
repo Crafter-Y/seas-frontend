@@ -9,7 +9,7 @@ import BoardMenuButton from "./BoardMenuButton";
 import BoardHeaderRoundButton from "./BoardHeaderRoundButton";
 import Divider from "./elements/Divider";
 import Modal, { ModalHandle } from "./elements/Modal";
-import Toast from 'react-native-toast-message';
+import Toast from "react-native-toast-message";
 import { BoardType } from "@/app/board";
 
 type BoardHeaderProps = {

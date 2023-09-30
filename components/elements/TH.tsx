@@ -20,7 +20,7 @@ const TH = ({ titles }: Props) => {
           key={title}
         >
           <Text
-            style={tw.style(`font-semibold uppercase py-4`, {
+            style={tw.style("font-semibold uppercase py-4", {
               "text-lg": isMd,
               "px-1": !isSm,
               "px-4": isSm,

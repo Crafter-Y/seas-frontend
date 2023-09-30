@@ -10,7 +10,7 @@ type Props = {
 
 const Footer = ({ style = {} }: Props) => {
   const mailtoReport = () => {
-    let url = "mailto:helmut_h_haase@yahoo.de";
+    const url = "mailto:helmut_h_haase@yahoo.de";
     Linking.canOpenURL(url).then((supported) => {
       if (supported) {
         Linking.openURL(url);
@@ -19,7 +19,7 @@ const Footer = ({ style = {} }: Props) => {
   };
 
   return (
-    <View style={tw.style(`my-4 flex items-center`, style)}>
+    <View style={tw.style("my-4 flex items-center", style)}>
       <Text style={tw`text-xs opacity-80 w-full text-center`}>
         &copy; Helmut Haase 2022-2023
       </Text>
@@ -28,7 +28,7 @@ const Footer = ({ style = {} }: Props) => {
           {
             hidden: Platform.OS != "web",
           },
-          `text-xs opacity-80 text-center underline`
+          "text-xs opacity-80 text-center underline"
         )}
         onPress={() => {
           router.push("/imprint");

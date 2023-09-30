@@ -22,75 +22,75 @@ export type BoardType =
 
 
 export default function BoardScreenScreen() {
-    const { user, hasAuthError, logout } = useAuthentication();
+  const { user, hasAuthError, logout } = useAuthentication();
 
-    const { serverName } = useServerName();
+  const { serverName } = useServerName();
 
-    const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
+  const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
 
-    const { height } = useWindowDimensions();
-    const { isMd } = useMediaQueries();
+  const { height } = useWindowDimensions();
+  const { isMd } = useMediaQueries();
 
-    const segments = useSegments()
+  const segments = useSegments();
 
-    const { rows, queryBoard, loading } = useBoard();
+  const { rows, queryBoard, loading } = useBoard();
 
-    const [lastFromDate, setLastFromDate] = useState<string>()
-    const [lastToDate, setLastToDate] = useState<string>()
+  const [lastFromDate, setLastFromDate] = useState<string>();
+  const [lastToDate, setLastToDate] = useState<string>();
 
-    useEffect(() => {
-        if (hasAuthError) router.replace("/login")
-    }, [hasAuthError]);
+  useEffect(() => {
+    if (hasAuthError) router.replace("/login");
+  }, [hasAuthError]);
 
-    useEffect(() => {
-        if (Platform.OS == "web" && serverName && segments[0] == "board") document.title = "Plan ⋅ " + serverName
-    }, [serverName, segments])
+  useEffect(() => {
+    if (Platform.OS == "web" && serverName && segments[0] == "board") document.title = "Plan ⋅ " + serverName;
+  }, [serverName, segments]);
 
-    const queryFromBoard = async (fromDate: string, toDate: string) => {
-        setLastFromDate(fromDate)
-        setLastToDate(toDate)
-        return await queryBoard(fromDate, toDate)
-    }
+  const queryFromBoard = async (fromDate: string, toDate: string) => {
+    setLastFromDate(fromDate);
+    setLastToDate(toDate);
+    return await queryBoard(fromDate, toDate);
+  };
 
-    const changePassword = () => {
-        router.push("/changepassword");
-    };
+  const changePassword = () => {
+    router.push("/changepassword");
+  };
 
-    const settings = () => {
-        router.push("/settings/");
-    };
+  const settings = () => {
+    router.push("/settings/");
+  };
 
-    return (
-        <SafeAreaView
-            style={tw.style(`m-0 p-0 bg-[${Color.LIGHT_GRAY}] flex flex-row`, {
-                height: isMd ? height : undefined,
-            })}
-        >
-            <BoardSidebar
-                user={user}
-                boardType={boardType}
-                setBoardType={setBoardType}
-                logout={() => logout(router)}
-                changePassword={changePassword}
-                settings={settings}
-            />
-            <ScrollView refreshControl={
-                <RefreshControl
-                    refreshing={loading}
-                    onRefresh={() => lastFromDate && lastToDate ? queryBoard(lastFromDate, lastToDate) : ""}
-                />
-            }>
-                <BoardHeader
-                    user={user}
-                    setBoardType={setBoardType}
-                    boardType={boardType}
-                    logout={() => logout(router)}
-                    changePassword={changePassword}
-                    settings={settings}
-                />
-                <Board boardType={boardType} rows={rows} queryBoard={queryFromBoard} />
-                <Footer />
-            </ScrollView>
-        </SafeAreaView>
-    );
+  return (
+    <SafeAreaView
+      style={tw.style(`m-0 p-0 bg-[${Color.LIGHT_GRAY}] flex flex-row`, {
+        height: isMd ? height : undefined,
+      })}
+    >
+      <BoardSidebar
+        user={user}
+        boardType={boardType}
+        setBoardType={setBoardType}
+        logout={() => logout(router)}
+        changePassword={changePassword}
+        settings={settings}
+      />
+      <ScrollView refreshControl={
+        <RefreshControl
+          refreshing={loading}
+          onRefresh={() => lastFromDate && lastToDate ? queryBoard(lastFromDate, lastToDate) : ""}
+        />
+      }>
+        <BoardHeader
+          user={user}
+          setBoardType={setBoardType}
+          boardType={boardType}
+          logout={() => logout(router)}
+          changePassword={changePassword}
+          settings={settings}
+        />
+        <Board boardType={boardType} rows={rows} queryBoard={queryFromBoard} />
+        <Footer />
+      </ScrollView>
+    </SafeAreaView>
+  );
 }

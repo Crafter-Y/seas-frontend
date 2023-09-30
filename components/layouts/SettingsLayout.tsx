@@ -51,7 +51,7 @@ const InlineNavigationButton = ({
     <View style={tw.style("items-center mt-2 gap-3 flex-row -mr-2")}>
       <Pressable
         onPress={() => {
-          router.replace(`/settings/${setting}`)
+          router.replace(`/settings/${setting}`);
         }}
         ref={ref}
       >

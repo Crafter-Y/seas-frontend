@@ -7,7 +7,7 @@ export default function useDeletePage() {
   const deletePage = async (pageId: number) => {
     setSuccessfulDeletion(false);
 
-    await requestApi(`pages/${pageId}`, "DELETE")
+    await requestApi(`pages/${pageId}`, "DELETE");
 
     setSuccessfulDeletion(true);
   };

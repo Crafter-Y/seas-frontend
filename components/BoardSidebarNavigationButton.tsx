@@ -44,7 +44,7 @@ const BoardSidebarNavigationButton = ({
           {
             backgroundColor: boardType == currentBoardType ? Color.BLUE : Color.GRAY
           },
-          `w-1 h-8 rounded-l-md`
+          "w-1 h-8 rounded-l-md"
         )}
       ></View>
     </Pressable>

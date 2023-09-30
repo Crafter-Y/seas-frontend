@@ -30,7 +30,7 @@ const BoardHeaderRoundButton = ({ imageSource, onPress, style }: Props) => {
         {
           backgroundColor: isHovered ? Color.LIGHT_GRAY : undefined
         },
-        `items-center justify-center h-10 w-10 rounded-full`,
+        "items-center justify-center h-10 w-10 rounded-full",
         style
       )}
       ref={ref}

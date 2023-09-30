@@ -37,7 +37,7 @@ const BoardSidebar = (props: {
         </View>
         <View
           style={tw.style(
-            `flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mt-6 mb-2 mx-2`
+            "flex-row items-center self-stretch bg-[#e0e2e5] h-0.5 mt-6 mb-2 mx-2"
           )}
         />
         <BoardSidebarNavigationButton

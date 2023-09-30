@@ -17,9 +17,9 @@ export default function useCreatePage() {
       return;
     }
 
-    let res = await requestApi(`pages`, "POST", {
+    const res = await requestApi("pages", "POST", {
       name
-    })
+    });
 
     if (res == null) {
       setHasCreationError(true);

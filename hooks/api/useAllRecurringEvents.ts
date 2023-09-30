@@ -13,28 +13,28 @@ export default function useAllRecurringEvents() {
   }
 
   const queryRecurringEvents = async () => {
-    let res = await requestApi("events", "GET");
+    const res = await requestApi("events", "GET");
 
     if (res != null && res.success) {
-      let resData: APIRecurringEventsResponse = res.data;
+      const resData: APIRecurringEventsResponse = res.data;
 
-      let allRecurringEvents: DisplayableRecurringEvent[] = []
+      const allRecurringEvents: DisplayableRecurringEvent[] = [];
 
       resData.weeklyEvents.forEach(el => {
         allRecurringEvents.push({
           id: el.id,
           eventType: "WEEKLY",
           dayOfWeek: el.day
-        })
-      })
+        });
+      });
 
       resData.monthlyEvents.forEach(el => {
         allRecurringEvents.push({
           id: el.id,
           eventType: "MONTHLY",
           dayOfMonth: el.day
-        })
-      })
+        });
+      });
 
       resData.yearlyEvents.forEach(el => {
         allRecurringEvents.push({
@@ -42,8 +42,8 @@ export default function useAllRecurringEvents() {
           eventType: "YEARLY",
           dayOfMonth: el.day,
           eventMonth: el.month
-        })
-      })
+        });
+      });
 
       setAllRecurringEvents(allRecurringEvents);
     }

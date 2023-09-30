@@ -29,8 +29,8 @@ export default function useWeekState(initYear: number) {
   }, [internalYear]);
 
   useEffect(() => {
-    let beforeWeek = getPrev();
-    let nextWeek = getNext();
+    const beforeWeek = getPrev();
+    const nextWeek = getNext();
     setBeforeWeek(beforeWeek);
     setNextWeek(nextWeek);
   }, [currentWeek]);

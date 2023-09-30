@@ -1,4 +1,4 @@
-import { Pressable, View } from "react-native";
+import { Pressable } from "react-native";
 import React, { ReactNode } from "react";
 import tw from "@/tailwind";
 
@@ -12,7 +12,7 @@ const TR = ({ children, onPress }: Props) => {
     <Pressable
       style={tw.style({
         minHeight: 64
-      }, `flex-row w-full bg-white border-t border-gray-300`)}
+      }, "flex-row w-full bg-white border-t border-gray-300")}
       onPress={onPress}
     >
       {children}

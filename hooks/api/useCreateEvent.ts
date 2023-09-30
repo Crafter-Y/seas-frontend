@@ -36,9 +36,9 @@ export default function useCreateEvent() {
         return;
       }
 
-      let res = await requestApi("events/single", "POST", {
+      const res = await requestApi("events/single", "POST", {
         date: formatDate(singleDate)
-      })
+      });
 
       if (handleResponseErrors(res)) setIsSingleDateCreated(true);
     }
@@ -50,11 +50,11 @@ export default function useCreateEvent() {
         return;
       }
 
-      let res = await requestApi("events/weekly", "POST", {
+      const res = await requestApi("events/weekly", "POST", {
         day: dayOfWeek
-      })
+      });
 
-      handleResponseErrors(res)
+      handleResponseErrors(res);
     }
 
     if (createType == "MONTHLY") {
@@ -64,11 +64,11 @@ export default function useCreateEvent() {
         return;
       }
 
-      let res = await requestApi("events/monthly", "POST", {
+      const res = await requestApi("events/monthly", "POST", {
         day: dayOfMonth
-      })
+      });
 
-      handleResponseErrors(res)
+      handleResponseErrors(res);
     }
 
     if (createType == "YEARLY") {
@@ -83,12 +83,12 @@ export default function useCreateEvent() {
         return;
       }
 
-      let res = await requestApi("events/yearly", "POST", {
+      const res = await requestApi("events/yearly", "POST", {
         day: dayOfMonth,
         month: monthOfYear
-      })
+      });
 
-      handleResponseErrors(res)
+      handleResponseErrors(res);
     }
   };
 
@@ -110,8 +110,8 @@ export default function useCreateEvent() {
     setHasCreationError(false);
     setCreationError("");
     setIsSuccessfulEventCreation(true);
-    return true
-  }
+    return true;
+  };
 
   return {
     createEvent,

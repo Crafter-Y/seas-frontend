@@ -12,7 +12,7 @@ const BoardPageSelector = () => {
 
   const { currentPage } = Store.useState(state => ({
     currentPage: state.currentPage
-  }))
+  }));
 
   return (
     <View
@@ -22,7 +22,7 @@ const BoardPageSelector = () => {
           "px-6": isSm,
           "mx-2": !isSm
         },
-        `flex-row flex-wrap gap-2 mt-2`
+        "flex-row flex-wrap gap-2 mt-2"
       )}
     >
       {allPages.map((page) =>
@@ -36,7 +36,7 @@ const BoardPageSelector = () => {
         ) : (
           <Pressable
             key={page.id}
-            onPress={() => Store.update(state => { state.currentPage = page.id })}
+            onPress={() => Store.update(state => { state.currentPage = page.id; })}
           >
             <Text style={tw`border border-black rounded-xl text-lg px-2`}>
               {page.name}

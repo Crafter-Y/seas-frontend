@@ -6,7 +6,7 @@ export default function useDeleteColumn() {
   const deleteColumn = async (columnId: number) => {
     setSuccessfulDeletion(false);
 
-    await requestApi(`columns/${columnId}`, "DELETE")
+    await requestApi(`columns/${columnId}`, "DELETE");
 
     setSuccessfulDeletion(true);
   };

@@ -12,12 +12,8 @@ import PressableTR from "./elements/PressableTR";
 import useAuthentication from "@/hooks/api/useAuthentication";
 import BoardAssignButton from "./BoardAssignButton";
 import useAssignUser from "@/hooks/api/useAssignUser";
-import { ModalHandle } from "@/components/elements/Modal";
-import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
-import useUpdateComment from "@/hooks/api/useUpdateComment";
 import { router, useSegments } from "expo-router";
-import { Store } from '@/helpers/store';
-import useAllPages from "@/hooks/api/useAllPages";
+import { Store } from "@/helpers/store";
 
 type Props = {
   rows: BoardRow[];
@@ -28,7 +24,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
 
   const { currentPage } = Store.useState(state => ({
     currentPage: state.currentPage
-  }))
+  }));
 
   const { allColumns } = useAllColumns();
   const { allExistingUsers } = useAllExistingUsers();
@@ -45,45 +41,45 @@ const BoardList = ({ rows, fetchData }: Props) => {
 
   useEffect(() => {
     if (!possiblyNeedReload.current) {
-      possiblyNeedReload.current = true
+      possiblyNeedReload.current = true;
     } else {
-      fetchData()
+      fetchData();
     }
-  }, [segments, possiblyNeedReload])
+  }, [segments, possiblyNeedReload]);
 
   useEffect(() => {
     if (assignmentSuccessful) fetchData();
   }, [assignmentSuccessful]);
 
   const getCommentForField = (column: APIResponseColumn, date: string) => {
-    let row = rows.filter(row_ => row_.date == date)[0];
+    const row = rows.filter(row_ => row_.date == date)[0];
     if (!row) return;
-    let commentExist =
+    const commentExist =
       row.comments.filter((row_) => row_.boardColumnId == column.id)
         .length == 1;
 
     if (commentExist) {
-      let value = row.comments.filter(
+      const value = row.comments.filter(
         (row_) => row_.boardColumnId == column.id
       )[0].text;
       return (
         <Text>{value}</Text>
-      )
+      );
     }
 
     return <Text>-</Text>;
   };
 
   const getPositionForField = (column: APIResponseColumn, date: string) => {
-    let row = rows.filter(row_ => row_.date == date)[0];
+    const row = rows.filter(row_ => row_.date == date)[0];
     if (!row) return;
-    let positionUsed =
+    const positionUsed =
       row.assignments.filter((row_) => row_.boardColumnId == column.id)
         .length == 1;
 
     if (positionUsed) {
-      let assignment = row.assignments.filter((row_) => row_.boardColumnId == column.id)[0];
-      let usersWithCol = allExistingUsers.filter((user) => user.id == assignment.userId);
+      const assignment = row.assignments.filter((row_) => row_.boardColumnId == column.id)[0];
+      const usersWithCol = allExistingUsers.filter((user) => user.id == assignment.userId);
 
       // The user exists
       if (usersWithCol.length == 1) {
@@ -114,7 +110,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
     if (
       row.assignments
         .map((assignment) => assignment.userId)
-        .includes(user?.id!)
+        .includes(user!.id)
     ) {
       return <Text>-</Text>;
     }
@@ -123,14 +119,14 @@ const BoardList = ({ rows, fetchData }: Props) => {
       <BoardAssignButton
         color="GREEN"
         onPress={() =>
-          assignUser(user?.id!, row.date, column.id)
+          assignUser(user!.id, row.date, column.id)
         }
       />
     );
-  }
+  };
 
   useEffect(() => {
-    let titles = [];
+    const titles = [];
     titles.push("Termin");
 
     allColumns.forEach((column) => {
@@ -157,8 +153,8 @@ const BoardList = ({ rows, fetchData }: Props) => {
       (col) =>
         col.pages.includes(page) &&
         col.type == type
-    )
-  }
+    );
+  };
 
   return (
     <View
@@ -173,9 +169,9 @@ const BoardList = ({ rows, fetchData }: Props) => {
           <PressableTR
             key={row.date}
             onPress={() => {
-              Store.update(state => { state.selectedRow = row })
+              Store.update(state => { state.selectedRow = row; });
               possiblyNeedReload.current = false;
-              router.push({ pathname: "/board/row", params: { date: row.date } })
+              router.push({ pathname: "/board/row", params: { date: row.date } });
             }}
           >
             <TD style={tw`justify-center`} cols={titles.length}>

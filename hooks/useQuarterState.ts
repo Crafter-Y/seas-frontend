@@ -10,8 +10,8 @@ export default function useQuarterState() {
   const [nextQuarter, setNextQuarter] = useState(initNextQuarter);
 
   useEffect(() => {
-    let beforeQuarter = currentQuarter == 1 ? 4 : currentQuarter - 1;
-    let nextQuarter = currentQuarter == 4 ? 1 : currentQuarter + 1;
+    const beforeQuarter = currentQuarter == 1 ? 4 : currentQuarter - 1;
+    const nextQuarter = currentQuarter == 4 ? 1 : currentQuarter + 1;
     setBeforeQuarter(beforeQuarter);
     setNextQuarter(nextQuarter);
   }, [currentQuarter]);

@@ -6,7 +6,7 @@ export default function useDeleteDefaultComment() {
   const deleteDefaultComment = async (commentId: number) => {
     setSuccessfulDeletion(false);
 
-    await requestApi(`defaultcomments/${commentId}`, "DELETE")
+    await requestApi(`defaultcomments/${commentId}`, "DELETE");
 
     setSuccessfulDeletion(true);
   };

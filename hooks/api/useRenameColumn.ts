@@ -28,9 +28,9 @@ export default function useRenameColumn() {
       return;
     }
 
-    let res = await requestApi(`columns/${columnId}`, "PATCH", {
+    const res = await requestApi(`columns/${columnId}`, "PATCH", {
       name: newName
-    })
+    });
 
     if (res == null) {
       setHasRenameError(true);

@@ -55,7 +55,7 @@ export default function useReactivateUser() {
     if (!firstname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,23}$/)) {
       setHasReactivationError(true);
       setReactivationError(
-        'Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 1-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und "-"'
+        "Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 1-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\""
       );
       return;
     }
@@ -63,7 +63,7 @@ export default function useReactivateUser() {
     if (!lastname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,55}$/)) {
       setHasReactivationError(true);
       setReactivationError(
-        'Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 1-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und "-"'
+        "Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 1-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\""
       );
       return;
     }
@@ -80,12 +80,12 @@ export default function useReactivateUser() {
       return;
     }
 
-    let res = await requestApi("users", "PUT", {
+    const res = await requestApi("users", "PUT", {
       firstname,
       lastname,
       email,
       role
-    })
+    });
 
     if (res == null) {
       setHasReactivationError(true);

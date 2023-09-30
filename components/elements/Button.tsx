@@ -14,7 +14,7 @@ const Button = ({ children, onPress, color, style }: Props) => {
   return (
     <RNButton
       style={tw.style(
-        `rounded-xl text-xl px-4 py-1 font-semibold`,
+        "rounded-xl text-xl px-4 py-1 font-semibold",
         {
           backgroundColor: color ? color : "#3882d6",
         },

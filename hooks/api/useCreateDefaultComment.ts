@@ -22,9 +22,9 @@ export default function useCreateDefaultComment() {
       return;
     }
 
-    let res = await requestApi("defaultcomments", "POST", {
+    const res = await requestApi("defaultcomments", "POST", {
       comment
-    })
+    });
 
     if (res == null) {
       setHasCreationError(true);

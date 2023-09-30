@@ -10,8 +10,8 @@ export default function useMonthState() {
   const [nextMonth, setNextMonth] = useState(initNextMonth);
 
   useEffect(() => {
-    let beforeMonth = currentMonth == 1 ? 12 : currentMonth - 1;
-    let nextMonth = currentMonth == 12 ? 1 : currentMonth + 1;
+    const beforeMonth = currentMonth == 1 ? 12 : currentMonth - 1;
+    const nextMonth = currentMonth == 12 ? 1 : currentMonth + 1;
     setBeforeMonth(beforeMonth);
     setNextMonth(nextMonth);
   }, [currentMonth]);

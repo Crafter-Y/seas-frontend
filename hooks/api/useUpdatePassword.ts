@@ -36,7 +36,7 @@ export default function useUpdatePassword() {
       return;
     }
 
-    if (!newPassword1.match(/^[\w\d\s\-äöüÄÖÜß_!?\/*%$]{7,64}$/)) {
+    if (!newPassword1.match(/^[\w\d\s\-äöüÄÖÜß_!?/*%$]{7,64}$/)) {
       setHasUpdateError(true);
       setUpdateError(
         "Das neue Passwort stimmt nicht mit den Kriterien überein. Kriterium: Mindestens 7 Zeichen. Es sind Buchstaben, Zahlen und -_!?/*%$ erlaubt."
@@ -44,10 +44,10 @@ export default function useUpdatePassword() {
       return;
     }
 
-    let res = await requestApi("users", "PATCH", {
+    const res = await requestApi("users", "PATCH", {
       oldPassword,
       newPassword: newPassword1
-    })
+    });
 
     if (res == null) {
       setHasUpdateError(true);

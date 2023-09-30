@@ -7,7 +7,7 @@ export default function useUnAssignUser() {
   const unassignUser = async (assignmentId: number) => {
     setUnassignmentSuccessful(false);
 
-    await requestApi(`board/assignments/${assignmentId}`, "DELETE")
+    await requestApi(`board/assignments/${assignmentId}`, "DELETE");
 
     setUnassignmentSuccessful(true);
   };

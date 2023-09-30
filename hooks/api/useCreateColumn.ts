@@ -27,17 +27,17 @@ export default function useCreateColumn() {
       return;
     }
 
-    let res = await requestApi("columns", "POST", {
+    const res = await requestApi("columns", "POST", {
       name,
       type
-    })
+    });
 
     if (res == null) {
       setHasCreationError(true);
       setCreationError(
         "Server nicht verfügbar. Bitte später erneut versuchen."
       );
-      return
+      return;
     }
 
     if (res.success) {

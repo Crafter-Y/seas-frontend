@@ -31,8 +31,8 @@ const SingleDatePicker = ({ setDate }: Props) => {
           "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center"
         )}
       >
-        <Text style={tw.style({}, `text-lg`)}>
-          {!!date ? date?.toLocaleDateString() : "Datum auswählen"}
+        <Text style={tw.style({}, "text-lg")}>
+          {date ? date?.toLocaleDateString() : "Datum auswählen"}
         </Text>
         <AntDesign name="caretdown" size={10} color="gray" />
       </Pressable>

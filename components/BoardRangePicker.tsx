@@ -47,9 +47,9 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   ];
 
   const getDateByWeek = (w: number, y: number) => {
-    var simple = new Date(y, 0, 1 + (w - 1) * 7);
-    var dow = simple.getDay();
-    var ISOweekStart = simple;
+    const simple = new Date(y, 0, 1 + (w - 1) * 7);
+    const dow = simple.getDay();
+    const ISOweekStart = simple;
     if (dow <= 4) ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
     else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
     return ISOweekStart;
@@ -61,13 +61,13 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
       setBackText(beforeYear + "");
       setNextText(nextYear + "");
 
-      queryPageChange(new Date(currentYear, 0, 1), new Date(currentYear, 11, 31))
+      queryPageChange(new Date(currentYear, 0, 1), new Date(currentYear, 11, 31));
     } else if (boardType == "Quartal Ansicht") {
       setBackText(beforeQuarter + ". Quartal");
       setNextText(nextQuarter + ". Quartal");
       setThisText(currentQuarter + ". Quartal");
 
-      let startThisQuarter = new Date(currentYear, (currentQuarter - 1) * 3, 1);
+      const startThisQuarter = new Date(currentYear, (currentQuarter - 1) * 3, 1);
       queryPageChange(startThisQuarter, new Date(currentYear, startThisQuarter.getMonth() + 3, 0));
     } else if (boardType == "Monatsansicht") {
       setBackText(months[beforeMonth - 1]);
@@ -80,8 +80,8 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
       setNextText("KW " + nextWeek);
       setThisText("KW " + currentWeek);
 
-      let weekStart = getDateByWeek(currentWeek, currentYear);
-      let weekEnd = new Date(weekStart);
+      const weekStart = getDateByWeek(currentWeek, currentYear);
+      const weekEnd = new Date(weekStart);
       weekEnd.setDate(weekStart.getDate() + 6);
       queryPageChange(weekStart, weekEnd);
     }
@@ -141,11 +141,11 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   }, [boardType, nextYear, nextQuarter, currentYear, nextMonth, nextWeek]);
 
   const middleAction = () => {
-    if (boardType == "Jahresansicht") {
+    /*if (boardType == "Jahresansicht") {
     } else if (boardType == "Quartal Ansicht") {
     } else if (boardType == "Monatsansicht") {
     } else {
-    }
+    }*/
     console.log("Not implemented");
   };
 
@@ -157,7 +157,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
           {
             "w-32": isMd,
           },
-          `flex-row items-center gap-2 justify-end`
+          "flex-row items-center gap-2 justify-end"
         )}
       >
         <Entypo name="arrow-bold-left" size={16} color="black" />
@@ -190,7 +190,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
           {
             "w-32": isMd,
           },
-          `flex-row items-center gap-2 justify-start`
+          "flex-row items-center gap-2 justify-start"
         )}
       >
         <Text style={tw`underline`} selectable={false} numberOfLines={1}>

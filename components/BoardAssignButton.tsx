@@ -2,7 +2,7 @@ import { Text, Pressable } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
-import { Entypo } from '@expo/vector-icons';
+import { Entypo } from "@expo/vector-icons";
 import { Color } from "@/helpers/Constants";
 import { ClassInput } from "twrnc/dist/esm/types";
 
@@ -22,12 +22,12 @@ const BoardAssignButton = ({ onPress, color = "GREEN", text, actionType = "PLUS"
 
   useEffect(() => {
     switch (color) {
-      case "GREEN": setBadgeColor(Color.GREEN); break
-      case "RED": setBadgeColor(Color.RED); break
-      case "YELLOW": setBadgeColor(Color.YELLOW); break
-      case "BLUE": setBadgeColor(Color.BLUE); break
+    case "GREEN": setBadgeColor(Color.GREEN); break;
+    case "RED": setBadgeColor(Color.RED); break;
+    case "YELLOW": setBadgeColor(Color.YELLOW); break;
+    case "BLUE": setBadgeColor(Color.BLUE); break;
     }
-  }, [color])
+  }, [color]);
 
   return (
     <Pressable
@@ -39,7 +39,7 @@ const BoardAssignButton = ({ onPress, color = "GREEN", text, actionType = "PLUS"
           "w-8": !text,
           "gap-1": !!text
         },
-        `h-8 rounded-xl justify-center items-center flex-row px-2`,
+        "h-8 rounded-xl justify-center items-center flex-row px-2",
         style
       )}
       ref={ref}

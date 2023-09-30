@@ -39,7 +39,7 @@ const BoardMenuNavigationButton = ({
           {
             backgroundColor: boardType == currentBoardType ? Color.BLUE : Color.GRAY
           },
-          `w-1 h-8 rounded-r-md`
+          "w-1 h-8 rounded-r-md"
         )}
       ></View>
       <Text

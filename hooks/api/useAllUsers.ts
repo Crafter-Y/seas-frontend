@@ -5,7 +5,7 @@ export default function useAllUsers() {
   const [allUsers, setAllUsers] = useState<APIFullResponseUser[]>([]);
 
   const queryUsers = async () => {
-    let res = await requestApi("users/full", "GET");
+    const res = await requestApi("users/full", "GET");
 
     if (res && res.success) {
       setAllUsers(res.data.users);

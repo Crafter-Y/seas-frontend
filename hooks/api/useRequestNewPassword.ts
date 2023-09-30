@@ -7,7 +7,7 @@ export default function useRequestNewPassword() {
     useState(false);
 
   const requestNewPassword = async (userId: number) => {
-    let res = await requestApi(`users/${userId}`, "PATCH")
+    const res = await requestApi(`users/${userId}`, "PATCH");
     if (res == null) return;
 
     if (res.success) {

@@ -7,7 +7,7 @@ export default function useAllDefaultComments() {
   >([]);
 
   const queryAllDefaultComments = async () => {
-    let res = await requestApi("defaultcomments", "GET")
+    const res = await requestApi("defaultcomments", "GET");
 
     if (res == null || !res.success) return;
 

@@ -11,10 +11,10 @@ interface GlobalStore {
 }
 
 export const Store = new Pullstate<GlobalStore>({
-    currentPage: 0,
-    allPages: [],
-    allColumns: [],
-    board: [],
-    allExistingUsers: [],
-    user: null
+  currentPage: 0,
+  allPages: [],
+  allColumns: [],
+  board: [],
+  allExistingUsers: [],
+  user: null
 });

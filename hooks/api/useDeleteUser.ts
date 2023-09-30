@@ -6,7 +6,7 @@ export default function useDeleteUser() {
   const deleteUser = async (userId: number) => {
     setSuccessfulDeletion(false);
 
-    await requestApi(`users/${userId}`, "DELETE")
+    await requestApi(`users/${userId}`, "DELETE");
     setSuccessfulDeletion(true);
   };
 

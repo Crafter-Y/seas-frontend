@@ -8,18 +8,18 @@ export default function useDeleteRecurringEvent() {
 
     let res: ApiResponse | null = null;
     switch (type) {
-      case "MONTHLY": {
-        res = await requestApi(`events/monthly/${taskId}`, "DELETE")
-        break;
-      }
-      case "WEEKLY": {
-        res = await requestApi(`events/weekly/${taskId}`, "DELETE")
-        break;
-      }
-      case "YEARLY": {
-        res = await requestApi(`events/yearly/${taskId}`, "DELETE")
-        break;
-      }
+    case "MONTHLY": {
+      res = await requestApi(`events/monthly/${taskId}`, "DELETE");
+      break;
+    }
+    case "WEEKLY": {
+      res = await requestApi(`events/weekly/${taskId}`, "DELETE");
+      break;
+    }
+    case "YEARLY": {
+      res = await requestApi(`events/yearly/${taskId}`, "DELETE");
+      break;
+    }
     }
     if (res && res.success) setSuccessfulDelete(true);
   };

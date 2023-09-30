@@ -4,7 +4,7 @@ import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
 
 type Props = {
-  hasError: Boolean;
+  hasError: boolean;
   error: string | undefined;
   style?: ClassInput;
 };

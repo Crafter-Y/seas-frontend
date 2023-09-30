@@ -18,7 +18,7 @@ const BoardMenuButton = ({ icon, text, pressAction, style }: Props) => {
 
   return (
     <Pressable
-      style={tw.style(`items-center flex-row p-4`, style)}
+      style={tw.style("items-center flex-row p-4", style)}
       ref={ref}
       onPress={pressAction}
     >

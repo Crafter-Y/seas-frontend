@@ -83,7 +83,7 @@ export default forwardRef<ModalHandle, Props>(
                       : width * 0.75
                     : width,
               },
-              `bg-white shadow-lg`
+              "bg-white shadow-lg"
             )}
           >
             {children}

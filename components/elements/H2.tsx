@@ -10,7 +10,7 @@ type Props = {
 
 const H2 = ({ children, style }: Props) => {
   return (
-    <Text style={tw.style(`text-3xl font-semibold opacity-85 mb-3`, style)}>
+    <Text style={tw.style("text-3xl font-semibold opacity-85 mb-3", style)}>
       {children}
     </Text>
   );

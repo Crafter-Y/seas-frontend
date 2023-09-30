@@ -1,15 +1,10 @@
 import { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useApi from "../useApiName";
-import { ManagePagesScreenProps } from "@/screens/settings/ManagePagesScreen";
 import { requestApi } from "@/helpers/api";
 
 export default function useRenamePage() {
   const [hasRenameError, setHasRenameError] = useState(false);
   const [renameError, setRenameError] = useState("");
   const [successfulPageRename, setIsSuccessfulPageRename] = useState(false);
-
-  const getApi = useApi();
 
   const renamePage = async (
     pageId: number,
@@ -33,9 +28,9 @@ export default function useRenamePage() {
       return;
     }
 
-    let res = await requestApi(`pages/${pageId}`, "PATCH", {
+    const res = await requestApi(`pages/${pageId}`, "PATCH", {
       name: newName
-    })
+    });
 
     if (!res) {
       setHasRenameError(true);

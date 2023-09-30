@@ -13,24 +13,24 @@ export default function useServerName() {
 
   const fetchServerName = async () => {
     setFetchSuccessful(false);
-    setFetchServerError(null)
+    setFetchServerError(null);
     setName("");
 
-    let serverId = await AsyncStorage.getItem("serverId");
+    const serverId = await AsyncStorage.getItem("serverId");
     if (serverId == null) return;
 
     try {
-      let res = await requestApiWithoutCredentials(`products/${serverId}`, "GET")
+      const res = await requestApiWithoutCredentials(`products/${serverId}`, "GET");
 
       if (res.success) {
         setName(res.data.name);
         setFetchSuccessful(true);
       } else {
-        setFetchServerError(res.data.error)
+        setFetchServerError(res.data.error);
         setFetchSuccessful(false);
       }
     } catch (e) {
-      setFetchServerError(e + "")
+      setFetchServerError(e + "");
       setFetchSuccessful(false);
     }
   };

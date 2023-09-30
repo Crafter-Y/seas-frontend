@@ -35,7 +35,7 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
 
   const fetchData = (start: Date, end: Date) => {
     setDateStart(start);
-    setDateEnd(end)
+    setDateEnd(end);
 
     queryBoard(formatDate(start), formatDate(end));
     console.log("query", start, end);
@@ -43,7 +43,7 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
 
   useEffect(() => {
     if (allPages.length != 0) {
-      Store.update(state => { state.currentPage = allPages[0].id })
+      Store.update(state => { state.currentPage = allPages[0].id; });
     }
   }, [allPages]);
 
@@ -64,7 +64,7 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
       <BoardPageSelector />
       <Divider
         type="HORIZONTAL"
-        style={tw.style(`mt-2 mb-6`, {
+        style={tw.style("mt-2 mb-6", {
           "mx-0": !isSm,
           "mx-6": isSm,
         })}
@@ -72,7 +72,7 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
       <BoardList
         rows={rows}
         fetchData={() => {
-          fetchData(dateStart, dateEnd)
+          fetchData(dateStart, dateEnd);
         }}
       />
     </View>

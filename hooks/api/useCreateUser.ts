@@ -56,7 +56,7 @@ export default function useCreateUser() {
     if (!firstname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,23}$/)) {
       setHasCreationError(true);
       setCreationError(
-        'Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 1-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und "-"'
+        "Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 1-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\""
       );
       return;
     }
@@ -64,7 +64,7 @@ export default function useCreateUser() {
     if (!lastname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,55}$/)) {
       setHasCreationError(true);
       setCreationError(
-        'Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 1-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und "-"'
+        "Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 1-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\""
       );
       return;
     }
@@ -81,12 +81,12 @@ export default function useCreateUser() {
       return;
     }
 
-    let res = await requestApi("users", "POST", {
+    const res = await requestApi("users", "POST", {
       firstname,
       lastname,
       email,
       role
-    })
+    });
 
     if (res == null) {
       setHasCreationError(true);
@@ -109,7 +109,7 @@ export default function useCreateUser() {
       setCreationError("");
     } else {
       if (res.data.error == "Reactivation required") {
-        console.log("reactivation required here")
+        console.log("reactivation required here");
         setHasCreationError(false);
         setCreationError("");
         setReactivationRequired(true);

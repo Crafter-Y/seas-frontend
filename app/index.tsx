@@ -1,13 +1,13 @@
-import tw from '@/tailwind';
-import { Platform, Text, View, useWindowDimensions } from 'react-native';
+import tw from "@/tailwind";
+import { Platform, Text, View, useWindowDimensions } from "react-native";
 import Image from "@/components/elements/Image";
-import Input from '@/components/elements/Input';
-import ErrorDisplay from '@/components/ErrorDisplay';
-import Button from '@/components/elements/Button';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
-import useServerName from '@/hooks/api/useServerName';
-import { router } from 'expo-router';
+import Input from "@/components/elements/Input";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import Button from "@/components/elements/Button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+import useServerName from "@/hooks/api/useServerName";
+import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ServerSelectorScreen() {
@@ -28,16 +28,16 @@ export default function ServerSelectorScreen() {
   useEffect(() => {
     if (Platform.OS == "web") {
       setTimeout(() => {
-        router.replace("/login")
-      }, 1)
+        router.replace("/login");
+      }, 1);
     }
   }, []);
 
   useEffect(() => {
     if (fetchSuccessful) setTimeout(() => {
-      router.replace("/login")
-    }, 1)
-  }, [fetchSuccessful])
+      router.replace("/login");
+    }, 1);
+  }, [fetchSuccessful]);
 
   const login = async () => {
     setIsError(false);
