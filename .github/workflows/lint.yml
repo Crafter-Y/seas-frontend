@@ -1,5 +1,7 @@
-name: CI with EsLint
+name: CI with ESLint
+
 on: push
+
 jobs:
   lint:
     runs-on: ubuntu-latest

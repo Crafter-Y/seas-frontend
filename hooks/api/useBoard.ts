@@ -7,6 +7,11 @@ export default function useBoard() {
   const [loading, setLoading] = useState(false);
 
   const queryBoard = async (fromDate: string, toDate: string) => {
+    Store.update(state => {
+      state.lastQueryFrom = new Date(fromDate);
+      state.lastQueryTo = new Date(toDate);
+    });
+
     setLoading(true);
 
     const res = await requestApi(`board?from=${fromDate}&to=${toDate}`, "GET");

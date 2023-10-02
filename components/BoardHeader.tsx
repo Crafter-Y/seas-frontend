@@ -12,6 +12,7 @@ import Modal, { ModalHandle } from "./elements/Modal";
 import Toast from "react-native-toast-message";
 import { BoardType } from "@/app/board";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
+import { router } from "expo-router";
 
 type BoardHeaderProps = {
   user: User | null;
@@ -71,18 +72,16 @@ const BoardHeader = ({
         >
           <BoardHeaderRoundButton
             style={tw.style({
-              "hidden": !moduleStatus!.moduleCalendar
+              "hidden": !moduleStatus?.moduleCalendar
             })}
             imageSource={require("@/assets/img/calendar.svg")}
-            onPress={() => Toast.show({
-              type: "error",
-              text1: "Noch nicht implementiert",
-              text2: "Diese Funktion ist noch nicht implementiert",
-            })}
+            onPress={() => {
+              router.push("/modules/calendar");
+            }}
           />
           <BoardHeaderRoundButton
             style={tw.style({
-              "hidden": !moduleStatus!.modulePrint
+              "hidden": !moduleStatus?.modulePrint
             })}
             imageSource={require("@/assets/img/print.svg")}
             onPress={() => Toast.show({

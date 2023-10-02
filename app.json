@@ -38,7 +38,13 @@
     },
     "owner": "crafter_y",
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Die App benötigt hierfür Zugriff auf den Kalender"
+        }
+      ]
     ]
   }
 }

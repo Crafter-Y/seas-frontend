@@ -8,7 +8,10 @@ interface GlobalStore {
   board: BoardRow[],
   allExistingUsers: APIResponseUser[],
   user: User | null,
-  moduleStatus: APIModuleStatus | null
+  moduleStatus: APIModuleStatus | null,
+  allDefaultComments: APIResponseDefaultComment[],
+  lastQueryFrom: Date | null,
+  lastQueryTo: Date | null
 }
 
 export const Store = new Pullstate<GlobalStore>({
@@ -18,5 +21,8 @@ export const Store = new Pullstate<GlobalStore>({
   board: [],
   allExistingUsers: [],
   user: null,
-  moduleStatus: null
+  moduleStatus: null,
+  allDefaultComments: [],
+  lastQueryFrom: null,
+  lastQueryTo: null
 });
