@@ -11,6 +11,7 @@ import Divider from "./elements/Divider";
 import Modal, { ModalHandle } from "./elements/Modal";
 import Toast from "react-native-toast-message";
 import { BoardType } from "@/app/board";
+import useModuleStatus from "@/hooks/api/useModuleStatus";
 
 type BoardHeaderProps = {
   user: User | null;
@@ -34,6 +35,8 @@ const BoardHeader = ({
   const { serverName } = useServerName();
 
   const modal = useRef<ModalHandle>(null);
+
+  const { moduleStatus } = useModuleStatus();
 
   return (
     <View
@@ -67,6 +70,9 @@ const BoardHeader = ({
           )}
         >
           <BoardHeaderRoundButton
+            style={tw.style({
+              "hidden": !moduleStatus!.moduleCalendar
+            })}
             imageSource={require("@/assets/img/calendar.svg")}
             onPress={() => Toast.show({
               type: "error",
@@ -75,6 +81,9 @@ const BoardHeader = ({
             })}
           />
           <BoardHeaderRoundButton
+            style={tw.style({
+              "hidden": !moduleStatus!.modulePrint
+            })}
             imageSource={require("@/assets/img/print.svg")}
             onPress={() => Toast.show({
               type: "error",

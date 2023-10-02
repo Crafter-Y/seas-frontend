@@ -90,6 +90,8 @@ type APIModuleStatus = {
   modulePrint: boolean
 }
 
+type Module = "print" | "calendar"
+
 type EventType = "UNSET" | "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";
 
 type Weekday =
