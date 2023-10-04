@@ -1,8 +1,8 @@
 import {
-  TextInput,
+  InputModeOptions,
   Platform,
   ReturnKeyTypeOptions,
-  InputModeOptions,
+  TextInput,
 } from "react-native";
 import React, { forwardRef, useEffect, useState } from "react";
 import tw from "@/tailwind";

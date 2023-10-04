@@ -1,4 +1,4 @@
-import { Text, Pressable } from "react-native";
+import { Pressable, Text } from "react-native";
 import React, { useState } from "react";
 import ExpoCheckbox from "expo-checkbox";
 import tw from "@/tailwind";

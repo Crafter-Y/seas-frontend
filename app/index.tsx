@@ -1,5 +1,5 @@
 import tw from "@/tailwind";
-import { Platform, Text, View, useWindowDimensions } from "react-native";
+import { Platform, Text, useWindowDimensions, View } from "react-native";
 import Image from "@/components/elements/Image";
 import Input from "@/components/elements/Input";
 import ErrorDisplay from "@/components/ErrorDisplay";

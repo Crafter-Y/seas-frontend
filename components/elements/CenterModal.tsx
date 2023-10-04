@@ -1,5 +1,5 @@
-import { View, useWindowDimensions, Pressable, Platform } from "react-native";
-import { Stack, router } from "expo-router";
+import { Platform, Pressable, useWindowDimensions, View } from "react-native";
+import { router, Stack } from "expo-router";
 import { ScrollView } from "react-native-gesture-handler";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";

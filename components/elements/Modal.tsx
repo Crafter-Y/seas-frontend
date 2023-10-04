@@ -1,9 +1,9 @@
 import {
   Platform,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
   ScrollView,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
 } from "react-native";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import ReactNativeModal, { Direction } from "react-native-modal";

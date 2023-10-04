@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, Text, useWindowDimensions, TextInput } from "react-native";
+import { Text, TextInput, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -12,7 +12,7 @@ import SettingsForm from "@/components/SettingsForm";
 import H1 from "@/components/elements/H1";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";
-import { Stack, router } from "expo-router";
+import { router, Stack } from "expo-router";
 
 export default function ChangePasswordScreen() {
   const { height } = useWindowDimensions();

@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import tw from "@/tailwind";
 import useYearState from "@/hooks/useYearState";

@@ -1,9 +1,9 @@
 import {
-  View,
+  Platform,
   Text,
   TextInput,
   useWindowDimensions,
-  Platform,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useRef, useState } from "react";

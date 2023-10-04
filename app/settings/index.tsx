@@ -1,4 +1,4 @@
-import { Text, Pressable, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import React from "react";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";

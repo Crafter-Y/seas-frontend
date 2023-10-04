@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import React, { useRef } from "react";
 import Image from "@/components/elements/Image";
 import tw from "@/tailwind";

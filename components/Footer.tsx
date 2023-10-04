@@ -1,4 +1,4 @@
-import { View, Text, Platform, Linking } from "react-native";
+import { Linking, Platform, Text, View } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";

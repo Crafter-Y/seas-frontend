@@ -1,4 +1,4 @@
-import { Platform, View, Text, Pressable } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
 import React, { ReactElement, ReactNode, useRef, useState } from "react";
 import tw from "@/tailwind";
 import {

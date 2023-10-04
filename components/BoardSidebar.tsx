@@ -1,4 +1,4 @@
-import { View, Text, useWindowDimensions } from "react-native";
+import { Text, useWindowDimensions, View } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";

@@ -1,9 +1,9 @@
 import {
-  View,
-  Text,
-  useWindowDimensions,
   Pressable,
   ScrollView,
+  Text,
+  useWindowDimensions,
+  View,
 } from "react-native";
 import React, { useRef } from "react";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -14,7 +14,7 @@ import Divider from "../elements/Divider";
 import H1 from "../elements/H1";
 import { useHover } from "react-native-web-hooks";
 import { Color } from "@/helpers/Constants";
-import { Stack, router } from "expo-router";
+import { router, Stack } from "expo-router";
 
 type Props = {
   children: React.ReactNode;
@@ -86,7 +86,7 @@ export const SettingsLayout = ({ children, actualSetting }: Props) => {
     <View
       style={{
         flexDirection: "row",
-        backgroundColor: "#f2f2f2",
+        backgroundColor: Color.SETTINGS_BG,
       }}
     >
       <Stack.Screen options={{ headerShown: !isMd, title: "Einstellungen" }} />

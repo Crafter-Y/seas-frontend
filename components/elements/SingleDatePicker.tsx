@@ -1,4 +1,4 @@
-import { View, Text, Platform, Pressable } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
 import React, { useState } from "react";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 import { DatePickerModal } from "react-native-paper-dates";

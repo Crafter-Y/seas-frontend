@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
