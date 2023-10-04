@@ -1,17 +1,52 @@
-import { View, Text, Pressable } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import React, { memo, useRef } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import { Store } from "@/helpers/store";
 import useAllPages from "@/hooks/api/useAllPages";
+import { useHover } from "react-native-web-hooks";
+
+type ButtonProps = {
+  page: APIResponsePage;
+};
+
+const BoardPageButton = ({ page }: ButtonProps) => {
+  const ref = useRef(null);
+  const isHovered = useHover(ref);
+
+  return (
+    <TouchableOpacity
+      ref={ref}
+      key={page.id}
+      onPress={() =>
+        Store.update((state) => {
+          state.currentPage = page.id;
+        })
+      }
+    >
+      <Text
+        style={tw.style(
+          {
+            "border-black": !isHovered,
+            "border-gray-600": isHovered,
+            "text-gray-600": isHovered,
+          },
+          `border rounded-xl text-lg px-2`
+        )}
+      >
+        {page.name}
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
 const BoardPageSelector = () => {
   const { isSm } = useMediaQueries();
 
   const { allPages } = useAllPages();
 
-  const { currentPage } = Store.useState(state => ({
-    currentPage: state.currentPage
+  const { currentPage } = Store.useState((state) => ({
+    currentPage: state.currentPage,
   }));
 
   return (
@@ -20,7 +55,7 @@ const BoardPageSelector = () => {
         {
           "px-0": !isSm,
           "px-6": isSm,
-          "mx-2": !isSm
+          "mx-2": !isSm,
         },
         "flex-row flex-wrap gap-2 mt-2"
       )}
@@ -34,18 +69,11 @@ const BoardPageSelector = () => {
             {page.name}
           </Text>
         ) : (
-          <Pressable
-            key={page.id}
-            onPress={() => Store.update(state => { state.currentPage = page.id; })}
-          >
-            <Text style={tw`border border-black rounded-xl text-lg px-2`}>
-              {page.name}
-            </Text>
-          </Pressable>
+          <BoardPageButton page={page} key={page.id} />
         )
       )}
     </View>
   );
 };
 
-export default BoardPageSelector;
+export default memo(BoardPageSelector);

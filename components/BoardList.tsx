@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import { prettyDate } from "@/helpers/format";
@@ -17,13 +17,13 @@ import { Store } from "@/helpers/store";
 
 type Props = {
   rows: BoardRow[];
-  fetchData: () => void
+  fetchData: () => void;
 };
 const BoardList = ({ rows, fetchData }: Props) => {
   const { isSm } = useMediaQueries();
 
-  const { currentPage } = Store.useState(state => ({
-    currentPage: state.currentPage
+  const { currentPage } = Store.useState((state) => ({
+    currentPage: state.currentPage,
   }));
 
   const { allColumns } = useAllColumns();
@@ -52,40 +52,41 @@ const BoardList = ({ rows, fetchData }: Props) => {
   }, [assignmentSuccessful]);
 
   const getCommentForField = (column: APIResponseColumn, date: string) => {
-    const row = rows.filter(row_ => row_.date == date)[0];
+    const row = rows.filter((row_) => row_.date == date)[0];
     if (!row) return;
     const commentExist =
-      row.comments.filter((row_) => row_.boardColumnId == column.id)
-        .length == 1;
+      row.comments.filter((row_) => row_.boardColumnId == column.id).length ==
+      1;
 
     if (commentExist) {
       const value = row.comments.filter(
         (row_) => row_.boardColumnId == column.id
       )[0].text;
-      return (
-        <Text>{value}</Text>
-      );
+      return <Text>{value}</Text>;
     }
 
     return <Text>-</Text>;
   };
 
   const getPositionForField = (column: APIResponseColumn, date: string) => {
-    const row = rows.filter(row_ => row_.date == date)[0];
+    const row = rows.filter((row_) => row_.date == date)[0];
     if (!row) return;
     const positionUsed =
       row.assignments.filter((row_) => row_.boardColumnId == column.id)
         .length == 1;
 
     if (positionUsed) {
-      const assignment = row.assignments.filter((row_) => row_.boardColumnId == column.id)[0];
-      const usersWithCol = allExistingUsers.filter((user) => user.id == assignment.userId);
+      const assignment = row.assignments.filter(
+        (row_) => row_.boardColumnId == column.id
+      )[0];
+      const usersWithCol = allExistingUsers.filter(
+        (user) => user.id == assignment.userId
+      );
 
       // The user exists
       if (usersWithCol.length == 1) {
         // This is the current user
         if (usersWithCol[0].id == user?.id) {
-
           // underlined name for the inline view
           return (
             <Text style={tw`font-semibold underline`}>
@@ -108,9 +109,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
 
     // Nobody is assigned
     if (
-      row.assignments
-        .map((assignment) => assignment.userId)
-        .includes(user!.id)
+      row.assignments.map((assignment) => assignment.userId).includes(user!.id)
     ) {
       return <Text>-</Text>;
     }
@@ -118,9 +117,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
     return (
       <BoardAssignButton
         color="GREEN"
-        onPress={() =>
-          assignUser(user!.id, row.date, column.id)
-        }
+        onPress={() => assignUser(user!.id, row.date, column.id)}
       />
     );
   };
@@ -130,18 +127,12 @@ const BoardList = ({ rows, fetchData }: Props) => {
     titles.push("Termin");
 
     allColumns.forEach((column) => {
-      if (
-        column.pages.includes(currentPage) &&
-        column.type == "POSITION"
-      ) {
+      if (column.pages.includes(currentPage) && column.type == "POSITION") {
         titles.push(column.name);
       }
     });
     allColumns.forEach((column) => {
-      if (
-        column.pages.includes(currentPage) &&
-        column.type == "COMMENT"
-      ) {
+      if (column.pages.includes(currentPage) && column.type == "COMMENT") {
         titles.push(column.name);
       }
     });
@@ -150,9 +141,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
 
   const getColsForPageAndType = (page: number, type: ColumnType) => {
     return allColumns.filter(
-      (col) =>
-        col.pages.includes(page) &&
-        col.type == type
+      (col) => col.pages.includes(page) && col.type == type
     );
   };
 
@@ -163,35 +152,32 @@ const BoardList = ({ rows, fetchData }: Props) => {
         "px-6": isSm,
       })}
     >
-      <Form style={tw`mb-4`}>
+      <Form style={tw`mb-4 bg-white`}>
         <TH titles={titles} />
         {rows.map((row) => (
           <PressableTR
             key={row.date}
             onPress={() => {
-              Store.update(state => { state.selectedRow = row; });
+              Store.update((state) => {
+                state.selectedRow = row;
+              });
               possiblyNeedReload.current = false;
-              router.push({ pathname: "/board/row", params: { date: row.date } });
+              router.push({
+                pathname: "/board/row",
+                params: { date: row.date },
+              });
             }}
           >
             <TD style={tw`justify-center`} cols={titles.length}>
               <Text>{prettyDate(row.date, !isSm)}</Text>
             </TD>
             {getColsForPageAndType(currentPage, "POSITION").map((col) => (
-              <TD
-                key={col.id}
-                style={tw`justify-center`}
-                cols={titles.length}
-              >
+              <TD key={col.id} style={tw`justify-center`} cols={titles.length}>
                 {getPositionForField(col, row.date)}
               </TD>
             ))}
             {getColsForPageAndType(currentPage, "COMMENT").map((col) => (
-              <TD
-                key={col.id}
-                style={tw`justify-center`}
-                cols={titles.length}
-              >
+              <TD key={col.id} style={tw`justify-center`} cols={titles.length}>
                 {getCommentForField(col, row.date)}
               </TD>
             ))}
@@ -202,4 +188,4 @@ const BoardList = ({ rows, fetchData }: Props) => {
   );
 };
 
-export default BoardList;
+export default memo(BoardList);

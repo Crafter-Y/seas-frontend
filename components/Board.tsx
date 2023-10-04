@@ -18,7 +18,7 @@ import { router } from "expo-router";
 type Props = {
   boardType: BoardType;
   rows: BoardRow[];
-  queryBoard: (fromDate: string, toDate: string) => Promise<void>
+  queryBoard: (fromDate: string, toDate: string) => Promise<void>;
 };
 
 const Board = ({ boardType, rows, queryBoard }: Props) => {
@@ -49,7 +49,9 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
 
   useEffect(() => {
     if (allPages.length != 0) {
-      Store.update(state => { state.currentPage = allPages[0].id; });
+      Store.update((state) => {
+        state.currentPage = allPages[0].id;
+      });
     }
   }, [allPages]);
 
@@ -63,16 +65,14 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
         "bg-white mt-4 shadow-lg"
       )}
     >
-      <BoardRangePicker
-        boardType={boardType}
-        queryPageChange={fetchData}
-      />
+      <BoardRangePicker boardType={boardType} queryPageChange={fetchData} />
       <BoardPageSelector />
       <Divider
         type="HORIZONTAL"
         style={tw.style("mt-2", {
           "mx-0": !isSm,
           "mx-6": isSm,
+          "mb-6": isLg,
         })}
       />
 
@@ -85,24 +85,24 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
         )}
       >
         <BoardHeaderRoundButton
-          style={tw.style({
-            "hidden": !moduleStatus?.moduleCalendar
-          }, "border border-gray-400")}
+          hidden={!moduleStatus?.moduleCalendar}
+          style={tw`border border-gray-400`}
           imageSource={require("@/assets/img/calendar.svg")}
           onPress={() => {
             router.push("/modules/calendar");
           }}
         />
         <BoardHeaderRoundButton
-          style={tw.style({
-            "hidden": !moduleStatus?.modulePrint
-          }, "border border-gray-400")}
+          hidden={!moduleStatus?.modulePrint}
+          style={tw`border border-gray-400`}
           imageSource={require("@/assets/img/print.svg")}
-          onPress={() => Toast.show({
-            type: "error",
-            text1: "Noch nicht implementiert",
-            text2: "Diese Funktion ist noch nicht implementiert",
-          })}
+          onPress={() =>
+            Toast.show({
+              type: "error",
+              text1: "Noch nicht implementiert",
+              text2: "Diese Funktion ist noch nicht implementiert",
+            })
+          }
         />
       </View>
       <BoardList

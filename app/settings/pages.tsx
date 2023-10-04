@@ -20,6 +20,7 @@ import tw from "@/tailwind";
 import Image from "@/components/elements/Image";
 import React, { useEffect, useRef, useState } from "react";
 import { Text, TextInput, View } from "react-native";
+import { Color } from "@/helpers/Constants";
 
 export default function ManagePagesScreen() {
   const { isMd } = useMediaQueries();
@@ -29,7 +30,7 @@ export default function ManagePagesScreen() {
   const { deletePage, succesfulDeletion } = useDeletePage();
 
   const { renamePage, hasRenameError, renameError, successfulPageRename } =
-        useRenamePage();
+    useRenamePage();
 
   const [pageName, setPageName] = useState("");
 
@@ -81,13 +82,13 @@ export default function ManagePagesScreen() {
           "mt-4"
         )}
       >
-                Pläne verwalten
+        Pläne verwalten
       </H2>
 
       <SettingsForm>
         <Text>
-                    Durch verschiedene Pläne können Gruppen erstellt werden, die getrennt
-                    voneinander angezeigt werden können.
+          Durch verschiedene Pläne können Gruppen erstellt werden, die getrennt
+          voneinander angezeigt werden können.
         </Text>
 
         <Input
@@ -113,7 +114,7 @@ export default function ManagePagesScreen() {
             input.current?.blur();
           }}
         >
-                    Plan erstellen
+          Plan erstellen
         </Button>
       </SettingsForm>
 
@@ -138,10 +139,7 @@ export default function ManagePagesScreen() {
                     deleteModal.current?.toggleModal();
                   }}
                 >
-                  <Image
-                    source={require("@/assets/img/close.svg")}
-                    size={24}
-                  />
+                  <Image source={require("@/assets/img/close.svg")} size={24} />
                 </Button>
 
                 <Button
@@ -152,10 +150,7 @@ export default function ManagePagesScreen() {
                     renameModal.current?.toggleModal();
                   }}
                 >
-                  <Image
-                    source={require("@/assets/img/edit.svg")}
-                    size={24}
-                  />
+                  <Image source={require("@/assets/img/edit.svg")} size={24} />
                 </Button>
               </TD>
             </TR>
@@ -166,13 +161,13 @@ export default function ManagePagesScreen() {
       <Modal type="CENTER" ref={deleteModal}>
         <H1 style={tw`mt-2 text-center`}>Plan löschen?</H1>
         <Text style={tw`mx-4`}>
-                    Soll der Plan{" "}
+          Soll der Plan{" "}
           <Text style={tw`font-semibold`}>{pageNameToChange}</Text> wirklich
-                    glöscht werden?
+          glöscht werden?
         </Text>
         <Text style={tw`text-red-400 mx-4 mt-2`}>
-                    Dadurch werden alle Eintragungen von Mitgliedern auf diesem Plan
-                    unwiderruflich gelöscht!
+          Dadurch werden alle Eintragungen von Mitgliedern auf diesem Plan
+          unwiderruflich gelöscht!
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
@@ -181,10 +176,10 @@ export default function ManagePagesScreen() {
             }}
             color="#f67e7e"
           >
-                        Löschen
+            Löschen
           </Button>
           <Button onPress={() => deleteModal.current?.toggleModal()}>
-                        Abbrechen
+            Abbrechen
           </Button>
         </View>
       </Modal>
@@ -220,12 +215,12 @@ export default function ManagePagesScreen() {
               renamePage(pageIdToChange, pageRenameName);
               renameInput.current?.blur();
             }}
-            color="#f67e7e"
+            color={Color.GREEN}
           >
-                        Umbenennen
+            Umbenennen
           </Button>
           <Button onPress={() => renameModal.current?.toggleModal()}>
-                        Abbrechen
+            Abbrechen
           </Button>
         </View>
       </Modal>

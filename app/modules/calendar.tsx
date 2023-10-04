@@ -1,7 +1,7 @@
 import Button from "@/components/elements/Button";
 import CenterModal from "@/components/elements/CenterModal";
 import tw from "@/tailwind";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Platform, Text, View } from "react-native";
 import * as ExpoCalendar from "expo-calendar";
 import ErrorDisplay from "@/components/ErrorDisplay";
@@ -13,7 +13,7 @@ import * as FileSystem from "expo-file-system";
 
 const CALENDAR_NAME = "SEAS Termine";
 
-export default function Calendar() {
+const Calendar = () => {
   const [calendarError, setCalendarError] = useState<string>();
 
   const [syncSuccessful, setSyncSuccessful] = useState(false);
@@ -58,11 +58,11 @@ export default function Calendar() {
         Platform.OS === "ios"
           ? await getDefaultCalendarSource()
           : {
-            isLocalAccount: true,
-            name: CALENDAR_NAME,
-            id: CALENDAR_NAME,
-            type: ExpoCalendar.EntityTypes.EVENT,
-          };
+              isLocalAccount: true,
+              name: CALENDAR_NAME,
+              id: CALENDAR_NAME,
+              type: ExpoCalendar.EntityTypes.EVENT,
+            };
 
       const expoCalendar = calendars.find((cal) => cal.name == CALENDAR_NAME);
       let calId;
@@ -249,7 +249,7 @@ END:VEVENT`;
             Kalender erfolgreich synchronisiert
           </Text>
         )}
-        <Text>Die Angezeigten Termine downloaden: </Text>
+        <Text>Die angezeigten Termine downloaden:</Text>
         <Button onPress={() => downloadICS()}>
           {Platform.OS == "android" ? ".ics teilen" : "Download .ics"}
         </Button>
@@ -259,4 +259,5 @@ END:VEVENT`;
       </View>
     </CenterModal>
   );
-}
+};
+export default memo(Calendar);

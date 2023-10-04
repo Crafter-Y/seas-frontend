@@ -1,23 +1,29 @@
-import { Pressable } from "react-native";
 import React, { ReactNode } from "react";
 import tw from "@/tailwind";
+import { TouchableOpacity, View } from "react-native";
 
 type Props = {
   children?: ReactNode;
   onPress: () => void;
 };
 
-const TR = ({ children, onPress }: Props) => {
+const PressableTR = ({ children, onPress }: Props) => {
   return (
-    <Pressable
-      style={tw.style({
-        minHeight: 64
-      }, "flex-row w-full bg-white border-t border-gray-300")}
-      onPress={onPress}
-    >
-      {children}
-    </Pressable>
+    <View style={tw`border-t border-gray-300`}>
+      <TouchableOpacity
+        activeOpacity={0.55}
+        style={tw.style(
+          {
+            minHeight: 64,
+          },
+          "flex-row w-full"
+        )}
+        onPress={onPress}
+      >
+        {children}
+      </TouchableOpacity>
+    </View>
   );
 };
 
-export default TR;
+export default PressableTR;

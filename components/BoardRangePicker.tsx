@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import tw from "@/tailwind";
 import useYearState from "@/hooks/useYearState";
 import { Entypo } from "@expo/vector-icons";
@@ -12,7 +12,7 @@ import { BoardType } from "@/app/board";
 
 type Props = {
   boardType: BoardType;
-  queryPageChange: (from: Date, to: Date) => void
+  queryPageChange: (from: Date, to: Date) => void;
 };
 
 const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
@@ -61,20 +61,33 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
       setBackText(beforeYear + "");
       setNextText(nextYear + "");
 
-      queryPageChange(new Date(currentYear, 0, 1), new Date(currentYear, 11, 31));
+      queryPageChange(
+        new Date(currentYear, 0, 1),
+        new Date(currentYear, 11, 31)
+      );
     } else if (boardType == "Quartal Ansicht") {
       setBackText(beforeQuarter + ". Quartal");
       setNextText(nextQuarter + ". Quartal");
       setThisText(currentQuarter + ". Quartal");
 
-      const startThisQuarter = new Date(currentYear, (currentQuarter - 1) * 3, 1);
-      queryPageChange(startThisQuarter, new Date(currentYear, startThisQuarter.getMonth() + 3, 0));
+      const startThisQuarter = new Date(
+        currentYear,
+        (currentQuarter - 1) * 3,
+        1
+      );
+      queryPageChange(
+        startThisQuarter,
+        new Date(currentYear, startThisQuarter.getMonth() + 3, 0)
+      );
     } else if (boardType == "Monatsansicht") {
       setBackText(months[beforeMonth - 1]);
       setNextText(months[nextMonth - 1]);
       setThisText(months[currentMonth - 1]);
 
-      queryPageChange(new Date(currentYear, currentMonth - 1, 1), new Date(currentYear, currentMonth, 0));
+      queryPageChange(
+        new Date(currentYear, currentMonth - 1, 1),
+        new Date(currentYear, currentMonth, 0)
+      );
     } else {
       setBackText("KW " + beforeWeek);
       setNextText("KW " + nextWeek);
@@ -202,4 +215,4 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   );
 };
 
-export default BoardRangePicker;
+export default memo(BoardRangePicker);

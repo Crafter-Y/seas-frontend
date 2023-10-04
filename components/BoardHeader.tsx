@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import useServerName from "@/hooks/api/useServerName";
@@ -55,7 +55,7 @@ const BoardHeader = ({
               "text-xl": isLg,
               "text-lg": !isLg,
               "ml-4": isLg,
-              "text-red-500": !serverName
+              "text-red-500": !serverName,
             },
             "font-bold"
           )}
@@ -71,30 +71,28 @@ const BoardHeader = ({
           )}
         >
           <BoardHeaderRoundButton
-            style={tw.style({
-              "hidden": !moduleStatus?.moduleCalendar
-            })}
+            hidden={!moduleStatus?.moduleCalendar}
             imageSource={require("@/assets/img/calendar.svg")}
             onPress={() => {
               router.push("/modules/calendar");
             }}
           />
           <BoardHeaderRoundButton
-            style={tw.style({
-              "hidden": !moduleStatus?.modulePrint
-            })}
+            hidden={!moduleStatus?.modulePrint}
             imageSource={require("@/assets/img/print.svg")}
-            onPress={() => Toast.show({
-              type: "error",
-              text1: "Noch nicht implementiert",
-              text2: "Diese Funktion ist noch nicht implementiert",
-            })}
+            onPress={() =>
+              Toast.show({
+                type: "error",
+                text1: "Noch nicht implementiert",
+                text2: "Diese Funktion ist noch nicht implementiert",
+              })
+            }
           />
         </View>
         <BoardHeaderRoundButton
+          hidden={isLg}
           imageSource={require("@/assets/img/menu.svg")}
           onPress={() => modal.current?.toggleModal()}
-          style={tw.style({ hidden: isLg })}
         />
 
         <Modal ref={modal} modalOpenCondition={!isLg} type="MOBILE_BOTTOM">
@@ -167,4 +165,4 @@ const BoardHeader = ({
   );
 };
 
-export default BoardHeader;
+export default memo(BoardHeader);
