@@ -3,7 +3,7 @@ import {
   Text,
   useWindowDimensions,
   Pressable,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import React, { useRef } from "react";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -17,8 +17,8 @@ import { Color } from "@/helpers/Constants";
 import { Stack, router } from "expo-router";
 
 type Props = {
-  children: React.ReactNode
-  actualSetting: string
+  children: React.ReactNode;
+  actualSetting: string;
 };
 
 export const settingsSections = {
@@ -27,7 +27,7 @@ export const settingsSections = {
   events: "Termine verwalten",
   comments: "Kommentarvorlagen",
   pages: "Pläne verwalten",
-  modules: "Module verwalten"
+  modules: "Module verwalten",
 };
 
 const settingsTitles = {
@@ -37,12 +37,12 @@ const settingsTitles = {
 
 type NavigationButtonProps = {
   setting: string;
-  actualSetting: string
+  actualSetting: string;
 };
 
 const InlineNavigationButton = ({
   setting,
-  actualSetting
+  actualSetting,
 }: NavigationButtonProps) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
@@ -68,7 +68,7 @@ const InlineNavigationButton = ({
       <View
         style={tw.style(
           {
-            backgroundColor: actualSetting == setting ? Color.BLUE : Color.GRAY
+            backgroundColor: actualSetting == setting ? Color.BLUE : Color.GRAY,
           },
           "w-1 h-8 rounded-l-md"
         )}

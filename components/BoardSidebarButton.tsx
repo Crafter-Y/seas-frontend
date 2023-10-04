@@ -38,7 +38,7 @@ const BoardSidebarButton = ({ icon, text, pressAction }: Props) => {
       <View
         style={tw.style(
           {
-            backgroundColor: isHovered ? Color.BLUE : undefined
+            backgroundColor: isHovered ? Color.BLUE : undefined,
           },
           "w-1 h-8 rounded-l-md"
         )}

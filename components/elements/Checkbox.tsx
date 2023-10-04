@@ -1,6 +1,6 @@
 import { Text, Pressable } from "react-native";
 import React, { useState } from "react";
-import Checkbox from "expo-checkbox";
+import ExpoCheckbox from "expo-checkbox";
 import tw from "@/tailwind";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   onChange: (state: boolean) => void;
 };
 
-export default ({ defaultValue = false, label, onChange }: Props) => {
+const Checkbox = ({ defaultValue = false, label, onChange }: Props) => {
   const [checked, setChecked] = useState(defaultValue);
   return (
     <Pressable
@@ -19,7 +19,7 @@ export default ({ defaultValue = false, label, onChange }: Props) => {
         onChange(checked);
       }}
     >
-      <Checkbox
+      <ExpoCheckbox
         value={checked}
         onValueChange={(val) => {
           setChecked(val);
@@ -30,3 +30,5 @@ export default ({ defaultValue = false, label, onChange }: Props) => {
     </Pressable>
   );
 };
+
+export default Checkbox;

@@ -51,7 +51,9 @@ export default function ManageEventsScreen() {
 
   const [eventIdToDelete, setEventIdToDelete] = useState(0);
   const [eventNameToDelete, setEventNameToDelete] = useState("");
-  const [eventTypeToDelete, setEventTypeToDelete] = useState<"YEARLY" | "MONTHLY" | "WEEKLY">();
+  const [eventTypeToDelete, setEventTypeToDelete] = useState<
+    "YEARLY" | "MONTHLY" | "WEEKLY"
+  >();
 
   const weekdayMap = {
     1: "Montag",
@@ -85,17 +87,17 @@ export default function ManageEventsScreen() {
     monthOfYear: number
   ): string => {
     switch (type) {
-    case "WEEKLY":
-      return "Jede Woche " + weekdayMap[dayOfWeek as keyof typeof weekdayMap];
-    case "MONTHLY":
-      return "Jeden Monat am " + dayOfMonth + ".";
-    case "YEARLY":
-      return (
-        "Jedes Jahr am " +
-                    dayOfMonth +
-                    ". " +
-                    monthMap[monthOfYear as keyof typeof monthMap]
-      );
+      case "WEEKLY":
+        return "Jede Woche " + weekdayMap[dayOfWeek as keyof typeof weekdayMap];
+      case "MONTHLY":
+        return "Jeden Monat am " + dayOfMonth + ".";
+      case "YEARLY":
+        return (
+          "Jedes Jahr am " +
+          dayOfMonth +
+          ". " +
+          monthMap[monthOfYear as keyof typeof monthMap]
+        );
     }
     return "";
   };
@@ -125,15 +127,15 @@ export default function ManageEventsScreen() {
           "mt-4"
         )}
       >
-                Termine erstellen
+        Termine erstellen
       </H2>
 
       <SettingsForm>
         <Text>
-                    Hier können einzelne oder regelmäßige Termine eingetragen, eingesehen
-                    und gelöscht werden. Dazu muss als erstes im Formular der Termintyp
-                    ausgewählt werden. Danach besteht die Eingabemöglichkeit für weitere
-                    Angaben.
+          Hier können einzelne oder regelmäßige Termine eingetragen, eingesehen
+          und gelöscht werden. Dazu muss als erstes im Formular der Termintyp
+          ausgewählt werden. Danach besteht die Eingabemöglichkeit für weitere
+          Angaben.
         </Text>
 
         {/* Event Type Selector */}
@@ -232,7 +234,7 @@ export default function ManageEventsScreen() {
             "text-green-500 mb-2"
           )}
         >
-                    Einzeltermin erfolgreich erstellt
+          Einzeltermin erfolgreich erstellt
         </Text>
 
         <Button
@@ -246,7 +248,7 @@ export default function ManageEventsScreen() {
             );
           }}
         >
-                    Termin erstellen
+          Termin erstellen
         </Button>
       </SettingsForm>
       <Divider type="HORIZONTAL" style={tw`my-4`} />
@@ -285,10 +287,7 @@ export default function ManageEventsScreen() {
                     deleteModal.current?.toggleModal();
                   }}
                 >
-                  <Image
-                    source={require("@/assets/img/close.svg")}
-                    size={24}
-                  />
+                  <Image source={require("@/assets/img/close.svg")} size={24} />
                 </Button>
               </TD>
             </TR>
@@ -299,14 +298,14 @@ export default function ManageEventsScreen() {
       <Modal type="CENTER" ref={deleteModal}>
         <H1 style={tw`mt-2 text-center`}>Plan löschen?</H1>
         <Text style={tw`mx-4`}>
-                    Soll der Termin{" "}
+          Soll der Termin{" "}
           <Text style={tw`font-semibold`}>{eventNameToDelete}</Text> wirklich
-                    glöscht werden?
+          glöscht werden?
         </Text>
         <Text style={tw`text-red-400 mx-4 mt-2`}>
-                    Dadurch werden alle Eintragungen von Mitgliedern zu{" "}
+          Dadurch werden alle Eintragungen von Mitgliedern zu{" "}
           <Text style={tw`font-semibold`}>allen</Text> zugehörigen Terminen
-                    gelöscht. Dies kann nicht mehr Rückgängig gemacht werden!
+          gelöscht. Dies kann nicht mehr Rückgängig gemacht werden!
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
@@ -315,10 +314,10 @@ export default function ManageEventsScreen() {
             }}
             color="#f67e7e"
           >
-                        Löschen
+            Löschen
           </Button>
           <Button onPress={() => deleteModal.current?.toggleModal()}>
-                        Abbrechen
+            Abbrechen
           </Button>
         </View>
       </Modal>

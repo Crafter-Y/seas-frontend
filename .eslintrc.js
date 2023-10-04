@@ -1,6 +1,10 @@
 /* eslint-env node */
 module.exports = exports = {
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+  ],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
   root: true,
@@ -13,9 +17,14 @@ module.exports = exports = {
     "babel.config.js",
   ],
   rules: {
-    "@typescript-eslint/no-explicit-any": "warn",
-    indent: ["error", 2],
     semi: ["error", "always"],
     quotes: ["error", "double"],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "react/react-in-jsx-scope": "off",
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
   },
 };

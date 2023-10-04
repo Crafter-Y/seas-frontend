@@ -14,7 +14,6 @@ import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";
 import { Stack, router } from "expo-router";
 
-
 export default function ChangePasswordScreen() {
   const { height } = useWindowDimensions();
 
@@ -31,7 +30,13 @@ export default function ChangePasswordScreen() {
 
   return (
     <SafeAreaView style={tw`flex-row`}>
-      <Stack.Screen options={{ title: "Passwort ändern", headerTitle: "Zurück", headerShown: !isMd }} />
+      <Stack.Screen
+        options={{
+          title: "Passwort ändern",
+          headerTitle: "Zurück",
+          headerShown: !isMd,
+        }}
+      />
       <View
         style={tw.style(
           {
@@ -45,9 +50,9 @@ export default function ChangePasswordScreen() {
         <H1 style={tw`text-right`}>Passwort ändern</H1>
 
         <Text style={tw`text-right mt-4 ml-4`}>
-                    Das vergebene Standartpasswort ist recht unsicher. Deshalb sollte es
-                    geändert werden. Das neue Passwort muss mindestens 7 Zeichen haben.
-                    Erlaubt sind Buchstaben, Zahlen und Sonderzeichen: -_!?/*%$
+          Das vergebene Standartpasswort ist recht unsicher. Deshalb sollte es
+          geändert werden. Das neue Passwort muss mindestens 7 Zeichen haben.
+          Erlaubt sind Buchstaben, Zahlen und Sonderzeichen: -_!?/*%$
         </Text>
         <Footer
           style={tw.style(
@@ -74,9 +79,13 @@ export default function ChangePasswordScreen() {
           "w-full": !isMd,
         })}
       >
-        <H1 style={tw.style("text-center mt-6 mb-12", {
-          "hidden": isMd
-        })}>Passwort ändern</H1>
+        <H1
+          style={tw.style("text-center mt-6 mb-12", {
+            hidden: isMd,
+          })}
+        >
+          Passwort ändern
+        </H1>
         <SettingsForm>
           <Input
             placeholder="Vorheriges Passwort"
@@ -101,19 +110,21 @@ export default function ChangePasswordScreen() {
             returnKeyType="done"
           ></Input>
 
-          <ErrorDisplay hasError={hasUpdateError} error={updateError == "Wrong password" ? "Das eingegebene Passwort stimmt nicht" : updateError} />
+          <ErrorDisplay
+            hasError={hasUpdateError}
+            error={
+              updateError == "Wrong password"
+                ? "Das eingegebene Passwort stimmt nicht"
+                : updateError
+            }
+          />
 
           <Button
             onPress={() =>
-              updatePassword(
-                oldPassword,
-                newPassword1,
-                newPassword2,
-                router
-              )
+              updatePassword(oldPassword, newPassword1, newPassword2, router)
             }
           >
-                        Passwort ändern
+            Passwort ändern
           </Button>
         </SettingsForm>
         <Footer

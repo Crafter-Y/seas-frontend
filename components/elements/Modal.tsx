@@ -3,7 +3,7 @@ import {
   TouchableOpacity,
   View,
   useWindowDimensions,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import ReactNativeModal, { Direction } from "react-native-modal";
@@ -23,8 +23,16 @@ export type ModalHandle = {
   toggleModal: () => void;
 };
 
-export default forwardRef<ModalHandle, Props>(
-  ({ modalOpenCondition = true, children, type, swipeDirection = ["down"] }: Props, ref) => {
+const Modal = forwardRef<ModalHandle, Props>(
+  (
+    {
+      modalOpenCondition = true,
+      children,
+      type,
+      swipeDirection = ["down"],
+    }: Props,
+    ref
+  ) => {
     const { height, width } = useWindowDimensions();
     const { isSm } = useMediaQueries();
 
@@ -93,3 +101,6 @@ export default forwardRef<ModalHandle, Props>(
     );
   }
 );
+
+Modal.displayName = "Modal";
+export default Modal;

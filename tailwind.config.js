@@ -3,8 +3,8 @@ module.exports = {
   content: ["./app/**/*.tsx"],
   darkMode: "class",
   theme: {
-    extend: {}
+    extend: {},
   },
   plugins: [],
-  corePlugins: require('tailwind-rn/unsupported-core-plugins'),
-}
+  corePlugins: require("tailwind-rn/unsupported-core-plugins"),
+};

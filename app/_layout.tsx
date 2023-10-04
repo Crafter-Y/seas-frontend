@@ -14,13 +14,15 @@ export const unstable_settings = {
 };
 
 export default function DefaultLayout() {
-  return (<>
-    <StatusBar translucent={true} animated={true} style='auto' />
-    <Stack screenOptions={{
-      headerShown: false
-    }} />
-    <Toast
-      visibilityTime={1500}
-    />
-  </>);
+  return (
+    <>
+      <StatusBar translucent={true} animated={true} style="auto" />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      />
+      <Toast visibilityTime={1500} />
+    </>
+  );
 }

@@ -31,7 +31,7 @@ const BoardPageButton = ({ page }: ButtonProps) => {
             "border-gray-600": isHovered,
             "text-gray-600": isHovered,
           },
-          `border rounded-xl text-lg px-2`
+          "border rounded-xl text-lg px-2"
         )}
       >
         {page.name}

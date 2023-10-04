@@ -21,7 +21,7 @@ import Divider from "@/components/elements/Divider";
 import { router, useSegments } from "expo-router";
 
 type WebConfig = {
-    serverId: string;
+  serverId: string;
 };
 
 export default function ServerSelectorScreen() {
@@ -44,25 +44,31 @@ export default function ServerSelectorScreen() {
 
   useEffect(() => {
     if (Platform.OS == "web") {
-      AsyncStorage.getItem("serverId").then(serverId => {
+      AsyncStorage.getItem("serverId").then((serverId) => {
         if (serverId == null) {
-          fetch("/assets/config.json").then(res => res.json()).then((res: WebConfig) => {
-            if (res.serverId) {
-              AsyncStorage.setItem("serverId", res.serverId);
-              document.title = "Login ⋅ " + res.serverId;
-            }
-          });
+          fetch("/assets/config.json")
+            .then((res) => res.json())
+            .then((res: WebConfig) => {
+              if (res.serverId) {
+                AsyncStorage.setItem("serverId", res.serverId);
+                document.title = "Login ⋅ " + res.serverId;
+              }
+            });
         }
       });
     }
   }, []);
 
   useEffect(() => {
-    if (Platform.OS == "web" && serverName && segments[0] == "login") document.title = "Login ⋅ " + serverName;
+    if (Platform.OS == "web" && serverName && segments[0] == "login")
+      document.title = "Login ⋅ " + serverName;
   }, [serverName, segments]);
 
   useEffect(() => {
-    if (Platform.OS != "web" && !serverName && fetchServerError) setTimeout(() => { router.replace("/"); }, 1);
+    if (Platform.OS != "web" && !serverName && fetchServerError)
+      setTimeout(() => {
+        router.replace("/");
+      }, 1);
   }, [serverName, fetchServerError]);
 
   useEffect(() => {
@@ -124,7 +130,7 @@ export default function ServerSelectorScreen() {
                 "text-4xl font-semibold mt-12"
               )}
             >
-                            Willkommen!
+              Willkommen!
             </Text>
             <Text
               style={tw.style(
@@ -149,7 +155,7 @@ export default function ServerSelectorScreen() {
                 "mb-12": isMd,
               })}
             >
-                            Login
+              Login
             </H1>
 
             <View
@@ -201,7 +207,7 @@ export default function ServerSelectorScreen() {
               </View>
             </View>
             <Text style={tw`text-xs opacity-80 w-full text-center mt-12`}>
-                            &copy; Helmut Haase 2023
+              &copy; Helmut Haase 2023
             </Text>
             <Text style={tw`text-xs opacity-80 w-full text-center`}></Text>
             <Text
@@ -213,7 +219,7 @@ export default function ServerSelectorScreen() {
                 router.push("/imprint");
               }}
             >
-                            Impressum
+              Impressum
             </Text>
           </View>
         </View>

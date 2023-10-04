@@ -24,7 +24,7 @@ export default function ManageCommentsScreen() {
   const { isMd } = useMediaQueries();
 
   const { allDefaultComments, queryAllDefaultComments } =
-        useAllDefaultComments();
+    useAllDefaultComments();
 
   const {
     createDefaultComment,
@@ -63,14 +63,14 @@ export default function ManageCommentsScreen() {
           "mt-4"
         )}
       >
-                Kommentare verwalten
+        Kommentare verwalten
       </H2>
 
       <SettingsForm>
         <Text>
-                    Auf den Plänen gibt es Kommentarfelder. Um diese leichter auszufüllen
-                    mit sich ähnelnden Inhalten, können Vorlagen erstellt werden, die mit
-                    einem Klick eingefügt werden können.
+          Auf den Plänen gibt es Kommentarfelder. Um diese leichter auszufüllen
+          mit sich ähnelnden Inhalten, können Vorlagen erstellt werden, die mit
+          einem Klick eingefügt werden können.
         </Text>
 
         <Input
@@ -96,7 +96,7 @@ export default function ManageCommentsScreen() {
             commentInput.current?.blur();
           }}
         >
-                    Vorlage erstellen
+          Vorlage erstellen
         </Button>
       </SettingsForm>
 
@@ -125,10 +125,7 @@ export default function ManageCommentsScreen() {
                     deleteModal.current?.toggleModal();
                   }}
                 >
-                  <Image
-                    source={require("@/assets/img/close.svg")}
-                    size={24}
-                  />
+                  <Image source={require("@/assets/img/close.svg")} size={24} />
                 </Button>
               </TD>
             </TR>
@@ -139,13 +136,13 @@ export default function ManageCommentsScreen() {
       <Modal type="CENTER" ref={deleteModal}>
         <H1 style={tw`mt-2 text-center`}>Plan löschen?</H1>
         <Text style={tw`mx-4`}>
-                    Soll der Standartkommentar{" "}
+          Soll der Standartkommentar{" "}
           <Text style={tw`font-semibold`}>
             {commentToDelete.length > 32
               ? commentToDelete.substring(0, 32) + "..."
               : commentToDelete}
           </Text>{" "}
-                    wirklich glöscht werden?
+          wirklich glöscht werden?
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
@@ -154,10 +151,10 @@ export default function ManageCommentsScreen() {
             }}
             color="#f67e7e"
           >
-                        Löschen
+            Löschen
           </Button>
           <Button onPress={() => deleteModal.current?.toggleModal()}>
-                        Abbrechen
+            Abbrechen
           </Button>
         </View>
       </Modal>

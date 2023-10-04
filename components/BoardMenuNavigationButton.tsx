@@ -37,7 +37,8 @@ const BoardMenuNavigationButton = ({
       <View
         style={tw.style(
           {
-            backgroundColor: boardType == currentBoardType ? Color.BLUE : Color.GRAY
+            backgroundColor:
+              boardType == currentBoardType ? Color.BLUE : Color.GRAY,
           },
           "w-1 h-8 rounded-r-md"
         )}

@@ -42,7 +42,7 @@ export default function ManagePositionsScreen() {
   const { allPages } = useAllPages();
 
   const { renameColumn, hasRenameError, renameError, successfulColumnRename } =
-        useRenameColumn();
+    useRenameColumn();
 
   const { deleteColumn, succesfulDeletion } = useDeleteColumn();
 
@@ -62,8 +62,8 @@ export default function ManagePositionsScreen() {
   const [columnRenameName, setColumnRenameName] = useState("");
 
   const [assignmentChanges, setAssignmentChanges] = useState<
-        AssignmentChange[]
-    >([]);
+    AssignmentChange[]
+  >([]);
 
   useEffect(() => {
     if (successfulColumnCreation) queryColumns();
@@ -93,15 +93,15 @@ export default function ManagePositionsScreen() {
           "mt-4"
         )}
       >
-                Spalten verwalten
+        Spalten verwalten
       </H2>
 
       <SettingsForm>
         <Text>
-                    Hier können verscheidene Spalten erstellen werden und Plänen
-                    zugewiesen werden. Mitglieder haben dann die Möglichkeit sich in einer
-                    Spalte einzutragen und Moderatoren haben die Möglichkeit
-                    Kommentarfelder zu ändern.
+          Hier können verscheidene Spalten erstellen werden und Plänen
+          zugewiesen werden. Mitglieder haben dann die Möglichkeit sich in einer
+          Spalte einzutragen und Moderatoren haben die Möglichkeit
+          Kommentarfelder zu ändern.
         </Text>
 
         <Input
@@ -130,7 +130,7 @@ export default function ManagePositionsScreen() {
             columnNameInput.current?.clear();
           }}
         >
-                    Spalte erstellen
+          Spalte erstellen
         </Button>
       </SettingsForm>
 
@@ -150,11 +150,7 @@ export default function ManagePositionsScreen() {
               <TD cols={3}>
                 {column.pages.map((pageId) => (
                   <Text key={pageId}>
-                    {
-                      allPages.filter(
-                        (page) => page.id == pageId
-                      )[0]?.name
-                    }
+                    {allPages.filter((page) => page.id == pageId)[0]?.name}
                   </Text>
                 ))}
               </TD>
@@ -167,10 +163,7 @@ export default function ManagePositionsScreen() {
                     deleteColumnModal.current?.toggleModal();
                   }}
                 >
-                  <Image
-                    source={require("@/assets/img/close.svg")}
-                    size={24}
-                  />
+                  <Image source={require("@/assets/img/close.svg")} size={24} />
                 </Button>
                 <Button
                   style={tw`p-1`}
@@ -181,10 +174,7 @@ export default function ManagePositionsScreen() {
                     modifyModal.current?.toggleModal();
                   }}
                 >
-                  <Image
-                    source={require("@/assets/img/edit.svg")}
-                    size={24}
-                  />
+                  <Image source={require("@/assets/img/edit.svg")} size={24} />
                 </Button>
               </TD>
             </TR>
@@ -195,13 +185,13 @@ export default function ManagePositionsScreen() {
       <Modal type="CENTER" ref={deleteColumnModal}>
         <H1 style={tw`mt-2 text-center`}>Spalte löschen?</H1>
         <Text style={tw`mx-4`}>
-                    Soll die Spalte{" "}
+          Soll die Spalte{" "}
           <Text style={tw`font-semibold`}>{columnToChange?.name}</Text> wirklich
-                    glöscht werden?
+          glöscht werden?
         </Text>
         <Text style={tw`text-red-400 mx-4 mt-2`}>
-                    Dadurch werden alle Eintragungen von Mitgliedern in dieser Spalte
-                    unwiderruflich gelöscht!
+          Dadurch werden alle Eintragungen von Mitgliedern in dieser Spalte
+          unwiderruflich gelöscht!
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
@@ -210,10 +200,10 @@ export default function ManagePositionsScreen() {
             }}
             color="#f67e7e"
           >
-                        Löschen
+            Löschen
           </Button>
           <Button onPress={() => deleteColumnModal.current?.toggleModal()}>
-                        Abbrechen
+            Abbrechen
           </Button>
         </View>
       </Modal>
@@ -231,10 +221,7 @@ export default function ManagePositionsScreen() {
           secureTextEntry={false}
           ref={renameInput}
           onSubmitEditing={() => {
-            renameColumn(
-                            columnToChange!.id,
-                            columnRenameName
-            );
+            renameColumn(columnToChange!.id, columnRenameName);
             renameInput.current?.blur();
           }}
           returnKeyType="done"
@@ -253,10 +240,7 @@ export default function ManagePositionsScreen() {
             key={page.id}
             defaultValue={columnToChange?.pages.includes(page.id)}
             onChange={(isAssigned) => {
-              if (
-                columnToChange?.pages.includes(page.id) ==
-                                isAssigned
-              ) {
+              if (columnToChange?.pages.includes(page.id) == isAssigned) {
                 // thing has changed - add it to the changes array
                 assignmentChanges.push({
                   pageId: page.id,
@@ -269,7 +253,7 @@ export default function ManagePositionsScreen() {
                   assignmentChanges.filter(
                     (entr) =>
                       entr.columnId == columnToChange!.id &&
-                                            entr.pageId == page.id
+                      entr.pageId == page.id
                   )[0]
                 );
 
@@ -285,18 +269,15 @@ export default function ManagePositionsScreen() {
           <Button
             onPress={() => {
               assignColumns(assignmentChanges);
-              renameColumn(
-                                columnToChange!.id,
-                                columnRenameName
-              );
+              renameColumn(columnToChange!.id, columnRenameName);
               renameInput.current?.blur();
             }}
             color="#f67e7e"
           >
-                        Speichern
+            Speichern
           </Button>
           <Button onPress={() => modifyModal.current?.toggleModal()}>
-                        Abbrechen
+            Abbrechen
           </Button>
         </View>
       </Modal>

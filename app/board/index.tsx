@@ -15,11 +15,10 @@ import { RefreshControl } from "react-native-gesture-handler";
 import useBoard from "@/hooks/api/useBoard";
 
 export type BoardType =
-    | "Jahresansicht"
-    | "Quartal Ansicht"
-    | "Monatsansicht"
-    | "Wochenansicht";
-
+  | "Jahresansicht"
+  | "Quartal Ansicht"
+  | "Monatsansicht"
+  | "Wochenansicht";
 
 export default function BoardScreenScreen() {
   const { user, hasAuthError, logout } = useAuthentication();
@@ -43,7 +42,8 @@ export default function BoardScreenScreen() {
   }, [hasAuthError]);
 
   useEffect(() => {
-    if (Platform.OS == "web" && serverName && segments[0] == "board") document.title = "Plan ⋅ " + serverName;
+    if (Platform.OS == "web" && serverName && segments[0] == "board")
+      document.title = "Plan ⋅ " + serverName;
   }, [serverName, segments]);
 
   const queryFromBoard = async (fromDate: string, toDate: string) => {
@@ -74,12 +74,18 @@ export default function BoardScreenScreen() {
         changePassword={changePassword}
         settings={settings}
       />
-      <ScrollView refreshControl={
-        <RefreshControl
-          refreshing={loading}
-          onRefresh={() => lastFromDate && lastToDate ? queryBoard(lastFromDate, lastToDate) : ""}
-        />
-      }>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={() =>
+              lastFromDate && lastToDate
+                ? queryBoard(lastFromDate, lastToDate)
+                : ""
+            }
+          />
+        }
+      >
         <BoardHeader
           user={user}
           setBoardType={setBoardType}

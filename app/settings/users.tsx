@@ -25,7 +25,6 @@ import useDeleteUser from "@/hooks/api/useDeleteUser";
 import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
 import useReactivateUser from "@/hooks/api/useReactivateUser";
 
-
 export default function ManageUsersScreen() {
   const { isMd } = useMediaQueries();
 
@@ -49,7 +48,7 @@ export default function ManageUsersScreen() {
   } = useReactivateUser();
 
   const { requestNewPassword, newPassword, successfulPasswordCreation } =
-        useRequestNewPassword();
+    useRequestNewPassword();
 
   const { deleteUser, succesfulDeletion } = useDeleteUser();
 
@@ -123,7 +122,7 @@ export default function ManageUsersScreen() {
           "mt-4"
         )}
       >
-                Nutzer erstellen
+        Nutzer erstellen
       </H2>
 
       <SettingsForm>
@@ -168,12 +167,8 @@ export default function ManageUsersScreen() {
           error={reactivationError}
         />
 
-        <Button
-          onPress={() =>
-            createUser(firstName, secondName, email, role)
-          }
-        >
-                    Nutzer erstellen
+        <Button onPress={() => createUser(firstName, secondName, email, role)}>
+          Nutzer erstellen
         </Button>
       </SettingsForm>
 
@@ -181,22 +176,22 @@ export default function ManageUsersScreen() {
         <Text
           style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
         >
-                    Es wurde erfolgreich ein neuer Nutzer erstellt.
+          Es wurde erfolgreich ein neuer Nutzer erstellt.
         </Text>
         <View style={tw`px-4 mt-4 gap-2`}>
           <Text>
-                        Rolle:{" "}
+            Rolle:{" "}
             {userCreationResponse?.role.charAt(0).toUpperCase() +
-                            "" +
-                            userCreationResponse?.role.slice(1).toLowerCase()}
+              "" +
+              userCreationResponse?.role.slice(1).toLowerCase()}
           </Text>
           <Text style={tw`text-lg`}>
             {userCreationResponse?.firstname +
-                            " " +
-                            userCreationResponse?.lastname +
-                            " (" +
-                            userCreationResponse?.email +
-                            ")"}
+              " " +
+              userCreationResponse?.lastname +
+              " (" +
+              userCreationResponse?.email +
+              ")"}
           </Text>
           <Text style={tw`text-lg font-bold`}>
             {userCreationResponse?.password}
@@ -209,7 +204,7 @@ export default function ManageUsersScreen() {
               creationModal.current?.toggleModal();
             }}
           >
-                        Fertig
+            Fertig
           </Button>
         </View>
       </Modal>
@@ -227,8 +222,8 @@ export default function ManageUsersScreen() {
                 </Text>
                 <Text>
                   {Luser.role.charAt(0).toUpperCase() +
-                                        "" +
-                                        Luser.role.slice(1).toLowerCase()}
+                    "" +
+                    Luser.role.slice(1).toLowerCase()}
                 </Text>
                 <Text>{Luser.email}</Text>
               </TD>
@@ -277,9 +272,9 @@ export default function ManageUsersScreen() {
       <Modal type="CENTER" ref={deleteUserModal}>
         <H1 style={tw`mt-2 text-center`}>Mitglied löschen?</H1>
         <Text style={tw`mx-4`}>
-                    Soll das Mitglied{" "}
+          Soll das Mitglied{" "}
           <Text style={tw`font-semibold`}>{userNameToDelete}</Text> wirklich
-                    glöscht werden?
+          glöscht werden?
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
@@ -288,10 +283,10 @@ export default function ManageUsersScreen() {
             }}
             color="#f67e7e"
           >
-                        Löschen
+            Löschen
           </Button>
           <Button onPress={() => deleteUserModal.current?.toggleModal()}>
-                        Abbrechen
+            Abbrechen
           </Button>
         </View>
       </Modal>
@@ -299,9 +294,9 @@ export default function ManageUsersScreen() {
       <Modal type="CENTER" ref={requestNewPasswordModal}>
         <H1 style={tw`mt-2 text-center`}>Passwort zurücksetzen?</H1>
         <Text style={tw`mx-4`}>
-                    Soll das Passwort von{" "}
+          Soll das Passwort von{" "}
           <Text style={tw`font-semibold`}>{userNameForNewPassword}</Text>{" "}
-                    wirklich zurückgesetzt werden?
+          wirklich zurückgesetzt werden?
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
@@ -311,12 +306,12 @@ export default function ManageUsersScreen() {
             }}
             color="#f67e7e"
           >
-                        Zurücksetzen
+            Zurücksetzen
           </Button>
           <Button
             onPress={() => requestNewPasswordModal.current?.toggleModal()}
           >
-                        Abbrechen
+            Abbrechen
           </Button>
         </View>
       </Modal>
@@ -324,16 +319,16 @@ export default function ManageUsersScreen() {
       <Modal type="CENTER" ref={newPasswordModal}>
         <H1 style={tw`mt-2 text-center`}>Neues Passwort generiert</H1>
         <Text style={tw`mx-4`}>
-                    Das Passwort von{" "}
+          Das Passwort von{" "}
           <Text style={tw`font-semibold`}>{userNameForNewPassword}</Text> wurde
-                    erfolgreich zurück gesetzt.
+          erfolgreich zurück gesetzt.
         </Text>
         <Text style={tw`mx-4 text-lg`}>
-                    Das neue Passwort lautet: {newPassword}
+          Das neue Passwort lautet: {newPassword}
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button onPress={() => newPasswordModal.current?.toggleModal()}>
-                        Fertig
+            Fertig
           </Button>
         </View>
       </Modal>
@@ -342,13 +337,13 @@ export default function ManageUsersScreen() {
         <Text
           style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
         >
-                    Benutzer neu aktivieren?
+          Benutzer neu aktivieren?
         </Text>
         <View style={tw`px-4 mt-4 gap-2`}>
           <Text>
-                        Ein ehemaliger Mitglied mit dieser Email Adresse existierte bereits.
-                        Wenn dieser erneut aktiviert wird, bleiben alle ehemaligen
-                        Eintragungen unter neuem Namen bestehen.
+            Ein ehemaliger Mitglied mit dieser Email Adresse existierte bereits.
+            Wenn dieser erneut aktiviert wird, bleiben alle ehemaligen
+            Eintragungen unter neuem Namen bestehen.
           </Text>
           <Text>Soll dieser Nutzer neu aktiviert werden?</Text>
         </View>
@@ -360,7 +355,7 @@ export default function ManageUsersScreen() {
             }}
             color="#f67e7e"
           >
-                        Ja
+            Ja
           </Button>
           <Button
             onPress={() => {
@@ -370,7 +365,7 @@ export default function ManageUsersScreen() {
               emailInput.current?.clear();
             }}
           >
-                        Nein
+            Nein
           </Button>
         </View>
       </Modal>
@@ -379,22 +374,22 @@ export default function ManageUsersScreen() {
         <Text
           style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
         >
-                    Mitglied erfolgreich reaktiviert
+          Mitglied erfolgreich reaktiviert
         </Text>
         <View style={tw`px-4 mt-4 gap-2`}>
           <Text>
-                        Rolle:{" "}
+            Rolle:{" "}
             {userReactivationResponse?.role.charAt(0).toUpperCase() +
-                            "" +
-                            userReactivationResponse?.role.slice(1).toLowerCase()}
+              "" +
+              userReactivationResponse?.role.slice(1).toLowerCase()}
           </Text>
           <Text style={tw`text-lg`}>
             {userReactivationResponse?.firstname +
-                            " " +
-                            userReactivationResponse?.lastname +
-                            " (" +
-                            userReactivationResponse?.email +
-                            ")"}
+              " " +
+              userReactivationResponse?.lastname +
+              " (" +
+              userReactivationResponse?.email +
+              ")"}
           </Text>
           <Text style={tw`text-lg font-bold`}>
             {userReactivationResponse?.password}
@@ -407,7 +402,7 @@ export default function ManageUsersScreen() {
               afterReactivationModal.current?.toggleModal();
             }}
           >
-                        Fertig
+            Fertig
           </Button>
         </View>
       </Modal>

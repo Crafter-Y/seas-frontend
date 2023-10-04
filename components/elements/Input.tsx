@@ -20,7 +20,7 @@ type Props = {
   initialValue?: string;
 };
 
-export default forwardRef<TextInput, Props>(
+const Input = forwardRef<TextInput, Props>(
   (
     {
       placeholder,
@@ -73,3 +73,6 @@ export default forwardRef<TextInput, Props>(
     );
   }
 );
+
+Input.displayName = "Input";
+export default Input;

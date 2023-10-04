@@ -19,11 +19,8 @@ export default function ServerSelectorScreen() {
 
   const [inputError, setInputError] = useState("");
 
-  const {
-    fetchServerName,
-    fetchSuccessful,
-    fetchServerError
-  } = useServerName();
+  const { fetchServerName, fetchSuccessful, fetchServerError } =
+    useServerName();
 
   useEffect(() => {
     if (Platform.OS == "web") {
@@ -34,9 +31,10 @@ export default function ServerSelectorScreen() {
   }, []);
 
   useEffect(() => {
-    if (fetchSuccessful) setTimeout(() => {
-      router.replace("/login");
-    }, 1);
+    if (fetchSuccessful)
+      setTimeout(() => {
+        router.replace("/login");
+      }, 1);
   }, [fetchSuccessful]);
 
   const login = async () => {
@@ -61,10 +59,13 @@ export default function ServerSelectorScreen() {
   return (
     <SafeAreaView>
       <View style={tw`items-center`}>
-        <Image source={require("@/assets/adaptive-icon.png")} style={{
-          height: Math.min(height, width) / 2,
-          width: Math.min(height, width) / 2,
-        }} />
+        <Image
+          source={require("@/assets/adaptive-icon.png")}
+          style={{
+            height: Math.min(height, width) / 2,
+            width: Math.min(height, width) / 2,
+          }}
+        />
       </View>
       <Text style={tw`w-full text-center mt-6 text-2xl font-bold`}>
         Willkommen in der Serverauswahl
@@ -80,7 +81,10 @@ export default function ServerSelectorScreen() {
           style={"mt-1"}
         ></Input>
         <ErrorDisplay hasError={isError} error={inputError} />
-        <ErrorDisplay hasError={!!fetchServerError} error={fetchServerError || ""} />
+        <ErrorDisplay
+          hasError={!!fetchServerError}
+          error={fetchServerError || ""}
+        />
 
         <Text>Dies kann hinterher noch geändert werden.</Text>
         <Button onPress={login}>Speichern</Button>
