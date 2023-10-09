@@ -33,6 +33,7 @@ const BoardHeaderRoundButton = ({
   if (!hidden)
     return (
       <TouchableOpacity
+        ref={ref}
         style={tw.style(
           {
             backgroundColor: isHovered ? Color.LIGHT_GRAY : undefined,
@@ -40,7 +41,6 @@ const BoardHeaderRoundButton = ({
           "items-center justify-center h-10 w-10 rounded-full",
           style
         )}
-        ref={ref}
         onPress={onPress}
       >
         <Image source={imageSource} size={16} />

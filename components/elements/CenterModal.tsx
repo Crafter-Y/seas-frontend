@@ -41,7 +41,7 @@ export default function CenterModal({ children }: Props) {
             "bg-white shadow-lg"
           )}
         >
-          {children}
+          <Pressable>{children}</Pressable>
         </ScrollView>
       </View>
     </Pressable>

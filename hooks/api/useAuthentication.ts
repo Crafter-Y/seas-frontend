@@ -5,6 +5,7 @@ import decode from "jwt-decode";
 import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
 import { Router } from "expo-router/build/types";
 import { Store } from "@/helpers/store";
+import { router } from "expo-router";
 
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
@@ -12,7 +13,7 @@ export default function useAuthentication() {
 
   const user = Store.useState(state => state.user);
 
-  const logout = async (router: Router) => {
+  const logout = async () => {
     await AsyncStorage.removeItem("token");
     Store.update(state => { state.user = null; });
     router.replace("/login");

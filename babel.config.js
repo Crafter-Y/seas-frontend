@@ -4,6 +4,8 @@ module.exports = function (api) {
     presets: ["babel-preset-expo"],
     plugins: [
       "expo-router/babel",
+      "@babel/plugin-transform-export-namespace-from",
+      "react-native-reanimated/plugin",
       [
         "module-resolver",
         {

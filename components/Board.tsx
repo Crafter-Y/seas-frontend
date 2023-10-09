@@ -12,7 +12,6 @@ import { BoardType } from "@/app/board";
 import { Store } from "@/helpers/store";
 import BoardHeaderRoundButton from "./BoardHeaderRoundButton";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
-import Toast from "react-native-toast-message";
 import { router } from "expo-router";
 
 type Props = {
@@ -96,13 +95,7 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
           hidden={!moduleStatus?.modulePrint}
           style={tw`border border-gray-400`}
           imageSource={require("@/assets/img/print.svg")}
-          onPress={() =>
-            Toast.show({
-              type: "error",
-              text1: "Noch nicht implementiert",
-              text2: "Diese Funktion ist noch nicht implementiert",
-            })
-          }
+          onPress={() => router.push("/modules/print/range")}
         />
       </View>
       <BoardList

@@ -11,7 +11,11 @@ interface GlobalStore {
   moduleStatus: APIModuleStatus | null,
   allDefaultComments: APIResponseDefaultComment[],
   lastQueryFrom: Date | null,
-  lastQueryTo: Date | null
+  lastQueryTo: Date | null,
+  serverName: string | null,
+  printDateStart: Date | null,
+  printDateEnd: Date | null,
+  printColumns: number[],
 }
 
 export const Store = new Pullstate<GlobalStore>({
@@ -24,5 +28,9 @@ export const Store = new Pullstate<GlobalStore>({
   moduleStatus: null,
   allDefaultComments: [],
   lastQueryFrom: null,
-  lastQueryTo: null
+  lastQueryTo: null,
+  serverName: null,
+  printDateStart: null,
+  printDateEnd: null,
+  printColumns: []
 });

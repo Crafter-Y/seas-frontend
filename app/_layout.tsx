@@ -4,9 +4,9 @@ import { StatusBar } from "expo-status-bar";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]);
 LogBox.ignoreLogs(["The `redirect` prop on"]);
+LogBox.ignoreLogs(["VirtualizedLists shoul"]);
 
 import { de, registerTranslation } from "react-native-paper-dates";
-import Toast from "react-native-toast-message";
 registerTranslation("de", de);
 
 export const unstable_settings = {
@@ -22,7 +22,6 @@ export default function DefaultLayout() {
           headerShown: false,
         }}
       />
-      <Toast visibilityTime={1500} />
     </>
   );
 }

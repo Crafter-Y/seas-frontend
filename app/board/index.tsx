@@ -70,7 +70,7 @@ export default function BoardScreenScreen() {
         user={user}
         boardType={boardType}
         setBoardType={setBoardType}
-        logout={() => logout(router)}
+        logout={() => logout()}
         changePassword={changePassword}
         settings={settings}
       />
@@ -90,7 +90,7 @@ export default function BoardScreenScreen() {
           user={user}
           setBoardType={setBoardType}
           boardType={boardType}
-          logout={() => logout(router)}
+          logout={() => logout()}
           changePassword={changePassword}
           settings={settings}
         />

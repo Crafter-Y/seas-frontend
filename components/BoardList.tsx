@@ -70,6 +70,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
 
   const getPositionForField = (column: APIResponseColumn, date: string) => {
     const row = rows.filter((row_) => row_.date == date)[0];
+    if (!user) return;
     if (!row) return;
     const positionUsed =
       row.assignments.filter((row_) => row_.boardColumnId == column.id)

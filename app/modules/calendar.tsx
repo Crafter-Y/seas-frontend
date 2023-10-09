@@ -120,7 +120,7 @@ const Calendar = () => {
         await ExpoCalendar.createEventAsync(calId, {
           id: date,
           calendarId: calId,
-          title: serverName,
+          title: serverName!,
           creationDate: new Date(),
           lastModifiedDate: new Date(),
           startDate: new Date(date),

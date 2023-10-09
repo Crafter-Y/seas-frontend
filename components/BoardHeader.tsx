@@ -9,7 +9,6 @@ import BoardMenuButton from "./BoardMenuButton";
 import BoardHeaderRoundButton from "./BoardHeaderRoundButton";
 import Divider from "./elements/Divider";
 import Modal, { ModalHandle } from "./elements/Modal";
-import Toast from "react-native-toast-message";
 import { BoardType } from "@/app/board";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import { router } from "expo-router";
@@ -80,13 +79,7 @@ const BoardHeader = ({
           <BoardHeaderRoundButton
             hidden={!moduleStatus?.modulePrint}
             imageSource={require("@/assets/img/print.svg")}
-            onPress={() =>
-              Toast.show({
-                type: "error",
-                text1: "Noch nicht implementiert",
-                text2: "Diese Funktion ist noch nicht implementiert",
-              })
-            }
+            onPress={() => router.push("/modules/print/range")}
           />
         </View>
         <BoardHeaderRoundButton
