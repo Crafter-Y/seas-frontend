@@ -40,10 +40,13 @@ const BoardList = ({ rows, fetchData }: Props) => {
   const possiblyNeedReload = useRef(false);
 
   useEffect(() => {
-    if (!possiblyNeedReload.current) {
+    // refetch the board data, if the user comes to the board and not from a module (most likely closing the row module after an assignment)
+    if (segments.length > 0 && segments[0] == "modules") {
+      possiblyNeedReload.current = false;
+    } else if (!possiblyNeedReload.current) {
       possiblyNeedReload.current = true;
     } else {
-      fetchData();
+      if (segments.length == 1 && segments[0] == "board") fetchData();
     }
   }, [segments, possiblyNeedReload]);
 
@@ -162,7 +165,6 @@ const BoardList = ({ rows, fetchData }: Props) => {
               Store.update((state) => {
                 state.selectedRow = row;
               });
-              possiblyNeedReload.current = false;
               router.push({
                 pathname: "/board/row",
                 params: { date: row.date },

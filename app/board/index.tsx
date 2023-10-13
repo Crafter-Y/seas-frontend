@@ -23,7 +23,7 @@ export type BoardType =
 export default function BoardScreenScreen() {
   const { user, hasAuthError, logout } = useAuthentication();
 
-  const { serverName } = useServerName();
+  const { serverName, fetchServerName } = useServerName();
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
 
@@ -32,10 +32,7 @@ export default function BoardScreenScreen() {
 
   const segments = useSegments();
 
-  const { rows, queryBoard, loading } = useBoard();
-
-  const [lastFromDate, setLastFromDate] = useState<string>();
-  const [lastToDate, setLastToDate] = useState<string>();
+  const { loading, requeryBoard } = useBoard();
 
   useEffect(() => {
     if (hasAuthError) router.replace("/login");
@@ -44,13 +41,9 @@ export default function BoardScreenScreen() {
   useEffect(() => {
     if (Platform.OS == "web" && serverName && segments[0] == "board")
       document.title = "Plan ⋅ " + serverName;
-  }, [serverName, segments]);
 
-  const queryFromBoard = async (fromDate: string, toDate: string) => {
-    setLastFromDate(fromDate);
-    setLastToDate(toDate);
-    return await queryBoard(fromDate, toDate);
-  };
+    if (!serverName) fetchServerName();
+  }, [serverName, segments]);
 
   const changePassword = () => {
     router.push("/changepassword");
@@ -77,12 +70,9 @@ export default function BoardScreenScreen() {
       <ScrollView
         refreshControl={
           <RefreshControl
+            colors={[Color.BLUE, Color.GREEN]}
             refreshing={loading}
-            onRefresh={() =>
-              lastFromDate && lastToDate
-                ? queryBoard(lastFromDate, lastToDate)
-                : ""
-            }
+            onRefresh={() => requeryBoard()}
           />
         }
       >
@@ -94,7 +84,7 @@ export default function BoardScreenScreen() {
           changePassword={changePassword}
           settings={settings}
         />
-        <Board boardType={boardType} rows={rows} queryBoard={queryFromBoard} />
+        <Board boardType={boardType} />
         <Footer />
       </ScrollView>
     </SafeAreaView>

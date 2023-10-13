@@ -7,25 +7,25 @@ import BoardList from "./BoardList";
 import useAllPages from "@/hooks/api/useAllPages";
 import BoardPageSelector from "./BoardPageSelector";
 import Divider from "./elements/Divider";
-import { formatDate } from "@/helpers/format";
 import { BoardType } from "@/app/board";
 import { Store } from "@/helpers/store";
 import BoardHeaderRoundButton from "./BoardHeaderRoundButton";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import { router } from "expo-router";
+import useBoard from "@/hooks/api/useBoard";
 
 type Props = {
   boardType: BoardType;
-  rows: BoardRow[];
-  queryBoard: (fromDate: string, toDate: string) => Promise<void>;
 };
 
-const Board = ({ boardType, rows, queryBoard }: Props) => {
+const Board = ({ boardType }: Props) => {
   const { isSm, isLg } = useMediaQueries();
 
   const { allPages } = useAllPages();
 
   const { moduleStatus } = useModuleStatus();
+
+  const { rows, queryBoard } = useBoard();
 
   const today = new Date();
   const thisQuarter = Math.floor(today.getMonth() / 3);
@@ -42,7 +42,7 @@ const Board = ({ boardType, rows, queryBoard }: Props) => {
     setDateStart(start);
     setDateEnd(end);
 
-    queryBoard(formatDate(start), formatDate(end));
+    queryBoard(start, end);
     console.log("query", start, end);
   };
 

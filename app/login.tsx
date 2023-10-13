@@ -31,7 +31,7 @@ export default function ServerSelectorScreen() {
 
   const isWeb = Platform.OS == "web";
 
-  const { serverName, fetchServerError } = useServerName();
+  const { serverName, fetchServerError, fetchServerName } = useServerName();
 
   const { login, authError, hasAuthError, user } = useAuthentication();
 
@@ -43,6 +43,7 @@ export default function ServerSelectorScreen() {
   const segments = useSegments();
 
   useEffect(() => {
+    fetchServerName();
     if (Platform.OS == "web") {
       AsyncStorage.getItem("serverId").then((serverId) => {
         if (serverId == null) {

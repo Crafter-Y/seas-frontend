@@ -2,9 +2,10 @@
 
 ## Next tasks
 
+- [ ] user account system via email
+- [ ] ability to edit an user
+
 - [ ] prevent spamming buttons in settings
 - [ ] improve general performance of the app (useCallback's ...)
-- [ ] improve UX by introducing skeletons
-- [ ] update the fetched state to reflect changes by user, then refetch the actual data to validate the changes
 - [ ] fix production crash on board load?
 - [ ] (auto-update)

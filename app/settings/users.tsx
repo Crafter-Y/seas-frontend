@@ -323,7 +323,7 @@ export default function ManageUsersScreen() {
           <Text style={tw`font-semibold`}>{userNameForNewPassword}</Text> wurde
           erfolgreich zurück gesetzt.
         </Text>
-        <Text style={tw`mx-4 text-lg`}>
+        <Text style={tw`mx-4 text-lg`} selectable>
           Das neue Passwort lautet: {newPassword}
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>

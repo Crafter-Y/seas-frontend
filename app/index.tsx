@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import useServerName from "@/hooks/api/useServerName";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { FetchState } from "@/helpers/Constants";
 
 export default function ServerSelectorScreen() {
   const { height, width } = useWindowDimensions();
@@ -19,23 +20,24 @@ export default function ServerSelectorScreen() {
 
   const [inputError, setInputError] = useState("");
 
-  const { fetchServerName, fetchSuccessful, fetchServerError } =
-    useServerName();
+  const { fetchServerName, fetchState, fetchServerError } = useServerName();
 
   useEffect(() => {
     if (Platform.OS == "web") {
       setTimeout(() => {
         router.replace("/login");
       }, 1);
+    } else {
+      fetchServerName();
     }
   }, []);
 
   useEffect(() => {
-    if (fetchSuccessful)
+    if (fetchState == FetchState.SUCCEEDED)
       setTimeout(() => {
         router.replace("/login");
       }, 1);
-  }, [fetchSuccessful]);
+  }, [fetchState]);
 
   const login = async () => {
     setIsError(false);

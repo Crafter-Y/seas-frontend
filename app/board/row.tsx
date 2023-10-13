@@ -57,9 +57,12 @@ export default function Modal() {
   const [commentEditValue, setCommentEditValue] = useState("");
 
   useEffect(() => {
-    if (assignmentSuccessful || unassignmentSuccessful)
-      querySingleRow(selectedRow!.date);
-  }, [assignmentSuccessful, unassignmentSuccessful]);
+    if (assignmentSuccessful) querySingleRow(selectedRow!.date);
+  }, [assignmentSuccessful]);
+
+  useEffect(() => {
+    if (unassignmentSuccessful) querySingleRow(selectedRow!.date);
+  }, [unassignmentSuccessful]);
 
   useEffect(() => {
     setRenderdAllPages(

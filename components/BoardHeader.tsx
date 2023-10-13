@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import React, { memo, useRef } from "react";
+import React, { memo, useCallback, useRef } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import useServerName from "@/hooks/api/useServerName";
@@ -12,6 +12,7 @@ import Modal, { ModalHandle } from "./elements/Modal";
 import { BoardType } from "@/app/board";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import { router } from "expo-router";
+import { FetchState } from "@/helpers/Constants";
 
 type BoardHeaderProps = {
   user: User | null;
@@ -32,11 +33,17 @@ const BoardHeader = ({
 }: BoardHeaderProps) => {
   const { isLg } = useMediaQueries();
 
-  const { serverName } = useServerName();
+  const { serverName, fetchState } = useServerName();
 
   const modal = useRef<ModalHandle>(null);
 
   const { moduleStatus } = useModuleStatus();
+
+  const titleState = useCallback(() => {
+    if (fetchState == FetchState.SUCCEEDED && serverName) return serverName;
+    if (fetchState == FetchState.FETCHING) return "Wird geladen...";
+    return "Server zur Zeit nicht erreichbar";
+  }, [fetchState, serverName]);
 
   return (
     <View
@@ -54,12 +61,12 @@ const BoardHeader = ({
               "text-xl": isLg,
               "text-lg": !isLg,
               "ml-4": isLg,
-              "text-red-500": !serverName,
+              "text-red-500": fetchState == FetchState.ERROR,
             },
             "font-bold"
           )}
         >
-          {serverName ? serverName : "Server zur Zeit nicht erreichbar"}
+          {titleState()}
         </Text>
         <View
           style={tw.style(

@@ -8,3 +8,10 @@ export const Color = {
   LIGHT_GRAY: "#F6F7F9", // background gray
   SETTINGS_BG: "#f2f2f2"
 };
+
+export enum FetchState {
+  UNFETCHED,
+  FETCHING,
+  SUCCEEDED,
+  ERROR
+}

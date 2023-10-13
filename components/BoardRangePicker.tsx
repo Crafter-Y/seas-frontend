@@ -22,7 +22,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   const { beforeMonth, currentMonth, nextMonth, setCurrentMonth } =
     useMonthState();
   const { beforeWeek, currentWeek, nextWeek, setCurrentWeek, setInternalYear } =
-    useWeekState(new Date().getFullYear());
+    useWeekState();
 
   const [backText, setBackText] = useState("");
   const [nextText, setNextText] = useState("");
@@ -154,7 +154,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   }, [boardType, nextYear, nextQuarter, currentYear, nextMonth, nextWeek]);
 
   const middleAction = () => {
-    /*if (boardType == "Jahresansicht") {
+    /*TODO: if (boardType == "Jahresansicht") {
     } else if (boardType == "Quartal Ansicht") {
     } else if (boardType == "Monatsansicht") {
     } else {

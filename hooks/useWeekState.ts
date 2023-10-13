@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { weekNumber, weeksPerYear } from "weeknumber";
 
-export default function useWeekState(initYear: number) {
-  const [internalYear, setInternalYear] = useState(initYear);
+export default function useWeekState() {
+  const [internalYear, setInternalYear] = useState(new Date().getFullYear());
+  const [currentWeek, setCurrentWeek] = useState(weekNumber(new Date()));
 
   const getPrev = () => {
     if (currentWeek != 1) return currentWeek - 1;
@@ -18,7 +19,6 @@ export default function useWeekState(initYear: number) {
   const initNextWeek = getNext();
 
   const [beforeWeek, setBeforeWeek] = useState(initPrevWeek);
-  const [currentWeek, setCurrentWeek] = useState(weekNumber(new Date()));
   const [nextWeek, setNextWeek] = useState(initNextWeek);
 
   useEffect(() => {
@@ -29,10 +29,8 @@ export default function useWeekState(initYear: number) {
   }, [internalYear]);
 
   useEffect(() => {
-    const beforeWeek = getPrev();
-    const nextWeek = getNext();
-    setBeforeWeek(beforeWeek);
-    setNextWeek(nextWeek);
+    setBeforeWeek(getPrev());
+    setNextWeek(getNext());
   }, [currentWeek]);
 
   return { beforeWeek, currentWeek, nextWeek, setCurrentWeek, setInternalYear };
