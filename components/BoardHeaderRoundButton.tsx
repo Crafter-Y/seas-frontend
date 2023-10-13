@@ -21,32 +21,51 @@ type Props = {
   hidden?: boolean;
 };
 
+type BtnProps = {
+  imageSource:
+    | string
+    | number
+    | string[]
+    | ImageSource
+    | ImageSource[]
+    | null
+    | undefined;
+  onPress: () => void;
+  style?: ClassInput;
+};
+
+const ActualButton = ({ imageSource, onPress, style }: BtnProps) => {
+  const ref = useRef(null);
+  const isHovered = useHover(ref);
+
+  return (
+    <TouchableOpacity
+      ref={ref}
+      style={tw.style(
+        {
+          backgroundColor: isHovered ? Color.LIGHT_GRAY : undefined,
+        },
+        "items-center justify-center h-10 w-10 rounded-full",
+        style
+      )}
+      onPress={onPress}
+    >
+      <Image source={imageSource} size={16} />
+    </TouchableOpacity>
+  );
+};
+
 const BoardHeaderRoundButton = ({
   imageSource,
   onPress,
   style,
   hidden = false,
 }: Props) => {
-  const ref = useRef(null);
-  const isHovered = useHover(ref);
-
-  if (!hidden)
-    return (
-      <TouchableOpacity
-        ref={ref}
-        style={tw.style(
-          {
-            backgroundColor: isHovered ? Color.LIGHT_GRAY : undefined,
-          },
-          "items-center justify-center h-10 w-10 rounded-full",
-          style
-        )}
-        onPress={onPress}
-      >
-        <Image source={imageSource} size={16} />
-      </TouchableOpacity>
-    );
-  return <></>;
+  return hidden ? (
+    <></>
+  ) : (
+    <ActualButton imageSource={imageSource} onPress={onPress} style={style} />
+  );
 };
 
 export default BoardHeaderRoundButton;
