@@ -16,6 +16,7 @@ module.exports = exports = {
     "tailwind.config.js",
     "metro.config.js",
     "babel.config.js",
+    "serve.js",
   ],
   rules: {
     semi: ["error", "always"],
