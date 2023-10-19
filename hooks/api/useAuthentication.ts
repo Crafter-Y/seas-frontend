@@ -49,7 +49,7 @@ export default function useAuthentication() {
         setHasAuthError(true);
       }
     } catch (e) {
-      setAuthError(e + "e");
+      setAuthError(e + "");
       setHasAuthError(true);
     }
 

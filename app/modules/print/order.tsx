@@ -161,8 +161,8 @@ const PrintOrderSelector = () => {
     return (
       <ScaleDecorator>
         <TouchableOpacity
+          onPressIn={drag}
           activeOpacity={1}
-          onLongPress={drag}
           disabled={isActive}
           style={tw.style(
             {
