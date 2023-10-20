@@ -3,18 +3,33 @@ import React from "react";
 import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
 import { router } from "expo-router";
+import * as MailComposer from "expo-mail-composer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Props = {
   style?: ClassInput;
 };
 
 const Footer = ({ style = {} }: Props) => {
-  const mailtoReport = () => {
-    const url = "mailto:helmut_h_haase@yahoo.de";
-    Linking.canOpenURL(url).then((supported) => {
-      if (supported) {
-        Linking.openURL(url);
-      }
+  const mailtoReport = async () => {
+    const isAvailable = await MailComposer.isAvailableAsync();
+    if (!isAvailable) {
+      const url = "mailto:helmut_h_haase@yahoo.de";
+      Linking.canOpenURL(url).then((supported) => {
+        if (supported) {
+          Linking.openURL(url);
+        }
+      });
+      return;
+    }
+
+    const serverId = await AsyncStorage.getItem("serverId");
+
+    await MailComposer.composeAsync({
+      recipients: ["helmut_h_haase@yahoo.de"],
+      ccRecipients: ["mrcrafter.yt4@gmail.com"],
+      subject: `Bugreport: serverId: ${serverId}`,
+      body: "Bitte beschreiben Sie den Fehler: \n\n\nWas haben Sie getan bevor der Fehler aufgetreten ist?: \n\n\n",
     });
   };
 
