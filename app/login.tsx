@@ -43,7 +43,6 @@ export default function ServerSelectorScreen() {
   const segments = useSegments();
 
   useEffect(() => {
-    fetchServerName();
     if (Platform.OS == "web") {
       AsyncStorage.getItem("serverId").then((serverId) => {
         if (serverId == null) {
@@ -51,10 +50,14 @@ export default function ServerSelectorScreen() {
             .then((res) => res.json())
             .then((res: WebConfig) => {
               if (res.serverId) {
-                AsyncStorage.setItem("serverId", res.serverId);
+                AsyncStorage.setItem("serverId", res.serverId).then(() => {
+                  fetchServerName();
+                });
                 document.title = "Login ⋅ " + res.serverId;
               }
             });
+        } else {
+          fetchServerName();
         }
       });
     }

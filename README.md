@@ -12,8 +12,6 @@ Core Features:
 Bugs:
 
 - [ ] prevent spamming buttons in settings
-- [ ] expo router modal not working on mobile browser
-- [ ] serverId not loading on initial web browser load
 - [ ] expo router modal being out of focus on small devices
 
 General:
