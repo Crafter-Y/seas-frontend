@@ -17,7 +17,7 @@ type Props = {
 const Picker = ({ selectedValue, onValueChange, children }: Props) => {
   const [iosPickerOpen, setIosPickerOpen] = useState(false);
   const iosModal = useRef<ModalHandle>(null);
-  const iosPicker = useRef<RNPicker<any>>(null);
+  const iosPicker = useRef<RNPicker<string>>(null);
 
   const getParamValue = (key: string) => {
     return children
