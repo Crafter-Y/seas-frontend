@@ -61,14 +61,14 @@ export default function ManagePagesScreen() {
   useEffect(() => {
     if (successfulPageRename) {
       queryPages();
-      renameModal.current?.toggleModal();
+      renameModal.current?.openModal();
     }
   }, [successfulPageRename]);
 
   useEffect(() => {
     if (succesfulDeletion) {
       queryPages();
-      deleteModal.current?.toggleModal();
+      deleteModal.current?.openModal();
     }
   }, [succesfulDeletion]);
 
@@ -136,7 +136,7 @@ export default function ManagePagesScreen() {
                   onPress={() => {
                     setPageIdToChange(page.id);
                     setPageNameToChange(page.name);
-                    deleteModal.current?.toggleModal();
+                    deleteModal.current?.openModal();
                   }}
                 >
                   <Image source={require("@/assets/img/close.svg")} size={24} />
@@ -147,7 +147,7 @@ export default function ManagePagesScreen() {
                   onPress={() => {
                     setPageIdToChange(page.id);
                     setPageNameToChange(page.name);
-                    renameModal.current?.toggleModal();
+                    renameModal.current?.openModal();
                   }}
                 >
                   <Image source={require("@/assets/img/edit.svg")} size={24} />
@@ -178,7 +178,7 @@ export default function ManagePagesScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteModal.current?.toggleModal()}>
+          <Button onPress={() => deleteModal.current?.openModal()}>
             Abbrechen
           </Button>
         </View>
@@ -219,7 +219,7 @@ export default function ManagePagesScreen() {
           >
             Umbenennen
           </Button>
-          <Button onPress={() => renameModal.current?.toggleModal()}>
+          <Button onPress={() => renameModal.current?.openModal()}>
             Abbrechen
           </Button>
         </View>

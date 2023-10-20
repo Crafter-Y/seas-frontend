@@ -49,7 +49,7 @@ export default function ManageCommentsScreen() {
   useEffect(() => {
     if (succesfulDeletion) {
       queryAllDefaultComments();
-      deleteModal.current?.toggleModal();
+      deleteModal.current?.openModal();
     }
   }, [succesfulDeletion]);
 
@@ -122,7 +122,7 @@ export default function ManageCommentsScreen() {
                   onPress={() => {
                     setCommentIdToDelete(comment.id);
                     setCommentToDelete(comment.comment);
-                    deleteModal.current?.toggleModal();
+                    deleteModal.current?.openModal();
                   }}
                 >
                   <Image source={require("@/assets/img/close.svg")} size={24} />
@@ -153,7 +153,7 @@ export default function ManageCommentsScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteModal.current?.toggleModal()}>
+          <Button onPress={() => deleteModal.current?.openModal()}>
             Abbrechen
           </Button>
         </View>

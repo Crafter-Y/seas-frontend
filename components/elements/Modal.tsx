@@ -5,7 +5,13 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, {
+  forwardRef,
+  memo,
+  useCallback,
+  useImperativeHandle,
+  useState,
+} from "react";
 import ReactNativeModal, { Direction } from "react-native-modal";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -20,7 +26,8 @@ type Props = {
 };
 
 export type ModalHandle = {
-  toggleModal: () => void;
+  openModal: () => void;
+  closeModal: () => void;
 };
 
 const Modal = forwardRef<ModalHandle, Props>(
@@ -38,20 +45,34 @@ const Modal = forwardRef<ModalHandle, Props>(
 
     const [isModalOpen, setModalOpen] = useState(false);
 
-    const intToggleModal = () => {
-      setModalOpen(!isModalOpen);
-    };
+    // use this to prevent immediate closing of the modal appearing when used in touch mode
+    const [lastModalOpen, setLastModalOpen] = useState<Date | null>();
+
+    const intCloseModal = useCallback(() => {
+      if (
+        lastModalOpen &&
+        new Date().getTime() - lastModalOpen.getTime() < 100 // 100ms
+      ) {
+        return;
+      }
+
+      setModalOpen(false);
+    }, [lastModalOpen]);
 
     useImperativeHandle(ref, () => ({
-      toggleModal() {
-        intToggleModal();
+      openModal() {
+        setLastModalOpen(new Date());
+        setModalOpen(true);
+      },
+      closeModal() {
+        intCloseModal();
       },
     }));
 
     return (
       <ReactNativeModal
         isVisible={isModalOpen && modalOpenCondition}
-        onBackdropPress={intToggleModal}
+        onBackdropPress={intCloseModal}
         style={tw.style(
           {
             "justify-end": Platform.OS != "web" && type == "MOBILE_BOTTOM",
@@ -60,7 +81,7 @@ const Modal = forwardRef<ModalHandle, Props>(
           "m-0 items-center"
         )}
         swipeDirection={swipeDirection}
-        onSwipeComplete={intToggleModal}
+        onSwipeComplete={intCloseModal}
         customBackdrop={
           <TouchableOpacity
             style={tw.style(
@@ -70,7 +91,7 @@ const Modal = forwardRef<ModalHandle, Props>(
               },
               "bg-opacity-35 bg-black"
             )}
-            onPress={intToggleModal}
+            onPress={intCloseModal}
           ></TouchableOpacity>
         }
       >
@@ -103,4 +124,4 @@ const Modal = forwardRef<ModalHandle, Props>(
 );
 
 Modal.displayName = "Modal";
-export default Modal;
+export default memo(Modal);

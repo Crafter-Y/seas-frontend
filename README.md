@@ -4,9 +4,19 @@ This is the official source code of frontend/website/android/iOS app of SEAS - K
 
 ## Next tasks
 
+Core Features:
+
 - [ ] user account system via email
 - [ ] ability to edit an user
 
+Bugs:
+
 - [ ] prevent spamming buttons in settings
+- [ ] expo router modal not working on mobile browser
+- [ ] serverId not loading on initial web browser load
+- [ ] expo router modal being out of focus on small devices
+
+General:
+
 - [ ] improve general performance of the app (useCallback's ...)
 - [ ] Updates via Expo Update

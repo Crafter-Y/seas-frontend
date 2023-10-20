@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { memo, useCallback, useRef } from "react";
 import tw from "@/tailwind";
 import { ImageSource } from "expo-image";
 import { useHover } from "react-native-web-hooks";
@@ -38,6 +38,10 @@ const ActualButton = ({ imageSource, onPress, style }: BtnProps) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
 
+  const callback = useCallback(() => {
+    onPress();
+  }, [onPress]);
+
   return (
     <TouchableOpacity
       ref={ref}
@@ -48,7 +52,7 @@ const ActualButton = ({ imageSource, onPress, style }: BtnProps) => {
         "items-center justify-center h-10 w-10 rounded-full",
         style
       )}
-      onPress={onPress}
+      onPress={callback}
     >
       <Image source={imageSource} size={16} />
     </TouchableOpacity>
@@ -68,4 +72,4 @@ const BoardHeaderRoundButton = ({
   );
 };
 
-export default BoardHeaderRoundButton;
+export default memo(BoardHeaderRoundButton);

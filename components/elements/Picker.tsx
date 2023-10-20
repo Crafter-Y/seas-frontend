@@ -35,7 +35,7 @@ const Picker = ({ selectedValue, onValueChange, children }: Props) => {
         <Pressable
           onPress={() => {
             setIosPickerOpen(true);
-            iosModal.current?.toggleModal();
+            iosModal.current?.openModal();
           }}
           style={tw.style(
             "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center h-13 pl-4 pr-5"

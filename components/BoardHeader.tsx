@@ -92,7 +92,7 @@ const BoardHeader = ({
         <BoardHeaderRoundButton
           hidden={isLg}
           imageSource={require("@/assets/img/menu.svg")}
-          onPress={() => modal.current?.toggleModal()}
+          onPress={() => modal.current?.openModal()}
         />
 
         <Modal ref={modal} modalOpenCondition={!isLg} type="MOBILE_BOTTOM">
@@ -108,25 +108,25 @@ const BoardHeader = ({
             boardType="Jahresansicht"
             currentBoardType={boardType}
             setBoardType={setBoardType}
-            closeModal={() => modal.current?.toggleModal()}
+            closeModal={() => modal.current?.closeModal()}
           />
           <BoardMenuNavigationButton
             boardType="Quartal Ansicht"
             currentBoardType={boardType}
             setBoardType={setBoardType}
-            closeModal={() => modal.current?.toggleModal()}
+            closeModal={() => modal.current?.closeModal()}
           />
           <BoardMenuNavigationButton
             boardType="Monatsansicht"
             currentBoardType={boardType}
             setBoardType={setBoardType}
-            closeModal={() => modal.current?.toggleModal()}
+            closeModal={() => modal.current?.closeModal()}
           />
           <BoardMenuNavigationButton
             boardType="Wochenansicht"
             currentBoardType={boardType}
             setBoardType={setBoardType}
-            closeModal={() => modal.current?.toggleModal()}
+            closeModal={() => modal.current?.closeModal()}
           />
           <Divider type="HORIZONTAL" style={tw`mx-2`} />
           {user?.role == "ADMIN" && [
@@ -135,7 +135,7 @@ const BoardHeader = ({
               icon={require("@/assets/img/settings.svg")}
               text={"Einstellungen"}
               pressAction={() => {
-                modal.current?.toggleModal();
+                modal.current?.closeModal();
                 settings();
               }}
             />,
@@ -146,7 +146,7 @@ const BoardHeader = ({
             icon={require("@/assets/img/changepassword.svg")}
             text={"Passwort ändern"}
             pressAction={() => {
-              modal.current?.toggleModal();
+              modal.current?.closeModal();
               changePassword();
             }}
           />

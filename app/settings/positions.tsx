@@ -72,14 +72,14 @@ export default function ManagePositionsScreen() {
   useEffect(() => {
     if (succesfulDeletion) {
       queryColumns();
-      deleteColumnModal.current?.toggleModal();
+      deleteColumnModal.current?.openModal();
     }
   }, [succesfulDeletion]);
 
   useEffect(() => {
     if (successfulColumnRename && assignmentSuccessful) {
       queryColumns();
-      modifyModal.current?.toggleModal();
+      modifyModal.current?.openModal();
     }
   }, [successfulColumnRename, assignmentSuccessful]);
 
@@ -160,7 +160,7 @@ export default function ManagePositionsScreen() {
                   style={tw`p-1`}
                   onPress={() => {
                     setColumnToChange(column);
-                    deleteColumnModal.current?.toggleModal();
+                    deleteColumnModal.current?.openModal();
                   }}
                 >
                   <Image source={require("@/assets/img/close.svg")} size={24} />
@@ -171,7 +171,7 @@ export default function ManagePositionsScreen() {
                     setColumnToChange(column);
                     setAssignmentChanges([]);
                     setColumnRenameName(column.name);
-                    modifyModal.current?.toggleModal();
+                    modifyModal.current?.openModal();
                   }}
                 >
                   <Image source={require("@/assets/img/edit.svg")} size={24} />
@@ -202,7 +202,7 @@ export default function ManagePositionsScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteColumnModal.current?.toggleModal()}>
+          <Button onPress={() => deleteColumnModal.current?.openModal()}>
             Abbrechen
           </Button>
         </View>
@@ -276,7 +276,7 @@ export default function ManagePositionsScreen() {
           >
             Speichern
           </Button>
-          <Button onPress={() => modifyModal.current?.toggleModal()}>
+          <Button onPress={() => modifyModal.current?.openModal()}>
             Abbrechen
           </Button>
         </View>

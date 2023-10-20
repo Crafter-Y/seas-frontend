@@ -74,7 +74,7 @@ export default function Modal() {
 
   useEffect(() => {
     if (succesfulDeletion) {
-      deleteEventModal.current?.toggleModal();
+      deleteEventModal.current?.openModal();
       Store.update((state) => {
         state.selectedRow = undefined;
       });
@@ -86,7 +86,7 @@ export default function Modal() {
   useEffect(() => {
     if (successfulUpdate) {
       querySingleRow(selectedRow!.date);
-      editCommentModal.current?.toggleModal();
+      editCommentModal.current?.openModal();
     }
   }, [successfulUpdate]);
 
@@ -114,7 +114,7 @@ export default function Modal() {
             color="BLUE"
             text="Kommentar bearbeiten"
             onPress={() => {
-              editCommentModal.current?.toggleModal();
+              editCommentModal.current?.openModal();
               setSelectedColumn(column);
               setCommentEditValue(value || "");
             }}
@@ -128,7 +128,7 @@ export default function Modal() {
         color="BLUE"
         text="Kommentar hinzufügen"
         onPress={() => {
-          editCommentModal.current?.toggleModal();
+          editCommentModal.current?.openModal();
           setSelectedColumn(column);
           setCommentEditValue("");
         }}
@@ -221,7 +221,7 @@ export default function Modal() {
               text="Mitglied eintragen"
               onPress={() => {
                 setSelectedColumn(column);
-                selectUserModal.current?.toggleModal();
+                selectUserModal.current?.openModal();
               }}
             />
           )}
@@ -242,7 +242,7 @@ export default function Modal() {
             text="Mitglied eintragen"
             onPress={() => {
               setSelectedColumn(column);
-              selectUserModal.current?.toggleModal();
+              selectUserModal.current?.openModal();
             }}
           />
         )}
@@ -288,7 +288,7 @@ export default function Modal() {
             <Pressable
               style={tw`py-3`}
               onPress={() => {
-                deleteEventModal.current?.toggleModal();
+                deleteEventModal.current?.openModal();
               }}
             >
               <Text style={tw`text-lg text-red-500 font-semibold`}>
@@ -323,7 +323,7 @@ export default function Modal() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteEventModal.current?.toggleModal()}>
+          <Button onPress={() => deleteEventModal.current?.openModal()}>
             Abbrechen
           </Button>
         </View>
@@ -348,7 +348,7 @@ export default function Modal() {
                       selectedRow!.date,
                       selectedColumn!.id
                     );
-                    selectUserModal.current?.toggleModal();
+                    selectUserModal.current?.openModal();
                   }}
                 />
               </View>
@@ -402,7 +402,7 @@ export default function Modal() {
           </View>
 
           <View style={tw`justify-center flex-row gap-2 my-4`}>
-            <Button onPress={() => editCommentModal.current?.toggleModal()}>
+            <Button onPress={() => editCommentModal.current?.openModal()}>
               Abbrechen
             </Button>
             <Button

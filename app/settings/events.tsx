@@ -112,7 +112,7 @@ export default function ManageEventsScreen() {
     if (successfulDelete) {
       setTimeout(() => {
         queryRecurringEvents();
-        deleteModal.current?.toggleModal();
+        deleteModal.current?.openModal();
       }, 200);
     }
   }, [successfulDelete]);
@@ -284,7 +284,7 @@ export default function ManageEventsScreen() {
                         event.eventMonth || 0
                       )
                     );
-                    deleteModal.current?.toggleModal();
+                    deleteModal.current?.openModal();
                   }}
                 >
                   <Image source={require("@/assets/img/close.svg")} size={24} />
@@ -316,7 +316,7 @@ export default function ManageEventsScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteModal.current?.toggleModal()}>
+          <Button onPress={() => deleteModal.current?.openModal()}>
             Abbrechen
           </Button>
         </View>

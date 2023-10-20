@@ -77,19 +77,19 @@ export default function ManageUsersScreen() {
   const { user } = useAuthentication();
 
   useEffect(() => {
-    if (successfulPasswordCreation) newPasswordModal.current?.toggleModal();
+    if (successfulPasswordCreation) newPasswordModal.current?.openModal();
   }, [newPassword]);
 
   useEffect(() => {
     if (reactivationRequired) {
       console.log("Reactivation required");
-      reactivationModal.current?.toggleModal();
+      reactivationModal.current?.openModal();
     }
   }, [reactivationRequired]);
 
   useEffect(() => {
     if (successfulUserCreation) {
-      creationModal.current?.toggleModal();
+      creationModal.current?.openModal();
       firstNameInput.current?.clear();
       secondNameInput.current?.clear();
       emailInput.current?.clear();
@@ -98,7 +98,7 @@ export default function ManageUsersScreen() {
 
   useEffect(() => {
     if (successfulUserReactivation) {
-      afterReactivationModal.current?.toggleModal();
+      afterReactivationModal.current?.openModal();
       firstNameInput.current?.clear();
       secondNameInput.current?.clear();
       emailInput.current?.clear();
@@ -108,7 +108,7 @@ export default function ManageUsersScreen() {
   useEffect(() => {
     if (succesfulDeletion) {
       queryUsers();
-      deleteUserModal.current?.toggleModal();
+      deleteUserModal.current?.openModal();
     }
   }, [succesfulDeletion]);
 
@@ -201,7 +201,7 @@ export default function ManageUsersScreen() {
           <Button
             onPress={() => {
               queryUsers();
-              creationModal.current?.toggleModal();
+              creationModal.current?.openModal();
             }}
           >
             Fertig
@@ -237,7 +237,7 @@ export default function ManageUsersScreen() {
                       setUserNameToDelete(
                         `${Luser.firstname} ${Luser.lastname}`
                       );
-                      deleteUserModal.current?.toggleModal();
+                      deleteUserModal.current?.openModal();
                     }}
                   >
                     <Image
@@ -254,7 +254,7 @@ export default function ManageUsersScreen() {
                       setUserNameForNewPassword(
                         `${Luser.firstname} ${Luser.lastname}`
                       );
-                      requestNewPasswordModal.current?.toggleModal();
+                      requestNewPasswordModal.current?.openModal();
                     }}
                   >
                     <Image
@@ -285,7 +285,7 @@ export default function ManageUsersScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteUserModal.current?.toggleModal()}>
+          <Button onPress={() => deleteUserModal.current?.openModal()}>
             Abbrechen
           </Button>
         </View>
@@ -302,15 +302,13 @@ export default function ManageUsersScreen() {
           <Button
             onPress={() => {
               requestNewPassword(userIdForNewPassword);
-              requestNewPasswordModal.current?.toggleModal();
+              requestNewPasswordModal.current?.openModal();
             }}
             color="#f67e7e"
           >
             Zurücksetzen
           </Button>
-          <Button
-            onPress={() => requestNewPasswordModal.current?.toggleModal()}
-          >
+          <Button onPress={() => requestNewPasswordModal.current?.openModal()}>
             Abbrechen
           </Button>
         </View>
@@ -327,7 +325,7 @@ export default function ManageUsersScreen() {
           Das neue Passwort lautet: {newPassword}
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button onPress={() => newPasswordModal.current?.toggleModal()}>
+          <Button onPress={() => newPasswordModal.current?.openModal()}>
             Fertig
           </Button>
         </View>
@@ -351,7 +349,7 @@ export default function ManageUsersScreen() {
           <Button
             onPress={() => {
               reactivateUser(firstName, secondName, email, role);
-              reactivationModal.current?.toggleModal();
+              reactivationModal.current?.openModal();
             }}
             color="#f67e7e"
           >
@@ -359,7 +357,7 @@ export default function ManageUsersScreen() {
           </Button>
           <Button
             onPress={() => {
-              reactivationModal.current?.toggleModal();
+              reactivationModal.current?.openModal();
               firstNameInput.current?.clear();
               secondNameInput.current?.clear();
               emailInput.current?.clear();
@@ -399,7 +397,7 @@ export default function ManageUsersScreen() {
           <Button
             onPress={() => {
               queryUsers();
-              afterReactivationModal.current?.toggleModal();
+              afterReactivationModal.current?.openModal();
             }}
           >
             Fertig
