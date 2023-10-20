@@ -112,7 +112,7 @@ export default function ManageEventsScreen() {
     if (successfulDelete) {
       setTimeout(() => {
         queryRecurringEvents();
-        deleteModal.current?.openModal();
+        deleteModal.current?.closeModal();
       }, 200);
     }
   }, [successfulDelete]);
@@ -316,7 +316,7 @@ export default function ManageEventsScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteModal.current?.openModal()}>
+          <Button onPress={() => deleteModal.current?.closeModal()}>
             Abbrechen
           </Button>
         </View>

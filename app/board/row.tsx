@@ -74,7 +74,7 @@ export default function Modal() {
 
   useEffect(() => {
     if (succesfulDeletion) {
-      deleteEventModal.current?.openModal();
+      deleteEventModal.current?.closeModal();
       Store.update((state) => {
         state.selectedRow = undefined;
       });
@@ -86,7 +86,7 @@ export default function Modal() {
   useEffect(() => {
     if (successfulUpdate) {
       querySingleRow(selectedRow!.date);
-      editCommentModal.current?.openModal();
+      editCommentModal.current?.closeModal();
     }
   }, [successfulUpdate]);
 
@@ -323,7 +323,7 @@ export default function Modal() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteEventModal.current?.openModal()}>
+          <Button onPress={() => deleteEventModal.current?.closeModal()}>
             Abbrechen
           </Button>
         </View>
@@ -348,7 +348,7 @@ export default function Modal() {
                       selectedRow!.date,
                       selectedColumn!.id
                     );
-                    selectUserModal.current?.openModal();
+                    selectUserModal.current?.closeModal();
                   }}
                 />
               </View>
@@ -402,7 +402,7 @@ export default function Modal() {
           </View>
 
           <View style={tw`justify-center flex-row gap-2 my-4`}>
-            <Button onPress={() => editCommentModal.current?.openModal()}>
+            <Button onPress={() => editCommentModal.current?.closeModal()}>
               Abbrechen
             </Button>
             <Button

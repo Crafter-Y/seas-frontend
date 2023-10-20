@@ -72,14 +72,14 @@ export default function ManagePositionsScreen() {
   useEffect(() => {
     if (succesfulDeletion) {
       queryColumns();
-      deleteColumnModal.current?.openModal();
+      deleteColumnModal.current?.closeModal();
     }
   }, [succesfulDeletion]);
 
   useEffect(() => {
     if (successfulColumnRename && assignmentSuccessful) {
       queryColumns();
-      modifyModal.current?.openModal();
+      modifyModal.current?.closeModal();
     }
   }, [successfulColumnRename, assignmentSuccessful]);
 
@@ -202,7 +202,7 @@ export default function ManagePositionsScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteColumnModal.current?.openModal()}>
+          <Button onPress={() => deleteColumnModal.current?.closeModal()}>
             Abbrechen
           </Button>
         </View>
@@ -276,7 +276,7 @@ export default function ManagePositionsScreen() {
           >
             Speichern
           </Button>
-          <Button onPress={() => modifyModal.current?.openModal()}>
+          <Button onPress={() => modifyModal.current?.closeModal()}>
             Abbrechen
           </Button>
         </View>

@@ -61,14 +61,14 @@ export default function ManagePagesScreen() {
   useEffect(() => {
     if (successfulPageRename) {
       queryPages();
-      renameModal.current?.openModal();
+      renameModal.current?.closeModal();
     }
   }, [successfulPageRename]);
 
   useEffect(() => {
     if (succesfulDeletion) {
       queryPages();
-      deleteModal.current?.openModal();
+      deleteModal.current?.closeModal();
     }
   }, [succesfulDeletion]);
 
@@ -178,7 +178,7 @@ export default function ManagePagesScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteModal.current?.openModal()}>
+          <Button onPress={() => deleteModal.current?.closeModal()}>
             Abbrechen
           </Button>
         </View>
@@ -219,7 +219,7 @@ export default function ManagePagesScreen() {
           >
             Umbenennen
           </Button>
-          <Button onPress={() => renameModal.current?.openModal()}>
+          <Button onPress={() => renameModal.current?.closeModal()}>
             Abbrechen
           </Button>
         </View>

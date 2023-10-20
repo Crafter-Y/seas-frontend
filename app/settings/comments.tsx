@@ -49,7 +49,7 @@ export default function ManageCommentsScreen() {
   useEffect(() => {
     if (succesfulDeletion) {
       queryAllDefaultComments();
-      deleteModal.current?.openModal();
+      deleteModal.current?.closeModal();
     }
   }, [succesfulDeletion]);
 
@@ -153,7 +153,7 @@ export default function ManageCommentsScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteModal.current?.openModal()}>
+          <Button onPress={() => deleteModal.current?.closeModal()}>
             Abbrechen
           </Button>
         </View>
