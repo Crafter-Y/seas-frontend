@@ -7,7 +7,6 @@ This is the official source code of frontend/website/android/iOS app of SEAS - K
 Core Features:
 
 - [ ] user account system via email
-- [ ] ability to edit an user
 
 Bugs:
 

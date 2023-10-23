@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import tw from "@/tailwind";
@@ -24,6 +24,8 @@ import H1 from "@/components/elements/H1";
 import useDeleteUser from "@/hooks/api/useDeleteUser";
 import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
 import useReactivateUser from "@/hooks/api/useReactivateUser";
+import { Color } from "@/helpers/Constants";
+import useUpdateUser from "@/hooks/api/useUpdateUser";
 
 export default function ManageUsersScreen() {
   const { isMd } = useMediaQueries();
@@ -52,16 +54,30 @@ export default function ManageUsersScreen() {
 
   const { deleteUser, succesfulDeletion } = useDeleteUser();
 
+  const { updateUser, successfulUpdate, updateError } = useUpdateUser();
+
+  // creation modal states
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("USER");
-
   const firstNameInput = useRef<TextInput>(null);
   const secondNameInput = useRef<TextInput>(null);
   const emailInput = useRef<TextInput>(null);
 
+  // edit modal states
+  const [editFirstName, setEditFirstName] = useState("");
+  const [editSecondName, setEditSecondName] = useState("");
+  const [editEmail, setEditEmail] = useState("");
+  const [editRole, setEditRole] = useState("USER");
+  const editFirstNameInput = useRef<TextInput>(null);
+  const editSecondNameInput = useRef<TextInput>(null);
+  const editEmailInput = useRef<TextInput>(null);
+  const [hasTriedUpdate, setHasTriedUpdate] = useState(false);
+
   const creationModal = useRef<ModalHandle>(null);
+  const editModal = useRef<ModalHandle>(null);
+  const changeInformationModal = useRef<ModalHandle>(null);
   const deleteUserModal = useRef<ModalHandle>(null);
   const requestNewPasswordModal = useRef<ModalHandle>(null);
   const newPasswordModal = useRef<ModalHandle>(null);
@@ -71,14 +87,21 @@ export default function ManageUsersScreen() {
   const [userIdToDelete, setUserIdToDelete] = useState(0);
   const [userNameToDelete, setUserNameToDelete] = useState("");
 
-  const [userIdForNewPassword, setUserIdForNewPassword] = useState(0);
-  const [userNameForNewPassword, setUserNameForNewPassword] = useState("");
+  const [userIdForEdit, setUserIdForEdit] = useState(0);
+  const [userNameForEdit, setUserNameForEdit] = useState("");
 
   const { user } = useAuthentication();
 
   useEffect(() => {
     if (successfulPasswordCreation) newPasswordModal.current?.openModal();
   }, [newPassword]);
+
+  useEffect(() => {
+    if (successfulUpdate) {
+      changeInformationModal.current?.closeModal();
+      queryUsers();
+    }
+  }, [successfulUpdate]);
 
   useEffect(() => {
     if (reactivationRequired) reactivationModal.current?.openModal();
@@ -217,12 +240,20 @@ export default function ManageUsersScreen() {
                 <Text style={tw`text-lg`}>
                   {Luser.firstname} {Luser.lastname}
                 </Text>
-                <Text>
-                  {Luser.role.charAt(0).toUpperCase() +
-                    "" +
-                    Luser.role.slice(1).toLowerCase()}
+                <Text
+                  style={tw.style({
+                    hidden: Luser.email == "root",
+                  })}
+                >
+                  {Luser.email}
                 </Text>
-                <Text>{Luser.email}</Text>
+                <View style={tw`flex-row`}>
+                  <Text style={tw`border rounded-full px-1 py-0.5`}>
+                    {Luser.role.charAt(0).toUpperCase() +
+                      "" +
+                      Luser.role.slice(1).toLowerCase()}
+                  </Text>
+                </View>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 {Luser.email != "root" && Luser.id != user?.id && (
@@ -247,15 +278,19 @@ export default function ManageUsersScreen() {
                   <Button
                     style={tw`p-1`}
                     onPress={() => {
-                      setUserIdForNewPassword(Luser.id);
-                      setUserNameForNewPassword(
+                      setUserIdForEdit(Luser.id);
+                      setUserNameForEdit(
                         `${Luser.firstname} ${Luser.lastname}`
                       );
-                      requestNewPasswordModal.current?.openModal();
+                      setEditFirstName(Luser.firstname);
+                      setEditSecondName(Luser.lastname);
+                      setEditEmail(Luser.email);
+                      setEditRole(Luser.role);
+                      editModal.current?.openModal();
                     }}
                   >
                     <Image
-                      source={require("@/assets/img/refresh.svg")}
+                      source={require("@/assets/img/edit.svg")}
                       size={24}
                     />
                   </Button>
@@ -266,6 +301,134 @@ export default function ManageUsersScreen() {
         </Form>
       </SettingsForm>
 
+      <Modal type="CENTER" ref={editModal}>
+        <H1 style={tw`mt-2 text-center`}>
+          Mitglied bearbeiten (ID: {userIdForEdit})
+        </H1>
+
+        <Divider type="HORIZONTAL" style={tw`mt-1`} />
+        <Pressable
+          style={tw`py-3 flex-row items-center mx-4 gap-2`}
+          onPress={() => {
+            editModal.current?.closeModal();
+            requestNewPasswordModal.current?.openModal();
+          }}
+        >
+          <Text
+            style={tw.style("text-lg font-semibold", {
+              color: Color.BLUE,
+            })}
+          >
+            Passwort zurücksetzen
+          </Text>
+          <Image
+            source={require("@/assets/img/refresh.svg")}
+            size={24}
+            style={{ color: Color.BLUE }}
+          />
+        </Pressable>
+        <Divider type="HORIZONTAL" style={tw`mb-1`} />
+        <Pressable
+          style={tw`py-3 flex-row items-center mx-4 gap-2`}
+          onPress={() => {
+            editModal.current?.closeModal();
+            setHasTriedUpdate(false);
+            changeInformationModal.current?.openModal();
+          }}
+        >
+          <Text
+            style={tw.style("text-lg font-semibold", {
+              color: Color.BLUE,
+            })}
+          >
+            Nutzer bearbeiten
+          </Text>
+          <Image
+            source={require("@/assets/img/edit.svg")}
+            size={24}
+            style={{ color: Color.BLUE }}
+          />
+        </Pressable>
+        <Divider type="HORIZONTAL" style={tw`mb-1`} />
+
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button onPress={() => editModal.current?.closeModal()}>
+            Abbrechen
+          </Button>
+        </View>
+      </Modal>
+
+      <Modal type="CENTER" ref={changeInformationModal}>
+        <H1 style={tw`mt-2 text-center`}>
+          Informationen bearbeiten? (ID: {userIdForEdit})
+        </H1>
+        <View style={tw`mx-4 gap-2`}>
+          <Input
+            placeholder="Vorname"
+            initialValue={editFirstName}
+            onChangeText={(text) => setEditFirstName(text)}
+            secureTextEntry={false}
+            ref={editFirstNameInput}
+            onSubmitEditing={() => editSecondNameInput.current?.focus()}
+            returnKeyType="next"
+          />
+          <Input
+            placeholder="Nachname"
+            onChangeText={(text) => setEditSecondName(text)}
+            initialValue={editSecondName}
+            secureTextEntry={false}
+            onSubmitEditing={() => editEmailInput.current?.focus()}
+            ref={editSecondNameInput}
+            returnKeyType="next"
+          />
+          <Input
+            placeholder="Email-Adresse"
+            onChangeText={(text) => setEditEmail(text)}
+            secureTextEntry={false}
+            initialValue={editEmail}
+            onSubmitEditing={() => editEmailInput.current?.blur()}
+            ref={editEmailInput}
+            returnKeyType="done"
+            inputMode="email"
+          />
+          <Picker
+            selectedValue={editRole}
+            onValueChange={(itemValue) => setEditRole(itemValue)}
+          >
+            <RNPicker.Item label="User" value="USER" />
+            <RNPicker.Item label="Moderator" value="MODERATOR" />
+            <RNPicker.Item label="Admin" value="ADMIN" />
+          </Picker>
+        </View>
+
+        <ErrorDisplay
+          hasError={!!updateError && hasTriedUpdate}
+          error={updateError || ""}
+          style={tw`mx-4`}
+        />
+
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button onPress={() => changeInformationModal.current?.closeModal()}>
+            Abbrechen
+          </Button>
+          <Button
+            onPress={() => {
+              setHasTriedUpdate(true);
+              updateUser(
+                userIdForEdit,
+                editFirstName,
+                editSecondName,
+                editEmail,
+                editRole as Role
+              );
+            }}
+            color={Color.GREEN}
+          >
+            Speichern
+          </Button>
+        </View>
+      </Modal>
+
       <Modal type="CENTER" ref={deleteUserModal}>
         <H1 style={tw`mt-2 text-center`}>Mitglied löschen?</H1>
         <Text style={tw`mx-4`}>
@@ -274,16 +437,16 @@ export default function ManageUsersScreen() {
           glöscht werden?
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button onPress={() => deleteUserModal.current?.closeModal()}>
+            Abbrechen
+          </Button>
           <Button
             onPress={() => {
               deleteUser(userIdToDelete);
             }}
-            color="#f67e7e"
+            color={Color.RED}
           >
             Löschen
-          </Button>
-          <Button onPress={() => deleteUserModal.current?.closeModal()}>
-            Abbrechen
           </Button>
         </View>
       </Modal>
@@ -292,21 +455,21 @@ export default function ManageUsersScreen() {
         <H1 style={tw`mt-2 text-center`}>Passwort zurücksetzen?</H1>
         <Text style={tw`mx-4`}>
           Soll das Passwort von{" "}
-          <Text style={tw`font-semibold`}>{userNameForNewPassword}</Text>{" "}
-          wirklich zurückgesetzt werden?
+          <Text style={tw`font-semibold`}>{userNameForEdit}</Text> wirklich
+          zurückgesetzt werden?
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button onPress={() => requestNewPasswordModal.current?.closeModal()}>
+            Abbrechen
+          </Button>
           <Button
             onPress={() => {
-              requestNewPassword(userIdForNewPassword);
+              requestNewPassword(userIdForEdit);
               requestNewPasswordModal.current?.closeModal();
             }}
             color="#f67e7e"
           >
             Zurücksetzen
-          </Button>
-          <Button onPress={() => requestNewPasswordModal.current?.closeModal()}>
-            Abbrechen
           </Button>
         </View>
       </Modal>
@@ -315,7 +478,7 @@ export default function ManageUsersScreen() {
         <H1 style={tw`mt-2 text-center`}>Neues Passwort generiert</H1>
         <Text style={tw`mx-4`}>
           Das Passwort von{" "}
-          <Text style={tw`font-semibold`}>{userNameForNewPassword}</Text> wurde
+          <Text style={tw`font-semibold`}>{userNameForEdit}</Text> wurde
           erfolgreich zurück gesetzt.
         </Text>
         <Text style={tw`mx-4 text-lg`} selectable>

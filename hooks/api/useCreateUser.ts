@@ -10,6 +10,31 @@ type APICreationReponse = {
   password: string;
 };
 
+export const validateUser = (
+  firstname: string,
+  lastname: string,
+  email: string,
+  role: string
+): string | null => {
+  if (firstname == null || firstname == "") return "Der Vorname muss angegeben werden.";
+
+  if (lastname == null || lastname == "") return "Der Nachname muss angegeben werden.";
+
+  if (email == null || email == "") return "Die Email muss angegeben werden.";
+
+  if (role == null || role == "") return "Die Rolle muss angegeben werden.";
+
+  if (!firstname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,23}$/)) return "Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 1-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\"";
+
+  if (!lastname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,55}$/)) return "Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 1-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\"";
+
+  if (!validate(email)) return "Die angegebene Email-Adresse ist nicht gültig.";
+
+  if (role !== "USER" && role !== "ADMIN" && role !== "MODERATOR") return "Die angegebene Rolle ist nicht gültig.";
+
+  return null;
+};
+
 export default function useCreateUser() {
   const [hasCreationError, setHasCreationError] = useState(false);
   const [creationError, setCreationError] = useState("");
@@ -29,55 +54,10 @@ export default function useCreateUser() {
     setIsSuccessfulUserCreation(false);
     setReactivationRequired(false);
 
-    if (firstname == null || firstname == "") {
+    const validationResponse = validateUser(firstname, lastname, email, role);
+    if (validationResponse != null) {
+      setCreationError(validationResponse);
       setHasCreationError(true);
-      setCreationError("Der Vorname muss angegeben werden.");
-      return;
-    }
-
-    if (lastname == null || lastname == "") {
-      setHasCreationError(true);
-      setCreationError("Der Nachname muss angegeben werden.");
-      return;
-    }
-
-    if (email == null || email == "") {
-      setHasCreationError(true);
-      setCreationError("Die Email muss angegeben werden.");
-      return;
-    }
-
-    if (role == null || role == "") {
-      setHasCreationError(true);
-      setCreationError("Die Rolle muss angegeben werden.");
-      return;
-    }
-
-    if (!firstname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,23}$/)) {
-      setHasCreationError(true);
-      setCreationError(
-        "Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 1-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\""
-      );
-      return;
-    }
-
-    if (!lastname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,55}$/)) {
-      setHasCreationError(true);
-      setCreationError(
-        "Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 1-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\""
-      );
-      return;
-    }
-
-    if (!validate(email)) {
-      setHasCreationError(true);
-      setCreationError("Die angegebene Email-Adresse ist nicht gültig.");
-      return;
-    }
-
-    if (role !== "USER" && role !== "ADMIN" && role !== "MODERATOR") {
-      setHasCreationError(true);
-      setCreationError("Die angegebene Rolle ist nicht gültig.");
       return;
     }
 
@@ -96,6 +76,8 @@ export default function useCreateUser() {
       return;
     }
 
+    const setRole = role as Role;
+
     if (res.success) {
       setIsSuccessfulUserCreation(true);
       setUserCreationResponse({
@@ -103,7 +85,7 @@ export default function useCreateUser() {
         lastname,
         email,
         password: res.data.password,
-        role
+        role: setRole
       });
       setHasCreationError(false);
       setCreationError("");
