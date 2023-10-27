@@ -30,6 +30,22 @@ npm install
 npm run dev
 ```
 
+## Hosting
+
+Just export the project (npm run build:web), put it onto a webspace and route every request to root that is not a ressource (/).
+
+The serve script (serve.js) can handle that for you. (No SSL)
+
+## Docker
+
+To just host the application (Using the node script from above without SSL):
+
+```bash
+docker run -d -p 80:80 -e PORT=80 -e SERVER_ID=12345 --name seas craftery/seas-frontend:latest
+```
+
+To achive SSL, you might create an `docker-compose.yml` file and use the `certbot/certbot` image to automatically secure your site with letsencrypt.
+
 ## Exporting
 
 On Windows, you'll need to put `npx` before the command.
