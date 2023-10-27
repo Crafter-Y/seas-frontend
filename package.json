@@ -13,7 +13,7 @@
     "build:web": "expo export --platform web",
     "build:android": "eas build --platform android --local",
     "serve": "cross-env SERVER_ID=58119 node serve.js",
-    "serve:prod": "cross-env REWRITE_CONFIG=1 node serve.js",
+    "serve:prod": "node serve.js",
     "eas-build-pre-install": "npm config set legacy-peer-deps true",
     "lint": "eslint ."
   },
