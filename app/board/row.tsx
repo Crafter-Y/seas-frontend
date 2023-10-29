@@ -265,7 +265,10 @@ export default function Modal() {
             <Text style={tw`text-lg`}>{page.name}:</Text>
 
             {getColsForPageAndType(page.id, "POSITION").map((col) => (
-              <View key={col.id} style={tw`flex-row py-1 items-center gap-2`}>
+              <View
+                key={col.id}
+                style={tw`flex-row py-1 items-center gap-2 flex-wrap`}
+              >
                 <Text style={tw`mr-4`}>{col.name}</Text>
                 {selectedRow ? getPositionForField(col) : null}
               </View>

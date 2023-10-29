@@ -191,16 +191,16 @@
   justify-content: space-between
 }
 
+.rounded-full {
+  border-radius: 9999px
+}
+
 .rounded-lg {
   border-radius: 0.5rem
 }
 
 .rounded-md {
   border-radius: 0.375rem
-}
-
-.rounded-full {
-  border-radius: 9999px
 }
 
 .border {
@@ -273,6 +273,16 @@
   padding-right: 1.5rem
 }
 
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem
+}
+
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem
@@ -291,16 +301,6 @@
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem
-}
-
-.py-0 {
-  padding-top: 0px;
-  padding-bottom: 0px
-}
-
-.py-0\.5 {
-  padding-top: 0.125rem;
-  padding-bottom: 0.125rem
 }
 
 .pb-12 {

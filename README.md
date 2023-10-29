@@ -11,7 +11,6 @@ Core Features:
 Bugs:
 
 - [ ] prevent spamming buttons in settings
-- [ ] expo router modal being out of focus on small devices
 
 General:
 
@@ -44,7 +43,7 @@ To just host the application (Using the node script from above without SSL):
 docker run -d -p 80:80 -e PORT=80 -e SERVER_ID=12345 --name seas craftery/seas-frontend:latest
 ```
 
-To achive SSL, you might create an `docker-compose.yml` file and use the `certbot/certbot` image to automatically secure your site with letsencrypt.
+To achive SSL, you might create a `docker-compose.yml` file and use the `certbot/certbot` image to automatically secure your site with letsencrypt.
 
 ## Exporting
 

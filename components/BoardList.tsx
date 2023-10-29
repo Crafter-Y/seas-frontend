@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Platform, Text, View } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -47,6 +47,19 @@ const BoardList = ({ rows, fetchData }: Props) => {
       possiblyNeedReload.current = true;
     } else {
       if (segments.length == 1 && segments[0] == "board") fetchData();
+    }
+
+    // disabling scroll for web, if we are in a modal
+    if (Platform.OS == "web") {
+      if (
+        segments.length > 1 &&
+        (segments[1] == "row" || segments[0] == "modules")
+      ) {
+        document.body.style.overflowX = "hidden";
+        window.scrollTo(0, 0);
+      } else {
+        document.body.style.overflowX = "";
+      }
     }
   }, [segments, possiblyNeedReload]);
 

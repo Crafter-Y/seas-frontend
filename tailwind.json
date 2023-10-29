@@ -241,6 +241,14 @@
 			"justifyContent": "space-between"
 		}
 	},
+	"rounded-full": {
+		"style": {
+			"borderTopLeftRadius": 9999,
+			"borderTopRightRadius": 9999,
+			"borderBottomRightRadius": 9999,
+			"borderBottomLeftRadius": 9999
+		}
+	},
 	"rounded-lg": {
 		"style": {
 			"borderTopLeftRadius": 8,
@@ -255,14 +263,6 @@
 			"borderTopRightRadius": 6,
 			"borderBottomRightRadius": 6,
 			"borderBottomLeftRadius": 6
-		}
-	},
-	"rounded-full": {
-		"style": {
-			"borderTopLeftRadius": 9999,
-			"borderTopRightRadius": 9999,
-			"borderBottomRightRadius": 9999,
-			"borderBottomLeftRadius": 9999
 		}
 	},
 	"border": {
@@ -368,6 +368,18 @@
 			"paddingRight": 24
 		}
 	},
+	"py-0": {
+		"style": {
+			"paddingTop": 0,
+			"paddingBottom": 0
+		}
+	},
+	"py-0.5": {
+		"style": {
+			"paddingTop": 2,
+			"paddingBottom": 2
+		}
+	},
 	"py-1": {
 		"style": {
 			"paddingTop": 4,
@@ -390,18 +402,6 @@
 		"style": {
 			"paddingTop": 24,
 			"paddingBottom": 24
-		}
-	},
-	"py-0": {
-		"style": {
-			"paddingTop": 0,
-			"paddingBottom": 0
-		}
-	},
-	"py-0.5": {
-		"style": {
-			"paddingTop": 2,
-			"paddingBottom": 2
 		}
 	},
 	"pb-12": {
