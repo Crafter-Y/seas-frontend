@@ -55,10 +55,10 @@ const BoardList = ({ rows, fetchData }: Props) => {
         segments.length > 1 &&
         (segments[1] == "row" || segments[0] == "modules")
       ) {
-        document.body.style.overflowX = "hidden";
+        document.body.style.overflow = "hidden";
         window.scrollTo(0, 0);
       } else {
-        document.body.style.overflowX = "";
+        document.body.style.overflow = "";
       }
     }
   }, [segments, possiblyNeedReload]);
