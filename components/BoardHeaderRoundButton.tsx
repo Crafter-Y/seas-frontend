@@ -39,7 +39,9 @@ const ActualButton = ({ imageSource, onPress, style }: BtnProps) => {
   const isHovered = useHover(ref);
 
   const callback = useCallback(() => {
-    onPress();
+    setTimeout(() => {
+      onPress();
+    }, 5);
   }, [onPress]);
 
   return (

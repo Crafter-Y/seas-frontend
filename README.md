@@ -11,6 +11,7 @@ Core Features:
 Bugs:
 
 - [ ] prevent spamming buttons in settings
+- [ ] Module and Options buttons bugging/sometimes not working on FF mobile
 
 General:
 
