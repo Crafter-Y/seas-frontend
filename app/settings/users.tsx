@@ -109,7 +109,7 @@ export default function ManageUsersScreen() {
 
   useEffect(() => {
     if (successfulUserCreation) {
-      creationModal.current?.closeModal();
+      creationModal.current?.openModal();
       firstNameInput.current?.clear();
       secondNameInput.current?.clear();
       emailInput.current?.clear();
