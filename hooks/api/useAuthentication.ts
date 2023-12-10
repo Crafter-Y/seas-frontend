@@ -27,6 +27,9 @@ export default function useAuthentication() {
     setHasAuthError(false);
     setAuthError("");
 
+    email = email.trim();
+    password = password.trim();
+
     const serverId = await AsyncStorage.getItem("serverId");
     if (serverId == null) {
       router.replace("/");
