@@ -45,7 +45,12 @@ export default function useAuthentication() {
           populateUserData();
         });
       } else {
-        setAuthError(res.data.error);
+        if (typeof res.data.error == "string") {
+          setAuthError(res.data.error + "");
+        } else {
+          setAuthError("Ungültige Eingaben");
+        }
+
         setHasAuthError(true);
       }
     } catch (e) {

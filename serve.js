@@ -37,7 +37,7 @@ const server = http.createServer((request, response) => {
 const PORT = process.env.PORT || 3333;
 
 if (process.env.SERVE_LOCAL_NETWORK) {
-  server.listen(PORT, "192.168.178.41", () => {
+  server.listen(PORT, "192.168.178.95", () => {
     console.log(`Running at ::${PORT} and local network`);
     if (process.env.REWRITE_CONFIG) {
       console.log("Rewriting serverId to header")
