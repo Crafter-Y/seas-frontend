@@ -19,6 +19,8 @@ import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";
 import Divider from "@/components/elements/Divider";
 import { router, useSegments } from "expo-router";
+import { Store } from "@/helpers/store";
+import { FetchState } from "@/helpers/Constants";
 
 type WebConfig = {
   serverId: string;
@@ -81,10 +83,12 @@ export default function ServerSelectorScreen() {
     }
   }, [user]);
 
-  const back = () => {
-    AsyncStorage.removeItem("serverId").then(() => {
-      router.replace("/");
+  const back = async () => {
+    await AsyncStorage.removeItem("serverId");
+    Store.update((state) => {
+      state.serverNameState = FetchState.FETCHING;
     });
+    router.replace("/");
   };
 
   const submit = () => {
