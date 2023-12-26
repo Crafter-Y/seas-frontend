@@ -29,7 +29,7 @@ const Footer = ({ style = {} }: Props) => {
       recipients: ["helmut_h_haase@yahoo.de"],
       ccRecipients: ["mrcrafter.yt4@gmail.com"],
       subject: `Bugreport: serverId: ${serverId}`,
-      body: "Bitte beschreiben Sie den Fehler: \n\n\nWas haben Sie getan bevor der Fehler aufgetreten ist?: \n\n\n",
+      body: "Bitte beschreiben Sie den Fehler: \n\n\nWas haben Sie getan, bevor der Fehler aufgetreten ist?: \n\n\n",
     });
   };
 
