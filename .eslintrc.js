@@ -17,6 +17,7 @@ module.exports = exports = {
     "metro.config.js",
     "babel.config.js",
     "serve.js",
+    "proxy.js",
   ],
   rules: {
     semi: ["error", "always"],
