@@ -11,7 +11,7 @@
     "build:tailwind": "tailwindcss --input input.css --output tailwind.css --no-autoprefixer && tailwind-rn",
     "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\"",
     "build:web": "expo export --platform web",
-    "build:android": "eas build --platform android --local",
+    "build:android": "eas build --platform android",
     "serve": "cross-env SERVER_ID=58119 SERVE_LOCAL_NETWORK=1 node serve.js",
     "serve:prod": "node serve.js",
     "eas-build-pre-install": "npm config set legacy-peer-deps true",
