@@ -215,7 +215,7 @@ export default function ServerSelectorScreen() {
               </View>
             </View>
             <Text style={tw`text-xs opacity-80 w-full text-center mt-12`}>
-              &copy; Helmut Haase 2023
+              &copy; Helmut Haase 2022-{new Date().getFullYear()}
             </Text>
             <Text style={tw`text-xs opacity-80 w-full text-center`}></Text>
             <Text
