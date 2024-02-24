@@ -6,7 +6,7 @@ type APICreationReponse = {
   firstname: string;
   lastname: string;
   email: string;
-  role: "ADMIN" | "USER" | "MODERATOR";
+  role: Role;
   password: string;
 };
 
@@ -74,7 +74,7 @@ export default function useReactivateUser() {
       return;
     }
 
-    if (role !== "USER" && role !== "ADMIN" && role !== "MODERATOR") {
+    if (role !== "USER" && role !== "ADMIN") {
       setHasReactivationError(true);
       setReactivationError("Die angegebene Rolle ist nicht gültig.");
       return;

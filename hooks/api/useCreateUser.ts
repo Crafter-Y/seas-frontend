@@ -6,7 +6,7 @@ type APICreationReponse = {
   firstname: string;
   lastname: string;
   email: string;
-  role: "ADMIN" | "USER" | "MODERATOR";
+  role: Role;
   password: string;
 };
 
@@ -30,7 +30,7 @@ export const validateUser = (
 
   if (!validate(email)) return "Die angegebene Email-Adresse ist nicht gültig.";
 
-  if (role !== "USER" && role !== "ADMIN" && role !== "MODERATOR") return "Die angegebene Rolle ist nicht gültig.";
+  if (role !== "USER" && role !== "ADMIN") return "Die angegebene Rolle ist nicht gültig.";
 
   return null;
 };

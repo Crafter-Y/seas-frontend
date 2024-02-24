@@ -177,7 +177,6 @@ export default function ManageUsersScreen() {
           onValueChange={(itemValue) => setRole(itemValue)}
         >
           <RNPicker.Item label="User" value="USER" />
-          <RNPicker.Item label="Moderator" value="MODERATOR" />
           <RNPicker.Item label="Admin" value="ADMIN" />
         </Picker>
 
@@ -406,7 +405,6 @@ export default function ManageUsersScreen() {
             onValueChange={(itemValue) => setEditRole(itemValue)}
           >
             <RNPicker.Item label="User" value="USER" />
-            <RNPicker.Item label="Moderator" value="MODERATOR" />
             <RNPicker.Item label="Admin" value="ADMIN" />
           </Picker>
         </View>

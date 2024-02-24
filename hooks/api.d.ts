@@ -15,7 +15,7 @@ type User = {
   role: Role;
 };
 
-type Role = "ADMIN" | "USER" | "MODERATOR";
+type Role = "ADMIN" | "USER";
 
 type APIResponseUser = {
   id: number;

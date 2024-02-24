@@ -99,9 +99,7 @@ export default function ManagePositionsScreen() {
       <SettingsForm>
         <Text>
           Hier können verscheidene Spalten erstellen werden und Plänen
-          zugewiesen werden. Mitglieder haben dann die Möglichkeit sich in einer
-          Spalte einzutragen und Moderatoren haben die Möglichkeit
-          Kommentarfelder zu ändern.
+          zugewiesen werden.
         </Text>
 
         <Input
