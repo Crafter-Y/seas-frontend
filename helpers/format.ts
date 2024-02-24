@@ -18,3 +18,7 @@ export function prettyDate(date: string, short: boolean) {
   }
   return `${weekday}, ${day}.${month}.${year}`;
 }
+
+export function toUpperStarting(text: string) {
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}

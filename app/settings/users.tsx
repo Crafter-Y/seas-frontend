@@ -26,6 +26,7 @@ import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
 import useReactivateUser from "@/hooks/api/useReactivateUser";
 import { Color } from "@/helpers/Constants";
 import useUpdateUser from "@/hooks/api/useUpdateUser";
+import { toUpperStarting } from "@/helpers/format";
 
 export default function ManageUsersScreen() {
   const { isMd } = useMediaQueries();
@@ -247,11 +248,20 @@ export default function ManageUsersScreen() {
                 >
                   {Luser.email}
                 </Text>
-                <View style={tw`flex-row`}>
+                <View style={tw`flex-row gap-1`}>
                   <Text style={tw`border rounded-full px-1 py-0.5`}>
-                    {Luser.role.charAt(0).toUpperCase() +
-                      "" +
-                      Luser.role.slice(1).toLowerCase()}
+                    {toUpperStarting(Luser.role)}
+                  </Text>
+                  {}
+                  <Text
+                    style={tw.style(
+                      {
+                        hidden: Luser.email == "root",
+                      },
+                      "border rounded-full px-1 py-0.5"
+                    )}
+                  >
+                    {toUpperStarting(Luser.state)}
                   </Text>
                 </View>
               </TD>

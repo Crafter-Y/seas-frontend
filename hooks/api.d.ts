@@ -24,12 +24,15 @@ type APIResponseUser = {
   deleted: boolean,
 };
 
+type AccountState = "UNVERIFIED" | "VERIFICATION_PENDING" | "VERIFIED" // potentially also DELETED, but these users will never be send by the backend
+
 type APIFullResponseUser = {
   id: number;
   firstname: string;
   lastname: string;
   email: string;
   role: Role;
+  state: AccountState
 };
 
 type APIResponsePage = {
