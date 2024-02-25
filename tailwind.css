@@ -6,6 +6,10 @@
   margin: 0px
 }
 
+.m-5 {
+  margin: 1.25rem
+}
+
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem
@@ -115,6 +119,10 @@
   margin-top: 10%
 }
 
+.mb-5 {
+  margin-bottom: 1.25rem
+}
+
 .flex {
   display: flex
 }
@@ -155,8 +163,24 @@
   width: 100%
 }
 
+.w-1\/2 {
+  width: 50%
+}
+
 .max-w-md {
   max-width: 28rem
+}
+
+.max-w-xl {
+  max-width: 36rem
+}
+
+.max-w-2xl {
+  max-width: 42rem
+}
+
+.flex-1 {
+  flex: 1 1 0%
 }
 
 .flex-grow {
@@ -201,6 +225,10 @@
 
 .rounded-md {
   border-radius: 0.375rem
+}
+
+.rounded-xl {
+  border-radius: 0.75rem
 }
 
 .border {
@@ -341,6 +369,11 @@
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem
 }
 
 .font-bold {

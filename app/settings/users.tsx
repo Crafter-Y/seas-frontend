@@ -27,6 +27,7 @@ import useReactivateUser from "@/hooks/api/useReactivateUser";
 import { Color } from "@/helpers/Constants";
 import useUpdateUser from "@/hooks/api/useUpdateUser";
 import { toUpperStarting } from "@/helpers/format";
+import useRequestVerification from "@/hooks/api/useRequestVerification";
 
 export default function ManageUsersScreen() {
   const { isMd } = useMediaQueries();
@@ -57,6 +58,8 @@ export default function ManageUsersScreen() {
 
   const { updateUser, successfulUpdate, updateError } = useUpdateUser();
 
+  const { requestVerification } = useRequestVerification();
+
   // creation modal states
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
@@ -70,7 +73,8 @@ export default function ManageUsersScreen() {
   const [editFirstName, setEditFirstName] = useState("");
   const [editSecondName, setEditSecondName] = useState("");
   const [editEmail, setEditEmail] = useState("");
-  const [editRole, setEditRole] = useState("USER");
+  const [editRole, setEditRole] = useState<Role>("USER");
+  const [editState, setEditState] = useState<AccountState>("UNVERIFIED");
   const editFirstNameInput = useRef<TextInput>(null);
   const editSecondNameInput = useRef<TextInput>(null);
   const editEmailInput = useRef<TextInput>(null);
@@ -295,6 +299,7 @@ export default function ManageUsersScreen() {
                       setEditSecondName(Luser.lastname);
                       setEditEmail(Luser.email);
                       setEditRole(Luser.role);
+                      setEditState(Luser.state);
                       editModal.current?.openModal();
                     }}
                   >
@@ -359,6 +364,47 @@ export default function ManageUsersScreen() {
           />
         </Pressable>
         <Divider type="HORIZONTAL" style={tw`mb-1`} />
+        <Pressable
+          style={tw.style(
+            {
+              hidden:
+                editState != "UNVERIFIED" &&
+                editState != "VERIFICATION_PENDING",
+            },
+            "py-3 flex-row items-center mx-4 gap-2"
+          )}
+          onPress={() => {
+            editModal.current?.closeModal();
+            requestVerification(userIdForEdit);
+            setTimeout(() => {
+              queryUsers();
+            }, 1000);
+          }}
+        >
+          <Text
+            style={tw.style("text-lg font-semibold", {
+              color: Color.BLUE,
+            })}
+          >
+            Verifizierung anfragen
+          </Text>
+          <Image
+            source={require("@/assets/img/changepassword.svg")}
+            size={24}
+            style={{ color: Color.BLUE }}
+          />
+        </Pressable>
+        <Divider
+          type="HORIZONTAL"
+          style={tw.style(
+            {
+              hidden:
+                editState != "UNVERIFIED" &&
+                editState != "VERIFICATION_PENDING",
+            },
+            "mb-1"
+          )}
+        />
 
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button onPress={() => editModal.current?.closeModal()}>
@@ -402,7 +448,7 @@ export default function ManageUsersScreen() {
           />
           <Picker
             selectedValue={editRole}
-            onValueChange={(itemValue) => setEditRole(itemValue)}
+            onValueChange={(itemValue) => setEditRole(itemValue as Role)}
           >
             <RNPicker.Item label="User" value="USER" />
             <RNPicker.Item label="Admin" value="ADMIN" />

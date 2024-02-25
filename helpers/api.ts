@@ -1,5 +1,6 @@
 import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import decode from "jwt-decode";
 
 type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT"
 
@@ -8,6 +9,32 @@ const getApi = (): string => {
     return Constants.expoConfig?.extra?.localApi;
   } else {
     return Constants.expoConfig?.extra?.productionApi;
+  }
+};
+
+export const getWebServer = async () => {
+  if (__DEV__) {
+    return "http://localhost:8081";
+  } else {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      if (token == null) return "https://58119.seas-kirchengemeinden.craftingapis.de";
+
+      const tokenContents: {
+        productId: number,
+        userId: number,
+        email: string,
+        firstname: string,
+        lastname: string,
+        role: Role,
+        exp: number
+      } = decode(token);
+
+      return `https://${tokenContents.productId}.seas-kirchengemeinden.craftingapis.de`;
+    } catch (e) {
+      return "https://58119.seas-kirchengemeinden.craftingapis.de";
+    }
+
   }
 };
 
