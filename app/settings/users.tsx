@@ -26,6 +26,7 @@ import useUpdateUser from "@/hooks/api/useUpdateUser";
 import { toUpperStarting } from "@/helpers/format";
 import useRequestVerification from "@/hooks/api/useRequestVerification";
 import SettingsTitle from "@/components/settings/SettingsTitle";
+import UserCreatedModal from "@/components/settings/UserCreatedModal";
 
 export default function ManageUsersScreen() {
   const { allUsers, queryUsers } = useAllUsers();
@@ -109,6 +110,7 @@ export default function ManageUsersScreen() {
       firstNameInput.current?.clear();
       secondNameInput.current?.clear();
       emailInput.current?.clear();
+      queryUsers();
     }
   }, [successfulUserCreation]);
 
@@ -172,43 +174,6 @@ export default function ManageUsersScreen() {
           Nutzer erstellen
         </Button>
       </SettingsForm>
-
-      <Modal type="CENTER" ref={creationModal}>
-        <Text
-          style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
-        >
-          Es wurde erfolgreich ein neuer Nutzer erstellt.
-        </Text>
-        <View style={tw`px-4 mt-4 gap-2`}>
-          <Text>
-            Rolle:{" "}
-            {userCreationResponse?.role.charAt(0).toUpperCase() +
-              "" +
-              userCreationResponse?.role.slice(1).toLowerCase()}
-          </Text>
-          <Text style={tw`text-lg`}>
-            {userCreationResponse?.firstname +
-              " " +
-              userCreationResponse?.lastname +
-              " (" +
-              userCreationResponse?.email +
-              ")"}
-          </Text>
-          <Text style={tw`text-lg font-bold`}>
-            {userCreationResponse?.password}
-          </Text>
-        </View>
-        <View style={tw`items-center mb-4`}>
-          <Button
-            onPress={() => {
-              queryUsers();
-              creationModal.current?.closeModal();
-            }}
-          >
-            Fertig
-          </Button>
-        </View>
-      </Modal>
 
       <Divider type="HORIZONTAL" style={tw`my-4`} />
 
@@ -294,6 +259,8 @@ export default function ManageUsersScreen() {
           ))}
         </Form>
       </SettingsForm>
+
+      <UserCreatedModal ref={creationModal} data={userCreationResponse} />
 
       <Modal type="CENTER" ref={editModal}>
         <H1 style={tw`mt-2 text-center`}>
