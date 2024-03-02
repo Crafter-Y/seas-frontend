@@ -21,7 +21,6 @@ import Image from "@/components/elements/Image";
 import H1 from "@/components/elements/H1";
 import useDeleteUser from "@/hooks/api/useDeleteUser";
 import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
-import useReactivateUser from "@/hooks/api/useReactivateUser";
 import { Color } from "@/helpers/Constants";
 import useUpdateUser from "@/hooks/api/useUpdateUser";
 import { toUpperStarting } from "@/helpers/format";
@@ -33,20 +32,15 @@ export default function ManageUsersScreen() {
 
   const {
     createUser,
+    reactivateUser,
     hasCreationError,
     creationError,
     successfulUserCreation,
     userCreationResponse,
     reactivationRequired,
-  } = useCreateUser();
-
-  const {
-    reactivateUser,
-    hasReactivationError,
-    reactivationError,
     successfulUserReactivation,
     userReactivationResponse,
-  } = useReactivateUser();
+  } = useCreateUser();
 
   const { requestNewPassword, newPassword, successfulPasswordCreation } =
     useRequestNewPassword();
@@ -173,11 +167,6 @@ export default function ManageUsersScreen() {
         </Picker>
 
         <ErrorDisplay hasError={hasCreationError} error={creationError} />
-
-        <ErrorDisplay
-          hasError={hasReactivationError}
-          error={reactivationError}
-        />
 
         <Button onPress={() => createUser(firstName, secondName, email, role)}>
           Nutzer erstellen

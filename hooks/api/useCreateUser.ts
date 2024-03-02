@@ -2,14 +2,6 @@ import { useState } from "react";
 import { validate } from "email-validator";
 import { requestApi } from "@/helpers/api";
 
-type APICreationReponse = {
-  firstname: string;
-  lastname: string;
-  email: string;
-  role: Role;
-  password: string;
-};
-
 export const validateUser = (
   firstname: string,
   lastname: string,
@@ -41,6 +33,11 @@ export default function useCreateUser() {
   const [successfulUserCreation, setIsSuccessfulUserCreation] = useState(false);
   const [reactivationRequired, setReactivationRequired] = useState(false);
   const [userCreationResponse, setUserCreationResponse] =
+    useState<APICreationReponse>();
+
+  const [successfulUserReactivation, setIsSuccessfulUserReactivation] =
+    useState(false);
+  const [userReactivationResponse, setUserReactivationResponse] =
     useState<APICreationReponse>();
 
   const createUser = async (
@@ -91,7 +88,6 @@ export default function useCreateUser() {
       setCreationError("");
     } else {
       if (res.data.error == "Reactivation required") {
-        console.log("reactivation required here");
         setHasCreationError(false);
         setCreationError("");
         setReactivationRequired(true);
@@ -101,15 +97,70 @@ export default function useCreateUser() {
       setHasCreationError(true);
       setCreationError(res.data.error);
     }
+  };
 
+
+  const reactivateUser = async (
+    firstname: string,
+    lastname: string,
+    email: string,
+    role: string,
+  ) => {
+    // clientside validation
+
+    setIsSuccessfulUserReactivation(false);
+
+    const validationResponse = validateUser(firstname, lastname, email, role);
+    if (validationResponse != null) {
+      setCreationError(validationResponse);
+      setHasCreationError(true);
+      return;
+    }
+
+    const res = await requestApi("users", "POST", {
+      firstname,
+      lastname,
+      email,
+      role,
+      reactivate: true
+    });
+
+    if (res == null) {
+      setHasCreationError(true);
+      setCreationError(
+        "Server nicht verfügbar. Bitte später erneut versuchen."
+      );
+      return;
+    }
+
+    if (res.success) {
+      const setRole = role as Role;
+
+      setIsSuccessfulUserReactivation(true);
+      setUserReactivationResponse({
+        firstname,
+        lastname,
+        email,
+        password: res.data.password,
+        role: setRole
+      });
+      setHasCreationError(false);
+      setCreationError("");
+    } else {
+      setHasCreationError(true);
+      setCreationError(res.data.error);
+    }
   };
 
   return {
     createUser,
+    reactivateUser,
     hasCreationError,
     creationError,
     successfulUserCreation,
+    successfulUserReactivation,
     userCreationResponse,
+    userReactivationResponse,
     reactivationRequired,
   };
 }

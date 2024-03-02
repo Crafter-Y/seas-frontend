@@ -24,6 +24,14 @@ type APIResponseUser = {
   deleted: boolean,
 };
 
+type APICreationReponse = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  role: Role;
+  password: string;
+};
+
 type AccountState = "UNVERIFIED" | "VERIFICATION_PENDING" | "VERIFIED" // potentially also DELETED, but these users will never be send by the backend
 
 type APIFullResponseUser = {
