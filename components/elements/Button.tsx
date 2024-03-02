@@ -1,7 +1,8 @@
 import React, { ReactNode } from "react";
+import { Text } from "react-native";
 import tw from "@/tailwind";
-import { Button as RNButton } from "@rneui/base";
 import { ClassInput } from "twrnc/dist/esm/types";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Props = {
   children: ReactNode;
@@ -12,19 +13,19 @@ type Props = {
 
 const Button = ({ children, onPress, color, style }: Props) => {
   return (
-    <RNButton
+    <TouchableOpacity
       style={tw.style(
-        "rounded-xl text-xl px-4 py-1 font-semibold",
+        "rounded-xl px-4 py-3 flex items-center justify-center",
         {
           backgroundColor: color ? color : "#3882d6",
+          cursor: "pointer",
         },
         style
       )}
-      color={color ? color : "#3882d6"}
       onPress={onPress}
     >
-      {children}
-    </RNButton>
+      <Text style={tw`text-white text-lg`}>{children}</Text>
+    </TouchableOpacity>
   );
 };
 

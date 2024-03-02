@@ -120,7 +120,7 @@ export default function ManagePagesScreen() {
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 <Button
                   color="#f67e7e"
-                  style={tw`p-1`}
+                  style={tw`p-2.5`}
                   onPress={() => {
                     setPageIdToChange(page.id);
                     setPageNameToChange(page.name);
@@ -131,7 +131,7 @@ export default function ManagePagesScreen() {
                 </Button>
 
                 <Button
-                  style={tw`p-1`}
+                  style={tw`p-2.5`}
                   onPress={() => {
                     setPageIdToChange(page.id);
                     setPageNameToChange(page.name);

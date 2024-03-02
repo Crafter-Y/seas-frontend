@@ -260,7 +260,7 @@ export default function ManageEventsScreen() {
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 <Button
                   color="#f67e7e"
-                  style={tw`p-1`}
+                  style={tw`p-2.5`}
                   onPress={() => {
                     setEventIdToDelete(event.id);
                     setEventTypeToDelete(event.eventType);

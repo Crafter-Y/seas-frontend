@@ -260,7 +260,7 @@ export default function ManageUsersScreen() {
                 {Luser.email != "root" && Luser.id != user?.id && (
                   <Button
                     color="#f67e7e"
-                    style={tw`p-1`}
+                    style={tw`p-2.5`}
                     onPress={() => {
                       setUserIdToDelete(Luser.id);
                       setUserNameToDelete(
@@ -280,7 +280,7 @@ export default function ManageUsersScreen() {
                     Luser.state == "UNVERIFIED" ||
                     Luser.state == "VERIFICATION_PENDING") && (
                     <Button
-                      style={tw`p-1`}
+                      style={tw`p-2.5`}
                       onPress={() => {
                         setUserIdForEdit(Luser.id);
                         setUserNameForEdit(

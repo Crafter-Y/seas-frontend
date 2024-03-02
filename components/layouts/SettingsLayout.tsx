@@ -135,7 +135,9 @@ export const SettingsLayout = ({ children, actualSetting }: Props) => {
           },
           "flex-grow"
         )}
-        style={tw`pt-4`}
+        style={tw.style({
+          "pt-4": actualSetting != "settings",
+        })}
       >
         {children}
       </ScrollView>

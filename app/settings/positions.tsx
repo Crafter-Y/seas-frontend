@@ -143,7 +143,7 @@ export default function ManagePositionsScreen() {
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
                 <Button
                   color="#f67e7e"
-                  style={tw`p-1`}
+                  style={tw`p-2.5`}
                   onPress={() => {
                     setColumnToChange(column);
                     deleteColumnModal.current?.openModal();
@@ -152,7 +152,7 @@ export default function ManagePositionsScreen() {
                   <Image source={require("@/assets/img/close.svg")} size={24} />
                 </Button>
                 <Button
-                  style={tw`p-1`}
+                  style={tw`p-2.5`}
                   onPress={() => {
                     setColumnToChange(column);
                     setAssignmentChanges([]);
