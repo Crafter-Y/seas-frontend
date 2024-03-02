@@ -2,12 +2,10 @@ import { Pressable, Text, TextInput, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import Input from "@/components/elements/Input";
 import { Picker as RNPicker } from "@react-native-picker/picker";
 import useCreateUser from "@/hooks/api/useCreateUser";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
-import H2 from "@/components/elements/H2";
 import SettingsForm from "@/components/SettingsForm";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Picker from "@/components/elements/Picker";
@@ -28,10 +26,9 @@ import { Color } from "@/helpers/Constants";
 import useUpdateUser from "@/hooks/api/useUpdateUser";
 import { toUpperStarting } from "@/helpers/format";
 import useRequestVerification from "@/hooks/api/useRequestVerification";
+import SettingsTitle from "@/components/settings/SettingsTitle";
 
 export default function ManageUsersScreen() {
-  const { isMd } = useMediaQueries();
-
   const { allUsers, queryUsers } = useAllUsers();
 
   const {
@@ -139,16 +136,7 @@ export default function ManageUsersScreen() {
 
   return (
     <SettingsLayout actualSetting="users">
-      <H2
-        style={tw.style(
-          {
-            "text-center": !isMd,
-          },
-          "mt-4"
-        )}
-      >
-        Nutzer erstellen
-      </H2>
+      <SettingsTitle>Nutzer erstellen</SettingsTitle>
 
       <SettingsForm>
         <Input

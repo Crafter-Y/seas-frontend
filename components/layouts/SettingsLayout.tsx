@@ -135,6 +135,7 @@ export const SettingsLayout = ({ children, actualSetting }: Props) => {
           },
           "flex-grow"
         )}
+        style={tw`pt-4`}
       >
         {children}
       </ScrollView>

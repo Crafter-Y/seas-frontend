@@ -1,19 +1,16 @@
 import SettingsForm from "@/components/SettingsForm";
 import Button from "@/components/elements/Button";
 import Divider from "@/components/elements/Divider";
-import H2 from "@/components/elements/H2";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import { Color } from "@/helpers/Constants";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
 import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import useChangeModuleState from "@/hooks/api/useChangeModuleState";
+import SettingsTitle from "@/components/settings/SettingsTitle";
 
 export default function ManagePagesScreen() {
-  const { isMd } = useMediaQueries();
-
   const { moduleStatus, queryModuleStatus } = useModuleStatus();
   const { changeSuccessful, changeModuleState } = useChangeModuleState();
 
@@ -23,16 +20,7 @@ export default function ManagePagesScreen() {
 
   return (
     <SettingsLayout actualSetting="modules">
-      <H2
-        style={tw.style(
-          {
-            "text-center": !isMd,
-          },
-          "mt-4"
-        )}
-      >
-        Module verwalten
-      </H2>
+      <SettingsTitle>Module verwalten</SettingsTitle>
 
       <SettingsForm>
         <Text>

@@ -4,7 +4,6 @@ import Button from "@/components/elements/Button";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
 import H1 from "@/components/elements/H1";
-import H2 from "@/components/elements/H2";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
 import Picker from "@/components/elements/Picker";
 import SingleDatePicker from "@/components/elements/SingleDatePicker";
@@ -15,17 +14,15 @@ import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import useAllRecurringEvents from "@/hooks/api/useAllRecurringEvents";
 import useCreateEvent from "@/hooks/api/useCreateEvent";
 import useDeleteRecurringEvent from "@/hooks/api/useDeleteRecurringEvent";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
 import { Picker as RNPicker } from "@react-native-picker/picker";
 import Image from "@/components/elements/Image";
 import React, { useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
+import SettingsTitle from "@/components/settings/SettingsTitle";
 
 export default function ManageEventsScreen() {
-  const { isMd } = useMediaQueries();
-
   const {
     createEvent,
     hasCreationError,
@@ -119,16 +116,7 @@ export default function ManageEventsScreen() {
 
   return (
     <SettingsLayout actualSetting="events">
-      <H2
-        style={tw.style(
-          {
-            "text-center": !isMd,
-          },
-          "mt-4"
-        )}
-      >
-        Termine erstellen
-      </H2>
+      <SettingsTitle>Termine erstellen</SettingsTitle>
 
       <SettingsForm>
         <Text>

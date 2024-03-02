@@ -4,7 +4,6 @@ import Button from "@/components/elements/Button";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
 import H1 from "@/components/elements/H1";
-import H2 from "@/components/elements/H2";
 import Input from "@/components/elements/Input";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
 import TD from "@/components/elements/TD";
@@ -15,16 +14,14 @@ import useAllPages from "@/hooks/api/useAllPages";
 import useCreatePage from "@/hooks/api/useCreatePage";
 import useDeletePage from "@/hooks/api/useDeletePage";
 import useRenamePage from "@/hooks/api/useRenamePage";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
 import Image from "@/components/elements/Image";
 import React, { useEffect, useRef, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import { Color } from "@/helpers/Constants";
+import SettingsTitle from "@/components/settings/SettingsTitle";
 
 export default function ManagePagesScreen() {
-  const { isMd } = useMediaQueries();
-
   const { allPages, queryPages } = useAllPages();
 
   const { deletePage, succesfulDeletion } = useDeletePage();
@@ -74,16 +71,7 @@ export default function ManagePagesScreen() {
 
   return (
     <SettingsLayout actualSetting="pages">
-      <H2
-        style={tw.style(
-          {
-            "text-center": !isMd,
-          },
-          "mt-4"
-        )}
-      >
-        Pläne verwalten
-      </H2>
+      <SettingsTitle>Pläne verwalten</SettingsTitle>
 
       <SettingsForm>
         <Text>

@@ -2,9 +2,7 @@ import { Text, TextInput, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "@/components/elements/Image";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
-import H2 from "@/components/elements/H2";
 import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import SettingsForm from "@/components/SettingsForm";
 import Input from "@/components/elements/Input";
 import ErrorDisplay from "@/components/ErrorDisplay";
@@ -19,10 +17,9 @@ import H1 from "@/components/elements/H1";
 import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
 import useCreateDefaultComment from "@/hooks/api/useCreateDefaultComment";
 import useDeleteDefaultComment from "@/hooks/api/useDeleteDefaultComment";
+import SettingsTitle from "@/components/settings/SettingsTitle";
 
 export default function ManageCommentsScreen() {
-  const { isMd } = useMediaQueries();
-
   const { allDefaultComments, queryAllDefaultComments } =
     useAllDefaultComments();
 
@@ -55,16 +52,7 @@ export default function ManageCommentsScreen() {
 
   return (
     <SettingsLayout actualSetting="comments">
-      <H2
-        style={tw.style(
-          {
-            "text-center": !isMd,
-          },
-          "mt-4"
-        )}
-      >
-        Kommentare verwalten
-      </H2>
+      <SettingsTitle>Kommentare verwalten</SettingsTitle>
 
       <SettingsForm>
         <Text>

@@ -5,7 +5,6 @@ import Checkbox from "@/components/elements/Checkbox";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
 import H1 from "@/components/elements/H1";
-import H2 from "@/components/elements/H2";
 import Input from "@/components/elements/Input";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
 import Picker from "@/components/elements/Picker";
@@ -21,16 +20,14 @@ import useAssignColumns, {
 import useCreateColumn from "@/hooks/api/useCreateColumn";
 import useDeleteColumn from "@/hooks/api/useDeleteColumn";
 import useRenameColumn from "@/hooks/api/useRenameColumn";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
 import { Picker as RNPicker } from "@react-native-picker/picker";
 import Image from "@/components/elements/Image";
 import React, { useEffect, useRef, useState } from "react";
 import { Text, TextInput, View } from "react-native";
+import SettingsTitle from "@/components/settings/SettingsTitle";
 
 export default function ManagePositionsScreen() {
-  const { isMd } = useMediaQueries();
-
   const {
     createColumn,
     hasCreationError,
@@ -85,16 +82,7 @@ export default function ManagePositionsScreen() {
 
   return (
     <SettingsLayout actualSetting="positions">
-      <H2
-        style={tw.style(
-          {
-            "text-center": !isMd,
-          },
-          "mt-4"
-        )}
-      >
-        Spalten verwalten
-      </H2>
+      <SettingsTitle>Spalten verwalten</SettingsTitle>
 
       <SettingsForm>
         <Text>
