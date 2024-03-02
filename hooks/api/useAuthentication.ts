@@ -4,7 +4,7 @@ import { Platform } from "react-native";
 import decode from "jwt-decode";
 import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
 import { Router } from "expo-router/build/types";
-import { Store } from "@/helpers/store";
+import { defaultState, Store } from "@/helpers/store";
 import { router } from "expo-router";
 
 export default function useAuthentication() {
@@ -15,7 +15,9 @@ export default function useAuthentication() {
 
   const logout = async () => {
     await AsyncStorage.removeItem("token");
-    Store.update(state => { state.user = null; });
+    Store.update(state => {
+      Object.assign(state, defaultState);
+    });
     router.replace("/login");
   };
 

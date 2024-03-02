@@ -25,7 +25,7 @@ interface GlobalStore {
   printColumns: number[],
 }
 
-export const Store = new Pullstate<GlobalStore>({
+export const defaultState: GlobalStore = {
   currentPage: 0,
   allPages: [],
   allColumns: [],
@@ -46,4 +46,6 @@ export const Store = new Pullstate<GlobalStore>({
   printDateStart: null,
   printDateEnd: null,
   printColumns: []
-});
+};
+
+export const Store = new Pullstate<GlobalStore>(defaultState);
