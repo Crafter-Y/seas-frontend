@@ -1,10 +1,10 @@
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
-import { useHover } from "react-native-web-hooks";
 import { Entypo } from "@expo/vector-icons";
 import { Color } from "@/helpers/Constants";
 import { ClassInput } from "twrnc/dist/esm/types";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Props = {
   onPress: () => void;
@@ -22,7 +22,6 @@ const BoardAssignButton = ({
   style,
 }: Props) => {
   const ref = useRef(null);
-  const isHovered = useHover(ref);
 
   const [badgeColor, setBadgeColor] = useState("#16a34a");
 
@@ -50,7 +49,6 @@ const BoardAssignButton = ({
           onPress={onPress}
           style={tw.style(
             {
-              transform: isHovered ? "scale(1.05)" : "",
               backgroundColor: badgeColor,
               "w-8": !text,
               "gap-1": !!text,

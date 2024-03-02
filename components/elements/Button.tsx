@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
-import { Text } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Props = {
   children: ReactNode;
@@ -24,7 +23,10 @@ const Button = ({ children, onPress, color, style }: Props) => {
       )}
       onPress={onPress}
     >
-      <Text style={tw`text-white text-lg`}>{children}</Text>
+      {Object.keys(children as object).includes("type") && children}
+      {!Object.keys(children as object).includes("type") && (
+        <Text style={tw`text-white text-lg`}>{children}</Text>
+      )}
     </TouchableOpacity>
   );
 };
