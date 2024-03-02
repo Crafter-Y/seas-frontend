@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@expo/match-media": "^0.4.0",
-    "@expo/webpack-config": "^19.0.0",
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-picker/picker": "2.4.10",
     "email-validator": "^2.0.4",
