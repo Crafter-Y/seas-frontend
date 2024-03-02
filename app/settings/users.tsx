@@ -4,7 +4,6 @@ import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import tw from "@/tailwind";
 import Input from "@/components/elements/Input";
 import { Picker as RNPicker } from "@react-native-picker/picker";
-import useCreateUser from "@/hooks/api/useCreateUser";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
 import SettingsForm from "@/components/SettingsForm";
 import ErrorDisplay from "@/components/ErrorDisplay";
@@ -26,22 +25,10 @@ import useUpdateUser from "@/hooks/api/useUpdateUser";
 import { toUpperStarting } from "@/helpers/format";
 import useRequestVerification from "@/hooks/api/useRequestVerification";
 import SettingsTitle from "@/components/settings/SettingsTitle";
-import UserCreatedModal from "@/components/settings/UserCreatedModal";
+import CreateUserForm from "@/components/settings/CreateUserForm";
 
 export default function ManageUsersScreen() {
   const { allUsers, queryUsers } = useAllUsers();
-
-  const {
-    createUser,
-    reactivateUser,
-    hasCreationError,
-    creationError,
-    successfulUserCreation,
-    userCreationResponse,
-    reactivationRequired,
-    successfulUserReactivation,
-    userReactivationResponse,
-  } = useCreateUser();
 
   const { requestNewPassword, newPassword, successfulPasswordCreation } =
     useRequestNewPassword();
@@ -51,15 +38,6 @@ export default function ManageUsersScreen() {
   const { updateUser, successfulUpdate, updateError } = useUpdateUser();
 
   const { requestVerification } = useRequestVerification();
-
-  // creation modal states
-  const [firstName, setFirstName] = useState("");
-  const [secondName, setSecondName] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("USER");
-  const firstNameInput = useRef<TextInput>(null);
-  const secondNameInput = useRef<TextInput>(null);
-  const emailInput = useRef<TextInput>(null);
 
   // edit modal states
   const [editFirstName, setEditFirstName] = useState("");
@@ -72,14 +50,11 @@ export default function ManageUsersScreen() {
   const editEmailInput = useRef<TextInput>(null);
   const [hasTriedUpdate, setHasTriedUpdate] = useState(false);
 
-  const creationModal = useRef<ModalHandle>(null);
   const editModal = useRef<ModalHandle>(null);
   const changeInformationModal = useRef<ModalHandle>(null);
   const deleteUserModal = useRef<ModalHandle>(null);
   const requestNewPasswordModal = useRef<ModalHandle>(null);
   const newPasswordModal = useRef<ModalHandle>(null);
-  const reactivationModal = useRef<ModalHandle>(null);
-  const afterReactivationModal = useRef<ModalHandle>(null);
 
   const [userIdToDelete, setUserIdToDelete] = useState(0);
   const [userNameToDelete, setUserNameToDelete] = useState("");
@@ -101,29 +76,6 @@ export default function ManageUsersScreen() {
   }, [successfulUpdate]);
 
   useEffect(() => {
-    if (reactivationRequired) reactivationModal.current?.openModal();
-  }, [reactivationRequired]);
-
-  useEffect(() => {
-    if (successfulUserCreation) {
-      creationModal.current?.openModal();
-      firstNameInput.current?.clear();
-      secondNameInput.current?.clear();
-      emailInput.current?.clear();
-      queryUsers();
-    }
-  }, [successfulUserCreation]);
-
-  useEffect(() => {
-    if (successfulUserReactivation) {
-      afterReactivationModal.current?.openModal();
-      firstNameInput.current?.clear();
-      secondNameInput.current?.clear();
-      emailInput.current?.clear();
-    }
-  }, [successfulUserReactivation]);
-
-  useEffect(() => {
     if (succesfulDeletion) {
       queryUsers();
       deleteUserModal.current?.closeModal();
@@ -134,46 +86,7 @@ export default function ManageUsersScreen() {
     <SettingsLayout actualSetting="users">
       <SettingsTitle>Nutzer erstellen</SettingsTitle>
 
-      <SettingsForm>
-        <Input
-          placeholder="Vorname"
-          onChangeText={(text) => setFirstName(text)}
-          secureTextEntry={false}
-          ref={firstNameInput}
-          onSubmitEditing={() => secondNameInput.current?.focus()}
-          returnKeyType="next"
-        />
-        <Input
-          placeholder="Nachname"
-          onChangeText={(text) => setSecondName(text)}
-          secureTextEntry={false}
-          onSubmitEditing={() => emailInput.current?.focus()}
-          ref={secondNameInput}
-          returnKeyType="next"
-        />
-        <Input
-          placeholder="Email-Adresse"
-          onChangeText={(text) => setEmail(text)}
-          secureTextEntry={false}
-          onSubmitEditing={() => emailInput.current?.blur()}
-          ref={emailInput}
-          returnKeyType="done"
-          inputMode="email"
-        />
-        <Picker
-          selectedValue={role}
-          onValueChange={(itemValue) => setRole(itemValue)}
-        >
-          <RNPicker.Item label="User" value="USER" />
-          <RNPicker.Item label="Admin" value="ADMIN" />
-        </Picker>
-
-        <ErrorDisplay hasError={hasCreationError} error={creationError} />
-
-        <Button onPress={() => createUser(firstName, secondName, email, role)}>
-          Nutzer erstellen
-        </Button>
-      </SettingsForm>
+      <CreateUserForm queryUsers={queryUsers} />
 
       <Divider type="HORIZONTAL" style={tw`my-4`} />
 
@@ -259,8 +172,6 @@ export default function ManageUsersScreen() {
           ))}
         </Form>
       </SettingsForm>
-
-      <UserCreatedModal ref={creationModal} data={userCreationResponse} />
 
       <Modal type="CENTER" ref={editModal}>
         <H1 style={tw`mt-2 text-center`}>
@@ -513,80 +424,6 @@ export default function ManageUsersScreen() {
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button onPress={() => newPasswordModal.current?.closeModal()}>
-            Fertig
-          </Button>
-        </View>
-      </Modal>
-
-      <Modal type="CENTER" ref={reactivationModal}>
-        <Text
-          style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
-        >
-          Benutzer neu aktivieren?
-        </Text>
-        <View style={tw`px-4 mt-4 gap-2`}>
-          <Text>
-            Ein ehemaliger Mitglied mit dieser Email Adresse existierte bereits.
-            Wenn dieser erneut aktiviert wird, bleiben alle ehemaligen
-            Eintragungen unter neuem Namen bestehen.
-          </Text>
-          <Text>Soll dieser Nutzer neu aktiviert werden?</Text>
-        </View>
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button
-            onPress={() => {
-              reactivateUser(firstName, secondName, email, role);
-              reactivationModal.current?.closeModal();
-            }}
-            color="#f67e7e"
-          >
-            Ja
-          </Button>
-          <Button
-            onPress={() => {
-              reactivationModal.current?.closeModal();
-              firstNameInput.current?.clear();
-              secondNameInput.current?.clear();
-              emailInput.current?.clear();
-            }}
-          >
-            Nein
-          </Button>
-        </View>
-      </Modal>
-
-      <Modal type="CENTER" ref={afterReactivationModal}>
-        <Text
-          style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
-        >
-          Mitglied erfolgreich reaktiviert
-        </Text>
-        <View style={tw`px-4 mt-4 gap-2`}>
-          <Text>
-            Rolle:{" "}
-            {userReactivationResponse?.role.charAt(0).toUpperCase() +
-              "" +
-              userReactivationResponse?.role.slice(1).toLowerCase()}
-          </Text>
-          <Text style={tw`text-lg`}>
-            {userReactivationResponse?.firstname +
-              " " +
-              userReactivationResponse?.lastname +
-              " (" +
-              userReactivationResponse?.email +
-              ")"}
-          </Text>
-          <Text style={tw`text-lg font-bold`}>
-            {userReactivationResponse?.password}
-          </Text>
-        </View>
-        <View style={tw`items-center mb-4`}>
-          <Button
-            onPress={() => {
-              queryUsers();
-              afterReactivationModal.current?.closeModal();
-            }}
-          >
             Fertig
           </Button>
         </View>
