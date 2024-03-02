@@ -87,6 +87,7 @@ export const SettingsLayout = ({ children, actualSetting }: Props) => {
       style={{
         flexDirection: "row",
         backgroundColor: Color.SETTINGS_BG,
+        height, // this is needed. Parent containers must have a set height for ScrollView to work
       }}
     >
       <Stack.Screen options={{ headerShown: !isMd, title: "Einstellungen" }} />
@@ -130,6 +131,7 @@ export const SettingsLayout = ({ children, actualSetting }: Props) => {
         contentContainerStyle={tw.style(
           {
             "py-14": isMd,
+            "pb-14": !isMd,
             "px-4": isMd,
             "justify-center": isMd,
           },

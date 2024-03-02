@@ -166,6 +166,11 @@
 			"display": "none"
 		}
 	},
+	"h-32": {
+		"style": {
+			"height": 128
+		}
+	},
 	"min-h-full": {
 		"style": {
 			"minHeight": "100%"
@@ -199,6 +204,11 @@
 	"w-full": {
 		"style": {
 			"width": "100%"
+		}
+	},
+	"w-20": {
+		"style": {
+			"width": 80
 		}
 	},
 	"max-w-2xl": {
