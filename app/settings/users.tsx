@@ -287,28 +287,31 @@ export default function ManageUsersScreen() {
                     />
                   </Button>
                 )}
-                {Luser.id != user?.id && (
-                  <Button
-                    style={tw`p-1`}
-                    onPress={() => {
-                      setUserIdForEdit(Luser.id);
-                      setUserNameForEdit(
-                        `${Luser.firstname} ${Luser.lastname}`
-                      );
-                      setEditFirstName(Luser.firstname);
-                      setEditSecondName(Luser.lastname);
-                      setEditEmail(Luser.email);
-                      setEditRole(Luser.role);
-                      setEditState(Luser.state);
-                      editModal.current?.openModal();
-                    }}
-                  >
-                    <Image
-                      source={require("@/assets/img/edit.svg")}
-                      size={24}
-                    />
-                  </Button>
-                )}
+                {Luser.email != "root" &&
+                  (Luser.id != user?.id ||
+                    Luser.state == "UNVERIFIED" ||
+                    Luser.state == "VERIFICATION_PENDING") && (
+                    <Button
+                      style={tw`p-1`}
+                      onPress={() => {
+                        setUserIdForEdit(Luser.id);
+                        setUserNameForEdit(
+                          `${Luser.firstname} ${Luser.lastname}`
+                        );
+                        setEditFirstName(Luser.firstname);
+                        setEditSecondName(Luser.lastname);
+                        setEditEmail(Luser.email);
+                        setEditRole(Luser.role);
+                        setEditState(Luser.state);
+                        editModal.current?.openModal();
+                      }}
+                    >
+                      <Image
+                        source={require("@/assets/img/edit.svg")}
+                        size={24}
+                      />
+                    </Button>
+                  )}
               </TD>
             </TR>
           ))}
@@ -322,7 +325,12 @@ export default function ManageUsersScreen() {
 
         <Divider type="HORIZONTAL" style={tw`mt-1`} />
         <Pressable
-          style={tw`py-3 flex-row items-center mx-4 gap-2`}
+          style={tw.style(
+            {
+              hidden: userIdForEdit == user?.id,
+            },
+            "py-3 flex-row items-center mx-4 gap-2"
+          )}
           onPress={() => {
             editModal.current?.closeModal();
             requestNewPasswordModal.current?.openModal();
@@ -341,9 +349,22 @@ export default function ManageUsersScreen() {
             style={{ color: Color.BLUE }}
           />
         </Pressable>
-        <Divider type="HORIZONTAL" style={tw`mb-1`} />
+        <Divider
+          type="HORIZONTAL"
+          style={tw.style(
+            {
+              hidden: userIdForEdit == user?.id,
+            },
+            "mb-1"
+          )}
+        />
         <Pressable
-          style={tw`py-3 flex-row items-center mx-4 gap-2`}
+          style={tw.style(
+            {
+              hidden: userIdForEdit == user?.id,
+            },
+            "py-3 flex-row items-center mx-4 gap-2"
+          )}
           onPress={() => {
             editModal.current?.closeModal();
             setHasTriedUpdate(false);
@@ -363,7 +384,15 @@ export default function ManageUsersScreen() {
             style={{ color: Color.BLUE }}
           />
         </Pressable>
-        <Divider type="HORIZONTAL" style={tw`mb-1`} />
+        <Divider
+          type="HORIZONTAL"
+          style={tw.style(
+            {
+              hidden: userIdForEdit == user?.id,
+            },
+            "mb-1"
+          )}
+        />
         <Pressable
           style={tw.style(
             {
