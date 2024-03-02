@@ -107,7 +107,7 @@ export default function Modal() {
       )[0].text;
       return (
         <>
-          <Text>{value}</Text>
+          <Text selectable={true}>{value}</Text>
           {/* TODO: check for permission if user is allowed to edit the comment field */}
           <BoardAssignButton
             style={tw`ml-2`}

@@ -50,7 +50,9 @@ export default function CenterModal({ children }: Props) {
             "bg-white shadow-lg"
           )}
         >
-          <Pressable>{children}</Pressable>
+          <Pressable style={tw.style({ cursor: "default" })}>
+            {children}
+          </Pressable>
         </ScrollView>
       </View>
     </Pressable>

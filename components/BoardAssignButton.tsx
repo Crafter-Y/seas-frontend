@@ -52,6 +52,7 @@ const BoardAssignButton = ({
               backgroundColor: badgeColor,
               "w-8": !text,
               "gap-1": !!text,
+              cursor: "pointer",
             },
             "h-8 rounded-xl justify-center items-center flex-row px-2",
             style
