@@ -18,7 +18,7 @@ export const getWebServer = async () => {
   } else {
     try {
       const token = await AsyncStorage.getItem("token");
-      if (token == null) return "https://58119.seas-kirchengemeinden.craftingapis.de";
+      if (token == null) return "https://58119.seas-kirchengemeinde.de";
 
       const tokenContents: {
         productId: number,
@@ -30,9 +30,9 @@ export const getWebServer = async () => {
         exp: number
       } = decode(token);
 
-      return `https://${tokenContents.productId}.seas-kirchengemeinden.craftingapis.de`;
+      return `https://${tokenContents.productId}.seas-kirchengemeinde.de`;
     } catch (e) {
-      return "https://58119.seas-kirchengemeinden.craftingapis.de";
+      return "https://58119.seas-kirchengemeinde.de";
     }
 
   }
