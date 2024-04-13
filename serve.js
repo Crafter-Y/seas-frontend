@@ -28,32 +28,28 @@ const server = http.createServer((request, response) => {
   // More details here: https://github.com/vercel/serve-handler#options
   return handler(request, response, {
     public: "./dist",
-    rewrites: [
-        { source: "/**/*", destination: "/index.html" },
-      ]
+    rewrites: [{ source: "/**/*", destination: "/index.html" }],
   });
 });
 
 const PORT = process.env.PORT || 3333;
 
 if (process.env.SERVE_LOCAL_NETWORK) {
-  server.listen(PORT, "192.168.178.95", () => {
+  server.listen(PORT, "0.0.0.0", () => {
     console.log(`Running at ::${PORT} and local network`);
     if (process.env.REWRITE_CONFIG) {
-      console.log("Rewriting serverId to header")
+      console.log("Rewriting serverId to header");
     } else if (process.env.SERVER_ID) {
-      console.log("Rewriting serverId to env: '" + process.env.SERVER_ID + "'")
+      console.log("Rewriting serverId to env: '" + process.env.SERVER_ID + "'");
     }
   });
 } else {
   server.listen(PORT, () => {
     console.log(`Running at ::${PORT}`);
     if (process.env.REWRITE_CONFIG) {
-      console.log("Rewriting serverId to header")
+      console.log("Rewriting serverId to header");
     } else if (process.env.SERVER_ID) {
-      console.log("Rewriting serverId to env: '" + process.env.SERVER_ID + "'")
+      console.log("Rewriting serverId to env: '" + process.env.SERVER_ID + "'");
     }
   });
 }
-
-

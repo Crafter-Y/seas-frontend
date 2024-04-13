@@ -4,12 +4,14 @@ http.createServer(onRequest).listen(3000);
 
 function onRequest(client_req, client_res) {
   let options = {
-    hostname: "localhost",
+    host: "localhost",
     port: 80,
     path: client_req.url,
     method: client_req.method,
     headers: client_req.headers,
   };
+
+  options.headers.host = "api.localhost";
 
   let proxy = http.request(options, function (res) {
     client_res.writeHead(res.statusCode, res.headers);
