@@ -19,6 +19,7 @@ interface GlobalStore {
 
   serverName: string | null,
   serverNameState: FetchState,
+  serverDevUrl: string,
 
   printDateStart: Date | null,
   printDateEnd: Date | null,
@@ -42,6 +43,7 @@ export const defaultState: GlobalStore = {
 
   serverName: null,
   serverNameState: FetchState.UNFETCHED,
+  serverDevUrl: "http://api.localhost",
 
   printDateStart: null,
   printDateEnd: null,

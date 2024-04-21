@@ -1,17 +1,19 @@
-import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
 import decode from "jwt-decode";
+import { Store } from "./store";
 
 type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT"
 
 const getApi = (): string => {
   if (__DEV__) {
-    return Constants.expoConfig?.extra?.localApi;
+    return Store.getRawState().serverDevUrl;
   } else {
     return Constants.expoConfig?.extra?.productionApi;
   }
 };
 
+// used to determine which webserver shall be used for clickable email links
 export const getWebServer = async () => {
   if (__DEV__) {
     return "http://localhost:8081";

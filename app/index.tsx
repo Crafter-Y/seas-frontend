@@ -5,11 +5,14 @@ import Input from "@/components/elements/Input";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useServerName from "@/hooks/api/useServerName";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FetchState } from "@/helpers/Constants";
+import BoardHeaderRoundButton from "@/components/BoardHeaderRoundButton";
+import Modal, { ModalHandle } from "@/components/elements/Modal";
+import { Store } from "@/helpers/store";
 
 export default function ServerSelectorScreen() {
   const { height, width } = useWindowDimensions();
@@ -20,7 +23,14 @@ export default function ServerSelectorScreen() {
 
   const [inputError, setInputError] = useState("");
 
+  const apiModal = useRef<ModalHandle>(null);
+
+  const serverUrl = Store.useState((state) => state.serverDevUrl);
+
   const { fetchServerName, fetchState, fetchServerError } = useServerName();
+
+  const localIp =
+    process.env.REACT_NATIVE_PACKAGER_HOSTNAME ?? "192.168.178.95:8080";
 
   useEffect(() => {
     if (Platform.OS == "web") {
@@ -60,6 +70,15 @@ export default function ServerSelectorScreen() {
 
   return (
     <SafeAreaView>
+      {__DEV__ && (
+        <View style={tw`w-full items-end p-1`}>
+          <BoardHeaderRoundButton
+            imageSource={require("@/assets/img/settings.svg")}
+            onPress={() => apiModal.current!.openModal()}
+            style={tw`border rounded-xl`}
+          />
+        </View>
+      )}
       <View style={tw`items-center`}>
         <Image
           source={require("@/assets/adaptive-icon.png")}
@@ -91,6 +110,40 @@ export default function ServerSelectorScreen() {
         <Text>Dies kann hinterher noch geändert werden.</Text>
         <Button onPress={login}>Speichern</Button>
       </View>
+      <Modal type="CENTER" ref={apiModal}>
+        <Text style={tw`text-lg`}>Server API URL (Development only)</Text>
+        <Input
+          placeholder="Server ID"
+          initialValue={serverUrl}
+          onChangeText={(id) =>
+            Store.update((state) => {
+              state.serverDevUrl = id;
+            })
+          }
+          style={"m-2"}
+        />
+        <Button
+          style={tw`m-2`}
+          onPress={() => {
+            Store.update((state) => {
+              state.serverDevUrl = "http://" + localIp;
+            });
+          }}
+        >
+          {localIp}
+        </Button>
+        <Button
+          style={tw`m-2`}
+          onPress={() => {
+            Store.update((state) => {
+              state.serverDevUrl =
+                "https://seas-kirchengemeinden.craftingapis.de";
+            });
+          }}
+        >
+          seas-kirchengemeinden.craftingapis.de/
+        </Button>
+      </Modal>
     </SafeAreaView>
   );
 }

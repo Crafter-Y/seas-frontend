@@ -33,7 +33,6 @@
       "eas": {
         "projectId": "04b64ca7-4272-45dc-98cb-14e129c5ac01"
       },
-      "localApi": "http://api.localhost",
       "productionApi": "https://api.seas-kirchengemeinde.de"
     },
     "owner": "crafter_y",
