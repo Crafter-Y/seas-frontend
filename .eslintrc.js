@@ -16,6 +16,7 @@ module.exports = exports = {
     "tailwind.config.js",
     "metro.config.js",
     "babel.config.js",
+    "app.config.js",
     "serve.js",
     "proxy.js",
   ],

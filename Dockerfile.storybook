@@ -13,8 +13,8 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8081
+EXPOSE 8082
 
 ENTRYPOINT [ "bash", "./docker-dev.sh" ]
 
-CMD npm run web
+CMD npm run storybook

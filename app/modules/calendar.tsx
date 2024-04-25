@@ -118,7 +118,6 @@ const Calendar = () => {
           continue;
 
         await ExpoCalendar.createEventAsync(calId, {
-          id: date,
           calendarId: calId,
           title: serverName!,
           creationDate: new Date(),
