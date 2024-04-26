@@ -6,7 +6,7 @@ import tw from "@/tailwind";
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <View style={tw`items-center justify-center h-full p-4`}>
+      <View style={tw`items-center justify-center h-full p-4 bg-white`}>
         <Story />
       </View>
     ),

@@ -174,6 +174,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
         {rows.map((row) => (
           <PressableTR
             key={row.date}
+            date={row.date}
             onPress={() => {
               Store.update((state) => {
                 state.selectedRow = row;

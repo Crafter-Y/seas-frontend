@@ -185,6 +185,17 @@ export const WithPast: Story = {
         assignments: [],
       },
       {
+        date: formatDate(new Date()),
+        comments: [
+          {
+            id: 4,
+            boardColumnId: 1,
+            text: "This is today",
+          },
+        ],
+        assignments: [],
+      },
+      {
         date: formatDate(new Date(`${new Date().getFullYear() + 2}-01-01`)),
         comments: [
           {
