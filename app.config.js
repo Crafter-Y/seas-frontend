@@ -18,7 +18,7 @@ module.exports = {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
+        foregroundImage: "./public/adaptive-icon.png",
         backgroundColor: "#ffffff",
       },
       package: "de.craftery.seasfrontend",

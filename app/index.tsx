@@ -81,7 +81,7 @@ export default function ServerSelectorScreen() {
       )}
       <View style={tw`items-center`}>
         <Image
-          source={require("@/assets/adaptive-icon.png")}
+          source={require("@/public/adaptive-icon.png")}
           style={{
             height: Math.min(height, width) / 2,
             width: Math.min(height, width) / 2,

@@ -35,7 +35,7 @@ export default function VerifyScreen() {
         >
           <View style={tw`flex items-center`}>
             <Image
-              source={require("@/assets/adaptive-icon.png")}
+              source={require("@/public/adaptive-icon.png")}
               style={{
                 height: 220,
                 width: 220,

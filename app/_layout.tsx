@@ -3,7 +3,6 @@ import { LogBox } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Constants from "expo-constants";
-import { default as StorybookUIRoot } from "../.storybook";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]);
 LogBox.ignoreLogs(["The `redirect` prop on"]);
@@ -29,7 +28,8 @@ function DefaultLayout() {
 let AppEntryPoint = DefaultLayout;
 
 if (Constants.expoConfig?.extra?.storybookEnabled === "true") {
-  AppEntryPoint = StorybookUIRoot;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  AppEntryPoint = AppEntryPoint = require("../.storybook").default;
 }
 
 export default AppEntryPoint;
