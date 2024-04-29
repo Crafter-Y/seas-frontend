@@ -141,7 +141,17 @@ export default function ServerSelectorScreen() {
             });
           }}
         >
-          seas-kirchengemeinden.craftingapis.de/
+          seas-kirchengemeinden.craftingapis.de
+        </Button>
+        <Button
+          style={tw`m-2`}
+          onPress={() => {
+            Store.update((state) => {
+              state.serverDevUrl = "https://api.seas-kirchengemeinde.de";
+            });
+          }}
+        >
+          api.seas-kirchengemeinde.de
         </Button>
       </Modal>
     </SafeAreaView>
