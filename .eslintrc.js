@@ -19,6 +19,7 @@ module.exports = exports = {
     "app.config.js",
     "serve.js",
     "proxy.js",
+    ".dockerignore",
   ],
   rules: {
     semi: ["error", "always"],

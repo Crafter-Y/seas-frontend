@@ -1,5 +1,11 @@
+docker-build.sh
+.dockerignore
+.git*
+Dockerfile*
+README.md
+.npmrc
+
 node_modules/
 .expo/
 .github/
-
 dist/
