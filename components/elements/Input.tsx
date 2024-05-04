@@ -18,6 +18,7 @@ type Props = {
   returnKeyType?: ReturnKeyTypeOptions;
   inputMode?: InputModeOptions;
   initialValue?: string;
+  disabled?: boolean;
 };
 
 const Input = forwardRef<TextInput, Props>(
@@ -32,6 +33,7 @@ const Input = forwardRef<TextInput, Props>(
       returnKeyType,
       inputMode,
       initialValue,
+      disabled,
     }: Props,
     ref
   ) => {
@@ -69,6 +71,7 @@ const Input = forwardRef<TextInput, Props>(
         ref={ref}
         blurOnSubmit={false}
         inputMode={inputMode}
+        aria-disabled={disabled}
       ></TextInput>
     );
   }

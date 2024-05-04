@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { validate } from "email-validator";
-import { requestApi } from "@/helpers/api";
+import { getWebServer, requestApi } from "@/helpers/api";
 
 export const validateUser = (
   firstname: string,
@@ -32,13 +32,9 @@ export default function useCreateUser() {
   const [creationError, setCreationError] = useState("");
   const [successfulUserCreation, setIsSuccessfulUserCreation] = useState(false);
   const [reactivationRequired, setReactivationRequired] = useState(false);
-  const [userCreationResponse, setUserCreationResponse] =
-    useState<APICreationReponse>();
 
   const [successfulUserReactivation, setIsSuccessfulUserReactivation] =
     useState(false);
-  const [userReactivationResponse, setUserReactivationResponse] =
-    useState<APICreationReponse>();
 
   const createUser = async (
     firstname: string,
@@ -62,7 +58,8 @@ export default function useCreateUser() {
       firstname,
       lastname,
       email,
-      role
+      role,
+      url: await getWebServer()
     });
 
     if (res == null) {
@@ -73,17 +70,8 @@ export default function useCreateUser() {
       return;
     }
 
-    const setRole = role as Role;
-
     if (res.success) {
       setIsSuccessfulUserCreation(true);
-      setUserCreationResponse({
-        firstname,
-        lastname,
-        email,
-        password: res.data.password,
-        role: setRole
-      });
       setHasCreationError(false);
       setCreationError("");
     } else {
@@ -122,7 +110,8 @@ export default function useCreateUser() {
       lastname,
       email,
       role,
-      reactivate: true
+      reactivate: true,
+      url: await getWebServer()
     });
 
     if (res == null) {
@@ -134,16 +123,8 @@ export default function useCreateUser() {
     }
 
     if (res.success) {
-      const setRole = role as Role;
-
       setIsSuccessfulUserReactivation(true);
-      setUserReactivationResponse({
-        firstname,
-        lastname,
-        email,
-        password: res.data.password,
-        role: setRole
-      });
+
       setHasCreationError(false);
       setCreationError("");
     } else {
@@ -159,8 +140,6 @@ export default function useCreateUser() {
     creationError,
     successfulUserCreation,
     successfulUserReactivation,
-    userCreationResponse,
-    userReactivationResponse,
     reactivationRequired,
   };
 }

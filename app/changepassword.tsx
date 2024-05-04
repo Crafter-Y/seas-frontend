@@ -93,7 +93,7 @@ export default function ChangePasswordScreen() {
             secureTextEntry={true}
             onSubmitEditing={() => secondInput.current?.focus()}
             returnKeyType="next"
-          ></Input>
+          />
           <Input
             placeholder="Neues Passwort festlegen"
             onChangeText={(text) => setNewPassword1(text)}
@@ -101,14 +101,14 @@ export default function ChangePasswordScreen() {
             onSubmitEditing={() => thirdInput.current?.focus()}
             ref={secondInput}
             returnKeyType="next"
-          ></Input>
+          />
           <Input
             placeholder="Passwort wiederholen"
             onChangeText={(text) => setNewPassword2(text)}
             secureTextEntry={true}
             ref={thirdInput}
             returnKeyType="done"
-          ></Input>
+          />
 
           <ErrorDisplay
             hasError={hasUpdateError}

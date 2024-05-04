@@ -14,7 +14,7 @@ const Footer = ({ style = {} }: Props) => {
   const mailtoReport = async () => {
     const isAvailable = await MailComposer.isAvailableAsync();
     if (!isAvailable) {
-      const url = "mailto:helmut_h_haase@yahoo.de";
+      const url = "mailto:info@seas-kirchengemeinde.de";
       Linking.canOpenURL(url).then((supported) => {
         if (supported) {
           Linking.openURL(url);
@@ -26,8 +26,7 @@ const Footer = ({ style = {} }: Props) => {
     const serverId = await AsyncStorage.getItem("serverId");
 
     await MailComposer.composeAsync({
-      recipients: ["helmut_h_haase@yahoo.de"],
-      ccRecipients: ["mrcrafter.yt4@gmail.com"],
+      recipients: ["info@seas-kirchengemeinde.de"],
       subject: `Bugreport: serverId: ${serverId}`,
       body: "Bitte beschreiben Sie den Fehler: \n\n\nWas haben Sie getan, bevor der Fehler aufgetreten ist?: \n\n\n",
     });
@@ -36,7 +35,8 @@ const Footer = ({ style = {} }: Props) => {
   return (
     <View style={tw.style("my-4 flex items-center", style)}>
       <Text style={tw`text-xs opacity-80 w-full text-center`}>
-        &copy; Helmut Haase 2022-{new Date().getFullYear()}
+        &copy; (copyright) Helmut Haase 2022 - {new Date().getFullYear()} • SEAS
+        Kirchengemeinde UG (haftungsbeschränkt)
       </Text>
       <Text
         style={tw.style(

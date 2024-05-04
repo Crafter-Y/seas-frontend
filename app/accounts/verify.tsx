@@ -25,15 +25,15 @@ export default function VerifyScreen() {
 
   return (
     <SafeAreaView
-      style={tw.style(`m-0 p-0 bg-[${Color.LIGHT_GRAY}] flex flex-row`, {
+      style={tw.style(`m-0 p-0 bg-[${Color.LIGHT_GRAY}] flex-row`, {
         height,
       })}
     >
-      <View style={tw`flex justify-center items-center w-full`}>
+      <View style={tw`justify-center items-center w-full`}>
         <View
           style={tw`w-full max-w-2xl border max-h-1/2 rounded-md border-gray-200`}
         >
-          <View style={tw`flex items-center`}>
+          <View style={tw`items-center`}>
             <Image
               source={require("@/public/adaptive-icon.png")}
               style={{
@@ -44,7 +44,7 @@ export default function VerifyScreen() {
           </View>
 
           <Text style={tw`text-center p-0 m-0 text-lg`}>
-            SEAS Kirchengemeinden
+            SEAS Kirchengemeinde
           </Text>
 
           {tokenValid && productName && (

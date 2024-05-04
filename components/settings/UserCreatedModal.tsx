@@ -4,44 +4,26 @@ import { Text, View } from "react-native";
 import Button from "@/components/elements/Button";
 import { forwardRef, MutableRefObject } from "react";
 
-type Props = {
-  data?: APICreationReponse;
-};
+const UserCreatedModal = forwardRef<ModalHandle>((props, ref) => {
+  return (
+    <Modal type="CENTER" ref={ref}>
+      <Text style={tw`text-center text-xl mt-6 px-4 font-semibold`}>
+        Sie haben erfolgreich ein neues Mitglied erstellt. Das Mitglied hat eine
+        E-Mail bekommen, über welches es ein Passwort wählen kann.
+      </Text>
 
-const UserCreatedModal = forwardRef<ModalHandle, Props>(
-  ({ data }: Props, ref) => {
-    return (
-      <Modal type="CENTER" ref={ref}>
-        <Text
-          style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
+      <View style={tw`items-center mb-4 mt-2`}>
+        <Button
+          onPress={() => {
+            (ref as MutableRefObject<ModalHandle>).current.closeModal();
+          }}
         >
-          Es wurde erfolgreich ein neuer Nutzer erstellt.
-        </Text>
-        <View style={tw`px-4 mt-4 gap-2`}>
-          <Text>
-            Rolle:{" "}
-            {data?.role.charAt(0).toUpperCase() +
-              "" +
-              data?.role.slice(1).toLowerCase()}
-          </Text>
-          <Text style={tw`text-lg`}>
-            {data?.firstname + " " + data?.lastname + " (" + data?.email + ")"}
-          </Text>
-          <Text style={tw`text-lg font-bold`}>{data?.password}</Text>
-        </View>
-        <View style={tw`items-center mb-4`}>
-          <Button
-            onPress={() => {
-              (ref as MutableRefObject<ModalHandle>).current.closeModal();
-            }}
-          >
-            Fertig
-          </Button>
-        </View>
-      </Modal>
-    );
-  }
-);
+          Fertig
+        </Button>
+      </View>
+    </Modal>
+  );
+});
 
 UserCreatedModal.displayName = "UserCreatedModal";
 export default UserCreatedModal;

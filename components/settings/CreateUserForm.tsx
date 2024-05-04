@@ -23,10 +23,8 @@ const CreateUserForm = ({ queryUsers }: Props) => {
     hasCreationError,
     creationError,
     successfulUserCreation,
-    userCreationResponse,
     reactivationRequired,
     successfulUserReactivation,
-    userReactivationResponse,
   } = useCreateUser();
 
   const creationModal = useRef<ModalHandle>(null);
@@ -109,7 +107,7 @@ const CreateUserForm = ({ queryUsers }: Props) => {
         </Button>
       </SettingsForm>
 
-      <UserCreatedModal ref={creationModal} data={userCreationResponse} />
+      <UserCreatedModal ref={creationModal} />
 
       <ReactivateUserModal
         reactivateUser={() =>
@@ -123,10 +121,7 @@ const CreateUserForm = ({ queryUsers }: Props) => {
         ref={reactivationModal}
       />
 
-      <UserReactivatedModal
-        data={userReactivationResponse}
-        ref={afterReactivationModal}
-      />
+      <UserReactivatedModal ref={afterReactivationModal} />
     </>
   );
 };
