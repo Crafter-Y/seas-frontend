@@ -3,6 +3,7 @@ import { ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "@/tailwind";
 import { Stack } from "expo-router";
+import { Linking } from "react-native";
 
 export default function ImprintScreen() {
   useEffect(() => {
@@ -21,35 +22,53 @@ export default function ImprintScreen() {
         <Text style={tw`text-4xl font-bold opacity-95 underline`}>
           Impressum
         </Text>
-        <Text>Angaben gemäß § 5 TMG</Text>
-        <Text>Helmut Haase</Text>
-        <Text>Am Hohlweg 17</Text>
+        <Text style={tw`mt-6 text-2xl`}>SEAS-Kirchengemeinde UG</Text>
+        <Text style={tw`text-2xl`}>(haftungsbeschränkt)</Text>
+
+        <Text style={tw`mt-6`}>Am Hohlweg 17</Text>
         <Text>58256 Ennepetal</Text>
+        <Text>Deutschland</Text>
 
-        <Text style={tw`font-semibold text-lg`}>Vertreten durch:</Text>
+        <Text style={tw`mt-6 text-2xl`}>Geschäftsführender Gesellschafter</Text>
         <Text>Helmut Haase</Text>
+        <Text style={tw`mt-6 text-2xl`}>Handelsregister</Text>
+        <Text>HRB 12989</Text>
+        <Text>Amtsgericht Hagen</Text>
 
-        <Text style={tw`font-semibold text-lg`}>Kontakt:</Text>
-        <Text>Telefon: +49 177 3764645</Text>
-        <Text>E-Mail: helmut_h_haase@yahoo.de</Text>
+        <Text style={tw`mt-6 text-2xl`}>Kontakt</Text>
+        <Text>E-Mail-Adresse:</Text>
+        <a
+          style={tw`text-green-700`}
+          href="mailto:info@seas-kirchengemeinde.de"
+        >
+          info@seas-kirchengemeinde.de
+        </a>
 
-        <Text style={tw`font-semibold text-lg`}>Haftungsausschluss:</Text>
-        <Text style={tw`font-semibold`}>Haftung für Inhalte</Text>
-        <Text style={tw`max-w-md`}>
-          Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für
-          die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir
-          jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7
-          Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen
-          Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
-          Diensteanbieter jedoch nicht verpflichtet, übermittelte oder
-          gespeicherte fremde Informationen zu überwachen oder nach Umständen zu
-          forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
-          Verpflichtungen zur Entfernung oder Sperrung der Nutzung von
-          Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.
-          Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der
-          Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden
-          von entsprechenden Rechtsverletzungen werden wir diese Inhalte
-          umgehend entfernen.
+        <Text style={tw`mt-3`}>Telefon:</Text>
+        <Text>+49 177 3764645</Text>
+
+        <Text style={tw`mt-6 text-2xl`}>Kontoverbindung</Text>
+        <Text>Kontoinhaber: Seas-Kirchengemeinde UG (haftungsbeschränkt)</Text>
+        <Text>IBAN: DE67 1101 0100 2038 6082 75</Text>
+        <Text>BIC: SOBKDEBBXXX</Text>
+        <Text>Bank: Solaris Bank</Text>
+
+        <Text style={tw`mt-6 text-2xl`}>Online-Streitbeilegung</Text>
+        <Text style={tw`text-lg`}>
+          Plattform der Europäischen Kommission zur Online-Streitbeilegung (OS)
+          für Verbraucher{" "}
+          <Text
+            style={tw`text-green-700`}
+            onPress={() =>
+              Linking.openURL("https://ec.europa.eu/consumers/odr")
+            }
+          >
+            https://ec.europa.eu/consumers/odr
+          </Text>
+        </Text>
+        <Text style={tw`text-lg`}>
+          Wir sind nicht verpflichtet, an einem Streitbeteiligungsverfahren vor
+          einer Verbraucherschlichtungsstelle teilzunehmen.
         </Text>
       </ScrollView>
     </SafeAreaView>
