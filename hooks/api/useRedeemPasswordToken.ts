@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { requestApi } from "@/helpers/api";
+import { requestApiWithoutCredentials } from "@/helpers/api";
 
 export default function useRedeemPasswordToken() {
   const [successfulRedeem, setSuccessfulRedeem] = useState(false);
@@ -28,7 +28,7 @@ export default function useRedeemPasswordToken() {
       return;
     }
 
-    const res = await requestApi(`users/redeemPasswordToken/${token}`, "POST", {
+    const res = await requestApiWithoutCredentials(`users/redeemPasswordToken/${token}`, "POST", {
       password: newPassword1
     });
 

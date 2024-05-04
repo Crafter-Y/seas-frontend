@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { requestApi } from "@/helpers/api";
+import { requestApiWithoutCredentials } from "@/helpers/api";
 
 export default function usePasswordTokenInfo() {
     const [tokenValid, setTokenValid] = useState<boolean | null>(null);
@@ -9,7 +9,7 @@ export default function usePasswordTokenInfo() {
     const [lastname, setLastname] = useState("");
 
     const verify = async (token: string) => {
-        const res = await requestApi(`users/passwordTokenInfo/${token}`, "GET");
+        const res = await requestApiWithoutCredentials(`users/passwordTokenInfo/${token}`, "GET");
 
         if (res == null || !res.success) {
             setTokenValid(false);
