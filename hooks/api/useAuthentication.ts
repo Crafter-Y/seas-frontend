@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
-import decode from "jwt-decode";
+import decode, { InvalidTokenError } from "jwt-decode";
 import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
 import { Router } from "expo-router/build/types";
 import { defaultState, Store } from "@/helpers/store";
@@ -72,7 +72,7 @@ export default function useAuthentication() {
       return;
     }
 
-    const tokenContents: {
+    let tokenContents: {
       productId: number,
       userId: number,
       email: string,
@@ -80,7 +80,17 @@ export default function useAuthentication() {
       lastname: string,
       role: Role,
       exp: number
-    } = decode(token);
+    };
+
+    try {
+      tokenContents = decode(token);
+    } catch (error) {
+      const er = error as InvalidTokenError;
+      console.error(er.message);
+      await AsyncStorage.removeItem("token");
+      router.replace("/login");
+      return;
+    }
 
     if (new Date().getTime() / 1000 > tokenContents.exp) {
       AsyncStorage.removeItem("token");
