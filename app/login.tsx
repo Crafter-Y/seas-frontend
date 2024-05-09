@@ -1,24 +1,16 @@
-import {
-  Platform,
-  Text,
-  TextInput,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { Platform, Text, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import tw from "@/tailwind";
 import "@expo/match-media";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useServerName from "@/hooks/api/useServerName";
-import useAuthentication from "@/hooks/api/useAuthentication";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import Input from "@/components/elements/Input";
 import H1 from "@/components/elements/H1";
-import ErrorDisplay from "@/components/ErrorDisplay";
-import Button from "@/components/elements/Button";
 import Divider from "@/components/elements/Divider";
 import { router, useSegments } from "expo-router";
+import LoginForm from "@/components/LoginForm";
+import useAuthentication from "@/hooks/api/useAuthentication";
 import { Store } from "@/helpers/store";
 import { FetchState } from "@/helpers/Constants";
 
@@ -27,6 +19,7 @@ type WebConfig = {
 };
 
 export default function ServerSelectorScreen() {
+  const { login, authError, hasAuthError, user } = useAuthentication();
   const { isSm, isMd } = useMediaQueries();
 
   const { height } = useWindowDimensions();
@@ -35,15 +28,17 @@ export default function ServerSelectorScreen() {
 
   const { serverName, fetchServerError, fetchServerName } = useServerName();
 
-  const { login, authError, hasAuthError, user } = useAuthentication();
-
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-
-  const secondInput = useRef<TextInput>(null);
-
   const segments = useSegments();
 
+  const back = async () => {
+    await AsyncStorage.removeItem("serverId");
+    Store.update((state) => {
+      state.serverNameState = FetchState.FETCHING;
+    });
+    router.replace("/");
+  };
+
+  // (web) prepare server id if not set in local Storage
   useEffect(() => {
     if (Platform.OS == "web") {
       AsyncStorage.getItem("serverId").then((serverId) => {
@@ -65,11 +60,13 @@ export default function ServerSelectorScreen() {
     }
   }, []);
 
+  // set title for web if serverName is loaded
   useEffect(() => {
     if (Platform.OS == "web" && serverName && segments[0] == "login")
       document.title = "Login ⋅ " + serverName;
   }, [serverName, segments]);
 
+  // (mobile) if serverName is not or error, redirect to server select page
   useEffect(() => {
     if (Platform.OS != "web" && !serverName && fetchServerError)
       setTimeout(() => {
@@ -77,23 +74,12 @@ export default function ServerSelectorScreen() {
       }, 1);
   }, [serverName, fetchServerError]);
 
+  // if user object is set, redirect to board
   useEffect(() => {
     if (user != null) {
       router.replace("/board/");
     }
   }, [user]);
-
-  const back = async () => {
-    await AsyncStorage.removeItem("serverId");
-    Store.update((state) => {
-      state.serverNameState = FetchState.FETCHING;
-    });
-    router.replace("/");
-  };
-
-  const submit = () => {
-    login(email, password, router);
-  };
 
   return (
     <SafeAreaView style={{ margin: 0, padding: 0 }}>
@@ -166,54 +152,12 @@ export default function ServerSelectorScreen() {
               Login
             </H1>
 
-            <View
-              style={tw.style(
-                {
-                  "w-auto": isMd,
-                  "px-0": isMd,
-                  "px-20": isSm && !isMd,
-                  "w-full": !isMd,
-                  "px-2": !isMd && !isSm,
-                },
-                "mt-4 gap-2"
-              )}
-            >
-              <Input
-                placeholder="Email"
-                autoFocus={true}
-                onChangeText={(text) => setEmail(text)}
-                onSubmitEditing={() => secondInput.current?.focus()}
-                returnKeyType="next"
-              ></Input>
-              <Input
-                placeholder="Passwort"
-                onChangeText={(text) => setPassword(text)}
-                secureTextEntry={true}
-                ref={secondInput}
-                returnKeyType="done"
-                onSubmitEditing={submit}
-              ></Input>
-
-              <Button onPress={submit}>Anmelden</Button>
-
-              <ErrorDisplay
-                hasError={hasAuthError}
-                error={
-                  authError == "Wrong credentials"
-                    ? "Email oder Passwort stimmt nicht"
-                    : authError
-                }
-              />
-
-              <View
-                style={tw.style({
-                  hidden: isWeb,
-                })}
-              >
-                <Text style={tw`mt-2 mb-0`}>Falsch hier?</Text>
-                <Button onPress={back}>Woanders anmelden</Button>
-              </View>
-            </View>
+            <LoginForm
+              login={login}
+              hasAuthError={hasAuthError}
+              authError={authError}
+              back={back}
+            />
             <Text style={tw`text-xs opacity-80 w-full text-center mt-12`}>
               &copy; Helmut Haase 2022-{new Date().getFullYear()}
             </Text>

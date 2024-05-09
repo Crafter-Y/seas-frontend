@@ -32,7 +32,7 @@
     "expo-linking": "~6.2.2",
     "expo-mail-composer": "~12.7.1",
     "expo-print": "~12.8.1",
-    "expo-router": "~3.4.9",
+    "expo-router": "~3.4.10",
     "expo-screen-orientation": "~6.4.1",
     "expo-sharing": "~11.10.0",
     "expo-splash-screen": "~0.26.5",

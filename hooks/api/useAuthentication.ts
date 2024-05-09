@@ -3,7 +3,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 import decode, { InvalidTokenError } from "jwt-decode";
 import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
-import { Router } from "expo-router/build/types";
 import { defaultState, Store } from "@/helpers/store";
 import { router } from "expo-router";
 
@@ -23,8 +22,7 @@ export default function useAuthentication() {
 
   const login = async (
     email: string,
-    password: string,
-    router: Router
+    password: string
   ) => {
     setHasAuthError(false);
     setAuthError("");
