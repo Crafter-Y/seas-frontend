@@ -118,6 +118,7 @@ export default function VerifyScreen() {
                   placeholder="Passwort festlegen"
                   onChangeText={(text) => setNewPassword1(text)}
                   secureTextEntry={true}
+                  autoComplete="new-password"
                   onSubmitEditing={() => thirdInput.current?.focus()}
                   returnKeyType="next"
                   style={tw`mt-2`}
@@ -126,6 +127,7 @@ export default function VerifyScreen() {
                   placeholder="Passwort wiederholen"
                   onChangeText={(text) => setNewPassword2(text)}
                   secureTextEntry={true}
+                  autoComplete="new-password"
                   ref={thirdInput}
                   returnKeyType="done"
                   style={tw`mt-2 mb-4`}

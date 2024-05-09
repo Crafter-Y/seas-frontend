@@ -3,6 +3,7 @@ import {
   Platform,
   ReturnKeyTypeOptions,
   TextInput,
+  TextInputProps,
 } from "react-native";
 import React, { forwardRef, useEffect, useState } from "react";
 import tw from "@/tailwind";
@@ -19,6 +20,7 @@ type Props = {
   inputMode?: InputModeOptions;
   initialValue?: string;
   disabled?: boolean;
+  autoComplete?: TextInputProps["autoComplete"];
 };
 
 const Input = forwardRef<TextInput, Props>(
@@ -34,6 +36,7 @@ const Input = forwardRef<TextInput, Props>(
       inputMode,
       initialValue,
       disabled,
+      autoComplete,
     }: Props,
     ref
   ) => {
@@ -49,6 +52,7 @@ const Input = forwardRef<TextInput, Props>(
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         autoCorrect={false}
+        autoComplete={autoComplete ? autoComplete : undefined}
         autoCapitalize="none"
         keyboardType={secureTextEntry ? "default" : "visible-password"}
         style={tw.style(

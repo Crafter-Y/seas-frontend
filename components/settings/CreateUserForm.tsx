@@ -87,6 +87,7 @@ const CreateUserForm = ({ queryUsers }: Props) => {
           placeholder="Email-Adresse"
           onChangeText={(text) => setEmail(text)}
           secureTextEntry={false}
+          autoComplete="email"
           onSubmitEditing={() => emailInput.current?.blur()}
           ref={emailInput}
           returnKeyType="done"

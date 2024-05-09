@@ -83,6 +83,7 @@ export default function ResetPasswordScreen() {
           <Input
             placeholder="Email"
             inputMode="email"
+            autoComplete="email"
             initialValue={email}
             onChangeText={(text) => setEmail(text)}
             onSubmitEditing={() => {

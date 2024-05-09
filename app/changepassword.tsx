@@ -90,6 +90,7 @@ export default function ChangePasswordScreen() {
             placeholder="Vorheriges Passwort"
             onChangeText={(text) => setOldPassword(text)}
             secureTextEntry={true}
+            autoComplete="password"
             onSubmitEditing={() => secondInput.current?.focus()}
             returnKeyType="next"
           />
@@ -97,6 +98,7 @@ export default function ChangePasswordScreen() {
             placeholder="Neues Passwort festlegen"
             onChangeText={(text) => setNewPassword1(text)}
             secureTextEntry={true}
+            autoComplete="new-password"
             onSubmitEditing={() => thirdInput.current?.focus()}
             ref={secondInput}
             returnKeyType="next"
@@ -105,6 +107,7 @@ export default function ChangePasswordScreen() {
             placeholder="Passwort wiederholen"
             onChangeText={(text) => setNewPassword2(text)}
             secureTextEntry={true}
+            autoComplete="new-password"
             ref={thirdInput}
             returnKeyType="done"
           />

@@ -325,6 +325,7 @@ export default function ManageUsersScreen() {
             onChangeText={(text) => setEditEmail(text)}
             secureTextEntry={false}
             initialValue={editEmail}
+            autoComplete="email"
             onSubmitEditing={() => editEmailInput.current?.blur()}
             ref={editEmailInput}
             returnKeyType="done"
