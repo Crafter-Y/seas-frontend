@@ -98,7 +98,7 @@ export default function ServerSelectorScreen() {
               ["flex-grow items-center gap-4"]
             )}
           >
-            <Text style={tw`text-4xl font-semibold mt-[10%]`}>Willkommen!</Text>
+            <Text style={tw`text-4xl font-semibold mt-[12%]`}>Willkommen!</Text>
             <Text style={tw`text-2xl`}>{serverName}</Text>
           </View>
           <View
@@ -159,7 +159,8 @@ export default function ServerSelectorScreen() {
               back={back}
             />
             <Text style={tw`text-xs opacity-80 w-full text-center mt-12`}>
-              &copy; Helmut Haase 2022-{new Date().getFullYear()}
+              &copy; (copyright) Helmut Haase 2022 - {new Date().getFullYear()}{" "}
+              • SEAS Kirchengemeinde UG (haftungsbeschränkt)
             </Text>
             <Text style={tw`text-xs opacity-80 w-full text-center`}></Text>
             <Text

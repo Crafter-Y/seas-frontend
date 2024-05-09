@@ -5,6 +5,7 @@ import Input from "./elements/Input";
 import Button from "./elements/Button";
 import ErrorDisplay from "./ErrorDisplay";
 import useMediaQueries from "@/hooks/useMediaQueries";
+import { router } from "expo-router";
 
 type Props = {
   back: () => void;
@@ -37,6 +38,7 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
     >
       <Input
         placeholder="Email"
+        inputMode="email"
         autoFocus={true}
         onChangeText={(text) => setEmail(text)}
         onSubmitEditing={() => secondInput.current?.focus()}
@@ -61,6 +63,20 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
             : authError
         }
       />
+
+      <Text
+        style={tw.style("underline opacity-80")}
+        onPress={() => {
+          router.push({
+            pathname: "/passwordreset",
+            params: {
+              email: email,
+            },
+          });
+        }}
+      >
+        Passwort vergessen
+      </Text>
 
       <View
         style={tw.style({

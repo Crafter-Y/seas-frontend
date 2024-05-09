@@ -46,13 +46,12 @@ export default function ChangePasswordScreen() {
           "w-1/3 items-end justify-center pl-4"
         )}
       >
-        <SettingsBackButton />
+        <SettingsBackButton backRoute="/board/" />
         <H1 style={tw`text-right`}>Passwort ändern</H1>
 
         <Text style={tw`text-right mt-4 ml-4`}>
-          Das vergebene Standartpasswort ist recht unsicher. Deshalb sollte es
-          geändert werden. Das neue Passwort muss mindestens 7 Zeichen haben.
-          Erlaubt sind Buchstaben, Zahlen und Sonderzeichen: -_!?/*%$
+          Das neue Passwort muss mindestens 7 Zeichen haben. Erlaubt sind
+          Buchstaben, Zahlen und Sonderzeichen: -_!?/*%$
         </Text>
         <Footer
           style={tw.style(
@@ -130,6 +129,7 @@ export default function ChangePasswordScreen() {
         <Footer
           style={tw.style({
             hidden: isMd,
+            "w-[90%]": true,
           })}
         />
       </View>

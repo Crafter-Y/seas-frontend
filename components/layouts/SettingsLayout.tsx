@@ -100,7 +100,7 @@ export const SettingsLayout = ({ children, actualSetting }: Props) => {
           "w-1/3 items-end justify-center pl-4"
         )}
       >
-        <SettingsBackButton />
+        <SettingsBackButton backRoute="/board/" />
         <H1 style={tw`text-right`}>Einstellungen</H1>
         {Object.keys(settingsSections).map((setting) => (
           <InlineNavigationButton
