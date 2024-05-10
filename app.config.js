@@ -3,7 +3,7 @@ module.exports = {
     name: "SEAS - Kirchengemeinden",
     slug: "csa-frontend",
     scheme: "seas-kirchengemeinde",
-    version: "1.0.0",
+    version: "1.0.7",
     orientation: "default",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
