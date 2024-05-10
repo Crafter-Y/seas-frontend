@@ -30,7 +30,7 @@ import CreateUserForm from "@/components/settings/CreateUserForm";
 export default function ManageUsersScreen() {
   const { allUsers, queryUsers } = useAllUsers();
 
-  const { requestNewPassword, newPassword, successfulPasswordCreation } =
+  const { requestNewPassword, successfulPasswordCreation } =
     useRequestNewPassword();
 
   const { deleteUser, succesfulDeletion } = useDeleteUser();
@@ -66,7 +66,7 @@ export default function ManageUsersScreen() {
 
   useEffect(() => {
     if (successfulPasswordCreation) newPasswordModal.current?.openModal();
-  }, [newPassword]);
+  }, [successfulPasswordCreation]);
 
   useEffect(() => {
     if (successfulUpdate) {
@@ -414,14 +414,14 @@ export default function ManageUsersScreen() {
       </Modal>
 
       <Modal type="CENTER" ref={newPasswordModal}>
-        <H1 style={tw`mt-2 text-center`}>Neues Passwort generiert</H1>
+        <H1 style={tw`mt-2 text-center`}>Neues Passwort angefragt</H1>
         <Text style={tw`mx-4`}>
           Das Passwort von{" "}
           <Text style={tw`font-semibold`}>{userNameForEdit}</Text> wurde
           erfolgreich zurück gesetzt.
         </Text>
-        <Text style={tw`mx-4 text-lg`} selectable>
-          Das neue Passwort lautet: {newPassword}
+        <Text style={tw`mx-4 text-lg`}>
+          Das Mitglied hat eine E-Mail erhalten um ein neues Passwort zu wählen.
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button onPress={() => newPasswordModal.current?.closeModal()}>
