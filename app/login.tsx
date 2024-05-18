@@ -1,6 +1,6 @@
 import { Platform, Text, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import tw from "@/tailwind";
 import "@expo/match-media";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -13,6 +13,9 @@ import LoginForm from "@/components/LoginForm";
 import useAuthentication from "@/hooks/api/useAuthentication";
 import { Store } from "@/helpers/store";
 import { FetchState } from "@/helpers/Constants";
+import BoardHeaderRoundButton from "@/components/BoardHeaderRoundButton";
+import { ModalHandle } from "@/components/elements/Modal";
+import DevelopmentServerSwitcher from "@/components/DevelopmentServerSwitcher";
 
 type WebConfig = {
   serverId: string;
@@ -29,6 +32,8 @@ export default function ServerSelectorScreen() {
   const { serverName, fetchServerError, fetchServerName } = useServerName();
 
   const segments = useSegments();
+
+  const apiModal = useRef<ModalHandle>(null);
 
   const back = async () => {
     await AsyncStorage.removeItem("serverId");
@@ -83,6 +88,15 @@ export default function ServerSelectorScreen() {
 
   return (
     <SafeAreaView style={{ margin: 0, padding: 0 }}>
+      {__DEV__ && Platform.OS == "web" && (
+        <View style={tw`w-full items-end p-1`}>
+          <BoardHeaderRoundButton
+            imageSource={require("@/assets/img/settings.svg")}
+            onPress={() => apiModal.current!.openModal()}
+            style={tw`border rounded-xl`}
+          />
+        </View>
+      )}
       <View>
         <View
           style={tw.style("flex w-full flex-row", {
@@ -177,6 +191,7 @@ export default function ServerSelectorScreen() {
           </View>
         </View>
       </View>
+      <DevelopmentServerSwitcher ref={apiModal} />
     </SafeAreaView>
   );
 }

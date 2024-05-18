@@ -134,7 +134,13 @@ const BoardList = ({ rows, fetchData }: Props) => {
     return (
       <BoardAssignButton
         color="GREEN"
-        onPress={() => assignUser(user!.id, row.date, column.id)}
+        onPress={() => {
+          // this timeout is needed, because on e.g. chrome mobile, the press event is passed down to the board row pressable
+          // without this, the board row modal will also open on press of this button
+          setTimeout(() => {
+            assignUser(user!.id, row.date, column.id);
+          }, 100);
+        }}
       />
     );
   };
