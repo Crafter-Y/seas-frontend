@@ -7,7 +7,6 @@ import BoardHeader from "@/components/BoardHeader";
 import BoardSidebar from "@/components/BoardSidebar";
 import Footer from "@/components/Footer";
 import Board from "@/components/Board";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import useServerName from "@/hooks/api/useServerName";
 import { Color } from "@/helpers/Constants";
 import { router, useSegments } from "expo-router";
@@ -28,7 +27,6 @@ export default function BoardScreenScreen() {
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
 
   const { height } = useWindowDimensions();
-  const { isMd } = useMediaQueries();
 
   const segments = useSegments();
 
@@ -56,7 +54,7 @@ export default function BoardScreenScreen() {
   return (
     <SafeAreaView
       style={tw.style(`m-0 p-0 bg-[${Color.LIGHT_GRAY}] flex flex-row`, {
-        height: isMd ? height : undefined,
+        height: Platform.OS == "web" ? height : undefined,
       })}
     >
       <BoardSidebar
