@@ -20,6 +20,7 @@ type Props = {
   inputMode?: InputModeOptions;
   initialValue?: string;
   disabled?: boolean;
+  maxLength?: number;
   autoComplete?: TextInputProps["autoComplete"];
 };
 
@@ -37,6 +38,7 @@ const Input = forwardRef<TextInput, Props>(
       initialValue,
       disabled,
       autoComplete,
+      maxLength,
     }: Props,
     ref
   ) => {
@@ -52,6 +54,7 @@ const Input = forwardRef<TextInput, Props>(
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         autoCorrect={false}
+        maxLength={maxLength}
         autoComplete={autoComplete ? autoComplete : undefined}
         autoCapitalize="none"
         keyboardType={secureTextEntry ? "default" : "visible-password"}

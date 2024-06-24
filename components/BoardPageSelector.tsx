@@ -64,7 +64,7 @@ const BoardPageSelector = () => {
         page.id == currentPage ? (
           <Text
             key={page.id}
-            style={tw`bg-green-600 rounded-xl text-lg px-2 text-white`}
+            style={tw`bg-green-600 rounded-xl text-lg px-2 text-white querywait`}
           >
             {page.name}
           </Text>

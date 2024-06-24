@@ -66,6 +66,7 @@ export default function ManageCommentsScreen() {
           placeholder="Kommentar"
           onChangeText={(text) => setDefaultComment(text)}
           secureTextEntry={false}
+          maxLength={64}
           ref={commentInput}
           onSubmitEditing={() => {
             createDefaultComment(defaultComment);
