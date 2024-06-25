@@ -11,6 +11,8 @@ import usePasswordTokenInfo from "@/hooks/api/usePasswortTokenInfo";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";
 import useRedeemPasswordToken from "@/hooks/api/useRedeemPasswordToken";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 
 export default function VerifyScreen() {
   const { t, intent } = useLocalSearchParams<{ t: string; intent: string }>();
@@ -26,6 +28,7 @@ export default function VerifyScreen() {
     tokenValid,
     setTokenValid,
     productName,
+    productId,
     firstname,
     lastname,
   } = usePasswordTokenInfo();
@@ -36,6 +39,12 @@ export default function VerifyScreen() {
   const [newPassword2, setNewPassword2] = useState("");
 
   const thirdInput = useRef<TextInput>(null);
+
+  useEffect(() => {
+    if (tokenValid) {
+      AsyncStorage.setItem("serverId", productId);
+    }
+  }, [tokenValid]);
 
   useEffect(() => {
     if (t && t.length == 36) {
@@ -154,6 +163,9 @@ export default function VerifyScreen() {
                   Sie können sich nun mit Ihrer Email + Passwort bei{" "}
                   <Text style={tw`font-semibold`}>{productName}</Text> anmelden.
                 </Text>
+                <Button onPress={() => router.replace("/login")}>
+                  Zur Anmeldeseite
+                </Button>
               </>
             )}
           </View>
