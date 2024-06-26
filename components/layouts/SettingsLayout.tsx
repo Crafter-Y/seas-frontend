@@ -19,6 +19,7 @@ import { router, Stack } from "expo-router";
 type Props = {
   children: React.ReactNode;
   actualSetting: string;
+  backTitle?: string;
 };
 
 export const settingsSections = {
@@ -77,7 +78,11 @@ const InlineNavigationButton = ({
   );
 };
 
-export const SettingsLayout = ({ children, actualSetting }: Props) => {
+export const SettingsLayout = ({
+  children,
+  actualSetting,
+  backTitle,
+}: Props) => {
   const { height } = useWindowDimensions();
 
   const { isMd } = useMediaQueries();
@@ -90,7 +95,13 @@ export const SettingsLayout = ({ children, actualSetting }: Props) => {
         height, // this is needed. Parent containers must have a set height for ScrollView to work
       }}
     >
-      <Stack.Screen options={{ headerShown: !isMd, title: "Einstellungen" }} />
+      <Stack.Screen
+        options={{
+          headerShown: !isMd,
+          title: "Einstellungen",
+          headerBackTitle: backTitle,
+        }}
+      />
       <View
         style={tw.style(
           {

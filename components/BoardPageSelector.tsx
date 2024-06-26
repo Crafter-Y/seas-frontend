@@ -62,12 +62,18 @@ const BoardPageSelector = () => {
     >
       {allPages.map((page) =>
         page.id == currentPage ? (
-          <Text
-            key={page.id}
-            style={tw`bg-green-600 rounded-xl text-lg px-2 text-white`}
-          >
-            {page.name}
-          </Text>
+          <View key={page.id} style={tw`rounded-xl bg-green-600`}>
+            <Text
+              style={tw.style(
+                {
+                  borderRadius: 12,
+                },
+                "text-lg px-2 text-white"
+              )}
+            >
+              {page.name}
+            </Text>
+          </View>
         ) : (
           <BoardPageButton page={page} key={page.id} />
         )

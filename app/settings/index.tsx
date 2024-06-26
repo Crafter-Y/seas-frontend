@@ -13,7 +13,7 @@ export default function BaseSettingsScreen() {
   const { isMd, isSm } = useMediaQueries();
 
   return (
-    <SettingsLayout actualSetting="settings">
+    <SettingsLayout actualSetting="settings" backTitle="Zurück">
       <View
         style={tw.style(
           {

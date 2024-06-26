@@ -54,7 +54,8 @@ export default function BoardScreenScreen() {
   return (
     <SafeAreaView
       style={tw.style(`m-0 p-0 bg-[${Color.LIGHT_GRAY}] flex flex-row`, {
-        height: Platform.OS == "web" ? height : undefined,
+        height:
+          Platform.OS == "web" || Platform.OS == "ios" ? height : undefined,
       })}
     >
       <BoardSidebar
