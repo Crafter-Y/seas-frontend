@@ -1,4 +1,10 @@
-import { Pressable, Text, TextInput, View } from "react-native";
+import {
+  Pressable,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import tw from "@/tailwind";
@@ -26,6 +32,7 @@ import { toUpperStarting } from "@/helpers/format";
 import useRequestVerification from "@/hooks/api/useRequestVerification";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import CreateUserForm from "@/components/settings/CreateUserForm";
+import ModalRewrite from "@/components/elements/ModalRewrite";
 
 export default function ManageUsersScreen() {
   const { allUsers, queryUsers } = useAllUsers();
@@ -173,18 +180,14 @@ export default function ManageUsersScreen() {
         </Form>
       </SettingsForm>
 
-      <Modal type="CENTER" ref={editModal}>
-        <H1 style={tw`mt-2 text-center`}>
-          Mitglied bearbeiten (ID: {userIdForEdit})
-        </H1>
-
-        <Divider type="HORIZONTAL" style={tw`mt-1`} />
-        <Pressable
+      <ModalRewrite title="Mitglied bearbeiten" ref={editModal}>
+        <TouchableOpacity
+          activeOpacity={0.55}
           style={tw.style(
             {
               hidden: userIdForEdit == user?.id,
             },
-            "py-3 flex-row items-center mx-4 gap-2"
+            "pb-3 pt-1 flex-row items-center mx-4 gap-2"
           )}
           onPress={() => {
             editModal.current?.closeModal();
@@ -203,7 +206,7 @@ export default function ManageUsersScreen() {
             size={24}
             style={{ color: Color.BLUE }}
           />
-        </Pressable>
+        </TouchableOpacity>
         <Divider
           type="HORIZONTAL"
           style={tw.style(
@@ -295,7 +298,7 @@ export default function ManageUsersScreen() {
             Abbrechen
           </Button>
         </View>
-      </Modal>
+      </ModalRewrite>
 
       <Modal type="CENTER" ref={changeInformationModal}>
         <H1 style={tw`mt-2 text-center`}>

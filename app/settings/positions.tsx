@@ -4,9 +4,8 @@ import Button from "@/components/elements/Button";
 import Checkbox from "@/components/elements/Checkbox";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
-import H1 from "@/components/elements/H1";
 import Input from "@/components/elements/Input";
-import Modal, { ModalHandle } from "@/components/elements/Modal";
+import { ModalHandle } from "@/components/elements/Modal";
 import Picker from "@/components/elements/Picker";
 import TD from "@/components/elements/TD";
 import TH from "@/components/elements/TH";
@@ -26,6 +25,8 @@ import Image from "@/components/elements/Image";
 import React, { useEffect, useRef, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import SettingsTitle from "@/components/settings/SettingsTitle";
+import ModalRewrite from "@/components/elements/ModalRewrite";
+import { Color } from "@/helpers/Constants";
 
 export default function ManagePositionsScreen() {
   const {
@@ -168,8 +169,7 @@ export default function ManagePositionsScreen() {
         </Form>
       </SettingsForm>
 
-      <Modal type="CENTER" ref={deleteColumnModal}>
-        <H1 style={tw`mt-2 text-center`}>Spalte löschen?</H1>
+      <ModalRewrite title="Spalte löschen?" ref={deleteColumnModal}>
         <Text style={tw`mx-4`}>
           Soll die Spalte{" "}
           <Text style={tw`font-semibold`}>{columnToChange?.name}</Text> wirklich
@@ -180,6 +180,9 @@ export default function ManagePositionsScreen() {
           unwiderruflich gelöscht!
         </Text>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button onPress={() => deleteColumnModal.current?.closeModal()}>
+            Abbrechen
+          </Button>
           <Button
             onPress={() => {
               deleteColumn(columnToChange!.id);
@@ -188,15 +191,10 @@ export default function ManagePositionsScreen() {
           >
             Löschen
           </Button>
-          <Button onPress={() => deleteColumnModal.current?.closeModal()}>
-            Abbrechen
-          </Button>
         </View>
-      </Modal>
+      </ModalRewrite>
 
-      <Modal type="CENTER" ref={modifyModal}>
-        <H1 style={tw`mt-2 text-center`}>Spalte bearbeiten</H1>
-
+      <ModalRewrite title="Spalte bearbeiten" ref={modifyModal}>
         <Text style={tw`mt-4 mx-4`}>Neuen Spalten Namen festlegen</Text>
 
         <Input
@@ -252,21 +250,21 @@ export default function ManagePositionsScreen() {
         ))}
 
         <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button onPress={() => modifyModal.current?.closeModal()}>
+            Abbrechen
+          </Button>
           <Button
             onPress={() => {
               assignColumns(assignmentChanges);
               renameColumn(columnToChange!.id, columnRenameName);
               renameInput.current?.blur();
             }}
-            color="#f67e7e"
+            color={Color.GREEN}
           >
             Speichern
           </Button>
-          <Button onPress={() => modifyModal.current?.closeModal()}>
-            Abbrechen
-          </Button>
         </View>
-      </Modal>
+      </ModalRewrite>
     </SettingsLayout>
   );
 }
