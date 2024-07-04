@@ -13,6 +13,7 @@
     "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\"",
     "build:web": "expo export --platform web",
     "build:android": "eas build --platform android",
+    "submit:android": "eas submit --platform android",
     "serve": "cross-env SERVER_ID=58119 SERVE_LOCAL_NETWORK=1 node serve.js",
     "serve:prod": "node serve.js",
     "eas-build-pre-install": "npm config set legacy-peer-deps true",
@@ -22,7 +23,7 @@
   "dependencies": {
     "@expo/match-media": "^0.4.0",
     "@react-native-async-storage/async-storage": "1.23.1",
-    "@react-native-picker/picker": "2.7.7",
+    "@react-native-picker/picker": "2.7.5",
     "email-validator": "^2.0.4",
     "expo": "~51.0.17",
     "expo-calendar": "~13.0.5",
