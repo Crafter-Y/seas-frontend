@@ -139,6 +139,7 @@ export const SettingsLayout = ({
         )}
       />
       <ScrollView
+        keyboardShouldPersistTaps="handled"
         contentContainerStyle={tw.style(
           {
             "py-14": isMd,

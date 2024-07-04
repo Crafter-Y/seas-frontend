@@ -1,0 +1,149 @@
+import { Color } from "@/helpers/Constants";
+import tw from "@/tailwind";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import Divider from "@/components/elements/Divider";
+import Image from "@/components/elements/Image";
+import Button from "@/components/elements/Button";
+import useRequestVerification from "@/hooks/api/useRequestVerification";
+
+type Props = {
+  user: User;
+  editUser: APIFullResponseUser;
+  closeModal?: () => void;
+  queryUsers: () => void;
+  openRequestPasswordModal?: () => void;
+  openChangeInformationModal?: () => void;
+};
+
+const EditUserModal = ({
+  user,
+  editUser,
+  closeModal,
+  queryUsers,
+  openRequestPasswordModal,
+  openChangeInformationModal,
+}: Props) => {
+  const { requestVerification } = useRequestVerification();
+
+  return (
+    <>
+      <TouchableOpacity
+        activeOpacity={0.55}
+        style={tw.style(
+          {
+            hidden: editUser.id === user.id,
+          },
+          "pb-3 pt-1 flex-row items-center mx-4 gap-2"
+        )}
+        onPress={() => {
+          closeModal?.();
+          openRequestPasswordModal?.();
+        }}
+      >
+        <Text
+          style={tw.style("text-lg font-semibold", {
+            color: Color.BLUE,
+          })}
+        >
+          Passwort zurücksetzen
+        </Text>
+        <Image
+          source={require("@/assets/img/refresh.svg")}
+          size={24}
+          style={{ color: Color.BLUE }}
+        />
+      </TouchableOpacity>
+      <Divider
+        type="HORIZONTAL"
+        style={tw.style(
+          {
+            hidden: editUser.id === user.id,
+          },
+          "mb-1"
+        )}
+      />
+      <Pressable
+        style={tw.style(
+          {
+            hidden: editUser.id === user.id,
+          },
+          "py-3 flex-row items-center mx-4 gap-2"
+        )}
+        onPress={() => {
+          closeModal?.();
+          openChangeInformationModal?.();
+        }}
+      >
+        <Text
+          style={tw.style("text-lg font-semibold", {
+            color: Color.BLUE,
+          })}
+        >
+          Nutzer bearbeiten
+        </Text>
+        <Image
+          source={require("@/assets/img/edit.svg")}
+          size={24}
+          style={{ color: Color.BLUE }}
+        />
+      </Pressable>
+      <Divider
+        type="HORIZONTAL"
+        style={tw.style(
+          {
+            hidden: editUser.id === user.id,
+          },
+          "mb-1"
+        )}
+      />
+      <Pressable
+        style={tw.style(
+          {
+            hidden:
+              editUser.state != "UNVERIFIED" &&
+              editUser.state != "VERIFICATION_PENDING",
+          },
+          "py-3 flex-row items-center mx-4 gap-2"
+        )}
+        onPress={() => {
+          // TODO: refactor to use event driven code (without timeout)
+          closeModal?.();
+          requestVerification(editUser.id);
+          setTimeout(() => {
+            queryUsers();
+          }, 1000);
+        }}
+      >
+        <Text
+          style={tw.style("text-lg font-semibold", {
+            color: Color.BLUE,
+          })}
+        >
+          Verifizierung anfragen
+        </Text>
+        <Image
+          source={require("@/assets/img/changepassword.svg")}
+          size={24}
+          style={{ color: Color.BLUE }}
+        />
+      </Pressable>
+      <Divider
+        type="HORIZONTAL"
+        style={tw.style(
+          {
+            hidden:
+              editUser.state != "UNVERIFIED" &&
+              editUser.state != "VERIFICATION_PENDING",
+          },
+          "mb-1"
+        )}
+      />
+
+      <View style={tw`justify-center flex-row gap-2 my-4`}>
+        <Button onPress={closeModal}>Abbrechen</Button>
+      </View>
+    </>
+  );
+};
+
+export default EditUserModal;

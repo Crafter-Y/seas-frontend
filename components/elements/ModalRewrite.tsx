@@ -88,7 +88,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
                   >
                     <View style={tw`w-10 h-1`}></View>
                     <Text
-                      style={tw`text-3xl font-semibold text-black/80 text-center flex-grow max-w-10/12`}
+                      style={tw`text-3xl font-semibold text-black/80 text-center flex-grow max-w-4/5`}
                     >
                       {title}
                     </Text>

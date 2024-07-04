@@ -1,19 +1,8 @@
-import {
-  Pressable,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import { Text, View } from "react-native";
+import React, { useRef, useState } from "react";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import tw from "@/tailwind";
-import Input from "@/components/elements/Input";
-import { Picker as RNPicker } from "@react-native-picker/picker";
-import Modal, { ModalHandle } from "@/components/elements/Modal";
 import SettingsForm from "@/components/SettingsForm";
-import ErrorDisplay from "@/components/ErrorDisplay";
-import Picker from "@/components/elements/Picker";
 import Button from "@/components/elements/Button";
 import Divider from "@/components/elements/Divider";
 import TH from "@/components/elements/TH";
@@ -23,71 +12,28 @@ import TD from "@/components/elements/TD";
 import Form from "@/components/elements/Form";
 import useAuthentication from "@/hooks/api/useAuthentication";
 import Image from "@/components/elements/Image";
-import H1 from "@/components/elements/H1";
-import useDeleteUser from "@/hooks/api/useDeleteUser";
-import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
-import { Color } from "@/helpers/Constants";
-import useUpdateUser from "@/hooks/api/useUpdateUser";
 import { toUpperStarting } from "@/helpers/format";
-import useRequestVerification from "@/hooks/api/useRequestVerification";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import CreateUserForm from "@/components/settings/CreateUserForm";
-import ModalRewrite from "@/components/elements/ModalRewrite";
+import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
+import EditUserModal from "@/components/settings/EditUserModal";
+import ChangeUserInformationModal from "@/components/settings/ChangeUserInformationModal";
+import DeleteUserModal from "@/components/settings/DeleteUserModal";
+import RequestNewPasswordModal from "@/components/settings/RequestNewPasswordModal";
+import NewPasswordModal from "@/components/settings/NewPasswordModal";
 
 export default function ManageUsersScreen() {
+  const { user } = useAuthentication();
+
   const { allUsers, queryUsers } = useAllUsers();
 
-  const { requestNewPassword, successfulPasswordCreation } =
-    useRequestNewPassword();
-
-  const { deleteUser, succesfulDeletion } = useDeleteUser();
-
-  const { updateUser, successfulUpdate, updateError } = useUpdateUser();
-
-  const { requestVerification } = useRequestVerification();
-
-  // edit modal states
-  const [editFirstName, setEditFirstName] = useState("");
-  const [editSecondName, setEditSecondName] = useState("");
-  const [editEmail, setEditEmail] = useState("");
-  const [editRole, setEditRole] = useState<Role>("USER");
-  const [editState, setEditState] = useState<AccountState>("UNVERIFIED");
-  const editFirstNameInput = useRef<TextInput>(null);
-  const editSecondNameInput = useRef<TextInput>(null);
-  const editEmailInput = useRef<TextInput>(null);
-  const [hasTriedUpdate, setHasTriedUpdate] = useState(false);
+  const [editUser, setEditUser] = useState<APIFullResponseUser>();
 
   const editModal = useRef<ModalHandle>(null);
   const changeInformationModal = useRef<ModalHandle>(null);
   const deleteUserModal = useRef<ModalHandle>(null);
   const requestNewPasswordModal = useRef<ModalHandle>(null);
   const newPasswordModal = useRef<ModalHandle>(null);
-
-  const [userIdToDelete, setUserIdToDelete] = useState(0);
-  const [userNameToDelete, setUserNameToDelete] = useState("");
-
-  const [userIdForEdit, setUserIdForEdit] = useState(0);
-  const [userNameForEdit, setUserNameForEdit] = useState("");
-
-  const { user } = useAuthentication();
-
-  useEffect(() => {
-    if (successfulPasswordCreation) newPasswordModal.current?.openModal();
-  }, [successfulPasswordCreation]);
-
-  useEffect(() => {
-    if (successfulUpdate) {
-      changeInformationModal.current?.closeModal();
-      queryUsers();
-    }
-  }, [successfulUpdate]);
-
-  useEffect(() => {
-    if (succesfulDeletion) {
-      queryUsers();
-      deleteUserModal.current?.closeModal();
-    }
-  }, [succesfulDeletion]);
 
   return (
     <SettingsLayout actualSetting="users">
@@ -135,10 +81,7 @@ export default function ManageUsersScreen() {
                     color="#f67e7e"
                     style={tw`p-2.5`}
                     onPress={() => {
-                      setUserIdToDelete(entry.id);
-                      setUserNameToDelete(
-                        `${entry.firstname} ${entry.lastname}`
-                      );
+                      setEditUser(entry);
                       deleteUserModal.current?.openModal();
                     }}
                   >
@@ -155,15 +98,7 @@ export default function ManageUsersScreen() {
                     <Button
                       style={tw`p-2.5`}
                       onPress={() => {
-                        setUserIdForEdit(entry.id);
-                        setUserNameForEdit(
-                          `${entry.firstname} ${entry.lastname}`
-                        );
-                        setEditFirstName(entry.firstname);
-                        setEditSecondName(entry.lastname);
-                        setEditEmail(entry.email);
-                        setEditRole(entry.role);
-                        setEditState(entry.state);
+                        setEditUser(entry);
                         editModal.current?.openModal();
                       }}
                     >
@@ -180,257 +115,49 @@ export default function ManageUsersScreen() {
       </SettingsForm>
 
       <ModalRewrite title="Mitglied bearbeiten" ref={editModal}>
-        <TouchableOpacity
-          activeOpacity={0.55}
-          style={tw.style(
-            {
-              hidden: userIdForEdit == user?.id,
-            },
-            "pb-3 pt-1 flex-row items-center mx-4 gap-2"
-          )}
-          onPress={() => {
-            editModal.current?.closeModal();
-            requestNewPasswordModal.current?.openModal();
-          }}
-        >
-          <Text
-            style={tw.style("text-lg font-semibold", {
-              color: Color.BLUE,
-            })}
-          >
-            Passwort zurücksetzen
-          </Text>
-          <Image
-            source={require("@/assets/img/refresh.svg")}
-            size={24}
-            style={{ color: Color.BLUE }}
-          />
-        </TouchableOpacity>
-        <Divider
-          type="HORIZONTAL"
-          style={tw.style(
-            {
-              hidden: userIdForEdit == user?.id,
-            },
-            "mb-1"
-          )}
+        <EditUserModal
+          user={user!}
+          editUser={editUser!}
+          closeModal={editModal.current?.closeModal}
+          queryUsers={queryUsers}
+          openRequestPasswordModal={requestNewPasswordModal.current?.openModal}
+          openChangeInformationModal={changeInformationModal.current?.openModal}
         />
-        <Pressable
-          style={tw.style(
-            {
-              hidden: userIdForEdit == user?.id,
-            },
-            "py-3 flex-row items-center mx-4 gap-2"
-          )}
-          onPress={() => {
-            editModal.current?.closeModal();
-            setHasTriedUpdate(false);
-            changeInformationModal.current?.openModal();
-          }}
-        >
-          <Text
-            style={tw.style("text-lg font-semibold", {
-              color: Color.BLUE,
-            })}
-          >
-            Nutzer bearbeiten
-          </Text>
-          <Image
-            source={require("@/assets/img/edit.svg")}
-            size={24}
-            style={{ color: Color.BLUE }}
-          />
-        </Pressable>
-        <Divider
-          type="HORIZONTAL"
-          style={tw.style(
-            {
-              hidden: userIdForEdit == user?.id,
-            },
-            "mb-1"
-          )}
-        />
-        <Pressable
-          style={tw.style(
-            {
-              hidden:
-                editState != "UNVERIFIED" &&
-                editState != "VERIFICATION_PENDING",
-            },
-            "py-3 flex-row items-center mx-4 gap-2"
-          )}
-          onPress={() => {
-            editModal.current?.closeModal();
-            requestVerification(userIdForEdit);
-            setTimeout(() => {
-              queryUsers();
-            }, 1000);
-          }}
-        >
-          <Text
-            style={tw.style("text-lg font-semibold", {
-              color: Color.BLUE,
-            })}
-          >
-            Verifizierung anfragen
-          </Text>
-          <Image
-            source={require("@/assets/img/changepassword.svg")}
-            size={24}
-            style={{ color: Color.BLUE }}
-          />
-        </Pressable>
-        <Divider
-          type="HORIZONTAL"
-          style={tw.style(
-            {
-              hidden:
-                editState != "UNVERIFIED" &&
-                editState != "VERIFICATION_PENDING",
-            },
-            "mb-1"
-          )}
-        />
-
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button onPress={() => editModal.current?.closeModal()}>
-            Abbrechen
-          </Button>
-        </View>
       </ModalRewrite>
 
-      <Modal type="CENTER" ref={changeInformationModal}>
-        <H1 style={tw`mt-2 text-center`}>
-          Informationen bearbeiten? (ID: {userIdForEdit})
-        </H1>
-        <View style={tw`mx-4 gap-2`}>
-          <Input
-            placeholder="Vorname"
-            initialValue={editFirstName}
-            onChangeText={(text) => setEditFirstName(text)}
-            secureTextEntry={false}
-            ref={editFirstNameInput}
-            onSubmitEditing={() => editSecondNameInput.current?.focus()}
-            returnKeyType="next"
-          />
-          <Input
-            placeholder="Nachname"
-            onChangeText={(text) => setEditSecondName(text)}
-            initialValue={editSecondName}
-            secureTextEntry={false}
-            onSubmitEditing={() => editEmailInput.current?.focus()}
-            ref={editSecondNameInput}
-            returnKeyType="next"
-          />
-          <Input
-            placeholder="Email-Adresse"
-            onChangeText={(text) => setEditEmail(text)}
-            secureTextEntry={false}
-            initialValue={editEmail}
-            autoComplete="email"
-            onSubmitEditing={() => editEmailInput.current?.blur()}
-            ref={editEmailInput}
-            returnKeyType="done"
-            inputMode="email"
-          />
-          <Picker
-            selectedValue={editRole}
-            onValueChange={(itemValue) => setEditRole(itemValue as Role)}
-          >
-            <RNPicker.Item label="User" value="USER" />
-            <RNPicker.Item label="Admin" value="ADMIN" />
-          </Picker>
-        </View>
-
-        <ErrorDisplay
-          hasError={!!updateError && hasTriedUpdate}
-          error={updateError || ""}
-          style={tw`mx-4`}
+      <ModalRewrite
+        title={`Informationen bearbeiten (ID: ${editUser?.id})`}
+        ref={changeInformationModal}
+      >
+        <ChangeUserInformationModal
+          editUser={editUser!}
+          queryUsers={queryUsers}
+          closeModal={changeInformationModal.current?.closeModal}
         />
+      </ModalRewrite>
 
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button onPress={() => changeInformationModal.current?.closeModal()}>
-            Abbrechen
-          </Button>
-          <Button
-            onPress={() => {
-              setHasTriedUpdate(true);
-              updateUser(
-                userIdForEdit,
-                editFirstName,
-                editSecondName,
-                editEmail,
-                editRole as Role
-              );
-            }}
-            color={Color.GREEN}
-          >
-            Speichern
-          </Button>
-        </View>
-      </Modal>
+      <ModalRewrite title="Mitglied löschen" ref={deleteUserModal}>
+        <DeleteUserModal
+          editUser={editUser!}
+          queryUsers={queryUsers}
+          closeModal={deleteUserModal.current?.closeModal}
+        />
+      </ModalRewrite>
 
-      <Modal type="CENTER" ref={deleteUserModal}>
-        <H1 style={tw`mt-2 text-center`}>Mitglied löschen?</H1>
-        <Text style={tw`mx-4`}>
-          Soll das Mitglied{" "}
-          <Text style={tw`font-semibold`}>{userNameToDelete}</Text> wirklich
-          glöscht werden?
-        </Text>
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button onPress={() => deleteUserModal.current?.closeModal()}>
-            Abbrechen
-          </Button>
-          <Button
-            onPress={() => {
-              deleteUser(userIdToDelete);
-            }}
-            color={Color.RED}
-          >
-            Löschen
-          </Button>
-        </View>
-      </Modal>
+      <ModalRewrite title="Passwort zurücksetzen" ref={requestNewPasswordModal}>
+        <RequestNewPasswordModal
+          editUser={editUser!}
+          closeModal={requestNewPasswordModal.current?.closeModal}
+          openNewPasswordModal={newPasswordModal.current?.openModal}
+        />
+      </ModalRewrite>
 
-      <Modal type="CENTER" ref={requestNewPasswordModal}>
-        <H1 style={tw`mt-2 text-center`}>Passwort zurücksetzen?</H1>
-        <Text style={tw`mx-4`}>
-          Soll das Passwort von{" "}
-          <Text style={tw`font-semibold`}>{userNameForEdit}</Text> wirklich
-          zurückgesetzt werden?
-        </Text>
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button onPress={() => requestNewPasswordModal.current?.closeModal()}>
-            Abbrechen
-          </Button>
-          <Button
-            onPress={() => {
-              requestNewPassword(userIdForEdit);
-              requestNewPasswordModal.current?.closeModal();
-            }}
-            color="#f67e7e"
-          >
-            Zurücksetzen
-          </Button>
-        </View>
-      </Modal>
-
-      <Modal type="CENTER" ref={newPasswordModal}>
-        <H1 style={tw`mt-2 text-center`}>Neues Passwort angefragt</H1>
-        <Text style={tw`mx-4`}>
-          Das Passwort von{" "}
-          <Text style={tw`font-semibold`}>{userNameForEdit}</Text> wurde
-          erfolgreich zurück gesetzt.
-        </Text>
-        <Text style={tw`mx-4 text-lg`}>
-          Das Mitglied hat eine E-Mail erhalten um ein neues Passwort zu wählen.
-        </Text>
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button onPress={() => newPasswordModal.current?.closeModal()}>
-            Fertig
-          </Button>
-        </View>
-      </Modal>
+      <ModalRewrite title="Neues Passwort angefragt" ref={newPasswordModal}>
+        <NewPasswordModal
+          editUser={editUser!}
+          closeModal={newPasswordModal.current?.closeModal}
+        />
+      </ModalRewrite>
     </SettingsLayout>
   );
 }
