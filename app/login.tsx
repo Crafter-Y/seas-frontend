@@ -1,5 +1,4 @@
 import { Platform, Text, useWindowDimensions, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useRef } from "react";
 import tw from "@/tailwind";
 import "@expo/match-media";
@@ -15,13 +14,14 @@ import { Store } from "@/helpers/store";
 import { FetchState } from "@/helpers/Constants";
 import BoardHeaderRoundButton from "@/components/BoardHeaderRoundButton";
 import { ModalHandle } from "@/components/elements/Modal";
-import DevelopmentServerSwitcher from "@/components/DevelopmentServerSwitcher";
+import DevelopmentServerModal from "@/components/DevelopmentServerModal";
+import StartScreenWrapper from "@/components/StartScreenWrapper";
 
 type WebConfig = {
   serverId: string;
 };
 
-export default function ServerSelectorScreen() {
+export default function LoginScreen() {
   const { login, authError, hasAuthError, user } = useAuthentication();
   const { isSm, isMd } = useMediaQueries();
 
@@ -87,16 +87,7 @@ export default function ServerSelectorScreen() {
   }, [user]);
 
   return (
-    <SafeAreaView style={{ margin: 0, padding: 0 }}>
-      {__DEV__ && Platform.OS == "web" && (
-        <View style={tw`w-full items-end p-1`}>
-          <BoardHeaderRoundButton
-            imageSource={require("@/assets/img/settings.svg")}
-            onPress={() => apiModal.current!.openModal()}
-            style={tw`border rounded-xl`}
-          />
-        </View>
-      )}
+    <StartScreenWrapper>
       <View>
         <View
           style={tw.style("flex w-full flex-row", {
@@ -130,6 +121,15 @@ export default function ServerSelectorScreen() {
               }
             )}
           >
+            {__DEV__ && Platform.OS == "web" && (
+              <View style={tw`w-full items-end p-1`}>
+                <BoardHeaderRoundButton
+                  imageSource={require("@/assets/img/settings.svg")}
+                  onPress={() => apiModal.current!.openModal()}
+                  style={tw`border rounded-xl`}
+                />
+              </View>
+            )}
             <Text
               style={tw.style(
                 {
@@ -191,7 +191,7 @@ export default function ServerSelectorScreen() {
           </View>
         </View>
       </View>
-      <DevelopmentServerSwitcher ref={apiModal} />
-    </SafeAreaView>
+      <DevelopmentServerModal ref={apiModal} />
+    </StartScreenWrapper>
   );
 }

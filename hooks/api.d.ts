@@ -4,6 +4,8 @@ type ApiResponse = {
   data: any;
 };
 
+type ChildType = React.ReactNode | React.ReactNode[];
+
 type User = {
   id: number;
   firstname: string;

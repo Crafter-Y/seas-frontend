@@ -8,25 +8,23 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useRef, useState } from "react";
 import useServerName from "@/hooks/api/useServerName";
 import { router } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { FetchState } from "@/helpers/Constants";
 import BoardHeaderRoundButton from "@/components/BoardHeaderRoundButton";
 import { ModalHandle } from "@/components/elements/Modal";
-import DevelopmentServerSwitcher from "@/components/DevelopmentServerSwitcher";
+import DevelopmentServerModal from "@/components/DevelopmentServerModal";
+import StartScreenWrapper from "@/components/StartScreenWrapper";
 
 export default function ServerSelectorScreen() {
   const { height, width } = useWindowDimensions();
+  const { fetchServerName, fetchState, fetchServerError } = useServerName();
 
   const [serverId, setServerId] = useState("");
-
   const [isError, setIsError] = useState(false);
-
   const [inputError, setInputError] = useState("");
 
   const apiModal = useRef<ModalHandle>(null);
 
-  const { fetchServerName, fetchState, fetchServerError } = useServerName();
-
+  // If this is web, redirect immediately
   useEffect(() => {
     if (Platform.OS == "web") {
       setTimeout(() => {
@@ -37,6 +35,7 @@ export default function ServerSelectorScreen() {
     }
   }, []);
 
+  // redirect after successfull fetch
   useEffect(() => {
     if (fetchState == FetchState.SUCCEEDED)
       setTimeout(() => {
@@ -59,12 +58,11 @@ export default function ServerSelectorScreen() {
     }
 
     await AsyncStorage.setItem("serverId", serverId);
-
     fetchServerName();
   };
 
   return (
-    <SafeAreaView>
+    <StartScreenWrapper>
       {__DEV__ && (
         <View style={tw`w-full items-end p-1`}>
           <BoardHeaderRoundButton
@@ -95,7 +93,7 @@ export default function ServerSelectorScreen() {
           autoFocus={true}
           onChangeText={(id) => setServerId(id)}
           style={"mt-1"}
-        ></Input>
+        />
         <ErrorDisplay hasError={isError} error={inputError} />
         <ErrorDisplay
           hasError={!!fetchServerError}
@@ -105,7 +103,7 @@ export default function ServerSelectorScreen() {
         <Text>Dies kann hinterher noch geändert werden.</Text>
         <Button onPress={login}>Speichern</Button>
       </View>
-      <DevelopmentServerSwitcher ref={apiModal} />
-    </SafeAreaView>
+      <DevelopmentServerModal ref={apiModal} />
+    </StartScreenWrapper>
   );
 }

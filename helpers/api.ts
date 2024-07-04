@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
-import decode, { InvalidTokenError } from "jwt-decode";
+import { jwtDecode as decode, InvalidTokenError } from "jwt-decode";
 import { Store } from "./store";
 import { router } from "expo-router";
 

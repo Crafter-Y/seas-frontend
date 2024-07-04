@@ -15,6 +15,7 @@ import Input from "./Input";
 import { ScrollView } from "react-native-gesture-handler";
 import Divider from "./Divider";
 import { AntDesign } from "@expo/vector-icons";
+import useMediaQueries from "@/hooks/useMediaQueries";
 
 type Props = {
   title: string;
@@ -29,6 +30,8 @@ export type ModalHandle = {
 
 const ModalRewrite = forwardRef<ModalHandle, Props>(
   ({ title, children, scrollable = false }: Props, ref) => {
+    const { isSm, isMd, isXl } = useMediaQueries();
+
     const [isModalOpen, setModalOpen] = useState(false);
 
     //#TODO: Animate background to fade in and out
@@ -70,13 +73,22 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
               behavior={Platform.OS == "ios" ? "padding" : "height"}
             >
               <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={tw`bg-white rounded-xl shadow-lg w-full`}>
+                <View
+                  style={tw.style(
+                    {
+                      "w-full": !isSm && !isMd,
+                      "max-w-96": isSm,
+                      width: isXl ? 580 : undefined,
+                    },
+                    "bg-white rounded-xl shadow-lg"
+                  )}
+                >
                   <View
                     style={tw`pl-2 pr-2 py-2 flex-row justify-between items-center`}
                   >
                     <View style={tw`w-10 h-1`}></View>
                     <Text
-                      style={tw`text-3xl font-semibold text-black/80 text-center flex-grow`}
+                      style={tw`text-3xl font-semibold text-black/80 text-center flex-grow max-w-10/12`}
                     >
                       {title}
                     </Text>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
-import decode, { InvalidTokenError } from "jwt-decode";
+import { jwtDecode as decode, InvalidTokenError } from "jwt-decode";
 import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
 import { defaultState, Store } from "@/helpers/store";
 import { router } from "expo-router";
@@ -14,8 +14,11 @@ export default function useAuthentication() {
 
   const logout = async () => {
     await AsyncStorage.removeItem("token");
+
+    const currentDevUrl = Store.getRawState().serverDevUrl;
     Store.update(state => {
       Object.assign(state, defaultState);
+      state.serverDevUrl = currentDevUrl;
     });
     router.replace("/login");
   };

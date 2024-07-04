@@ -1,20 +1,18 @@
-import { Text } from "react-native";
 import React, { forwardRef, memo } from "react";
-import Modal, { ModalHandle } from "./elements/Modal";
 import Input from "./elements/Input";
 import tw from "@/tailwind";
 import { Store } from "@/helpers/store";
 import Button from "./elements/Button";
+import ModalRewrite, { ModalHandle } from "./elements/ModalRewrite";
 
-const DevelopmentServerSwitcher = forwardRef<ModalHandle>((props, ref) => {
+const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
   const serverUrl = Store.useState((state) => state.serverDevUrl);
 
   const localIp =
     process.env.REACT_NATIVE_PACKAGER_HOSTNAME ?? "192.168.178.95:8080";
 
   return (
-    <Modal type="CENTER" ref={ref}>
-      <Text style={tw`text-lg`}>Server API URL (Development only)</Text>
+    <ModalRewrite title="Server API URL (Development only)" ref={ref}>
       <Input
         placeholder="Server ID"
         initialValue={serverUrl}
@@ -56,9 +54,9 @@ const DevelopmentServerSwitcher = forwardRef<ModalHandle>((props, ref) => {
       >
         api.seas-kirchengemeinde.de
       </Button>
-    </Modal>
+    </ModalRewrite>
   );
 });
 
-DevelopmentServerSwitcher.displayName = "DevelopmentServerSwitcher";
-export default memo(DevelopmentServerSwitcher);
+DevelopmentServerModal.displayName = "DevelopmentServerModal";
+export default memo(DevelopmentServerModal);

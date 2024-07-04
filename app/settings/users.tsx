@@ -100,45 +100,44 @@ export default function ManageUsersScreen() {
       <SettingsForm style={tw`mb-8`}>
         <Form>
           <TH titles={["Mitglieder", ""]}></TH>
-          {allUsers.map((Luser) => (
-            <TR key={Luser.id}>
+          {allUsers.map((entry) => (
+            <TR key={entry.id}>
               <TD cols={2}>
                 <Text style={tw`text-lg`}>
-                  {Luser.firstname} {Luser.lastname}
+                  {entry.firstname} {entry.lastname}
                 </Text>
                 <Text
                   style={tw.style({
-                    hidden: Luser.email == "root",
+                    hidden: entry.email == "root",
                   })}
                 >
-                  {Luser.email}
+                  {entry.email}
                 </Text>
                 <View style={tw`flex-row gap-1`}>
                   <Text style={tw`border rounded-full px-1 py-0.5`}>
-                    {toUpperStarting(Luser.role)}
+                    {toUpperStarting(entry.role)}
                   </Text>
-                  {}
                   <Text
                     style={tw.style(
                       {
-                        hidden: Luser.email == "root",
+                        hidden: entry.email == "root",
                       },
                       "border rounded-full px-1 py-0.5"
                     )}
                   >
-                    {toUpperStarting(Luser.state)}
+                    {toUpperStarting(entry.state)}
                   </Text>
                 </View>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
-                {Luser.email != "root" && Luser.id != user?.id && (
+                {entry.email != "root" && entry.id != user?.id && (
                   <Button
                     color="#f67e7e"
                     style={tw`p-2.5`}
                     onPress={() => {
-                      setUserIdToDelete(Luser.id);
+                      setUserIdToDelete(entry.id);
                       setUserNameToDelete(
-                        `${Luser.firstname} ${Luser.lastname}`
+                        `${entry.firstname} ${entry.lastname}`
                       );
                       deleteUserModal.current?.openModal();
                     }}
@@ -149,22 +148,22 @@ export default function ManageUsersScreen() {
                     />
                   </Button>
                 )}
-                {Luser.email != "root" &&
-                  (Luser.id != user?.id ||
-                    Luser.state == "UNVERIFIED" ||
-                    Luser.state == "VERIFICATION_PENDING") && (
+                {entry.email != "root" &&
+                  (entry.id != user?.id ||
+                    entry.state == "UNVERIFIED" ||
+                    entry.state == "VERIFICATION_PENDING") && (
                     <Button
                       style={tw`p-2.5`}
                       onPress={() => {
-                        setUserIdForEdit(Luser.id);
+                        setUserIdForEdit(entry.id);
                         setUserNameForEdit(
-                          `${Luser.firstname} ${Luser.lastname}`
+                          `${entry.firstname} ${entry.lastname}`
                         );
-                        setEditFirstName(Luser.firstname);
-                        setEditSecondName(Luser.lastname);
-                        setEditEmail(Luser.email);
-                        setEditRole(Luser.role);
-                        setEditState(Luser.state);
+                        setEditFirstName(entry.firstname);
+                        setEditSecondName(entry.lastname);
+                        setEditEmail(entry.email);
+                        setEditRole(entry.role);
+                        setEditState(entry.state);
                         editModal.current?.openModal();
                       }}
                     >
