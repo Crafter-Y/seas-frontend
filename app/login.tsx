@@ -12,7 +12,7 @@ import LoginForm from "@/components/LoginForm";
 import useAuthentication from "@/hooks/api/useAuthentication";
 import { Store } from "@/helpers/store";
 import { FetchState } from "@/helpers/Constants";
-import BoardHeaderRoundButton from "@/components/BoardHeaderRoundButton";
+import RoundIconButton from "@/components/RoundIconButton";
 import { ModalHandle } from "@/components/elements/Modal";
 import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
@@ -123,7 +123,7 @@ export default function LoginScreen() {
           >
             {__DEV__ && Platform.OS == "web" && (
               <View style={tw`w-full items-end p-1`}>
-                <BoardHeaderRoundButton
+                <RoundIconButton
                   imageSource={require("@/assets/img/settings.svg")}
                   onPress={() => apiModal.current!.openModal()}
                   style={tw`border rounded-xl`}

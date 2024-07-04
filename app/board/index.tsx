@@ -3,10 +3,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import useAuthentication from "@/hooks/api/useAuthentication";
 import tw from "@/tailwind";
-import BoardHeader from "@/components/BoardHeader";
-import BoardSidebar from "@/components/BoardSidebar";
+import BoardHeader from "@/components/board/BoardHeader";
+import BoardSidebar from "@/components/board/BoardSidebar";
 import Footer from "@/components/Footer";
-import Board from "@/components/Board";
+import Board from "@/components/board/Board";
 import useServerName from "@/hooks/api/useServerName";
 import { Color } from "@/helpers/Constants";
 import { router, useSegments } from "expo-router";
@@ -20,17 +20,14 @@ export type BoardType =
   | "Wochenansicht";
 
 export default function BoardScreenScreen() {
-  const { user, hasAuthError, logout } = useAuthentication();
-
-  const { serverName, fetchServerName } = useServerName();
-
-  const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
-
+  const segments = useSegments();
   const { height } = useWindowDimensions();
 
-  const segments = useSegments();
-
+  const { user, hasAuthError, logout } = useAuthentication();
+  const { serverName, fetchServerName } = useServerName();
   const { loading, requeryBoard } = useBoard();
+
+  const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
 
   useEffect(() => {
     if (hasAuthError) router.replace("/login");
@@ -62,7 +59,7 @@ export default function BoardScreenScreen() {
         user={user}
         boardType={boardType}
         setBoardType={setBoardType}
-        logout={() => logout()}
+        logout={logout}
         changePassword={changePassword}
         settings={settings}
       />
@@ -79,7 +76,7 @@ export default function BoardScreenScreen() {
           user={user}
           setBoardType={setBoardType}
           boardType={boardType}
-          logout={() => logout()}
+          logout={logout}
           changePassword={changePassword}
           settings={settings}
         />

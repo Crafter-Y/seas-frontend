@@ -6,9 +6,9 @@ import useServerName from "@/hooks/api/useServerName";
 import { Platform } from "react-native";
 import BoardMenuNavigationButton from "./BoardMenuNavigationButton";
 import BoardMenuButton from "./BoardMenuButton";
-import BoardHeaderRoundButton from "./BoardHeaderRoundButton";
-import Divider from "./elements/Divider";
-import Modal, { ModalHandle } from "./elements/Modal";
+import RoundIconButton from "../RoundIconButton";
+import Divider from "../elements/Divider";
+import Modal, { ModalHandle } from "../elements/Modal";
 import { BoardType } from "@/app/board";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import { router } from "expo-router";
@@ -76,20 +76,20 @@ const BoardHeader = ({
             "flex-row gap-2"
           )}
         >
-          <BoardHeaderRoundButton
+          <RoundIconButton
             hidden={!moduleStatus?.moduleCalendar}
             imageSource={require("@/assets/img/calendar.svg")}
             onPress={() => {
               router.push("/modules/calendar");
             }}
           />
-          <BoardHeaderRoundButton
+          <RoundIconButton
             hidden={!moduleStatus?.modulePrint}
             imageSource={require("@/assets/img/print.svg")}
             onPress={() => router.push("/modules/print/range")}
           />
         </View>
-        <BoardHeaderRoundButton
+        <RoundIconButton
           hidden={isLg}
           imageSource={require("@/assets/img/menu.svg")}
           onPress={() => modal.current?.openModal()}

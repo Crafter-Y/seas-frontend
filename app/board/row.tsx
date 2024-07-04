@@ -9,7 +9,7 @@ import Divider from "@/components/elements/Divider";
 import useAllPages from "@/hooks/api/useAllPages";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAuthentication from "@/hooks/api/useAuthentication";
-import BoardAssignButton from "@/components/BoardAssignButton";
+import BoardAssignButton from "@/components/board/BoardAssignButton";
 import useUnAssignUser from "@/hooks/api/useUnAssignUser";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import useAssignUser from "@/hooks/api/useAssignUser";

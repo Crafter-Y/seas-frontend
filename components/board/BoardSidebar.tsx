@@ -4,7 +4,7 @@ import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import BoardSidebarButton from "./BoardSidebarButton";
 import BoardSidebarNavigationButton from "./BoardSidebarNavigationButton";
-import Divider from "./elements/Divider";
+import Divider from "../elements/Divider";
 import { BoardType } from "@/app/board";
 
 const BoardSidebar = (props: {

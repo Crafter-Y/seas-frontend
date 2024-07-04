@@ -6,10 +6,10 @@ import BoardRangePicker from "./BoardRangePicker";
 import BoardList from "./BoardList";
 import useAllPages from "@/hooks/api/useAllPages";
 import BoardPageSelector from "./BoardPageSelector";
-import Divider from "./elements/Divider";
+import Divider from "../elements/Divider";
 import { BoardType } from "@/app/board";
 import { Store } from "@/helpers/store";
-import BoardHeaderRoundButton from "./BoardHeaderRoundButton";
+import RoundIconButton from "../RoundIconButton";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import { router } from "expo-router";
 import useBoard from "@/hooks/api/useBoard";
@@ -83,7 +83,7 @@ const Board = ({ boardType }: Props) => {
           "flex-row gap-2 m-2"
         )}
       >
-        <BoardHeaderRoundButton
+        <RoundIconButton
           hidden={!moduleStatus?.moduleCalendar}
           style={tw`border border-gray-400`}
           imageSource={require("@/assets/img/calendar.svg")}
@@ -91,7 +91,7 @@ const Board = ({ boardType }: Props) => {
             router.push("/modules/calendar");
           }}
         />
-        <BoardHeaderRoundButton
+        <RoundIconButton
           hidden={!moduleStatus?.modulePrint}
           style={tw`border border-gray-400`}
           imageSource={require("@/assets/img/print.svg")}

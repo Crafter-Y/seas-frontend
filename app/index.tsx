@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import useServerName from "@/hooks/api/useServerName";
 import { router } from "expo-router";
 import { FetchState } from "@/helpers/Constants";
-import BoardHeaderRoundButton from "@/components/BoardHeaderRoundButton";
+import RoundIconButton from "@/components/RoundIconButton";
 import { ModalHandle } from "@/components/elements/Modal";
 import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
@@ -65,7 +65,7 @@ export default function ServerSelectorScreen() {
     <StartScreenWrapper>
       {__DEV__ && (
         <View style={tw`w-full items-end p-1`}>
-          <BoardHeaderRoundButton
+          <RoundIconButton
             imageSource={require("@/assets/img/settings.svg")}
             onPress={() => apiModal.current!.openModal()}
             style={tw`border rounded-xl`}

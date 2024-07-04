@@ -61,7 +61,7 @@ const ActualButton = ({ imageSource, onPress, style }: BtnProps) => {
   );
 };
 
-const BoardHeaderRoundButton = ({
+const RoundIconButton = ({
   imageSource,
   onPress,
   style,
@@ -74,4 +74,4 @@ const BoardHeaderRoundButton = ({
   );
 };
 
-export default memo(BoardHeaderRoundButton);
+export default memo(RoundIconButton);
