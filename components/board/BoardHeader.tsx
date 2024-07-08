@@ -21,6 +21,7 @@ type BoardHeaderProps = {
   logout: () => void;
   changePassword: () => void;
   settings: () => void;
+  openCalendarModal?: () => void;
 };
 
 const BoardHeader = ({
@@ -30,6 +31,7 @@ const BoardHeader = ({
   logout,
   changePassword,
   settings,
+  openCalendarModal,
 }: BoardHeaderProps) => {
   const { isLg } = useMediaQueries();
 
@@ -79,9 +81,7 @@ const BoardHeader = ({
           <RoundIconButton
             hidden={!moduleStatus?.moduleCalendar}
             imageSource={require("@/assets/img/calendar.svg")}
-            onPress={() => {
-              router.push("/modules/calendar");
-            }}
+            onPress={openCalendarModal}
           />
           <RoundIconButton
             hidden={!moduleStatus?.modulePrint}

@@ -1,6 +1,6 @@
 import { Platform, ScrollView, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useAuthentication from "@/hooks/api/useAuthentication";
 import tw from "@/tailwind";
 import BoardHeader from "@/components/board/BoardHeader";
@@ -12,6 +12,8 @@ import { Color } from "@/helpers/Constants";
 import { router, useSegments } from "expo-router";
 import { RefreshControl } from "react-native-gesture-handler";
 import useBoard from "@/hooks/api/useBoard";
+import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
+import CalendarModal from "@/components/modules/calendar/CalendarModal";
 
 export type BoardType =
   | "Jahresansicht"
@@ -28,6 +30,8 @@ export default function BoardScreenScreen() {
   const { loading, requeryBoard } = useBoard();
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
+
+  const calendarModal = useRef<ModalHandle>(null);
 
   useEffect(() => {
     if (hasAuthError) router.replace("/login");
@@ -79,10 +83,17 @@ export default function BoardScreenScreen() {
           logout={logout}
           changePassword={changePassword}
           settings={settings}
+          openCalendarModal={calendarModal.current?.openModal}
         />
-        <Board boardType={boardType} />
+        <Board
+          boardType={boardType}
+          openCalendarModal={calendarModal.current?.openModal}
+        />
         <Footer />
       </ScrollView>
+      <ModalRewrite title="Kalender Export Modul" ref={calendarModal}>
+        <CalendarModal />
+      </ModalRewrite>
     </SafeAreaView>
   );
 }

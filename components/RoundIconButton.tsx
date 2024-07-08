@@ -16,7 +16,7 @@ type Props = {
     | ImageSource[]
     | null
     | undefined;
-  onPress: () => void;
+  onPress?: () => void;
   style?: ClassInput;
   hidden?: boolean;
 };
@@ -30,7 +30,7 @@ type BtnProps = {
     | ImageSource[]
     | null
     | undefined;
-  onPress: () => void;
+  onPress?: () => void;
   style?: ClassInput;
 };
 
@@ -40,7 +40,7 @@ const ActualButton = ({ imageSource, onPress, style }: BtnProps) => {
 
   const callback = useCallback(() => {
     setTimeout(() => {
-      onPress();
+      onPress?.();
     }, 5);
   }, [onPress]);
 

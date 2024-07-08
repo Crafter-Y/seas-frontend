@@ -1,19 +1,18 @@
 import Button from "@/components/elements/Button";
-import CenterModal from "@/components/elements/CenterModal";
-import tw from "@/tailwind";
-import { memo, useState } from "react";
-import { Platform, Text, View } from "react-native";
-import * as ExpoCalendar from "expo-calendar";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { Store } from "@/helpers/store";
 import useAuthentication from "@/hooks/api/useAuthentication";
 import useServerName from "@/hooks/api/useServerName";
+import tw from "@/tailwind";
+import { useState } from "react";
+import { Platform, Text, View } from "react-native";
+import * as ExpoCalendar from "expo-calendar";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
 
 const CALENDAR_NAME = "SEAS Termine";
 
-const Calendar = () => {
+export default function CalendarModal() {
   const [calendarError, setCalendarError] = useState<string>();
 
   const [syncSuccessful, setSyncSuccessful] = useState(false);
@@ -222,12 +221,8 @@ END:VEVENT`;
       return;
     }
   };
-
   return (
-    <CenterModal>
-      <Text style={tw`text-center text-2xl underline my-2 font-semibold`}>
-        Kalender Export Modul
-      </Text>
+    <>
       <View
         style={tw.style(
           {
@@ -256,7 +251,6 @@ END:VEVENT`;
           <Button onPress={() => androidReallySave()}>Download .ics</Button>
         )}
       </View>
-    </CenterModal>
+    </>
   );
-};
-export default memo(Calendar);
+}

@@ -16,9 +16,10 @@ import useBoard from "@/hooks/api/useBoard";
 
 type Props = {
   boardType: BoardType;
+  openCalendarModal?: () => void;
 };
 
-const Board = ({ boardType }: Props) => {
+const Board = ({ boardType, openCalendarModal }: Props) => {
   const { isSm, isLg } = useMediaQueries();
 
   const { allPages } = useAllPages();
@@ -87,9 +88,7 @@ const Board = ({ boardType }: Props) => {
           hidden={!moduleStatus?.moduleCalendar}
           style={tw`border border-gray-400`}
           imageSource={require("@/assets/img/calendar.svg")}
-          onPress={() => {
-            router.push("/modules/calendar");
-          }}
+          onPress={openCalendarModal}
         />
         <RoundIconButton
           hidden={!moduleStatus?.modulePrint}
