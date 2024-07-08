@@ -1,27 +1,18 @@
 import Divider from "@/components/elements/Divider";
 import tw from "@/tailwind";
-import {
-  Platform,
-  Text,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import Button from "@/components/elements/Button";
 import { Color } from "@/helpers/Constants";
-import DraggableFlatList, {
-  RenderItemParams,
-  ScaleDecorator,
-} from "react-native-draggable-flatlist";
 import { useState } from "react";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { requestApi } from "@/helpers/api";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
+import { AntDesign } from "@expo/vector-icons";
+import Animated, { CurvedTransition } from "react-native-reanimated";
 
 type Item = { text: string; key: number };
 
@@ -35,10 +26,6 @@ export default function PrintOrderModal({
   openColumnsModal,
 }: Props) {
   const printColumns = Store.useState((state) => state.printColumns);
-
-  const { width } = useWindowDimensions();
-
-  const { isSm } = useMediaQueries();
 
   const { allColumns } = useAllColumns();
 
@@ -96,7 +83,9 @@ export default function PrintOrderModal({
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
   </head>
-  <body style="margin: 0; padding: 0; min-height: 100vh;">
+  <body style="margin: 0; padding: ${
+    Platform.OS == "web" ? 0 : "1.2cm"
+  }; min-height: 100vh;">
     <div style="display: flex; flex-wrap: wrap;">
       <span style="width: 100%; text-align: center; opacity: 0.8; font-weight: 700; font-size: 2.25rem; line-height: 2.5rem;">${serverName}</span>
       <span style="width: 100%; text-align: center; opacity: 0.8; font-weight: 600; font-size: 1.5rem; line-height: 2rem;">${
@@ -150,9 +139,9 @@ export default function PrintOrderModal({
       pW?.print();
       return;
     }
-    await Print.printAsync({
+    Print.printAsync({
       html,
-    });
+    }).catch(() => {}); // ignoring rejection (ios rejects on cancel)
   };
 
   const pdf = async () => {
@@ -163,46 +152,56 @@ export default function PrintOrderModal({
     await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
   };
 
-  const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
-    return (
-      <ScaleDecorator>
-        <TouchableOpacity
-          onPressIn={drag}
-          activeOpacity={1}
-          disabled={isActive}
-          style={tw.style(
-            {
-              "mx-6": isActive,
-            },
-            "border-2 rounded-md border-gray-400 bg-gray-200 px-1 py-2 my-1"
-          )}
-        >
-          <Text style={tw`font-semibold text-lg text-center`}>{item.text}</Text>
-        </TouchableOpacity>
-      </ScaleDecorator>
-    );
-  };
+  function onReordered(fromIndex: number, toIndex: number) {
+    const copy = [...data]; // Don't modify react data in-place
+    const removed = copy.splice(fromIndex, 1);
+
+    copy.splice(toIndex, 0, removed[0]); // Now insert at the new pos
+    setData(copy);
+  }
 
   return (
     <>
       <View style={tw`px-4`}>
-        <Text>Per Drag&Drop die Reihenfolge ändern</Text>
+        <Text>
+          Sie können hier die Reihenfolge ändern. Der oberste Eintrag wird auf
+          dem Plan ganz links sein.
+        </Text>
         <Divider type="HORIZONTAL" style={tw`mt-2 mb-4`} />
-        <View style={tw`flex-row`}>
-          <DraggableFlatList
-            data={data}
-            onDragEnd={({ data }) => setData(data)}
-            keyExtractor={(item) => item.key + ""}
-            renderItem={renderItem}
-            style={{
-              width:
-                (Platform.OS == "web"
-                  ? isSm
-                    ? width / 2
-                    : width * 0.75
-                  : width) / 2,
-            }}
-          />
+
+        <View style={tw`gap-1`}>
+          {data.map((row, idx, arr) => (
+            <Animated.View
+              key={row.key}
+              style={tw`flex-row p-2 border items-center justify-between`}
+              layout={CurvedTransition.duration(150).delay(50)}
+              exiting={CurvedTransition.duration(150).delay(50)}
+            >
+              <Text>{row.text}</Text>
+              <View style={tw`flex-row`}>
+                {idx !== 0 && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      onReordered(idx, idx - 1);
+                    }}
+                    style={tw`p-2 w-10 rounded-full`}
+                  >
+                    <AntDesign name="caretup" size={25} color="gray" />
+                  </TouchableOpacity>
+                )}
+                {idx !== arr.length - 1 && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      onReordered(idx, idx + 1);
+                    }}
+                    style={tw`p-2 w-10 rounded-full`}
+                  >
+                    <AntDesign name="caretdown" size={25} color="gray" />
+                  </TouchableOpacity>
+                )}
+              </View>
+            </Animated.View>
+          ))}
         </View>
 
         <Divider type="HORIZONTAL" style={tw`mt-4 mb-2`} />

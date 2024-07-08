@@ -108,14 +108,22 @@ export default function BoardScreenScreen() {
           openColumnsModal={printColumnsModal.current?.openModal}
         />
       </ModalRewrite>
-      <ModalRewrite title="Drucken - Spalten auswählen" ref={printColumnsModal}>
+      <ModalRewrite
+        title="Drucken - Spalten auswählen"
+        ref={printColumnsModal}
+        scrollable
+      >
         <PrintCoumnsModal
           closeModal={printColumnsModal.current?.closeModal}
           openPrintRangeModal={printRangeModal.current?.openModal}
           openPrintOrderModal={printOrderModal.current?.openModal}
         />
       </ModalRewrite>
-      <ModalRewrite title="Drucken - Reihenfolge ändern" ref={printOrderModal}>
+      <ModalRewrite
+        title="Drucken - Reihenfolge ändern"
+        ref={printOrderModal}
+        scrollable
+      >
         <PrintOrderModal
           closeModal={printOrderModal.current?.closeModal}
           openColumnsModal={printColumnsModal.current?.openModal}

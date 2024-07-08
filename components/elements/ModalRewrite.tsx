@@ -99,10 +99,15 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
         animationType="slide"
         onRequestClose={intCloseModal}
       >
-        {/** Not Good - #TODO: Needs improvement */}
+        {/* TODO: Backdrop not working */}
         {scrollable && (
           <View style={tw`bg-zinc-900/40 h-full items-center justify-center`}>
-            <ScrollView style={tw.style({ maxHeight: "75%" }, "bg-white")}>
+            <ScrollView
+              style={tw.style(
+                { maxHeight: "80%" },
+                "bg-white rounded-xl grow-0"
+              )}
+            >
               <ModalHeader title={title} closeModal={intCloseModal} />
               {children}
             </ScrollView>
