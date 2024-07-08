@@ -1,5 +1,10 @@
 import tw from "@/tailwind";
-import { Keyboard, TouchableWithoutFeedback, View } from "react-native";
+import {
+  Keyboard,
+  Platform,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -16,7 +21,9 @@ const StartScreenWrapper = ({ children }: Props) => {
         extraScrollHeight={75}
         keyboardShouldPersistTaps="handled"
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback
+          onPress={Platform.OS == "web" ? undefined : Keyboard.dismiss} // on touch browsers, it would not work otherwise
+        >
           <View>{children}</View>
         </TouchableWithoutFeedback>
       </KeyboardAwareScrollView>

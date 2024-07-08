@@ -9,7 +9,12 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useState,
+} from "react";
 import tw from "@/tailwind";
 import Input from "./Input";
 import { ScrollView } from "react-native-gesture-handler";
@@ -34,14 +39,29 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
 
     const [isModalOpen, setModalOpen] = useState(false);
 
+    // use this to prevent immediate closing of the modal appearing when used in touch mode
+    const [lastModalOpen, setLastModalOpen] = useState<Date | null>();
+
+    const intCloseModal = useCallback(() => {
+      if (
+        lastModalOpen &&
+        new Date().getTime() - lastModalOpen.getTime() < 100 // 100ms
+      ) {
+        return;
+      }
+
+      setModalOpen(false);
+    }, [lastModalOpen]);
+
     //#TODO: Animate background to fade in and out
 
     useImperativeHandle(ref, () => ({
       openModal() {
+        setLastModalOpen(new Date());
         setModalOpen(true);
       },
       closeModal() {
-        setModalOpen(false);
+        intCloseModal();
       },
     }));
 
@@ -51,7 +71,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
         statusBarTranslucent
         transparent
         animationType="slide"
-        onRequestClose={() => setModalOpen(false)}
+        onRequestClose={intCloseModal}
       >
         {/** Not Good - #TODO: Needs improvement */}
         {scrollable && (
@@ -64,15 +84,14 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
           </View>
         )}
         {!scrollable && (
-          <Pressable
-            style={tw`bg-zinc-900/40 h-full`}
-            onPress={() => setModalOpen(false)}
-          >
+          <Pressable style={tw`bg-zinc-900/40 h-full`} onPress={intCloseModal}>
             <KeyboardAvoidingView
               style={tw`items-center justify-center h-full px-2`}
               behavior={Platform.OS == "ios" ? "padding" : "height"}
             >
-              <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <TouchableWithoutFeedback
+                onPress={Platform.OS == "web" ? undefined : Keyboard.dismiss}
+              >
                 <View
                   style={tw.style(
                     {
@@ -93,7 +112,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
                       {title}
                     </Text>
                     <TouchableOpacity
-                      onPress={() => setModalOpen(false)}
+                      onPress={intCloseModal}
                       style={tw`p-2 w-10 rounded-full`}
                     >
                       <AntDesign name="close" size={25} color="gray" />
