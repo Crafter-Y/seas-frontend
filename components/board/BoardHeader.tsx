@@ -11,7 +11,6 @@ import Divider from "../elements/Divider";
 import Modal, { ModalHandle } from "../elements/Modal";
 import { BoardType } from "@/app/board";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
-import { router } from "expo-router";
 import { FetchState } from "@/helpers/Constants";
 
 type BoardHeaderProps = {
@@ -22,6 +21,7 @@ type BoardHeaderProps = {
   changePassword: () => void;
   settings: () => void;
   openCalendarModal?: () => void;
+  openPrintModal?: () => void;
 };
 
 const BoardHeader = ({
@@ -32,6 +32,7 @@ const BoardHeader = ({
   changePassword,
   settings,
   openCalendarModal,
+  openPrintModal,
 }: BoardHeaderProps) => {
   const { isLg } = useMediaQueries();
 
@@ -86,7 +87,7 @@ const BoardHeader = ({
           <RoundIconButton
             hidden={!moduleStatus?.modulePrint}
             imageSource={require("@/assets/img/print.svg")}
-            onPress={() => router.push("/modules/print/range")}
+            onPress={openPrintModal}
           />
         </View>
         <RoundIconButton

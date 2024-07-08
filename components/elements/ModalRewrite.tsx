@@ -16,7 +16,6 @@ import React, {
   useState,
 } from "react";
 import tw from "@/tailwind";
-import Input from "./Input";
 import { ScrollView } from "react-native-gesture-handler";
 import Divider from "./Divider";
 import { AntDesign } from "@expo/vector-icons";
@@ -31,6 +30,33 @@ type Props = {
 export type ModalHandle = {
   openModal: () => void;
   closeModal: () => void;
+};
+
+type HeaderProps = {
+  title: string;
+  closeModal: () => void;
+};
+
+const ModalHeader = ({ title, closeModal }: HeaderProps) => {
+  return (
+    <>
+      <View style={tw`pl-2 pr-2 py-2 flex-row justify-between items-center`}>
+        <View style={tw`w-10 h-1`}></View>
+        <Text
+          style={tw`text-3xl font-semibold text-black/80 text-center flex-grow max-w-4/5`}
+        >
+          {title}
+        </Text>
+        <TouchableOpacity
+          onPress={closeModal}
+          style={tw`p-2 w-10 rounded-full`}
+        >
+          <AntDesign name="close" size={25} color="gray" />
+        </TouchableOpacity>
+      </View>
+      <Divider type="HORIZONTAL" style={tw`mb-2`} />
+    </>
+  );
 };
 
 const ModalRewrite = forwardRef<ModalHandle, Props>(
@@ -77,8 +103,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
         {scrollable && (
           <View style={tw`bg-zinc-900/40 h-full items-center justify-center`}>
             <ScrollView style={tw.style({ maxHeight: "75%" }, "bg-white")}>
-              <Text>{title}</Text>
-              <Input placeholder="efaf" onChangeText={() => {}} />
+              <ModalHeader title={title} closeModal={intCloseModal} />
               {children}
             </ScrollView>
           </View>
@@ -102,23 +127,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
                     "bg-white rounded-xl shadow-lg"
                   )}
                 >
-                  <View
-                    style={tw`pl-2 pr-2 py-2 flex-row justify-between items-center`}
-                  >
-                    <View style={tw`w-10 h-1`}></View>
-                    <Text
-                      style={tw`text-3xl font-semibold text-black/80 text-center flex-grow max-w-4/5`}
-                    >
-                      {title}
-                    </Text>
-                    <TouchableOpacity
-                      onPress={intCloseModal}
-                      style={tw`p-2 w-10 rounded-full`}
-                    >
-                      <AntDesign name="close" size={25} color="gray" />
-                    </TouchableOpacity>
-                  </View>
-                  <Divider type="HORIZONTAL" style={tw`mb-2`} />
+                  <ModalHeader title={title} closeModal={intCloseModal} />
                   {children}
                 </View>
               </TouchableWithoutFeedback>
@@ -129,5 +138,6 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
     );
   }
 );
+
 ModalRewrite.displayName = "ModalRewrite";
 export default ModalRewrite;

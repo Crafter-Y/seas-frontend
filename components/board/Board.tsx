@@ -11,15 +11,15 @@ import { BoardType } from "@/app/board";
 import { Store } from "@/helpers/store";
 import RoundIconButton from "../RoundIconButton";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
-import { router } from "expo-router";
 import useBoard from "@/hooks/api/useBoard";
 
 type Props = {
   boardType: BoardType;
   openCalendarModal?: () => void;
+  openPrintModal?: () => void;
 };
 
-const Board = ({ boardType, openCalendarModal }: Props) => {
+const Board = ({ boardType, openCalendarModal, openPrintModal }: Props) => {
   const { isSm, isLg } = useMediaQueries();
 
   const { allPages } = useAllPages();
@@ -94,7 +94,7 @@ const Board = ({ boardType, openCalendarModal }: Props) => {
           hidden={!moduleStatus?.modulePrint}
           style={tw`border border-gray-400`}
           imageSource={require("@/assets/img/print.svg")}
-          onPress={() => router.push("/modules/print/range")}
+          onPress={openPrintModal}
         />
       </View>
       <BoardList

@@ -1,23 +1,28 @@
-import CenterModal from "@/components/elements/CenterModal";
 import Checkbox from "@/components/elements/Checkbox";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import tw from "@/tailwind";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { Store } from "@/helpers/store";
 import Button from "@/components/elements/Button";
-import { router } from "expo-router";
 import { Color } from "@/helpers/Constants";
 
-const PrintColumnSelector = () => {
+type Props = {
+  closeModal?: () => void;
+  openPrintRangeModal?: () => void;
+  openPrintOrderModal?: () => void;
+};
+
+export default function PrintCoumnsModal({
+  closeModal,
+  openPrintRangeModal,
+  openPrintOrderModal,
+}: Props) {
   const { allColumns } = useAllColumns();
 
   const printColState = Store.useState((state) => state.printColumns);
 
   return (
-    <CenterModal>
-      <Text style={tw`text-center text-2xl underline my-2 font-semibold`}>
-        Drucken - Spalten auswählen
-      </Text>
+    <>
       <View style={tw`px-4`}>
         <Checkbox
           label="Termin (Datum)"
@@ -32,7 +37,7 @@ const PrintColumnSelector = () => {
             defaultValue={printColState.includes(col.id)}
             onChange={(value) => {
               Store.update((state) => {
-                // TODO: it doesnt make sense, why this variable is always inverted
+                // TODO: it doesn't make sense, why this variable is always inverted
                 if (!value) {
                   if (!printColState.includes(col.id))
                     state.printColumns.push(col.id);
@@ -47,13 +52,13 @@ const PrintColumnSelector = () => {
         ))}
       </View>
       <View style={tw`justify-center flex-row gap-2 my-4`}>
-        <Button onPress={router.back} color={Color.RED}>
+        <Button onPress={closeModal} color={Color.RED}>
           Abbrechen
         </Button>
         <Button
           onPress={() => {
-            router.back();
-            router.push("/modules/print/range");
+            closeModal?.();
+            openPrintRangeModal?.();
           }}
           color={Color.BLUE}
         >
@@ -61,16 +66,14 @@ const PrintColumnSelector = () => {
         </Button>
         <Button
           onPress={() => {
-            router.back();
-            router.push("/modules/print/order");
+            closeModal?.();
+            openPrintOrderModal?.();
           }}
           color={Color.BLUE}
         >
           Weiter
         </Button>
       </View>
-    </CenterModal>
+    </>
   );
-};
-
-export default PrintColumnSelector;
+}

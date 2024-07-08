@@ -10,14 +10,12 @@ import {
 import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import Button from "@/components/elements/Button";
-import { router } from "expo-router";
 import { Color } from "@/helpers/Constants";
 import DraggableFlatList, {
   RenderItemParams,
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
 import { useState } from "react";
-import CenterModal from "@/components/elements/CenterModal";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
@@ -27,7 +25,15 @@ import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 
 type Item = { text: string; key: number };
 
-const PrintOrderSelector = () => {
+type Props = {
+  closeModal?: () => void;
+  openColumnsModal?: () => void;
+};
+
+export default function PrintOrderModal({
+  closeModal,
+  openColumnsModal,
+}: Props) {
   const printColumns = Store.useState((state) => state.printColumns);
 
   const { width } = useWindowDimensions();
@@ -178,10 +184,7 @@ const PrintOrderSelector = () => {
   };
 
   return (
-    <CenterModal>
-      <Text style={tw`text-center text-2xl underline my-2 font-semibold`}>
-        Drucken - Reihenfolge ändern
-      </Text>
+    <>
       <View style={tw`px-4`}>
         <Text>Per Drag&Drop die Reihenfolge ändern</Text>
         <Divider type="HORIZONTAL" style={tw`mt-2 mb-4`} />
@@ -219,21 +222,19 @@ const PrintOrderSelector = () => {
         </Button>
       </View>
       <View style={tw`justify-center flex-row gap-2 my-4`}>
-        <Button onPress={router.back} color={Color.RED}>
+        <Button onPress={closeModal} color={Color.RED}>
           Abbrechen
         </Button>
         <Button
           onPress={() => {
-            router.back();
-            router.push("/modules/print/columns");
+            closeModal?.();
+            openColumnsModal?.();
           }}
           color={Color.BLUE}
         >
           Zurück
         </Button>
       </View>
-    </CenterModal>
+    </>
   );
-};
-
-export default PrintOrderSelector;
+}
