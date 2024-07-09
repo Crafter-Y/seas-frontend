@@ -155,7 +155,10 @@ const BoardHeader = ({
           <BoardMenuButton
             icon={require("@/assets/img/logout.svg")}
             text={"Abmelden"}
-            pressAction={logout}
+            pressAction={() => {
+              modal.current?.closeModal();
+              logout();
+            }}
             style={tw.style({
               "mb-1": Platform.OS != "web",
             })}

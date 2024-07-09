@@ -20,7 +20,14 @@ export default function useAuthentication() {
       Object.assign(state, defaultState);
       state.serverDevUrl = currentDevUrl;
     });
-    router.replace("/login");
+
+    // wiredly, on ios, the replace crashes the app. 
+    // I disabled the back gesture on the login screen for ios, so there should be nothing that could go wrong
+    if (Platform.OS == "ios") {
+      router.navigate("/login");
+    } else {
+      router.replace("/login");
+    }
   };
 
   const login = async (
