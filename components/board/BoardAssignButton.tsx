@@ -1,10 +1,9 @@
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import { Entypo } from "@expo/vector-icons";
 import { Color } from "@/helpers/Constants";
 import { ClassInput } from "twrnc/dist/esm/types";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Props = {
   onPress: () => void;

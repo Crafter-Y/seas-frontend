@@ -79,7 +79,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
       setModalOpen(false);
     }, [lastModalOpen]);
 
-    //#TODO: Animate background to fade in and out
+    //TODO: Animate background to fade in and out
 
     useImperativeHandle(ref, () => ({
       openModal() {
@@ -101,10 +101,17 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
       >
         {/* TODO: Backdrop not working */}
         {scrollable && (
-          <View style={tw`bg-zinc-900/40 h-full items-center justify-center`}>
+          <View
+            style={tw`bg-zinc-900/40 h-full items-center justify-center px-2`}
+          >
             <ScrollView
               style={tw.style(
-                { maxHeight: "80%" },
+                {
+                  maxHeight: "80%",
+                  "w-full": !isSm && !isMd,
+                  "max-w-96": isSm,
+                  width: isXl ? 580 : undefined,
+                },
                 "bg-white rounded-xl grow-0"
               )}
             >

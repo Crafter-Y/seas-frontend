@@ -1,0 +1,110 @@
+import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
+import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
+import useUpdateComment from "@/hooks/api/useUpdateComment";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
+import { useEffect } from "react";
+import { Pressable, Text, TextInput, View } from "react-native";
+import Button from "../elements/Button";
+import { Color } from "@/helpers/Constants";
+
+type Props = {
+  closeModal?: () => void;
+  openRowModal?: () => void;
+  commentEditValue: string;
+  setCommentEditValue: (val: string) => void;
+  selectedColumn?: APIResponseColumn;
+  triggerBoardRefetch?: () => void;
+};
+
+export default function BoardRowCommentModal({
+  closeModal,
+  openRowModal,
+  commentEditValue,
+  setCommentEditValue,
+  selectedColumn,
+  triggerBoardRefetch,
+}: Props) {
+  const { isSm } = useMediaQueries();
+  const { allDefaultComments } = useAllDefaultComments();
+  const { updateComment, successfulUpdate } = useUpdateComment();
+  const { selectedRow, querySingleRow } = useSingleBoardEntry();
+
+  useEffect(() => {
+    if (successfulUpdate) {
+      querySingleRow(selectedRow!.date);
+      closeModal?.();
+      openRowModal?.();
+      triggerBoardRefetch?.();
+    }
+  }, [successfulUpdate]);
+
+  return (
+    <View
+      style={tw.style(
+        {
+          "px-6": isSm,
+          "px-4": !isSm,
+        },
+        "py-6"
+      )}
+    >
+      <Pressable>
+        <TextInput
+          multiline
+          editable
+          numberOfLines={4}
+          style={tw`border rounded-lg border-gray-400 px-2 py-1 opacity-85 text-lg`}
+          placeholder="Kommentar eingeben"
+          value={commentEditValue}
+          onChangeText={setCommentEditValue}
+        />
+      </Pressable>
+
+      <View style={tw`flex-row flex-wrap gap-1 mt-1`}>
+        {allDefaultComments?.map((comment) => (
+          <Pressable
+            key={comment.id}
+            style={tw`border border-gray-400 rounded-lg py-1 px-2 flex-row items-center gap-2`}
+            onPress={() => {
+              setCommentEditValue(commentEditValue + comment.comment);
+            }}
+          >
+            <Text
+              style={tw`font-semibold text-green-500 text-lg`}
+              selectable={false}
+            >
+              +
+            </Text>
+            <Text style={tw`font-semibold`} selectable={false}>
+              {comment.comment}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
+      <View style={tw`justify-center flex-row gap-2 my-4`}>
+        <Button
+          onPress={() => {
+            closeModal?.();
+            openRowModal?.();
+          }}
+        >
+          Abbrechen
+        </Button>
+        <Button
+          onPress={() => {
+            updateComment(
+              selectedRow!.date,
+              selectedColumn!.id,
+              commentEditValue
+            );
+          }}
+          color={Color.GREEN}
+        >
+          Speichern
+        </Button>
+      </View>
+    </View>
+  );
+}
