@@ -65,7 +65,7 @@ export default function BoardRowCommentModal({
         {allDefaultComments?.map((comment) => (
           <Pressable
             key={comment.id}
-            style={tw`border border-gray-400 rounded-lg py-1 px-2 flex-row items-center gap-2`}
+            style={tw`border border-gray-400 rounded-lg py-1 px-2 flex-row items-center gap-2 max-w-full`}
             onPress={() => {
               setCommentEditValue(commentEditValue + comment.comment);
             }}
