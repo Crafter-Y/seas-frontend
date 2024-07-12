@@ -18,7 +18,8 @@
     "serve:prod": "node serve.js",
     "eas-build-pre-install": "npm config set legacy-peer-deps true",
     "lint": "eslint .",
-    "storybook-generate": "sb-rn-get-stories"
+    "storybook-generate": "sb-rn-get-stories",
+    "analyze": "cross-env EXPO_UNSTABLE_ATLAS=true expo start"
   },
   "dependencies": {
     "@expo/match-media": "^0.4.0",
@@ -84,7 +85,8 @@
     "postcss": "^8.4.21",
     "serve-handler": "^6.1.5",
     "tailwindcss": "^3.3.3",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.0",
+    "expo-atlas": "^0.3.0"
   },
   "private": true
 }
