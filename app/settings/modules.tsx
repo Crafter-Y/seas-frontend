@@ -72,6 +72,26 @@ export default function ManagePagesScreen() {
             erstellt werden können.
           </Text>
         </View>
+
+        <View
+          style={tw`border rounded-lg border-[${Color.DARK_GRAY}] border-2 px-2 py-1`}
+        >
+          <View style={tw`flex-row justify-between items-center`}>
+            <Text style={tw`font-semibold text-2xl opacity-85`}>Musik</Text>
+            <Button
+              color={moduleStatus?.moduleMusic ? Color.RED : Color.BLUE}
+              onPress={() =>
+                changeModuleState("music", !moduleStatus!.moduleMusic)
+              }
+            >
+              {moduleStatus?.moduleMusic ? "Deaktivieren" : "Aktivieren"}
+            </Button>
+          </View>
+          <Divider type="HORIZONTAL" style={tw`my-1`} />
+          <Text>
+            Ermöglicht das dokumentieren und auswerten von Choraktivitäten. 
+          </Text>
+        </View>
       </SettingsForm>
     </SettingsLayout>
   );

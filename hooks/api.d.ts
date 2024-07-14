@@ -90,9 +90,10 @@ type APIRecurringEventsResponse = {
 type APIModuleStatus = {
   moduleCalendar: boolean
   modulePrint: boolean
+  moduleMusic: boolean
 }
 
-type Module = "print" | "calendar"
+type Module = "print" | "calendar" | "music"
 
 type EventType = "UNSET" | "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";
 
