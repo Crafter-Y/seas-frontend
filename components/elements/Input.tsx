@@ -79,7 +79,7 @@ const Input = forwardRef<TextInput, Props>(
         blurOnSubmit={false}
         inputMode={inputMode}
         aria-disabled={disabled}
-      ></TextInput>
+      />
     );
   }
 );

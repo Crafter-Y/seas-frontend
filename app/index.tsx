@@ -91,6 +91,7 @@ export default function ServerSelectorScreen() {
         <Input
           placeholder="Server ID"
           autoFocus={true}
+          inputMode="numeric"
           onChangeText={(id) => setServerId(id)}
           style={"mt-1"}
           onSubmitEditing={login}

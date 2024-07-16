@@ -93,6 +93,16 @@ type APIModuleStatus = {
   moduleMusic: boolean
 }
 
+type APIResponseSong = {
+  id: number;
+  title: string;
+  number: number;
+  book: {
+    id: number;
+    name: string;
+  }
+};
+
 type Module = "print" | "calendar" | "music"
 
 type EventType = "UNSET" | "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";

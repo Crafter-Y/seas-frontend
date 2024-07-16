@@ -17,9 +17,15 @@ type Props = {
   boardType: BoardType;
   openCalendarModal?: () => void;
   openPrintModal?: () => void;
+  openMusicModal?: () => void;
 };
 
-const Board = ({ boardType, openCalendarModal, openPrintModal }: Props) => {
+const Board = ({
+  boardType,
+  openCalendarModal,
+  openPrintModal,
+  openMusicModal,
+}: Props) => {
   const { isSm, isLg } = useMediaQueries();
 
   const { allPages } = useAllPages();
@@ -95,6 +101,12 @@ const Board = ({ boardType, openCalendarModal, openPrintModal }: Props) => {
           style={tw`border border-gray-400`}
           imageSource={require("@/assets/img/print.svg")}
           onPress={openPrintModal}
+        />
+        <RoundIconButton
+          hidden={!moduleStatus?.moduleMusic}
+          style={tw`border border-gray-400`}
+          imageSource={require("@/assets/img/edit.svg")}
+          onPress={openMusicModal}
         />
       </View>
       <BoardList

@@ -105,6 +105,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
             style={tw`bg-zinc-900/40 h-full items-center justify-center px-2`}
           >
             <ScrollView
+              keyboardShouldPersistTaps="handled"
               style={tw.style(
                 {
                   maxHeight: "80%",

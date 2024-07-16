@@ -22,6 +22,7 @@ type BoardHeaderProps = {
   settings: () => void;
   openCalendarModal?: () => void;
   openPrintModal?: () => void;
+  openMusicModal?: () => void;
 };
 
 const BoardHeader = ({
@@ -33,6 +34,7 @@ const BoardHeader = ({
   settings,
   openCalendarModal,
   openPrintModal,
+  openMusicModal,
 }: BoardHeaderProps) => {
   const { isLg } = useMediaQueries();
 
@@ -88,6 +90,11 @@ const BoardHeader = ({
             hidden={!moduleStatus?.modulePrint}
             imageSource={require("@/assets/img/print.svg")}
             onPress={openPrintModal}
+          />
+          <RoundIconButton
+            hidden={!moduleStatus?.moduleMusic}
+            imageSource={require("@/assets/img/edit.svg")}
+            onPress={openMusicModal}
           />
         </View>
         <RoundIconButton

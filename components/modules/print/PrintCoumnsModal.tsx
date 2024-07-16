@@ -1,7 +1,7 @@
 import Checkbox from "@/components/elements/Checkbox";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import tw from "@/tailwind";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { Store } from "@/helpers/store";
 import Button from "@/components/elements/Button";
 import { Color } from "@/helpers/Constants";
@@ -51,7 +51,12 @@ export default function PrintCoumnsModal({
           />
         ))}
       </View>
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View
+        style={tw.style(
+          { "mb-10": Platform.OS == "ios", "mb-4": Platform.OS != "ios" }, // BUG: on iOS the button wriedly clip out the bottom
+          "justify-center flex-row gap-2 mt-4"
+        )}
+      >
         <Button onPress={closeModal} color={Color.RED}>
           Abbrechen
         </Button>
