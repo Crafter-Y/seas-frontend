@@ -105,7 +105,7 @@ export default function MusicSelectSongModal({
               >
                 <View style={tw`w-4/5`}>
                   <Text style={tw`text-lg leading-[18px]`}>
-                    {item.title} ({item.id})
+                    {item.title} ({item.number})
                   </Text>
                   <Text style={tw`text-xs`}>{item.book.name}</Text>
                 </View>

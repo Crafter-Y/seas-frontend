@@ -2,7 +2,7 @@ import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import tw from "@/tailwind";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import Button from "@/components/elements/Button";
@@ -27,6 +27,7 @@ export default function MusicEntryRatingModal({
   });
 
   const [rating, setRating] = useState<Rating | undefined>();
+  const [comment, setComment] = useState("");
 
   return (
     <View style={tw`mx-2 md:mx-4 pb-2`}>
@@ -38,7 +39,7 @@ export default function MusicEntryRatingModal({
       >
         <View>
           <Text style={tw`text-lg leading-[18px]`}>
-            {song?.title} ({song?.id})
+            {song?.title} ({song?.number})
           </Text>
           <Text style={tw`text-xs`}>{song?.book.name}</Text>
         </View>
@@ -54,7 +55,15 @@ export default function MusicEntryRatingModal({
         </View>
       </View>
 
-      {/* TODO: Comment field */}
+      <TextInput
+        multiline
+        editable
+        numberOfLines={2}
+        style={tw`border-2 rounded-lg border-[${Color.GRAY}] px-2 py-1 opacity-85 text-lg mt-2`}
+        placeholder="Kommentar eingeben"
+        value={comment}
+        onChangeText={setComment}
+      />
 
       <Text style={tw`mt-3 text-xl font-semibold`}>
         Bewertung für dieses Lied abgeben:
@@ -76,6 +85,7 @@ export default function MusicEntryRatingModal({
             state.musicRatings.push({
               ...song!,
               rating: rating!,
+              comment: comment.trim() == "" ? undefined : comment,
             });
           });
           openOverviewModal?.();

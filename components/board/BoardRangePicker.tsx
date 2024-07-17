@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import tw from "@/tailwind";
 import useYearState from "@/hooks/useYearState";
@@ -164,7 +164,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
 
   return (
     <View style={tw`flex-row justify-center gap-3 items-center mt-4`}>
-      <Pressable
+      <TouchableOpacity
         onPress={backAction}
         style={tw.style(
           {
@@ -177,7 +177,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
         <Text style={tw`underline`} selectable={false} numberOfLines={1}>
           {backText}
         </Text>
-      </Pressable>
+      </TouchableOpacity>
       <Pressable
         style={tw`border rounded-sm px-2 py-1 bg-[${Color.GRAY}] items-center w-32`}
         onPress={middleAction}
@@ -197,7 +197,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
         )}
       </Pressable>
 
-      <Pressable
+      <TouchableOpacity
         onPress={nextAction}
         style={tw.style(
           {
@@ -210,7 +210,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
           {nextText}
         </Text>
         <Entypo name="arrow-bold-right" size={16} color="black" />
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };

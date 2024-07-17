@@ -46,7 +46,7 @@ export default function useMusicSearch() {
         search = search.trim();
 
         if (/^\d+$/.test(search)) {
-            const idSongs = cachedSongs.filter(song => (song.id + "").includes(search)).sort((a, b) => a.id > b.id ? -1 : 1).sort((a) => a.id == Number(search) ? -1 : 1);
+            const idSongs = cachedSongs.filter(song => (song.number + "").includes(search)).sort((a, b) => a.number > b.number ? -1 : 1).sort((a) => a.number == Number(search) ? -1 : 1);
             setSongs(idSongs);
         } else {
             updateSongs(search);

@@ -9,6 +9,7 @@ import { useEffect, useRef } from "react";
 import Button from "@/components/elements/Button";
 import Ratings from "@/components/elements/Ratings";
 import { entryTypeMeanings } from "./MusicEntryTypeModal";
+import useSaveSongEntries from "@/hooks/api/useSaveSongEntries";
 
 type Props = {
   closeModal?: () => void;
@@ -19,6 +20,8 @@ export default function MusicEntryOverviewModal({
   closeModal,
   openSelectSongModal,
 }: Props) {
+  const { saveSongs } = useSaveSongEntries();
+
   const { musicDate, musicRatings, musicEntryType } = Store.useState(
     (state) => {
       return {
@@ -69,6 +72,7 @@ export default function MusicEntryOverviewModal({
                 openSelectSongModal?.();
               }}
               style={tw`mt-2`}
+              disabled={musicRatings.length == 10}
             >
               <View style={tw`items-center flex-row gap-2`}>
                 <AntDesign name="plus" size={32} color="white" />
@@ -90,9 +94,12 @@ export default function MusicEntryOverviewModal({
                 <View style={tw`flex-row gap-2`}>
                   <View style={tw`w-4/5`}>
                     <Text style={tw`text-lg leading-[18px]`}>
-                      {item.title} ({item.id})
+                      {item.title} ({item.number})
                     </Text>
                     <Text style={tw`text-xs`}>{item.book.name}</Text>
+                    {item.comment && (
+                      <Text style={tw`text-base mt-1`}>{item.comment}</Text>
+                    )}
                   </View>
                   <View style={tw`w-1/5 flex-1 items-center justify-center`}>
                     <TouchableOpacity
@@ -115,8 +122,8 @@ export default function MusicEntryOverviewModal({
         />
       </Animated.View>
       <Button
-        onPress={() => {
-          // TODO: Save
+        onPress={async () => {
+          await saveSongs(musicRatings, musicDate!);
 
           Store.update((state) => {
             state.musicRatings = [];

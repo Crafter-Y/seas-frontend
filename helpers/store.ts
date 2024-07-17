@@ -4,6 +4,8 @@ import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calen
 import { Rating } from "@/components/elements/Ratings";
 import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
 
+export type RatedSong = APIResponseSong & { rating: Rating, comment?: string }
+
 interface GlobalStore {
   currentPage: number;
   allPages: APIResponsePage[],
@@ -31,7 +33,7 @@ interface GlobalStore {
   musicEntryType?: MusicEntryType,
   musicDate?: CalendarDate,
   musicSongSelected?: APIResponseSong,
-  musicRatings: (APIResponseSong & { rating: Rating })[]
+  musicRatings: RatedSong[]
 }
 
 export const defaultState: GlobalStore = {

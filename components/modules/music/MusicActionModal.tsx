@@ -34,7 +34,6 @@ export default function MusicActionModal({
           onPress={() => {
             closeModal?.();
 
-            console.log(musicRatings.length, musicEntryType, musicDate);
             if (musicRatings.length !== 0 && musicEntryType && musicDate) {
               openOverviewModal?.();
             } else {
