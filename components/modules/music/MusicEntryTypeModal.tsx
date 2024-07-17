@@ -2,12 +2,20 @@ import tw from "@/tailwind";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Button from "@/components/elements/Button";
+import { Store } from "@/helpers/store";
 
 type Props = {
   closeModal?: () => void;
   openMusicActionModal?: () => void;
   openEntryDateModal?: () => void;
 };
+
+export const entryTypeMeanings = {
+  MISSION: "Gottesdienst",
+  TEST: "Probe",
+} as const;
+
+export type MusicEntryType = keyof typeof entryTypeMeanings;
 
 export default function MusicEntryTypeModal({
   closeModal,
@@ -22,11 +30,17 @@ export default function MusicEntryTypeModal({
           Platform.OS == "web" ? "shadow-md" : ""
         }`}
         onPress={() => {
+          Store.update((state) => {
+            state.musicEntryType = "MISSION";
+          });
+
           closeModal?.();
           openEntryDateModal?.();
         }}
       >
-        <Text style={tw`text-xl font-semibold`}>Gottesdienst</Text>
+        <Text style={tw`text-xl font-semibold`}>
+          {entryTypeMeanings["MISSION"]}
+        </Text>
         <AntDesign name="star" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity
@@ -34,11 +48,16 @@ export default function MusicEntryTypeModal({
           Platform.OS == "web" ? "shadow-md" : ""
         }`}
         onPress={() => {
+          Store.update((state) => {
+            state.musicEntryType = "TEST";
+          });
           closeModal?.();
           openEntryDateModal?.();
         }}
       >
-        <Text style={tw`text-xl font-semibold`}>Probe</Text>
+        <Text style={tw`text-xl font-semibold`}>
+          {entryTypeMeanings["TEST"]}
+        </Text>
       </TouchableOpacity>
       <Button
         style={tw`mb-2`}

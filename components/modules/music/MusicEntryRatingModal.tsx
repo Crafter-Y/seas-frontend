@@ -6,49 +6,18 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import Button from "@/components/elements/Button";
+import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
 
 type Props = {
   closeModal?: () => void;
   openSelectSongModal?: () => void;
-};
-
-type RatingButtonProps = {
-  rating?: Rating;
-  setRating: (rating: Rating) => void;
-  ratingValue: Rating;
-  activationValues: (Rating | "")[];
-};
-
-const ratingMeaning = {
-  "1": "Weiteres Üben erforderlich",
-  "2": "Hat Verbesserungspotenzial",
-  "3": "okay",
-  "4": "gut",
-  "5": "Sehr gut",
-} as const;
-
-type Rating = keyof typeof ratingMeaning;
-
-const RatingButton = ({
-  rating,
-  setRating,
-  ratingValue,
-  activationValues,
-}: RatingButtonProps) => {
-  return (
-    <TouchableOpacity onPress={() => setRating(ratingValue)}>
-      <AntDesign
-        name={activationValues.includes(rating ?? "") ? "star" : "staro"}
-        size={48}
-        color={Color.GREEN}
-      />
-    </TouchableOpacity>
-  );
+  openOverviewModal?: () => void;
 };
 
 export default function MusicEntryRatingModal({
   closeModal,
   openSelectSongModal,
+  openOverviewModal,
 }: Props) {
   const { musicDate, song } = Store.useState((state) => {
     return {
@@ -85,47 +54,31 @@ export default function MusicEntryRatingModal({
         </View>
       </View>
 
+      {/* TODO: Comment field */}
+
       <Text style={tw`mt-3 text-xl font-semibold`}>
         Bewertung für dieses Lied abgeben:
       </Text>
       <Text style={tw`text-center text-lg mt-2`}>
         {rating ? ratingMeaning[rating] : ""}
       </Text>
-      <View style={tw`flex-row gap-2 justify-center mt-1`}>
-        <RatingButton
-          rating={rating}
-          setRating={setRating}
-          ratingValue="1"
-          activationValues={["1", "2", "3", "4", "5"]}
-        />
-        <RatingButton
-          rating={rating}
-          setRating={setRating}
-          ratingValue="2"
-          activationValues={["2", "3", "4", "5"]}
-        />
-        <RatingButton
-          rating={rating}
-          setRating={setRating}
-          ratingValue="3"
-          activationValues={["3", "4", "5"]}
-        />
-        <RatingButton
-          rating={rating}
-          setRating={setRating}
-          ratingValue="4"
-          activationValues={["4", "5"]}
-        />
-        <RatingButton
-          rating={rating}
-          setRating={setRating}
-          ratingValue="5"
-          activationValues={["5"]}
-        />
-      </View>
+
+      <Ratings
+        onRatingChange={setRating}
+        style={tw`gap-2 justify-center mt-1`}
+        size="large"
+      />
+
       <Button
         onPress={() => {
           closeModal?.();
+          Store.update((state) => {
+            state.musicRatings.push({
+              ...song!,
+              rating: rating!,
+            });
+          });
+          openOverviewModal?.();
         }}
         style={tw`mt-4`}
         disabled={!rating}

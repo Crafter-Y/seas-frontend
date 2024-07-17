@@ -1,16 +1,29 @@
 import tw from "@/tailwind";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { Store } from "@/helpers/store";
 
 type Props = {
   closeModal?: () => void;
   openEntryTypeModal?: () => void;
+  openOverviewModal?: () => void;
 };
 
 export default function MusicActionModal({
   closeModal,
   openEntryTypeModal,
+  openOverviewModal,
 }: Props) {
+  const { musicRatings, musicEntryType, musicDate } = Store.useState(
+    (state) => {
+      return {
+        musicRatings: state.musicRatings,
+        musicEntryType: state.musicEntryType,
+        musicDate: state.musicDate,
+      };
+    }
+  );
+
   return (
     <>
       <View style={tw`flex-row m-3 md:m-4 gap-3`}>
@@ -20,7 +33,13 @@ export default function MusicActionModal({
           }`}
           onPress={() => {
             closeModal?.();
-            openEntryTypeModal?.();
+
+            console.log(musicRatings.length, musicEntryType, musicDate);
+            if (musicRatings.length !== 0 && musicEntryType && musicDate) {
+              openOverviewModal?.();
+            } else {
+              openEntryTypeModal?.();
+            }
           }}
         >
           <Text style={tw`text-center text-xl font-semibold`}>

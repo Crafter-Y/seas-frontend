@@ -1,6 +1,8 @@
 import { Store as Pullstate } from "pullstate";
 import { FetchState } from "./Constants";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
+import { Rating } from "@/components/elements/Ratings";
+import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
 
 interface GlobalStore {
   currentPage: number;
@@ -26,8 +28,10 @@ interface GlobalStore {
   printDateEnd: Date | null,
   printColumns: number[],
 
+  musicEntryType?: MusicEntryType,
   musicDate?: CalendarDate,
-  musicSongSelected?: APIResponseSong
+  musicSongSelected?: APIResponseSong,
+  musicRatings: (APIResponseSong & { rating: Rating })[]
 }
 
 export const defaultState: GlobalStore = {
@@ -51,7 +55,9 @@ export const defaultState: GlobalStore = {
 
   printDateStart: null,
   printDateEnd: null,
-  printColumns: []
+  printColumns: [],
+
+  musicRatings: []
 };
 
 export const Store = new Pullstate<GlobalStore>(defaultState);

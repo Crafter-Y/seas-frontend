@@ -125,9 +125,7 @@ export default function MusicSelectSongModal({
               </View>
             );
           }}
-        >
-          <Text>Zum suchen Nummer eingeben</Text>
-        </FlashList>
+        />
       </Animated.View>
       <Button
         onPress={() => {
