@@ -7,12 +7,14 @@ type Props = {
   closeModal?: () => void;
   openEntryTypeModal?: () => void;
   openOverviewModal?: () => void;
+  openHistoryModal?: () => void;
 };
 
 export default function MusicActionModal({
   closeModal,
   openEntryTypeModal,
   openOverviewModal,
+  openHistoryModal,
 }: Props) {
   const { musicRatings, musicEntryType, musicDate } = Store.useState(
     (state) => {
@@ -55,6 +57,10 @@ export default function MusicActionModal({
             },
             "flex-grow flex-1 rounded-lg border-gray-400 border-2 gap-4 justify-between px-2 pt-2"
           )}
+          onPress={() => {
+            closeModal?.();
+            openHistoryModal?.();
+          }}
         >
           <Text style={tw`text-center text-xl font-semibold`}>
             Informationen abrufen

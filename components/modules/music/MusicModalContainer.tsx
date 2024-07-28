@@ -6,6 +6,7 @@ import MusicEntryDateModal from "./MusicEntryDateModal";
 import MusicSelectSongModal from "./MusicSelectSongModal";
 import MusicEntryRatingModal from "./MusicEntryRatingModal";
 import MusicEntryOverviewModal from "./MusicEntryOverviewModal";
+import MusicHistoryModal from "./MusicHistoryModal";
 
 const MusicModalContainer = forwardRef<ModalHandle>((props, ref) => {
   const musicActonModal = useRef<ModalHandle>(null);
@@ -15,6 +16,8 @@ const MusicModalContainer = forwardRef<ModalHandle>((props, ref) => {
   const selectSongModal = useRef<ModalHandle>(null);
   const rateSongModal = useRef<ModalHandle>(null);
   const overviewModal = useRef<ModalHandle>(null);
+
+  const historyModal = useRef<ModalHandle>(null);
 
   useImperativeHandle(ref, () => ({
     openModal() {
@@ -32,6 +35,7 @@ const MusicModalContainer = forwardRef<ModalHandle>((props, ref) => {
           closeModal={() => musicActonModal.current?.closeModal()}
           openEntryTypeModal={() => entryTypeModal.current?.openModal()}
           openOverviewModal={() => overviewModal.current?.openModal()}
+          openHistoryModal={() => historyModal.current?.openModal()}
         />
       </ModalRewrite>
       <ModalRewrite title="SEAS Musik Journal" ref={entryTypeModal}>
@@ -67,6 +71,9 @@ const MusicModalContainer = forwardRef<ModalHandle>((props, ref) => {
           closeModal={() => overviewModal.current?.closeModal()}
           openSelectSongModal={() => selectSongModal.current?.openModal()}
         />
+      </ModalRewrite>
+      <ModalRewrite title="Reports" ref={historyModal} scrollable>
+        <MusicHistoryModal />
       </ModalRewrite>
     </>
   );
