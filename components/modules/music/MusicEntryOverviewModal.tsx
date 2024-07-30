@@ -123,7 +123,7 @@ export default function MusicEntryOverviewModal({
       </Animated.View>
       <Button
         onPress={async () => {
-          await saveSongs(musicRatings, musicDate!);
+          await saveSongs(musicRatings, musicDate!, musicEntryType!);
 
           Store.update((state) => {
             state.musicRatings = [];

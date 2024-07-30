@@ -103,6 +103,33 @@ type APIResponseSong = {
   }
 };
 
+type APIResponseHistoryEntry = {
+  date: Date;
+  rating: number;
+  comment: string | null;
+  song: {
+    number: number;
+    title: string;
+    book: {
+      name: string;
+    };
+  };
+}
+
+type APIResponseHistoryRatingEntry = {
+  title: string;
+  number: number;
+  book: string;
+  rating: number;
+}
+
+type APIResponseHistoryCountEntry = {
+  title: string;
+  number: number;
+  book: string;
+  count: number;
+}
+
 type Module = "print" | "calendar" | "music"
 
 type EventType = "UNSET" | "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";

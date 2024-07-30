@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  useWindowDimensions,
   View,
 } from "react-native";
 import React, {
@@ -62,6 +63,7 @@ const ModalHeader = ({ title, closeModal }: HeaderProps) => {
 const ModalRewrite = forwardRef<ModalHandle, Props>(
   ({ title, children, scrollable = false }: Props, ref) => {
     const { isSm, isMd, isXl } = useMediaQueries();
+    const { height } = useWindowDimensions();
 
     const [isModalOpen, setModalOpen] = useState(false);
 
@@ -108,7 +110,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
               keyboardShouldPersistTaps="handled"
               style={tw.style(
                 {
-                  maxHeight: "80%",
+                  maxHeight: height * 0.8,
                   "w-full": !isSm && !isMd,
                   "max-w-96": isSm,
                   width: isXl ? 580 : undefined,

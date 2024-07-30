@@ -46,7 +46,7 @@ const RatingButton = ({
     <TouchableOpacity onPress={() => setRating(ratingValue)} disabled={frozen}>
       <AntDesign
         name={activationValues.includes(rating ?? "") ? "star" : "staro"}
-        size={size == "large" ? 48 : 32}
+        size={size == "large" ? 48 : 24}
         color={Color.GREEN}
       />
     </TouchableOpacity>
