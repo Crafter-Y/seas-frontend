@@ -137,6 +137,9 @@ export default function VerifyScreen() {
                   onChangeText={(text) => setNewPassword2(text)}
                   secureTextEntry={true}
                   autoComplete="new-password"
+                  onSubmitEditing={() =>
+                    redeemToken(t, newPassword1, newPassword2)
+                  }
                   ref={thirdInput}
                   returnKeyType="done"
                   style={tw`mt-2 mb-4`}
