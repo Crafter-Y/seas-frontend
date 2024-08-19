@@ -127,7 +127,7 @@ export default function MusicHistoryModal() {
       {(historyType === "MIN" || historyType == "MAX") && (
         <MusicHistoryList
           data={countResponse}
-          headers={["Eintrag", "# oft gespielt"]}
+          headers={["Eintrag", "# oft vorgetragen"]}
           setSearchType={setSearchType}
           searchType={searchType}
           setHistoryType={setHistoryType}
@@ -152,7 +152,7 @@ export default function MusicHistoryModal() {
                 </View>
                 <View style={tw`items-center justify-center`}>
                   <Text style={tw`text-center text-lg`}>
-                    {item.count}x gespielt
+                    {item.count}x vorgetragen
                   </Text>
                 </View>
               </View>
