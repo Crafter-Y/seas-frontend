@@ -52,6 +52,11 @@ export default function MusicHistoryModal() {
                 } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
               >
                 <View style={tw``}>
+                  {/* TODO: figure out, why the date needs to be casted to the date object */}
+                  {new Date(item.date).getFullYear() !==
+                    new Date().getFullYear() && (
+                    <Text>{new Date(item.date).getFullYear()}</Text>
+                  )}
                   <Text style={tw`mr-3`}>
                     {prettyDate(item.date.toString(), true)}
                   </Text>
