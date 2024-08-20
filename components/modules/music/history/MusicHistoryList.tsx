@@ -66,7 +66,9 @@ export default function MusicHistoryList<T>({
               setHistoryType={setHistoryType}
             />
             <View
-              style={tw`rounded-tl-xl rounded-tr-xl border-t-2 border-l-2 border-r-2 border-[${Color.GRAY}] flex-row p-1 mt-1`}
+              style={tw`rounded-tl-xl rounded-tr-xl border-t-2 border-l-2 border-r-2 border-[${
+                Color.GRAY
+              }] flex-row p-1 mt-1 ${data.length ? "" : "hidden"}`}
             >
               {headers.map((header) => (
                 <View key={header} style={tw`flex-1 mx-2`}>
@@ -74,6 +76,9 @@ export default function MusicHistoryList<T>({
                 </View>
               ))}
             </View>
+            <Text style={tw`${data.length ? "hidden" : ""} py-2 text-lg`}>
+              Keine Einträge in den letzten 365 Tagen.
+            </Text>
           </>
         }
         ListFooterComponent={

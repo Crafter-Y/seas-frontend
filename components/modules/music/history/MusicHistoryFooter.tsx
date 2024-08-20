@@ -2,6 +2,7 @@ import React from "react";
 import { DataTable } from "react-native-paper";
 import { HistoryType } from "../MusicHistoryModal";
 import { MusicEntryType } from "../MusicEntryTypeModal";
+import tw from "@/tailwind";
 
 type Props = {
   page: number;
@@ -29,7 +30,7 @@ export default function MusicHistoryFooter({
   totalRecords,
 }: Props) {
   return (
-    <DataTable>
+    <DataTable style={tw`${responseLength ? "" : "hidden"}`}>
       <DataTable.Pagination
         page={page}
         numberOfPages={numPages}
