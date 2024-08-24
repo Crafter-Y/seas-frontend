@@ -184,7 +184,7 @@ export default function MusicHistoryModal() {
           setHistoryType={setHistoryType}
           historyType={historyType}
           page={page}
-          responseLength={0}
+          responseLength={historyType == "KNOWN" ? knownResponse.length : 0}
           setPage={setPage}
           queryReports={queryReports}
           totalRecords={totalRecords}
