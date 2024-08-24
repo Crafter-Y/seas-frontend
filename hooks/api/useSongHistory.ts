@@ -7,6 +7,7 @@ export default function useSongHistory() {
     const [historyResponse, setHistoryResponse] = useState<APIResponseHistoryEntry[]>([]);
     const [ratingResponse, setRatingResponse] = useState<APIResponseHistoryRatingEntry[]>([]);
     const [countResponse, setCountResponse] = useState<APIResponseHistoryCountEntry[]>([]);
+    const [knownResponse, setKnownResponse] = useState<APIResponseSong[]>([]);
 
     const [totalRecords, setTotalRecords] = useState(0);
 
@@ -53,7 +54,21 @@ export default function useSongHistory() {
 
         }
 
+        if (historyType === "KNOWN" || historyType === "UNKNOWN") {
+            const res = await requestApi("songs/reports", "POST", {
+                page,
+                type: historyType,
+                origin: searchType
+            });
+
+            if (res?.success) {
+                setKnownResponse(res.data.rows);
+                setTotalRecords(res.data.count);
+            }
+
+        }
+
     };
 
-    return { queryReports, historyResponse, ratingResponse, countResponse, totalRecords };
+    return { queryReports, historyResponse, ratingResponse, countResponse, totalRecords, knownResponse };
 }

@@ -55,7 +55,7 @@ export default function MusicHistoryList<T>({
       )}
     >
       <FlashList
-        estimatedItemSize={4}
+        estimatedItemSize={10}
         data={data}
         ListHeaderComponent={
           <>

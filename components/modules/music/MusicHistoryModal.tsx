@@ -8,7 +8,14 @@ import { prettyDate } from "@/helpers/format";
 import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
 import MusicHistoryList from "./history/MusicHistoryList";
 
-export type HistoryType = "GOOD" | "BAD" | "MIN" | "MAX" | "HISTORY";
+export type HistoryType =
+  | "GOOD"
+  | "BAD"
+  | "MIN"
+  | "MAX"
+  | "HISTORY"
+  | "KNOWN"
+  | "UNKNOWN";
 
 export default function MusicHistoryModal() {
   const {
@@ -17,6 +24,7 @@ export default function MusicHistoryModal() {
     ratingResponse,
     totalRecords,
     countResponse,
+    knownResponse,
   } = useSongHistory();
 
   const [searchType, setSearchType] = useState<MusicEntryType>("MISSION");
@@ -165,6 +173,40 @@ export default function MusicHistoryModal() {
           }}
         />
       )}
+
+      {/* Knwon/Unknown list component */}
+      {(historyType === "KNOWN" || historyType == "UNKNOWN") && (
+        <MusicHistoryList
+          data={knownResponse}
+          headers={["Titel"]}
+          setSearchType={setSearchType}
+          searchType={searchType}
+          setHistoryType={setHistoryType}
+          historyType={historyType}
+          page={page}
+          responseLength={0}
+          setPage={setPage}
+          queryReports={queryReports}
+          totalRecords={totalRecords}
+          renderItem={({ item, index }) => {
+            return (
+              <View
+                style={tw`border-b-2 p-1 flex-row border-[${Color.GRAY}] ${
+                  index == 0 ? "border-t-2" : ""
+                } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
+              >
+                <View style={tw`flex-1`}>
+                  <Text style={tw`text-lg leading-[18px]`}>
+                    {item.title} ({item.number})
+                  </Text>
+                  <Text style={tw`text-xs`}>{item.book.name}</Text>
+                </View>
+              </View>
+            );
+          }}
+        />
+      )}
+      <View style={tw`h-2`}></View>
     </View>
   );
 }

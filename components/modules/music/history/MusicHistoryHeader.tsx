@@ -94,7 +94,8 @@ export default function MusicHistoryHeader({
                 <Ionicons name="trending-up" size={size} color={color} />
               ),
               style: {
-                borderTopLeftRadius: 0,
+                borderRadius: 0,
+                borderBottomWidth: 0,
               },
             },
             {
@@ -102,6 +103,33 @@ export default function MusicHistoryHeader({
               label: "Wenig",
               icon: ({ size, color }) => (
                 <Ionicons name="trending-down" size={size} color={color} />
+              ),
+              style: {
+                borderRadius: 0,
+                borderBottomWidth: 0,
+              },
+            },
+          ]}
+        />
+        <SegmentedButtons
+          value={historyType}
+          onValueChange={(text) => setHistoryType(text as HistoryType)}
+          buttons={[
+            {
+              value: "KNOWN",
+              label: "Bekannt",
+              icon: ({ size, color }) => (
+                <AntDesign name="info" size={size} color={color} />
+              ),
+              style: {
+                borderTopLeftRadius: 0,
+              },
+            },
+            {
+              value: "UNKNOWN",
+              label: "Unbekannt",
+              icon: ({ size, color }) => (
+                <AntDesign name="question" size={size} color={color} />
               ),
               style: {
                 borderTopRightRadius: 0,
