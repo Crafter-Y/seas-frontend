@@ -34,6 +34,8 @@ interface GlobalStore {
   musicDate?: CalendarDate,
   musicSongSelected?: APIResponseSong,
   musicRatings: RatedSong[]
+
+  restrictions?: APIRestrictions,
 }
 
 export const defaultState: GlobalStore = {

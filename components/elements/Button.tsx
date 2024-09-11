@@ -26,7 +26,7 @@ const Button = ({
         "rounded-xl px-4 py-3 flex items-center justify-center",
         {
           backgroundColor: disabled ? Color.GRAY : color ?? Color.BLUE,
-          cursor: "pointer",
+          cursor: disabled ? "not-allowed" : "pointer",
         },
         style
       )}

@@ -12,9 +12,15 @@ type Props = {
   selectedValue: string;
   onValueChange: (item: string) => void;
   children: ReactNode[];
+  disabled?: boolean;
 };
 
-const Picker = ({ selectedValue, onValueChange, children }: Props) => {
+const Picker = ({
+  selectedValue,
+  onValueChange,
+  children,
+  disabled,
+}: Props) => {
   const [iosPickerOpen, setIosPickerOpen] = useState(false);
   const iosModal = useRef<ModalHandle>(null);
   const iosPicker = useRef<RNPicker<string>>(null);
@@ -33,6 +39,7 @@ const Picker = ({ selectedValue, onValueChange, children }: Props) => {
     return (
       <View>
         <Pressable
+          disabled={disabled}
           onPress={() => {
             setIosPickerOpen(true);
             iosModal.current?.openModal();
@@ -66,6 +73,7 @@ const Picker = ({ selectedValue, onValueChange, children }: Props) => {
   return (
     <View style={tw.style("border border-black border-opacity-20 rounded-xl")}>
       <RNPicker
+        aria-disabled={disabled}
         style={tw.style(
           {
             fontSize: 18,

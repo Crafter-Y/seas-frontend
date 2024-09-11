@@ -8,9 +8,12 @@ import {
   settingsSections,
 } from "@/components/layouts/SettingsLayout";
 import { router } from "expo-router";
+import useRestrictions from "@/hooks/api/useRestrictions";
 
 export default function BaseSettingsScreen() {
   const { isMd, isSm } = useMediaQueries();
+
+  useRestrictions();
 
   return (
     <SettingsLayout actualSetting="settings" backTitle="Zurück">

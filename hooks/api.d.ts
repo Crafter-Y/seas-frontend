@@ -93,6 +93,18 @@ type APIModuleStatus = {
   moduleMusic: boolean
 }
 
+type APIRestrictions = {
+  maxAdmins: number
+  maxUsers: number
+  maxColumns: number
+  maxPages: number
+  columnsChangable: boolean
+  columnsDeletable: boolean
+  pagesChangable: boolean
+  pagesDeletable: boolean
+  modulesManagable: boolean
+}
+
 type APIResponseSong = {
   id: number;
   title: string;

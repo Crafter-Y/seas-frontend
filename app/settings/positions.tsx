@@ -27,6 +27,8 @@ import { Text, TextInput, View } from "react-native";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import ModalRewrite from "@/components/elements/ModalRewrite";
 import { Color } from "@/helpers/Constants";
+import useRestrictions from "@/hooks/api/useRestrictions";
+import Callout from "@/components/elements/Callout";
 
 export default function ManagePositionsScreen() {
   const {
@@ -46,8 +48,12 @@ export default function ManagePositionsScreen() {
 
   const { assignColumns, assignmentSuccessful } = useAssignColumns();
 
+  const { restrictions } = useRestrictions();
+
   const [columnName, setColumnName] = useState("");
   const [columnType, setColumnType] = useState("POSITION");
+
+  const [maxColsReached, setMaxColsReached] = useState(false);
 
   const columnNameInput = useRef<TextInput>(null);
   const renameInput = useRef<TextInput>(null);
@@ -81,6 +87,16 @@ export default function ManagePositionsScreen() {
     }
   }, [successfulColumnRename, assignmentSuccessful]);
 
+  useEffect(() => {
+    if (
+      restrictions &&
+      allColumns &&
+      restrictions.maxColumns <= allColumns.length
+    ) {
+      setMaxColsReached(true);
+    }
+  }, [restrictions, allColumns]);
+
   return (
     <SettingsLayout actualSetting="positions">
       <SettingsTitle>Spalten verwalten</SettingsTitle>
@@ -93,6 +109,7 @@ export default function ManagePositionsScreen() {
 
         <Input
           style={tw`mt-4`}
+          disabled={maxColsReached}
           placeholder="Spaltenname"
           onChangeText={(text) => setColumnName(text)}
           secureTextEntry={false}
@@ -102,6 +119,7 @@ export default function ManagePositionsScreen() {
         />
         <Picker
           selectedValue={columnType}
+          disabled={maxColsReached}
           onValueChange={(itemValue) => setColumnType(itemValue)}
         >
           <RNPicker.Item label="Eintragefeld" value="POSITION" />
@@ -110,7 +128,13 @@ export default function ManagePositionsScreen() {
 
         <ErrorDisplay hasError={hasCreationError} error={creationError} />
 
+        <Callout
+          visible={maxColsReached}
+          message="Die maximale Anzahl an Spalten wurde für Ihr Produkt erreicht."
+        />
+
         <Button
+          disabled={maxColsReached}
           onPress={() => {
             createColumn(columnName, columnType);
             columnNameInput.current?.blur();
@@ -122,6 +146,16 @@ export default function ManagePositionsScreen() {
       </SettingsForm>
 
       <Divider type="HORIZONTAL" style={tw`my-4`} />
+
+      <Callout
+        visible={!restrictions?.columnsDeletable}
+        message="Das Löschen von Spalten ist in Ihrem Produkt deaktiviert."
+      />
+
+      <Callout
+        visible={!restrictions?.columnsChangable}
+        message="Das Bearbeiten von Spalten ist in Ihrem Produkt deaktiviert."
+      />
 
       <SettingsForm style={tw`mb-8`}>
         <Form>
@@ -145,6 +179,7 @@ export default function ManagePositionsScreen() {
                 <Button
                   color="#f67e7e"
                   style={tw`p-2.5`}
+                  disabled={!restrictions?.columnsDeletable}
                   onPress={() => {
                     setColumnToChange(column);
                     deleteColumnModal.current?.openModal();
@@ -154,6 +189,7 @@ export default function ManagePositionsScreen() {
                 </Button>
                 <Button
                   style={tw`p-2.5`}
+                  disabled={!restrictions?.columnsChangable}
                   onPress={() => {
                     setColumnToChange(column);
                     setAssignmentChanges([]);
