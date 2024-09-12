@@ -26,8 +26,8 @@ export const settingsSections = {
   users: "Mitglieder verwalten",
   positions: "Spalten verwalten",
   events: "Termine verwalten",
-  comments: "Kommentarvorlagen",
   pages: "Pläne verwalten",
+  comments: "Kommentarvorlagen",
   modules: "Module verwalten",
 };
 
