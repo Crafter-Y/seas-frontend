@@ -20,6 +20,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import { Color } from "@/helpers/Constants";
 import SettingsTitle from "@/components/settings/SettingsTitle";
+import useRestrictions from "@/hooks/api/useRestrictions";
+import Callout from "@/components/elements/Callout";
 
 export default function ManagePagesScreen() {
   const { allPages, queryPages } = useAllPages();
@@ -29,7 +31,10 @@ export default function ManagePagesScreen() {
   const { renamePage, hasRenameError, renameError, successfulPageRename } =
     useRenamePage();
 
+  const { restrictions } = useRestrictions();
+
   const [pageName, setPageName] = useState("");
+  const [maxPagesReached, setMaxPagesReached] = useState(false);
 
   const input = useRef<TextInput>(null);
   const renameInput = useRef<TextInput>(null);
@@ -69,6 +74,12 @@ export default function ManagePagesScreen() {
     }
   }, [succesfulDeletion]);
 
+  useEffect(() => {
+    if (restrictions && allPages && restrictions.maxPages <= allPages.length) {
+      setMaxPagesReached(true);
+    }
+  }, [restrictions, allPages]);
+
   return (
     <SettingsLayout actualSetting="pages">
       <SettingsTitle>Pläne verwalten</SettingsTitle>
@@ -83,6 +94,7 @@ export default function ManagePagesScreen() {
           style={tw`mt-4`}
           placeholder="Plan Name"
           onChangeText={(text) => setPageName(text)}
+          disabled={maxPagesReached}
           secureTextEntry={false}
           ref={input}
           onSubmitEditing={() => {
@@ -95,7 +107,13 @@ export default function ManagePagesScreen() {
 
         <ErrorDisplay hasError={hasCreationError} error={creationError} />
 
+        <Callout
+          visible={maxPagesReached}
+          message="Die maximale Anzahl an Plänen wurde für Ihr Produkt erreicht."
+        />
+
         <Button
+          disabled={maxPagesReached}
           onPress={() => {
             createPage(pageName);
             input.current?.clear();
@@ -107,6 +125,16 @@ export default function ManagePagesScreen() {
       </SettingsForm>
 
       <Divider type="HORIZONTAL" style={tw`my-4`} />
+
+      <Callout
+        visible={!restrictions?.pagesDeletable}
+        message="Das Löschen von Plänen ist in Ihrem Produkt deaktiviert."
+      />
+
+      <Callout
+        visible={!restrictions?.pagesChangable}
+        message="Das Bearbeiten von Plänen ist in Ihrem Produkt deaktiviert."
+      />
 
       <SettingsForm style={tw`mb-8`}>
         <Form>
@@ -121,6 +149,7 @@ export default function ManagePagesScreen() {
                 <Button
                   color="#f67e7e"
                   style={tw`p-2.5`}
+                  disabled={!restrictions?.pagesDeletable}
                   onPress={() => {
                     setPageIdToChange(page.id);
                     setPageNameToChange(page.name);
@@ -132,6 +161,7 @@ export default function ManagePagesScreen() {
 
                 <Button
                   style={tw`p-2.5`}
+                  disabled={!restrictions?.pagesChangable}
                   onPress={() => {
                     setPageIdToChange(page.id);
                     setPageNameToChange(page.name);

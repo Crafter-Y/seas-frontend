@@ -52,7 +52,7 @@ export default function ManageCommentsScreen() {
 
   return (
     <SettingsLayout actualSetting="comments">
-      <SettingsTitle>Kommentare verwalten</SettingsTitle>
+      <SettingsTitle>Kommentarvorlagen</SettingsTitle>
 
       <SettingsForm>
         <Text>

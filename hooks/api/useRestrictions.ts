@@ -14,7 +14,7 @@ export default function useRestrictions() {
     };
 
     useEffect(() => {
-        queryRestrictions();
+        if (!restrictions) queryRestrictions();
     }, []);
 
     return { restrictions, queryRestrictions };

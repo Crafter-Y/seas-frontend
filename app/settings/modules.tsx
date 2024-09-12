@@ -9,10 +9,13 @@ import { Text, View } from "react-native";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import useChangeModuleState from "@/hooks/api/useChangeModuleState";
 import SettingsTitle from "@/components/settings/SettingsTitle";
+import useRestrictions from "@/hooks/api/useRestrictions";
+import Callout from "@/components/elements/Callout";
 
 export default function ManagePagesScreen() {
   const { moduleStatus, queryModuleStatus } = useModuleStatus();
   const { changeSuccessful, changeModuleState } = useChangeModuleState();
+  const { restrictions } = useRestrictions();
 
   useEffect(() => {
     if (changeSuccessful) queryModuleStatus();
@@ -30,6 +33,11 @@ export default function ManagePagesScreen() {
       </SettingsForm>
       <Divider type="HORIZONTAL" style={tw`my-4`} />
 
+      <Callout
+        visible={!restrictions?.modulesManagable}
+        message="Module können in Ihrem Produkt nicht manuell aktiviert/deaktiviert werden."
+      />
+
       <SettingsForm>
         <View
           style={tw`border rounded-lg border-[${Color.DARK_GRAY}] border-2 px-2 py-1`}
@@ -38,6 +46,7 @@ export default function ManagePagesScreen() {
             <Text style={tw`font-semibold text-2xl opacity-85`}>Print</Text>
             <Button
               color={moduleStatus?.modulePrint ? Color.RED : Color.BLUE}
+              disabled={!restrictions?.modulesManagable}
               onPress={() =>
                 changeModuleState("print", !moduleStatus!.modulePrint)
               }
@@ -59,6 +68,7 @@ export default function ManagePagesScreen() {
             <Text style={tw`font-semibold text-2xl opacity-85`}>Kalender</Text>
             <Button
               color={moduleStatus?.moduleCalendar ? Color.RED : Color.BLUE}
+              disabled={!restrictions?.modulesManagable}
               onPress={() =>
                 changeModuleState("calendar", !moduleStatus!.moduleCalendar)
               }
@@ -80,6 +90,7 @@ export default function ManagePagesScreen() {
             <Text style={tw`font-semibold text-2xl opacity-85`}>Musik</Text>
             <Button
               color={moduleStatus?.moduleMusic ? Color.RED : Color.BLUE}
+              disabled={!restrictions?.modulesManagable}
               onPress={() =>
                 changeModuleState("music", !moduleStatus!.moduleMusic)
               }
@@ -89,7 +100,7 @@ export default function ManagePagesScreen() {
           </View>
           <Divider type="HORIZONTAL" style={tw`my-1`} />
           <Text>
-            Ermöglicht das dokumentieren und auswerten von Choraktivitäten. 
+            Ermöglicht das dokumentieren und auswerten von Choraktivitäten.
           </Text>
         </View>
       </SettingsForm>
