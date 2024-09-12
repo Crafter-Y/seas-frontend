@@ -13,12 +13,16 @@ type Props = {
   editUser: APIFullResponseUser;
   queryUsers: () => void;
   closeModal?: () => void;
+  maxUsersReached: boolean;
+  maxAdminsReached: boolean;
 };
 
 const ChangeUserInformationModal = ({
   editUser,
   queryUsers,
   closeModal,
+  maxUsersReached,
+  maxAdminsReached,
 }: Props) => {
   const { updateUser, successfulUpdate, updateError } = useUpdateUser();
 
@@ -85,8 +89,12 @@ const ChangeUserInformationModal = ({
           selectedValue={editRole}
           onValueChange={(itemValue) => setEditRole(itemValue as Role)}
         >
-          <RNPicker.Item label="User" value="USER" />
-          <RNPicker.Item label="Admin" value="ADMIN" />
+          {(editRole == "USER" || !maxUsersReached) && (
+            <RNPicker.Item label="User" value="USER" />
+          )}
+          {(editRole == "ADMIN" || !maxAdminsReached) && (
+            <RNPicker.Item label="Admin" value="ADMIN" />
+          )}
         </Picker>
       </View>
       <ErrorDisplay

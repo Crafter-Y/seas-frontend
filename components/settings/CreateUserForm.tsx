@@ -11,12 +11,19 @@ import UserCreatedModal from "@/components/settings/UserCreatedModal";
 import { ModalHandle } from "@/components/elements/Modal";
 import UserReactivatedModal from "./UserReactivatedModal";
 import ReactivateUserModal from "./ReactivateUserModal";
+import Callout from "../elements/Callout";
 
 type Props = {
   queryUsers: () => Promise<void>;
+  maxUsersReached: boolean;
+  maxAdminsReached: boolean;
 };
 
-const CreateUserForm = ({ queryUsers }: Props) => {
+const CreateUserForm = ({
+  queryUsers,
+  maxUsersReached,
+  maxAdminsReached,
+}: Props) => {
   const {
     createUser,
     reactivateUser,
@@ -67,9 +74,19 @@ const CreateUserForm = ({ queryUsers }: Props) => {
   return (
     <>
       <SettingsForm>
+        <Callout
+          visible={maxAdminsReached && !maxUsersReached}
+          message="Die maximale Anzahl an Admins wurde für Ihr Produkt erreicht."
+        />
+        <Callout
+          visible={!maxAdminsReached && maxUsersReached}
+          message="Die maximale Anzahl an Usern wurde für Ihr Produkt erreicht."
+        />
+
         <Input
           placeholder="Vorname"
           onChangeText={(text) => setFirstName(text)}
+          disabled={maxUsersReached && maxAdminsReached}
           secureTextEntry={false}
           ref={firstNameInput}
           onSubmitEditing={() => secondNameInput.current?.focus()}
@@ -78,6 +95,7 @@ const CreateUserForm = ({ queryUsers }: Props) => {
         <Input
           placeholder="Nachname"
           onChangeText={(text) => setSecondName(text)}
+          disabled={maxUsersReached && maxAdminsReached}
           secureTextEntry={false}
           onSubmitEditing={() => emailInput.current?.focus()}
           ref={secondNameInput}
@@ -86,6 +104,7 @@ const CreateUserForm = ({ queryUsers }: Props) => {
         <Input
           placeholder="Email-Adresse"
           onChangeText={(text) => setEmail(text)}
+          disabled={maxUsersReached && maxAdminsReached}
           secureTextEntry={false}
           autoComplete="email"
           onSubmitEditing={() => emailInput.current?.blur()}
@@ -95,15 +114,24 @@ const CreateUserForm = ({ queryUsers }: Props) => {
         />
         <Picker
           selectedValue={role}
+          disabled={maxUsersReached && maxAdminsReached}
           onValueChange={(itemValue) => setRole(itemValue)}
         >
-          <RNPicker.Item label="User" value="USER" />
-          <RNPicker.Item label="Admin" value="ADMIN" />
+          {!maxUsersReached && <RNPicker.Item label="User" value="USER" />}
+          {!maxAdminsReached && <RNPicker.Item label="Admin" value="ADMIN" />}
         </Picker>
 
         <ErrorDisplay hasError={hasCreationError} error={creationError} />
 
-        <Button onPress={() => createUser(firstName, secondName, email, role)}>
+        <Callout
+          visible={maxAdminsReached && maxUsersReached}
+          message="Die maximale Anzahl an Mitgliedern wurde für Ihr Produkt erreicht."
+        />
+
+        <Button
+          disabled={maxUsersReached && maxAdminsReached}
+          onPress={() => createUser(firstName, secondName, email, role)}
+        >
           Nutzer erstellen
         </Button>
       </SettingsForm>

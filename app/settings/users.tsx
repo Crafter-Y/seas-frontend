@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import tw from "@/tailwind";
 import SettingsForm from "@/components/SettingsForm";
@@ -21,11 +21,16 @@ import ChangeUserInformationModal from "@/components/settings/ChangeUserInformat
 import DeleteUserModal from "@/components/settings/DeleteUserModal";
 import RequestNewPasswordModal from "@/components/settings/RequestNewPasswordModal";
 import NewPasswordModal from "@/components/settings/NewPasswordModal";
+import useRestrictions from "@/hooks/api/useRestrictions";
 
 export default function ManageUsersScreen() {
   const { user } = useAuthentication();
 
   const { allUsers, queryUsers } = useAllUsers();
+  const { restrictions } = useRestrictions();
+
+  const [maxUsersReached, setMaxUsersReached] = useState(false);
+  const [maxAdminsReached, setMaxAdminsReached] = useState(false);
 
   const [editUser, setEditUser] = useState<APIFullResponseUser>();
 
@@ -35,11 +40,34 @@ export default function ManageUsersScreen() {
   const requestNewPasswordModal = useRef<ModalHandle>(null);
   const newPasswordModal = useRef<ModalHandle>(null);
 
+  useEffect(() => {
+    if (
+      restrictions &&
+      allUsers &&
+      restrictions.maxUsers <=
+        allUsers.filter((user) => user.role == "USER").length
+    ) {
+      setMaxUsersReached(true);
+    }
+    if (
+      restrictions &&
+      allUsers &&
+      restrictions.maxAdmins <=
+        allUsers.filter((user) => user.role == "ADMIN").length
+    ) {
+      setMaxAdminsReached(true);
+    }
+  }, [restrictions, allUsers]);
+
   return (
     <SettingsLayout actualSetting="users">
       <SettingsTitle>Nutzer erstellen</SettingsTitle>
 
-      <CreateUserForm queryUsers={queryUsers} />
+      <CreateUserForm
+        queryUsers={queryUsers}
+        maxUsersReached={maxUsersReached}
+        maxAdminsReached={maxAdminsReached}
+      />
 
       <Divider type="HORIZONTAL" style={tw`my-4`} />
 
@@ -132,6 +160,8 @@ export default function ManageUsersScreen() {
         <ChangeUserInformationModal
           editUser={editUser!}
           queryUsers={queryUsers}
+          maxUsersReached={maxUsersReached}
+          maxAdminsReached={maxAdminsReached}
           closeModal={changeInformationModal.current?.closeModal}
         />
       </ModalRewrite>
