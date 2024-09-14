@@ -29,7 +29,7 @@ export default function BaseSettingsScreen() {
           <Text style={tw.style("w-52 text-lg")}>
             Dieser Bereich ist nur für Administratoren zugänglich. Über die
             Unterpunkte seitlich können die Inhalte der Seite eingestellt
-            werden.{" "}
+            werden.
           </Text>
         )}
         {!isMd &&

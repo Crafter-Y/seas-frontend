@@ -15,6 +15,7 @@ module.exports = {
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: true,
+      bundleIdentifier: "de.craftery.seasfrontend"
     },
     android: {
       adaptiveIcon: {
