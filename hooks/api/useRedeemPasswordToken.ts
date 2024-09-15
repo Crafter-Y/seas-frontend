@@ -6,6 +6,9 @@ export default function useRedeemPasswordToken() {
   const [redeemError, setRedeemError] = useState("");
 
   const redeemToken = async (token: string, newPassword1: string, newPassword2: string) => {
+    newPassword1 = newPassword1.trim();
+    newPassword2 = newPassword2.trim();
+
     if (newPassword1 !== newPassword2) {
       setRedeemError("Die Passwörter stimmen nicht überein");
       return;
@@ -21,7 +24,7 @@ export default function useRedeemPasswordToken() {
       return;
     }
 
-    if (!newPassword1.match(/^[\w\d\s\-äöüÄÖÜß_!?/*%$]{7,64}$/)) {
+    if (!newPassword1.match(/^[\w\d\-äöüÄÖÜß_!?/*%$]{7,64}$/)) {
       setRedeemError(
         "Das Passwort stimmt nicht mit den Kriterien überein. Kriterium: Mindestens 7 Zeichen. Es sind Buchstaben, Zahlen und -_!?/*%$ erlaubt."
       );
@@ -34,7 +37,7 @@ export default function useRedeemPasswordToken() {
 
     if (!res?.success) {
       setSuccessfulRedeem(false);
-      setRedeemError(res?.error);
+      setRedeemError(res.data.error);
       return;
     }
 

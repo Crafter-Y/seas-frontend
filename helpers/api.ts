@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
-import { jwtDecode as decode, InvalidTokenError } from "jwt-decode";
 import { Store } from "./store";
 import { router } from "expo-router";
 
@@ -20,30 +19,10 @@ export const getWebServer = async () => {
     return "http://localhost:8081";
   } else {
     try {
-      const token = await AsyncStorage.getItem("token");
-      if (token == null) return "https://58119.seas-kirchengemeinde.de";
+      const serverId = await AsyncStorage.getItem("serverId");
+      if (serverId == null) return "https://58119.seas-kirchengemeinde.de";
 
-      let tokenContents: {
-        productId: number,
-        userId: number,
-        email: string,
-        firstname: string,
-        lastname: string,
-        role: Role,
-        exp: number
-      };
-
-      try {
-        tokenContents = decode(token);
-      } catch (error) {
-        const er = error as InvalidTokenError;
-        console.error(er.message);
-        await AsyncStorage.removeItem("token");
-        router.replace("/login");
-        return;
-      }
-
-      return `https://${tokenContents.productId}.seas-kirchengemeinde.de`;
+      return `https://${serverId}.seas-kirchengemeinde.de`;
     } catch (e) {
       return "https://58119.seas-kirchengemeinde.de";
     }
