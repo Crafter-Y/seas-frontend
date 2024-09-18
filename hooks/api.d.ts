@@ -6,6 +6,9 @@ type ApiResponse = {
 
 type ChildType = React.ReactNode | React.ReactNode[];
 
+// https://stackoverflow.com/questions/41253310/typescript-retrieve-element-type-information-from-array-type
+type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
+
 type User = {
   id: number;
   firstname: string;

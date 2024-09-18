@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import tw from "@/tailwind";
 import Input from "./Input";
-import useAllUsers from "@/hooks/api/useAllUsers";
 import { FlashList } from "@shopify/flash-list";
 import ExpoCheckbox from "expo-checkbox";
 
@@ -11,17 +10,17 @@ type Props = {
   closeModal?: () => void;
   initialSelectedUserId: number | null;
   onUserSet: (userId: number | null) => void;
+  allUsers: { firstname: string; lastname: string; id: number }[];
 };
 
 export default function UserSelectModal({
   closeModal,
   initialSelectedUserId,
   onUserSet,
+  allUsers,
 }: Props) {
-  const { allUsers } = useAllUsers();
-
   const [renderedItems, setRenderedItems] = useState<
-    ({ firstname: string; lastname: string; id: number } | null)[]
+    (ArrayElement<typeof allUsers> | null)[]
   >([]);
 
   const [search, setSearch] = useState("");
@@ -50,7 +49,7 @@ export default function UserSelectModal({
         .map((el) => el.toLowerCase())
         .filter((el) => el.length);
 
-      const res: { firstname: string; lastname: string; id: number }[][] = [];
+      const res: (typeof allUsers)[] = [];
 
       allUsers.forEach((user) => {
         const searchableTokens = [user.firstname, user.lastname].map((el) =>

@@ -22,9 +22,11 @@ import RenamePageModal from "@/components/settings/RenamePageModal";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import UserSelectModal from "@/components/elements/UserSelectModal";
 import useSetPageModerator from "@/hooks/api/useSetPageModerator";
+import useAllUsers from "@/hooks/api/useAllUsers";
 
 export default function ManagePagesScreen() {
   const { allPages, queryPages } = useAllPages();
+  const { allUsers } = useAllUsers();
 
   const { restrictions } = useRestrictions();
 
@@ -190,6 +192,7 @@ export default function ManagePagesScreen() {
           initialSelectedUserId={selectedPage?.moderatorUserId ?? null}
           closeModal={() => moderatorModal.current?.closeModal()}
           onUserSet={(userId) => assignModerator(selectedPage!.id, userId)}
+          allUsers={allUsers}
         />
       </ModalRewrite>
     </SettingsLayout>

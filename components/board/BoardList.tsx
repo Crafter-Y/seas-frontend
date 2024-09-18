@@ -16,8 +16,9 @@ import { Store } from "@/helpers/store";
 import ModalRewrite, { ModalHandle } from "../elements/ModalRewrite";
 import BoardRowModal from "./BoardRowModal";
 import BoardRowDeleteModal from "./BoardRowDeleteModal";
-import BoardRowAssignOtherModal from "./BoardRowAssignOtherModal";
 import BoardRowCommentModal from "./BoardRowCommentModal";
+import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
+import UserSelectModal from "../elements/UserSelectModal";
 
 type Props = {
   rows: BoardRow[];
@@ -28,12 +29,12 @@ const BoardList = ({ rows, fetchData }: Props) => {
   const { assignUser, assignmentSuccessful } = useAssignUser();
   const { allColumns } = useAllColumns();
   const { allExistingUsers } = useAllExistingUsers();
+  const { selectedRow, querySingleRow } = useSingleBoardEntry();
 
   const { isSm } = useMediaQueries();
 
-  const { currentPage, selectedRow } = Store.useState((state) => ({
+  const { currentPage } = Store.useState((state) => ({
     currentPage: state.currentPage,
-    selectedRow: state.selectedRow,
   }));
 
   const [titles, setTitles] = useState<string[]>([]);
@@ -76,7 +77,10 @@ const BoardList = ({ rows, fetchData }: Props) => {
   // }, [segments, possiblyNeedReload]);
 
   useEffect(() => {
-    if (assignmentSuccessful) fetchData();
+    if (assignmentSuccessful) {
+      querySingleRow(selectedRow!.date);
+      fetchData();
+    }
   }, [assignmentSuccessful]);
 
   const getCommentForField = (column: APIResponseColumn, date: string) => {
@@ -242,9 +246,20 @@ const BoardList = ({ rows, fetchData }: Props) => {
         />
       </ModalRewrite>
       <ModalRewrite title="Mitglied auswählen" ref={selectUserModal} scrollable>
-        <BoardRowAssignOtherModal
-          closeModal={selectUserModal.current?.closeModal}
-          selectedColumn={selectedColumn}
+        <UserSelectModal
+          initialSelectedUserId={null}
+          closeModal={() => {
+            selectUserModal.current?.closeModal();
+            rowModal.current?.openModal();
+          }}
+          onUserSet={(userId) =>
+            userId
+              ? assignUser(userId, selectedRow!.date, selectedColumn!.id)
+              : () => {}
+          }
+          allUsers={Array.from(allExistingUsers).filter(
+            (user) => !user.deleted
+          )}
         />
       </ModalRewrite>
       <ModalRewrite
