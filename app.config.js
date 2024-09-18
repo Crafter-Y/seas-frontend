@@ -3,7 +3,7 @@ module.exports = {
     name: "SEAS - Kirchengemeinden",
     slug: "csa-frontend",
     scheme: "seas-kirchengemeinde",
-    version: "1.0.7",
+    version: "1.0.8",
     orientation: "default",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
@@ -15,7 +15,7 @@ module.exports = {
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: true,
-      bundleIdentifier: "de.craftery.seasfrontend"
+      bundleIdentifier: "de.craftery.seasfrontend",
     },
     android: {
       adaptiveIcon: {
