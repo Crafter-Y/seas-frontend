@@ -37,6 +37,7 @@ type APIFullResponseUser = {
 type APIResponsePage = {
   id: number;
   name: string;
+  moderatorUserId: number | null;
 };
 
 type BoardRow = {

@@ -21,11 +21,14 @@ import DeletePageModal from "@/components/settings/DeletePageModal";
 import RenamePageModal from "@/components/settings/RenamePageModal";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import UserSelectModal from "@/components/elements/UserSelectModal";
+import useSetPageModerator from "@/hooks/api/useSetPageModerator";
 
 export default function ManagePagesScreen() {
   const { allPages, queryPages } = useAllPages();
 
   const { restrictions } = useRestrictions();
+
+  const { assignModerator, succesfulAssignment } = useSetPageModerator();
 
   const [pageName, setPageName] = useState("");
   const [maxPagesReached, setMaxPagesReached] = useState(false);
@@ -56,6 +59,12 @@ export default function ManagePagesScreen() {
       setMaxPagesReached(true);
     }
   }, [restrictions, allPages]);
+
+  useEffect(() => {
+    if (succesfulAssignment) {
+      queryPages();
+    }
+  }, [succesfulAssignment]);
 
   return (
     <SettingsLayout actualSetting="pages">
@@ -148,6 +157,7 @@ export default function ManagePagesScreen() {
                 <Button
                   style={tw`p-2.5`}
                   onPress={() => {
+                    setSelectedPage(page);
                     moderatorModal.current?.openModal();
                   }}
                 >
@@ -176,7 +186,11 @@ export default function ManagePagesScreen() {
       </ModalRewrite>
 
       <ModalRewrite title="Moderator wählen" ref={moderatorModal} scrollable>
-        <UserSelectModal closeModal={moderatorModal.current?.closeModal} />
+        <UserSelectModal
+          initialSelectedUserId={selectedPage?.moderatorUserId ?? null}
+          closeModal={() => moderatorModal.current?.closeModal()}
+          onUserSet={(userId) => assignModerator(selectedPage!.id, userId)}
+        />
       </ModalRewrite>
     </SettingsLayout>
   );
