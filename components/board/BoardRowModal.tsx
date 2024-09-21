@@ -70,7 +70,10 @@ export default function BoardRowModal({
     );
   };
 
-  const getCommentForField = (column: APIResponseColumn) => {
+  const getCommentForField = (
+    column: APIResponseColumn,
+    page: APIResponsePage
+  ) => {
     const commentExist =
       selectedRow?.comments.filter((row_) => row_.boardColumnId == column.id)
         .length == 1;
@@ -83,36 +86,43 @@ export default function BoardRowModal({
         <>
           <Text selectable={true}>{value}</Text>
           {/* TODO: check for permission if user is allowed to edit the comment field */}
-          <BoardAssignButton
-            style={tw`ml-2`}
-            color="BLUE"
-            text="Kommentar bearbeiten"
-            onPress={() => {
-              setSelectedColumn(column);
-              setCommentEditValue(value || "");
-              closeModal?.();
-              openEditCommentModal?.();
-            }}
-          />
+
+          {(user?.role == "ADMIN" || user?.id == page.moderatorUserId) && (
+            <BoardAssignButton
+              style={tw`ml-2`}
+              color="BLUE"
+              text="Kommentar bearbeiten"
+              onPress={() => {
+                setSelectedColumn(column);
+                setCommentEditValue(value || "");
+                closeModal?.();
+                openEditCommentModal?.();
+              }}
+            />
+          )}
         </>
       );
     }
-
-    return (
-      <BoardAssignButton
-        color="BLUE"
-        text="Kommentar hinzufügen"
-        onPress={() => {
-          setSelectedColumn(column);
-          setCommentEditValue("");
-          closeModal?.();
-          openEditCommentModal?.();
-        }}
-      />
-    );
+    if (user?.role == "ADMIN" || user?.id == page.moderatorUserId) {
+      return (
+        <BoardAssignButton
+          color="BLUE"
+          text="Kommentar hinzufügen"
+          onPress={() => {
+            setSelectedColumn(column);
+            setCommentEditValue("");
+            closeModal?.();
+            openEditCommentModal?.();
+          }}
+        />
+      );
+    }
   };
 
-  const getPositionForField = (column: APIResponseColumn) => {
+  const getPositionForField = (
+    column: APIResponseColumn,
+    page: APIResponsePage
+  ) => {
     const positionUsed =
       selectedRow?.assignments.filter((row_) => row_.boardColumnId == column.id)
         .length == 1;
@@ -142,7 +152,7 @@ export default function BoardRowModal({
         }
 
         // the assignment is another known user
-        if (user?.role != "ADMIN")
+        if (user?.role != "ADMIN" && user?.id != page.moderatorUserId)
           return (
             <Text>
               {usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
@@ -162,7 +172,8 @@ export default function BoardRowModal({
       }
 
       // User (somehow) does not exisit in database
-      if (user?.role != "ADMIN") return <Text>Unbekanntes Mitglied</Text>;
+      if (user?.role != "ADMIN" && user?.id != page.moderatorUserId)
+        return <Text>Unbekanntes Mitglied</Text>;
 
       return (
         <BoardAssignButton
@@ -191,7 +202,7 @@ export default function BoardRowModal({
               assignUser(user!.id, selectedRow!.date, column.id);
             }}
           />
-          {user?.role == "ADMIN" && (
+          {(user?.role == "ADMIN" || user?.id == page.moderatorUserId) && (
             <BoardAssignButton
               color="GREEN"
               text="Mitglied eintragen"
@@ -213,7 +224,7 @@ export default function BoardRowModal({
           text="Teilnehmen"
           onPress={() => assignUser(user!.id, selectedRow!.date, column.id)}
         />
-        {user?.role == "ADMIN" && (
+        {(user?.role == "ADMIN" || user?.id == page.moderatorUserId) && (
           <BoardAssignButton
             color="GREEN"
             text="Mitglied eintragen"
@@ -242,7 +253,7 @@ export default function BoardRowModal({
                 style={tw`flex-row py-1 items-center gap-2 flex-wrap`}
               >
                 <Text style={tw`mr-4`}>{col.name}</Text>
-                {selectedRow ? getPositionForField(col) : null}
+                {selectedRow ? getPositionForField(col, page) : null}
               </View>
             ))}
             {getColsForPageAndType(page.id, "COMMENT").map((col) => (
@@ -250,7 +261,7 @@ export default function BoardRowModal({
                 <Text style={tw`mr-4`}>{col.name}:</Text>
                 <View style={tw`flex-row mt-1 flex-wrap`}>
                   <Divider type="VERTICAL" style={tw`mr-1`} />
-                  {selectedRow ? getCommentForField(col) : null}
+                  {selectedRow ? getCommentForField(col, page) : null}
                 </View>
               </View>
             ))}
