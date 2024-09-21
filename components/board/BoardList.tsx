@@ -27,6 +27,10 @@ type Props = {
 const BoardList = ({ rows, fetchData }: Props) => {
   const { user } = useAuthentication();
   const { assignUser, assignmentSuccessful } = useAssignUser();
+  const {
+    assignUser: boardAssign,
+    assignmentSuccessful: boardAssignSuccessful,
+  } = useAssignUser();
   const { allColumns } = useAllColumns();
   const { allExistingUsers } = useAllExistingUsers();
   const { selectedRow, querySingleRow } = useSingleBoardEntry();
@@ -47,39 +51,15 @@ const BoardList = ({ rows, fetchData }: Props) => {
   const selectUserModal = useRef<ModalHandle>(null);
   const editCommentModal = useRef<ModalHandle>(null);
 
-  // since board actions are now in modals instead of screens, this part is no longer needed - hopefully
-  // const possiblyNeedReload = useRef(false);
-  // const segments = useSegments();
-
-  // useEffect(() => {
-  //   // refetch the board data, if the user comes to the board and not from a module (most likely closing the row module after an assignment)
-  //   // TODO: since the rewrite to new modal, this does no longer work
-  //   if (segments.length > 0 && segments[0] == "modules") {
-  //     possiblyNeedReload.current = false;
-  //   } else if (!possiblyNeedReload.current) {
-  //     possiblyNeedReload.current = true;
-  //   } else {
-  //     if (segments.length == 1 && segments[0] == "board") fetchData();
-  //   }
-
-  //   // disabling scroll for web, if we are in a modal
-  //   if (Platform.OS == "web") {
-  //     if (
-  //       segments.length > 1 &&
-  //       (segments[1] == "row" || segments[0] == "modules")
-  //     ) {
-  //       document.body.style.overflow = "hidden";
-  //       window.scrollTo(0, 0);
-  //     } else {
-  //       document.body.style.overflow = "";
-  //     }
-  //   }
-  // }, [segments, possiblyNeedReload]);
+  useEffect(() => {
+    if (boardAssignSuccessful) {
+      fetchData();
+    }
+  }, [boardAssignSuccessful]);
 
   useEffect(() => {
     if (assignmentSuccessful) {
       querySingleRow(selectedRow!.date);
-      fetchData();
     }
   }, [assignmentSuccessful]);
 
@@ -154,7 +134,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
           // this timeout is needed, because on e.g. chrome mobile, the press event is passed down to the board row pressable
           // without this, the board row modal will also open on press of this button
           setTimeout(() => {
-            assignUser(user!.id, row.date, column.id);
+            boardAssign(user!.id, row.date, column.id);
           }, 100);
         }}
       />
