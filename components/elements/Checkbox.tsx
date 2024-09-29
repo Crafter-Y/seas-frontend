@@ -5,11 +5,12 @@ import tw from "@/tailwind";
 
 type Props = {
   defaultValue?: boolean;
-  label: string;
+  label?: string;
   onChange: (state: boolean) => void;
   disabled?: boolean;
 };
 
+// TODO: this component should be refactored, so that onChange recieves the correct value and not the inverted - this requires changes in all dependants
 const Checkbox = ({
   defaultValue = false,
   label,
@@ -17,6 +18,7 @@ const Checkbox = ({
   disabled = false,
 }: Props) => {
   const [checked, setChecked] = useState(defaultValue);
+
   return (
     <Pressable
       style={tw`flex-row items-center gap-2 mx-4 mb-1`}
@@ -26,15 +28,8 @@ const Checkbox = ({
         onChange(checked);
       }}
     >
-      <ExpoCheckbox
-        value={checked}
-        disabled={disabled}
-        onValueChange={(val) => {
-          setChecked(val);
-          onChange(checked);
-        }}
-      />
-      <Text>{label}</Text>
+      <ExpoCheckbox value={checked} disabled={disabled} />
+      {label && <Text>{label}</Text>}
     </Pressable>
   );
 };

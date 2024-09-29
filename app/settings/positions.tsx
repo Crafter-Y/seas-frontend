@@ -177,7 +177,7 @@ export default function ManagePositionsScreen() {
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
                 <Button
-                  color="#f67e7e"
+                  color={Color.RED}
                   style={tw`p-2.5`}
                   disabled={!restrictions?.columnsDeletable}
                   onPress={() => {
@@ -223,7 +223,7 @@ export default function ManagePositionsScreen() {
             onPress={() => {
               deleteColumn(columnToChange!.id);
             }}
-            color="#f67e7e"
+            color={Color.RED}
           >
             Löschen
           </Button>

@@ -11,6 +11,9 @@ import useChangeModuleState from "@/hooks/api/useChangeModuleState";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import useRestrictions from "@/hooks/api/useRestrictions";
 import Callout from "@/components/elements/Callout";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { router } from "expo-router";
 
 export default function ManagePagesScreen() {
   const { moduleStatus, queryModuleStatus } = useModuleStatus();
@@ -99,6 +102,15 @@ export default function ManagePagesScreen() {
             </Button>
           </View>
           <Divider type="HORIZONTAL" style={tw`my-1`} />
+          <TouchableOpacity
+            style={tw`flex-row items-center gap-2 rounded-lg border-[${Color.DARK_GRAY}] border-2 px-2 py-1`}
+            onPress={() => router.navigate("/settings/modules/music/known")}
+          >
+            <AntDesign name="arrowright" size={24} color="black" />
+            <Text style={tw`font-semibold underline`}>
+              Bekannte Lieder festlegen
+            </Text>
+          </TouchableOpacity>
           <Text>
             Ermöglicht das dokumentieren und auswerten von Choraktivitäten.
           </Text>

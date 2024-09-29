@@ -119,6 +119,21 @@ type APIResponseSong = {
   }
 };
 
+type APISongbookResponse = {
+  id: number;
+  name: string;
+  knownSongs: number;
+  count: number;
+};
+
+type APIResponseSongbookSong = {
+  id: number;
+  title: string;
+  number: number;
+  known: boolean;
+  locked: boolean;
+}
+
 type APIResponseHistoryEntry = {
   date: Date;
   rating: number;
