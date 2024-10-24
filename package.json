@@ -27,7 +27,7 @@
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-picker/picker": "2.7.5",
     "email-validator": "^2.0.4",
-    "expo": "~51.0.34",
+    "expo": "~51.0.38",
     "expo-calendar": "~13.0.5",
     "expo-checkbox": "~3.0.0",
     "expo-constants": "~16.0.2",
