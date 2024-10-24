@@ -1,4 +1,4 @@
-import { Pressable, Text } from "react-native";
+import { Platform, Pressable, Text } from "react-native";
 import React, { useState } from "react";
 import ExpoCheckbox from "expo-checkbox";
 import tw from "@/tailwind";
@@ -28,7 +28,17 @@ const Checkbox = ({
         onChange(checked);
       }}
     >
-      <ExpoCheckbox value={checked} disabled={disabled} />
+      <ExpoCheckbox
+        value={checked}
+        disabled={disabled}
+        onValueChange={(val) => {
+          if (Platform.OS != "web") {
+            // needed so that web doesn't double fire and native work
+            setChecked(val);
+            onChange(checked);
+          }
+        }}
+      />
       {label && <Text>{label}</Text>}
     </Pressable>
   );

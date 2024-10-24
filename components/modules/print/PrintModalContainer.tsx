@@ -32,9 +32,9 @@ const PrintModalContainer = forwardRef<ModalHandle>((props, ref) => {
         scrollable
       >
         <PrintCoumnsModal
-          closeModal={printColumnsModal.current?.closeModal}
-          openPrintRangeModal={printRangeModal.current?.openModal}
-          openPrintOrderModal={printOrderModal.current?.openModal}
+          closeModal={() => printColumnsModal.current?.closeModal()}
+          openPrintRangeModal={() => printRangeModal.current?.openModal()}
+          openPrintOrderModal={() => printOrderModal.current?.openModal()}
         />
       </ModalRewrite>
       <ModalRewrite
@@ -43,8 +43,8 @@ const PrintModalContainer = forwardRef<ModalHandle>((props, ref) => {
         scrollable
       >
         <PrintOrderModal
-          closeModal={printOrderModal.current?.closeModal}
-          openColumnsModal={printColumnsModal.current?.openModal}
+          closeModal={() => printOrderModal.current?.closeModal()}
+          openColumnsModal={() => printColumnsModal.current?.openModal()}
         />
       </ModalRewrite>
     </>
