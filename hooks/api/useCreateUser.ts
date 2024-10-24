@@ -16,9 +16,9 @@ export const validateUser = (
 
   if (role == null || role == "") return "Die Rolle muss angegeben werden.";
 
-  if (!firstname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,23}$/)) return "Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 1-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\"";
+  if (!firstname.match(/^[\w\d\s\-ÖÄÜßäöüß]{2,64}$/)) return "Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 2-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\"";
 
-  if (!lastname.match(/^[\w\d\s\-ÖÄÜßäöüß]{1,55}$/)) return "Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 1-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\"";
+  if (!lastname.match(/^[\w\d\s\-ÖÄÜßäöüß]{2,64}$/)) return "Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 2-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\"";
 
   if (!validate(email)) return "Die angegebene Email-Adresse ist nicht gültig.";
 
@@ -83,7 +83,7 @@ export default function useCreateUser() {
       }
 
       setHasCreationError(true);
-      setCreationError(res.data.error);
+      setCreationError(res.data.error + ""); // just incase this is a json object (ZodError)
     }
   };
 

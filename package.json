@@ -14,7 +14,7 @@
     "build:web": "expo export --platform web",
     "build:android": "eas build --platform android",
     "submit:android": "eas submit --platform android",
-    "submit": "eas build --auto-submit",
+    "submit": "eas build --platform all --auto-submit",
     "serve": "cross-env SERVER_ID=58119 SERVE_LOCAL_NETWORK=1 node serve.js",
     "serve:prod": "node serve.js",
     "eas-build-pre-install": "npm config set legacy-peer-deps true",

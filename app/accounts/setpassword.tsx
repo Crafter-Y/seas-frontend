@@ -31,6 +31,7 @@ export default function VerifyScreen() {
     productId,
     firstname,
     lastname,
+    email,
   } = usePasswordTokenInfo();
 
   const [title, setTitle] = useState("Passwort ändern");
@@ -97,8 +98,17 @@ export default function VerifyScreen() {
               placeholder="Token"
               onChangeText={() => {}}
               disabled={!(t === "" || t === undefined)}
+              inputMode="text"
               ref={tokenInput}
               initialValue={t}
+            />
+            <Input
+              placeholder="E-Mail"
+              style={tw`hidden`}
+              onChangeText={() => {}}
+              disabled={true}
+              inputMode="email"
+              initialValue={email}
             />
             {tokenValid === false && (
               <>

@@ -7,6 +7,7 @@ export default function usePasswordTokenInfo() {
     const [productId, setProductId] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
+    const [email, setEmail] = useState("");
 
     const verify = async (token: string) => {
         const res = await requestApiWithoutCredentials(`users/passwordTokenInfo/${token}`, "GET");
@@ -20,9 +21,10 @@ export default function usePasswordTokenInfo() {
         setProductId(res.data.productId);
         setFirstname(res.data.firstname);
         setLastname(res.data.lastname);
+        setEmail(res.data.email);
 
         setTokenValid(true);
     };
 
-    return { verify, tokenValid, setTokenValid, productName, productId, firstname, lastname };
+    return { verify, tokenValid, setTokenValid, productName, productId, firstname, lastname, email };
 }
