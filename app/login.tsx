@@ -1,4 +1,4 @@
-import { Platform, Text, useWindowDimensions, View } from "react-native";
+import { Platform, useWindowDimensions, View } from "react-native";
 import React, { useEffect, useRef } from "react";
 import tw from "@/tailwind";
 import "@expo/match-media";
@@ -16,6 +16,7 @@ import RoundIconButton from "@/components/RoundIconButton";
 import { ModalHandle } from "@/components/elements/Modal";
 import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
+import Text from "@/components/elements/Text";
 
 type WebConfig = {
   serverId: string;
@@ -103,7 +104,7 @@ export default function LoginScreen() {
               ["flex-grow items-center gap-4"]
             )}
           >
-            <Text style={tw`text-4xl font-semibold mt-[12%]`}>Willkommen!</Text>
+            <Text t={"welcome"} style={tw`text-4xl font-semibold mt-[12%]`} />
             <Text style={tw`text-2xl`}>{serverName}</Text>
           </View>
           <View
@@ -131,15 +132,14 @@ export default function LoginScreen() {
               </View>
             )}
             <Text
+              t={"welcome"}
               style={tw.style(
                 {
                   hidden: isMd,
                 },
                 "text-4xl font-semibold mt-12"
               )}
-            >
-              Willkommen!
-            </Text>
+            />
             <Text
               style={tw.style(
                 {
@@ -159,12 +159,11 @@ export default function LoginScreen() {
             />
 
             <H1
+              t="login"
               style={tw.style({
                 "mb-12": isMd,
               })}
-            >
-              Login
-            </H1>
+            />
 
             <LoginForm
               login={login}
@@ -172,12 +171,14 @@ export default function LoginScreen() {
               authError={authError}
               back={back}
             />
-            <Text style={tw`text-xs opacity-80 w-full text-center mt-12`}>
-              &copy; (copyright) Helmut Haase 2022 - {new Date().getFullYear()}{" "}
-              • SEAS Kirchengemeinde UG (haftungsbeschränkt)
-            </Text>
+            <Text
+              t="copyrightFooter"
+              values={{ year: new Date().getFullYear() + "" }}
+              style={tw`text-xs opacity-80 w-full text-center mt-12`}
+            />
             <Text style={tw`text-xs opacity-80 w-full text-center`}></Text>
             <Text
+              t="imprint"
               style={tw.style(
                 { hidden: !isWeb },
                 "underline text-xs opacity-80 w-full text-center"
@@ -185,9 +186,7 @@ export default function LoginScreen() {
               onPress={() => {
                 router.push("/imprint");
               }}
-            >
-              Impressum
-            </Text>
+            />
           </View>
         </View>
       </View>

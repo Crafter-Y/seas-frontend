@@ -26,6 +26,7 @@
     "@expo/match-media": "^0.4.0",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-picker/picker": "2.7.5",
+    "@shopify/flash-list": "1.6.4",
     "email-validator": "^2.0.4",
     "expo": "~51.0.38",
     "expo-calendar": "~13.0.5",
@@ -33,6 +34,7 @@
     "expo-constants": "~16.0.2",
     "expo-image": "~1.13.0",
     "expo-linking": "~6.3.1",
+    "expo-localization": "^15.0.3",
     "expo-mail-composer": "~13.0.1",
     "expo-print": "~13.0.1",
     "expo-router": "~3.5.23",
@@ -40,10 +42,12 @@
     "expo-sharing": "~12.0.1",
     "expo-splash-screen": "~0.27.6",
     "expo-status-bar": "~1.12.1",
+    "i18next": "^23.16.4",
     "jwt-decode": "^4.0.0",
     "pullstate": "^1.25.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-i18next": "^15.1.0",
     "react-native": "0.74.5",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
@@ -59,8 +63,7 @@
     "react-responsive": "^9.0.2",
     "tailwind-rn": "^4.2.0",
     "twrnc": "^3.6.0",
-    "weeknumber": "^1.2.1",
-    "@shopify/flash-list": "1.6.4"
+    "weeknumber": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -84,11 +87,11 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-native": "^4.1.0",
+    "expo-atlas": "^0.3.0",
     "postcss": "^8.4.21",
     "serve-handler": "^6.1.5",
     "tailwindcss": "^3.3.3",
-    "typescript": "^5.3.0",
-    "expo-atlas": "^0.3.0"
+    "typescript": "^5.3.0"
   },
   "private": true
 }

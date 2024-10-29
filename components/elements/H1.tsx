@@ -1,20 +1,17 @@
-import { Text } from "react-native";
+import { TextProps } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
-import { ClassInput } from "twrnc/dist/esm/types";
+import Text from "./Text";
 
-type Props = {
-  children?: React.ReactNode;
-  style?: ClassInput;
-};
-
-const H1 = ({ children, style }: Props) => {
+const H1 = (props: TextProps & { t?: string }) => {
   return (
     <Text
-      style={tw.style("text-4xl font-bold opacity-85 underline mb-4", style)}
-    >
-      {children}
-    </Text>
+      {...props}
+      style={[
+        tw.style("text-4xl font-bold opacity-85 underline mb-4"),
+        props.style,
+      ]}
+    />
   );
 };
 
