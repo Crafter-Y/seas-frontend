@@ -12,6 +12,8 @@ import Modal, { ModalHandle } from "../elements/Modal";
 import { BoardType } from "@/app/board";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import { FetchState } from "@/helpers/Constants";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 type BoardHeaderProps = {
   user: User | null;
@@ -83,23 +85,29 @@ const BoardHeader = ({
         >
           <RoundIconButton
             hidden={!moduleStatus?.moduleCalendar}
-            imageSource={require("@/assets/img/calendar.svg")}
+            icon={<AntDesign name="calendar" size={20} color="black" />}
             onPress={openCalendarModal}
           />
           <RoundIconButton
             hidden={!moduleStatus?.modulePrint}
-            imageSource={require("@/assets/img/print.svg")}
+            icon={<AntDesign name="printer" size={20} color="black" />}
             onPress={openPrintModal}
           />
           <RoundIconButton
             hidden={!moduleStatus?.moduleMusic}
-            imageSource={require("@/assets/img/edit.svg")}
+            icon={
+              <MaterialCommunityIcons
+                name="music-clef-treble"
+                size={20}
+                color="black"
+              />
+            }
             onPress={openMusicModal}
           />
         </View>
         <RoundIconButton
           hidden={isLg}
-          imageSource={require("@/assets/img/menu.svg")}
+          icon={<AntDesign name="menu-fold" size={20} color="black" />}
           onPress={() => modal.current?.openModal()}
         />
 

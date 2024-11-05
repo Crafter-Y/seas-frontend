@@ -12,6 +12,8 @@ import { Store } from "@/helpers/store";
 import RoundIconButton from "../RoundIconButton";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import useBoard from "@/hooks/api/useBoard";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 type Props = {
   boardType: BoardType;
@@ -93,19 +95,25 @@ const Board = ({
         <RoundIconButton
           hidden={!moduleStatus?.moduleCalendar}
           style={tw`border border-gray-400`}
-          imageSource={require("@/assets/img/calendar.svg")}
+          icon={<AntDesign name="calendar" size={20} color="black" />}
           onPress={openCalendarModal}
         />
         <RoundIconButton
           hidden={!moduleStatus?.modulePrint}
           style={tw`border border-gray-400`}
-          imageSource={require("@/assets/img/print.svg")}
+          icon={<AntDesign name="printer" size={20} color="black" />}
           onPress={openPrintModal}
         />
         <RoundIconButton
           hidden={!moduleStatus?.moduleMusic}
           style={tw`border border-gray-400`}
-          imageSource={require("@/assets/img/edit.svg")}
+          icon={
+            <MaterialCommunityIcons
+              name="music-clef-treble"
+              size={20}
+              color="black"
+            />
+          }
           onPress={openMusicModal}
         />
       </View>

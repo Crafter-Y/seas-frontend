@@ -1,40 +1,24 @@
 import React, { memo, useCallback, useRef } from "react";
 import tw from "@/tailwind";
-import { ImageSource } from "expo-image";
 import { useHover } from "react-native-web-hooks";
 import { ClassInput } from "twrnc/dist/esm/types";
-import Image from "@/components/elements/Image";
 import { Color } from "@/helpers/Constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Props = {
-  imageSource:
-    | string
-    | number
-    | string[]
-    | ImageSource
-    | ImageSource[]
-    | null
-    | undefined;
+  icon: React.ReactNode;
   onPress?: () => void;
   style?: ClassInput;
   hidden?: boolean;
 };
 
 type BtnProps = {
-  imageSource:
-    | string
-    | number
-    | string[]
-    | ImageSource
-    | ImageSource[]
-    | null
-    | undefined;
+  icon: React.ReactNode;
   onPress?: () => void;
   style?: ClassInput;
 };
 
-const ActualButton = ({ imageSource, onPress, style }: BtnProps) => {
+const ActualButton = ({ icon, onPress, style }: BtnProps) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
 
@@ -56,21 +40,16 @@ const ActualButton = ({ imageSource, onPress, style }: BtnProps) => {
       )}
       onPress={callback}
     >
-      <Image source={imageSource} size={16} />
+      {icon}
     </TouchableOpacity>
   );
 };
 
-const RoundIconButton = ({
-  imageSource,
-  onPress,
-  style,
-  hidden = false,
-}: Props) => {
+const RoundIconButton = ({ icon, onPress, style, hidden = false }: Props) => {
   return hidden ? (
     <></>
   ) : (
-    <ActualButton imageSource={imageSource} onPress={onPress} style={style} />
+    <ActualButton icon={icon} onPress={onPress} style={style} />
   );
 };
 

@@ -17,6 +17,7 @@ import { ModalHandle } from "@/components/elements/Modal";
 import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
 import Text from "@/components/elements/Text";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 type WebConfig = {
   serverId: string;
@@ -125,7 +126,7 @@ export default function LoginScreen() {
             {__DEV__ && Platform.OS == "web" && (
               <View style={tw`w-full items-end p-1`}>
                 <RoundIconButton
-                  imageSource={require("@/assets/img/settings.svg")}
+                  icon={<AntDesign name="setting" size={20} color="black" />}
                   onPress={() => apiModal.current!.openModal()}
                   style={tw`border rounded-xl`}
                 />

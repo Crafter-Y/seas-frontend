@@ -13,6 +13,7 @@ import RoundIconButton from "@/components/RoundIconButton";
 import { ModalHandle } from "@/components/elements/Modal";
 import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function ServerSelectorScreen() {
   const { height, width } = useWindowDimensions();
@@ -66,7 +67,7 @@ export default function ServerSelectorScreen() {
       {__DEV__ && (
         <View style={tw`w-full items-end p-1`}>
           <RoundIconButton
-            imageSource={require("@/assets/img/settings.svg")}
+            icon={<AntDesign name="setting" size={20} color="black" />}
             onPress={() => apiModal.current!.openModal()}
             style={tw`border rounded-xl`}
           />
