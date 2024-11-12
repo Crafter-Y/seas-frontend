@@ -2,7 +2,7 @@ import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
 import PrintRangeModal from "./PrintRangeModal";
 import PrintCoumnsModal from "./PrintCoumnsModal";
 import PrintOrderModal from "./PrintOrderModal";
-import { forwardRef, memo, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 
 const PrintModalContainer = forwardRef<ModalHandle>((props, ref) => {
   const printRangeModal = useRef<ModalHandle>(null);
@@ -52,4 +52,4 @@ const PrintModalContainer = forwardRef<ModalHandle>((props, ref) => {
 });
 
 PrintModalContainer.displayName = "PrintModalContainer";
-export default memo(PrintModalContainer);
+export default PrintModalContainer;
