@@ -1,24 +1,27 @@
 import { Text } from "react-native";
 import React from "react";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
-import SettingsTitle from "@/components/settings/SettingsTitle";
+import SettingsBackButton from "@/components/SettingsBackButton";
+import useMediaQueries from "@/hooks/useMediaQueries";
 import SettingsForm from "@/components/SettingsForm";
 import Divider from "@/components/elements/Divider";
 import tw from "@/tailwind";
-import useSongbooks from "@/hooks/api/useSongbooks";
-import SettingsBackButton from "@/components/SettingsBackButton";
+import SettingsTitle from "@/components/settings/SettingsTitle";
+import Button from "@/components/elements/Button";
+import useOwnSongbooks from "@/hooks/api/useOwnSongbooks";
 import Form from "@/components/elements/Form";
 import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
 import TD from "@/components/elements/TD";
-import Button from "@/components/elements/Button";
 import Image from "@/components/elements/Image";
 import { router } from "expo-router";
-import useMediaQueries from "@/hooks/useMediaQueries";
+import useRestrictions from "@/hooks/api/useRestrictions";
+import Callout from "@/components/elements/Callout";
 
 export default function index() {
-  const { songbooks } = useSongbooks();
   const { isMd } = useMediaQueries();
+  const { ownSongbooks } = useOwnSongbooks();
+  const { restrictions } = useRestrictions();
 
   return (
     <SettingsLayout actualSetting="modules">
@@ -28,29 +31,38 @@ export default function index() {
           label="Zurück zu Modulen"
         />
       )}
-      <SettingsTitle>Bekannte Lieder festlegen</SettingsTitle>
+      <SettingsTitle>Eigene Chorlisten verwalten</SettingsTitle>
 
       <SettingsForm>
         <Text>
-          Sie können bekannte Lieder auswählen, damit diese im Journal bereits
-          als &quot;Bekannt&quot; auftauchen.
+          Neben den Chorlisten, die wir Ihrem Produkt zugeteilt haben, können
+          Sie hier Ihre eigenen Chorlisten erstellen und verwalten.
         </Text>
       </SettingsForm>
+      {/* TODO: implement creation */}
+      <Button
+        style={tw`self-start mt-2`}
+        disabled={restrictions?.maxOwnSongbooks == ownSongbooks.length}
+      >
+        <Text>Chorliste erstellen</Text>
+      </Button>
+      <Callout
+        visible={restrictions?.maxOwnSongbooks == ownSongbooks.length}
+        message="Sie haben die maximale Anzahl eigener Chorlisten für Ihr Produkt erreicht."
+      />
+
       <Divider type="HORIZONTAL" style={tw`my-4`} />
 
       <SettingsForm style={tw`mb-8`}>
-        <Text>Chormappe auswählen:</Text>
         <Form>
-          <TH titles={["Mappe", "bekannt", ""]}></TH>
-          {songbooks.map((songbook) => (
+          <TH titles={["Mappe", "Songs", ""]}></TH>
+          {ownSongbooks.map((songbook) => (
             <TR key={songbook.id}>
               <TD cols={3}>
                 <Text style={tw`text-lg`}>{songbook.name}</Text>
               </TD>
               <TD cols={3}>
-                <Text>
-                  {songbook.knownSongs} / {songbook.count} Lieder
-                </Text>
+                <Text>{songbook.count} Lieder</Text>
               </TD>
 
               <TD style={tw`items-center justify-center`} cols={3}>
@@ -58,7 +70,7 @@ export default function index() {
                   style={tw`p-2.5`}
                   onPress={() =>
                     router.navigate(
-                      "/settings/modules/music/known/" + songbook.id
+                      "/settings/modules/music/songbooks/" + songbook.id
                     )
                   }
                 >
@@ -67,7 +79,7 @@ export default function index() {
               </TD>
             </TR>
           ))}
-          {songbooks.length == 0 && (
+          {ownSongbooks.length == 0 && (
             <Text style={tw`m-2 text-lg`}>Noch keine Einträge vorhanden.</Text>
           )}
         </Form>

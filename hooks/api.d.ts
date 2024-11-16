@@ -102,6 +102,7 @@ type APIRestrictions = {
   maxUsers: number
   maxColumns: number
   maxPages: number
+  maxOwnSongbooks: number
   columnsChangable: boolean
   columnsDeletable: boolean
   pagesChangable: boolean

@@ -111,6 +111,19 @@ export default function ManagePagesScreen() {
               Bekannte Lieder festlegen
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={tw`flex-row items-center gap-2 rounded-lg border-[${
+              Color.DARK_GRAY
+            }] border-2 px-2 py-1 mt-1 ${
+              restrictions?.maxOwnSongbooks == 0 ? "hidden" : ""
+            }`}
+            onPress={() => router.navigate("/settings/modules/music/songbooks")}
+          >
+            <AntDesign name="arrowright" size={24} color="black" />
+            <Text style={tw`font-semibold underline`}>
+              Eigene Chorlisten verwalten
+            </Text>
+          </TouchableOpacity>
           <Text>
             Ermöglicht das dokumentieren und auswerten von Choraktivitäten.
           </Text>
