@@ -25,6 +25,7 @@ type Props = {
 };
 
 // TODO: there is something wrong with the normal text input #see CreateUserForm - name input is lagging, same on column creation
+// NOTE: this only appears on android and only for plain text input - see above
 const Input = forwardRef<TextInput, Props>(
   (
     {

@@ -1,5 +1,11 @@
 import { Platform, Pressable, Text, View } from "react-native";
-import React, { ReactElement, ReactNode, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import tw from "@/tailwind";
 import {
   PickerItemProps,
@@ -25,15 +31,27 @@ const Picker = ({
   const iosModal = useRef<ModalHandle>(null);
   const iosPicker = useRef<RNPicker<string>>(null);
 
-  const getParamValue = (key: string) => {
+  const [selectionCount, setSelectionCount] = useState(0);
+
+  const getAllPickerProps = () => {
     return children
       .filter((child) => React.isValidElement(child))
       .map((child) => {
         const ch = child as ReactElement;
         return ch.props as PickerItemProps;
-      })
-      .filter((prop) => prop.value == key)[0].label;
+      });
   };
+
+  const getParamValue = (key: string) => {
+    return (
+      getAllPickerProps().filter((prop) => prop.value == key)[0]?.label ??
+      undefined
+    );
+  };
+
+  useEffect(() => {
+    setSelectionCount(getAllPickerProps().length);
+  }, [children]);
 
   if (Platform.OS == "ios")
     return (
@@ -41,15 +59,19 @@ const Picker = ({
         <Pressable
           disabled={disabled}
           onPress={() => {
-            setIosPickerOpen(true);
-            iosModal.current?.openModal();
+            if (selectionCount > 1) {
+              setIosPickerOpen(true);
+              iosModal.current?.openModal();
+            }
           }}
           style={tw.style(
             "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center h-13 pl-4 pr-5"
           )}
         >
           <Text style={tw.style({}, "text-lg")}>
-            {getParamValue(selectedValue)}
+            {selectionCount == 1
+              ? getAllPickerProps()[0].label
+              : getParamValue(selectedValue)}
           </Text>
           <AntDesign name="caretdown" size={10} color="gray" />
         </Pressable>

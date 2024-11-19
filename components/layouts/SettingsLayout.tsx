@@ -141,7 +141,7 @@ export const SettingsLayout = ({
           "my-16 mx-2"
         )}
       />
-      <ScrollView
+      <ScrollView // TODO: on iOS, this thing is only rendered on half the screen. probably since expo 52, idk why
         keyboardShouldPersistTaps="handled"
         refreshControl={
           refreshAction ? (
