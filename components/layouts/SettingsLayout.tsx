@@ -1,5 +1,6 @@
 import {
   Pressable,
+  RefreshControl,
   ScrollView,
   Text,
   useWindowDimensions,
@@ -20,6 +21,7 @@ type Props = {
   children: React.ReactNode;
   actualSetting: string;
   backTitle?: string;
+  refreshAction?: () => void;
 };
 
 export const settingsSections = {
@@ -82,6 +84,7 @@ export const SettingsLayout = ({
   children,
   actualSetting,
   backTitle,
+  refreshAction,
 }: Props) => {
   const { height } = useWindowDimensions();
 
@@ -140,6 +143,15 @@ export const SettingsLayout = ({
       />
       <ScrollView
         keyboardShouldPersistTaps="handled"
+        refreshControl={
+          refreshAction ? (
+            <RefreshControl
+              colors={[Color.BLUE, Color.GREEN]}
+              refreshing={false} // TODO: some sort of backpropagation how long it is loading
+              onRefresh={refreshAction}
+            />
+          ) : undefined
+        }
         contentContainerStyle={tw.style(
           {
             "py-14": isMd,

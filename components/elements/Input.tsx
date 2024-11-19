@@ -24,6 +24,7 @@ type Props = {
   autoComplete?: TextInputProps["autoComplete"];
 };
 
+// TODO: there is something wrong with the normal text input #see CreateUserForm - name input is lagging, same on column creation
 const Input = forwardRef<TextInput, Props>(
   (
     {

@@ -85,7 +85,7 @@ const CreateUserForm = ({
 
         <Input
           placeholder="Vorname"
-          onChangeText={(text) => setFirstName(text)}
+          onChangeText={setFirstName}
           disabled={maxUsersReached && maxAdminsReached}
           secureTextEntry={false}
           ref={firstNameInput}
@@ -94,7 +94,7 @@ const CreateUserForm = ({
         />
         <Input
           placeholder="Nachname"
-          onChangeText={(text) => setSecondName(text)}
+          onChangeText={setSecondName}
           disabled={maxUsersReached && maxAdminsReached}
           secureTextEntry={false}
           onSubmitEditing={() => emailInput.current?.focus()}
@@ -103,7 +103,7 @@ const CreateUserForm = ({
         />
         <Input
           placeholder="Email-Adresse"
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={setEmail}
           disabled={maxUsersReached && maxAdminsReached}
           secureTextEntry={false}
           autoComplete="email"
@@ -115,7 +115,7 @@ const CreateUserForm = ({
         <Picker
           selectedValue={role}
           disabled={maxUsersReached && maxAdminsReached}
-          onValueChange={(itemValue) => setRole(itemValue)}
+          onValueChange={setRole}
         >
           {!maxUsersReached && <RNPicker.Item label="User" value="USER" />}
           {!maxAdminsReached && <RNPicker.Item label="Admin" value="ADMIN" />}

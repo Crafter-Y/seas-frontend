@@ -39,7 +39,7 @@ export default function ManagePositionsScreen() {
   } = useCreateColumn();
 
   const { allColumns, queryColumns } = useAllColumns();
-  const { allPages } = useAllPages();
+  const { allPages, queryPages } = useAllPages();
 
   const { renameColumn, hasRenameError, renameError, successfulColumnRename } =
     useRenameColumn();
@@ -48,7 +48,7 @@ export default function ManagePositionsScreen() {
 
   const { assignColumns, assignmentSuccessful } = useAssignColumns();
 
-  const { restrictions } = useRestrictions();
+  const { restrictions, queryRestrictions } = useRestrictions();
 
   const [columnName, setColumnName] = useState("");
   const [columnType, setColumnType] = useState("POSITION");
@@ -98,7 +98,14 @@ export default function ManagePositionsScreen() {
   }, [restrictions, allColumns]);
 
   return (
-    <SettingsLayout actualSetting="positions">
+    <SettingsLayout
+      actualSetting="positions"
+      refreshAction={() => {
+        queryRestrictions();
+        queryColumns();
+        queryPages();
+      }}
+    >
       <SettingsTitle>Spalten verwalten</SettingsTitle>
 
       <SettingsForm>

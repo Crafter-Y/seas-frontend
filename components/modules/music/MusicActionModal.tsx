@@ -46,7 +46,12 @@ export default function MusicActionModal({
           <Text style={tw`text-center text-xl font-semibold`}>
             Daten eingeben
           </Text>
-          <AntDesign name="plus" size={64} color="gray" style={tw`mx-auto`} />
+          <AntDesign
+            name="plus"
+            size={64}
+            color="gray"
+            style={tw`w-16 mx-auto`}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           style={tw.style(
@@ -69,7 +74,7 @@ export default function MusicActionModal({
             name="paperclip"
             size={64}
             color="gray"
-            style={tw`mx-auto`}
+            style={tw`w-16 mx-auto`}
           />
         </TouchableOpacity>
       </View>
