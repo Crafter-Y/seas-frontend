@@ -78,8 +78,7 @@ const Input = forwardRef<TextInput, Props>(
         onSubmitEditing={onSubmitEditing}
         returnKeyType={returnKeyType ? returnKeyType : "default"}
         ref={ref}
-        blurOnSubmit={false}
-        inputMode={inputMode}
+        inputMode={inputMode ?? "text"}
         aria-disabled={disabled}
       />
     );
