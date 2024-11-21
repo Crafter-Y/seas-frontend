@@ -141,7 +141,22 @@ export const SettingsLayout = ({
           "my-16 mx-2"
         )}
       />
-      <ScrollView // TODO: on iOS, this thing is only rendered on half the screen. probably since expo 52, idk why
+
+      {/**
+       * // TODO: on iOS, this thing is only rendered on half the screen. probably since expo 52, idk why
+       *
+       * Issue that might be linked to that behavior
+       * https://github.com/expo/expo/issues/32450
+       *
+       * Possible linked reanimated issue:
+       * https://github.com/software-mansion/react-native-reanimated/issues/6659
+       *
+       * probably failing since REA 3.15.0
+       *
+       * I cant backport, because expo go has a bundled-in version:
+       * https://docs.swmansion.com/react-native-reanimated/docs/guides/troubleshooting/#mismatch-between-javascript-part-and-native-part-of-reanimated
+       */}
+      <ScrollView
         keyboardShouldPersistTaps="handled"
         refreshControl={
           refreshAction ? (
