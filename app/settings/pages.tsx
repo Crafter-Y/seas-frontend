@@ -26,9 +26,9 @@ import useAllUsers from "@/hooks/api/useAllUsers";
 
 export default function ManagePagesScreen() {
   const { allPages, queryPages } = useAllPages();
-  const { allUsers } = useAllUsers();
+  const { allUsers, queryUsers } = useAllUsers();
 
-  const { restrictions } = useRestrictions();
+  const { restrictions, queryRestrictions } = useRestrictions();
 
   const { assignModerator, succesfulAssignment } = useSetPageModerator();
 
@@ -59,6 +59,8 @@ export default function ManagePagesScreen() {
   useEffect(() => {
     if (restrictions && allPages && restrictions.maxPages <= allPages.length) {
       setMaxPagesReached(true);
+    } else {
+      setMaxPagesReached(false);
     }
   }, [restrictions, allPages]);
 
@@ -69,7 +71,14 @@ export default function ManagePagesScreen() {
   }, [succesfulAssignment]);
 
   return (
-    <SettingsLayout actualSetting="pages">
+    <SettingsLayout
+      actualSetting="pages"
+      refreshAction={() => {
+        queryRestrictions();
+        queryUsers();
+        queryPages();
+      }}
+    >
       <SettingsTitle>Pläne verwalten</SettingsTitle>
 
       <SettingsForm>
