@@ -46,7 +46,7 @@ const Footer = ({ style = {} }: Props) => {
           "text-xs opacity-80 text-center underline"
         )}
         onPress={() => {
-          router.push("/imprint");
+          router.navigate("/imprint");
         }}
       >
         Impressum

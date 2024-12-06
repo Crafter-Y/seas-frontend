@@ -46,7 +46,7 @@ export default function BaseSettingsScreen() {
                 "border-gray-400 px-4 py-6 text-lg opacity-85 bg-gray-200 justify-between flex-row"
               )}
               onPress={() => {
-                router.push(
+                router.navigate(
                   `/settings/${setting as keyof typeof settingsSections}`
                 );
               }}

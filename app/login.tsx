@@ -185,7 +185,7 @@ export default function LoginScreen() {
                 "underline text-xs opacity-80 w-full text-center"
               )}
               onPress={() => {
-                router.push("/imprint");
+                router.navigate("/imprint");
               }}
             />
           </View>

@@ -27,7 +27,8 @@ export default function ResetPasswordScreen() {
       <Stack.Screen
         options={{
           title: "Passwort zurücksetzen",
-          headerTitle: "Zurück",
+          headerTitle: "Passwort zurücksetzen",
+          headerBackTitle: "Login",
           headerShown: !isMd,
         }}
       />

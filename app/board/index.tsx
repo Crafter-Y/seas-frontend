@@ -49,11 +49,11 @@ export default function BoardScreenScreen() {
   }, [serverName, segments]);
 
   const changePassword = () => {
-    router.push("/changepassword");
+    router.navigate("/changepassword");
   };
 
   const settings = () => {
-    router.push("/settings/");
+    router.navigate("/settings/");
   };
 
   return (

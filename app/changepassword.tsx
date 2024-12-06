@@ -33,7 +33,8 @@ export default function ChangePasswordScreen() {
       <Stack.Screen
         options={{
           title: "Passwort ändern",
-          headerTitle: "Zurück",
+          headerTitle: "Passwort ändern",
+          headerBackTitle: "Board",
           headerShown: !isMd,
         }}
       />

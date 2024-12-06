@@ -103,8 +103,9 @@ const Modal = forwardRef<ModalHandle, Props>(
               {
                 flexGrow: 0,
                 "w-1/2": Platform.OS == "web",
-                "rounded-md": Platform.OS == "web" || type == "MOBILE_BOTTOM",
-                "rounded-t-xl": Platform.OS != "web" && type == "MOBILE_BOTTOM",
+                "rounded-md": Platform.OS == "web",
+                "rounded-t-xl":
+                  Platform.OS == "android" && type == "MOBILE_BOTTOM",
                 width:
                   Platform.OS == "web"
                     ? isSm

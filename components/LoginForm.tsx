@@ -69,7 +69,7 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
       <Text
         style={tw.style("underline opacity-80")}
         onPress={() => {
-          router.push({
+          router.navigate({
             pathname: "/passwordreset",
             params: {
               email: email,
