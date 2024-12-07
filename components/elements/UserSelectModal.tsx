@@ -108,7 +108,7 @@ export default function UserSelectModal({
             >
               <Pressable onPress={() => setSelectedUser(item?.id ?? -1)}>
                 <ExpoCheckbox
-                  key={(selectedUser == item?.id ?? -1) + ""}
+                  key={(selectedUser == item?.id) + ""}
                   value={selectedUser == (item?.id ?? -1)}
                   onValueChange={() => setSelectedUser(item?.id ?? -1)}
                 />

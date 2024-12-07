@@ -25,7 +25,7 @@ export default function ManagePagesScreen() {
   }, [changeSuccessful]);
 
   return (
-    <SettingsLayout actualSetting="modules">
+    <SettingsLayout actualSetting="modules" backTitle="Zurück">
       <SettingsTitle>Module verwalten</SettingsTitle>
 
       <SettingsForm>
@@ -124,7 +124,7 @@ export default function ManagePagesScreen() {
               Eigene Chorlisten verwalten
             </Text>
           </TouchableOpacity>
-          <Text>
+          <Text style={tw`mt-2`}>
             Ermöglicht das dokumentieren und auswerten von Choraktivitäten.
           </Text>
         </View>
