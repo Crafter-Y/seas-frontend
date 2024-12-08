@@ -8,7 +8,6 @@ import Divider from "@/components/elements/Divider";
 import tw from "@/tailwind";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import Button from "@/components/elements/Button";
-import useOwnSongbooks from "@/hooks/api/useOwnSongbooks";
 import Form from "@/components/elements/Form";
 import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
@@ -25,10 +24,11 @@ import { Color } from "@/helpers/Constants";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import useDeleteSongbook from "@/hooks/api/useDeleteSongbook";
 import useRenameSongbook from "@/hooks/api/useRenameSongbook";
+import useSongbooks from "@/hooks/api/useSongbooks";
 
 export default function index() {
   const { isMd } = useMediaQueries();
-  const { ownSongbooks, querySongbooks } = useOwnSongbooks();
+  const { songbooks, querySongbooks } = useSongbooks();
   const { restrictions } = useRestrictions();
   const {
     createSongbook,
@@ -81,18 +81,19 @@ export default function index() {
           label="Zurück zu Modulen"
         />
       )}
-      <SettingsTitle>Eigene Chorlisten verwalten</SettingsTitle>
+      <SettingsTitle>Chorlisten verwalten</SettingsTitle>
 
       <SettingsForm>
         <Text>
           Neben den Chorlisten, die wir Ihrem Produkt zugeteilt haben, können
-          Sie hier Ihre eigenen Chorlisten erstellen und verwalten.
+          Sie Ihre eigenen Chorlisten erstellen und verwalten.
         </Text>
         <Button
           style={tw`self-start mt-2`}
           disabled={
             restrictions?.maxOwnSongbooks
-              ? restrictions.maxOwnSongbooks <= ownSongbooks.length
+              ? restrictions.maxOwnSongbooks <=
+                songbooks.filter((book) => book.editable).length
               : false
           }
           onPress={() => createModal.current?.openModal()}
@@ -102,7 +103,8 @@ export default function index() {
         <Callout
           visible={
             restrictions?.maxOwnSongbooks
-              ? restrictions.maxOwnSongbooks <= ownSongbooks.length
+              ? restrictions.maxOwnSongbooks <=
+                songbooks.filter((book) => book.editable).length
               : false
           }
           message="Sie haben die maximale Anzahl eigener Chorlisten für Ihr Produkt erreicht."
@@ -113,21 +115,24 @@ export default function index() {
 
       <SettingsForm style={tw`mb-8`}>
         <Form>
-          <TH titles={["Mappe", "Songs", ""]}></TH>
-          {ownSongbooks.map((songbook) => (
+          <TH titles={["Mappe", "Bekannt", ""]}></TH>
+          {songbooks.map((songbook) => (
             <TR key={songbook.id}>
               <TD cols={3}>
                 <Text style={tw`text-lg`}>{songbook.name}</Text>
               </TD>
               <TD cols={3}>
-                <Text>{songbook.count} Lieder</Text>
+                <Text>
+                  {songbook.knownSongs} / {songbook.count}
+                </Text>
+                <Text>Lieder</Text>
               </TD>
 
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
                 <Button
                   color="#f67e7e"
                   style={tw`p-2.5`}
-                  disabled={!restrictions?.pagesDeletable}
+                  disabled={!songbook.editable}
                   onPress={() => {
                     setSelectedSongbook(songbook);
                     deleteModal.current?.openModal();
@@ -137,6 +142,7 @@ export default function index() {
                 </Button>
                 <Button
                   style={tw`p-2.5`}
+                  disabled={!songbook.editable}
                   onPress={() => {
                     setSelectedSongbook(songbook);
                     renameModal.current?.openModal();
@@ -161,7 +167,7 @@ export default function index() {
               </TD>
             </TR>
           ))}
-          {ownSongbooks.length == 0 && (
+          {songbooks.length == 0 && (
             <Text style={tw`m-2 text-lg`}>Noch keine Einträge vorhanden.</Text>
           )}
         </Form>

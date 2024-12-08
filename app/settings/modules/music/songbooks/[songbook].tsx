@@ -38,7 +38,7 @@ export default function songbook() {
           <>
             {isMd && (
               <SettingsBackButton
-                backRoute="/settings/modules/music/known"
+                backRoute="/settings/modules/music/songbooks"
                 label="Zurück zu Chorlisten"
               />
             )}
@@ -86,6 +86,11 @@ export default function songbook() {
             </SettingsForm>
           );
         }}
+        ListEmptyComponent={
+          <SettingsForm>
+            <Text style={tw`m-2 text-lg`}>Noch keine Einträge vorhanden.</Text>
+          </SettingsForm>
+        }
       />
     </SettingsLayout>
   );

@@ -125,6 +125,7 @@ type APISongbookResponse = {
   name: string;
   knownSongs: number;
   count: number;
+  editable: boolean;
 };
 
 type APIResponseSongbookSong = {

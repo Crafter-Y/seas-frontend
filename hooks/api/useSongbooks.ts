@@ -16,5 +16,5 @@ export default function useSongbooks() {
     querySongbooks();
   }, []);
 
-  return { songbooks };
+  return { songbooks, querySongbooks };
 }
