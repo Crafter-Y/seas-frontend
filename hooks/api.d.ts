@@ -113,7 +113,7 @@ type APIRestrictions = {
 type APIResponseSong = {
   id: number;
   title: string;
-  number: number;
+  number: string;
   book: {
     id: number;
     name: string;
@@ -131,7 +131,7 @@ type APISongbookResponse = {
 type APIResponseSongbookSong = {
   id: number;
   title: string;
-  number: number;
+  number: string;
   known: boolean;
   locked: boolean;
 }
@@ -141,7 +141,7 @@ type APIResponseHistoryEntry = {
   rating: number;
   comment: string | null;
   song: {
-    number: number;
+    number: string;
     title: string;
     book: {
       name: string;
@@ -151,14 +151,14 @@ type APIResponseHistoryEntry = {
 
 type APIResponseHistoryRatingEntry = {
   title: string;
-  number: number;
+  number: string;
   book: string;
   rating: number;
 }
 
 type APIResponseHistoryCountEntry = {
   title: string;
-  number: number;
+  number: string;
   book: string;
   count: number;
 }

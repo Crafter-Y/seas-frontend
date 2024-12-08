@@ -16,10 +16,11 @@ import Checkbox from "@/components/elements/Checkbox";
 import useSetKnownState from "@/hooks/api/useSetKnownState";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import { FlashList } from "@shopify/flash-list";
+import Button from "@/components/elements/Button";
 
 export default function songbook() {
   const { songbook } = useLocalSearchParams();
-  const { songs, querySongbook } = useSongbook();
+  const { songs, querySongbook, editable } = useSongbook();
   const { setKnwonState } = useSetKnownState();
   const { isMd } = useMediaQueries();
 
@@ -51,6 +52,14 @@ export default function songbook() {
                 nicht mehr verändern, da bereits eine Eintragung für dieses Lied
                 vorhanden ist. Alle Änderungen werden automatisch gespeichert.
               </Text>
+              <Button
+                style={tw`self-start mt-2 ${editable ? "" : "hidden"}`}
+                onPress={() => {
+                  //TODO: reateModal.current?.openModal()
+                }}
+              >
+                <Text>Song hinzufügen</Text>
+              </Button>
             </SettingsForm>
             <Divider type="HORIZONTAL" style={tw`my-4`} />
 
