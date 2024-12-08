@@ -1,4 +1,5 @@
-FROM node:22.12.0-alpine
+FROM node:18.18.0-alpine
+# See: https://docs.expo.dev/build-reference/infrastructure/
 
 WORKDIR /app
 

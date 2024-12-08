@@ -20,7 +20,7 @@ const ErrorDisplay = ({ hasError, error, style }: Props) => {
         style
       )}
     >
-      {error}
+      {typeof error == "string" ? error : JSON.stringify(error)}
     </Text>
   );
 };
