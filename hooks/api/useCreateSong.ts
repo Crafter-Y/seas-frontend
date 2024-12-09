@@ -1,6 +1,18 @@
 import { useState } from "react";
 import { requestApi } from "@/helpers/api";
 
+
+export const validateSong = (number: string, title: string) => {
+  if (!number || number.length == 0) return "Eine Liednummer angegeben werden";
+
+  if (number.length > 64) return "Die Liednummer darf nicht länger als 64 Zeichen sein.";
+
+  if (!title || title.length == 0) return "Es muss ein Titel angegeben werden";
+  if (title.length > 64) return "Der Titel darf nicht länger als 64 Zeichen sein.";
+
+  return null;
+};
+
 export default function useCreateSong() {
   const [hasCreationError, setHasCreationError] = useState(false);
   const [creationError, setCreationError] = useState("");
@@ -9,28 +21,10 @@ export default function useCreateSong() {
   const createSong = async (number: string, title: string, songbookId: number) => {
     setSuccessfulCreation(false);
 
-    if (!number || number.length == 0) {
+    const validate = validateSong(number, title);
+    if (validate != null) {
       setHasCreationError(true);
-      setCreationError("Eine Liednummer angegeben werden");
-      return;
-    }
-
-    if (number.length > 64) {
-      setHasCreationError(true);
-      setCreationError("Die Liednummer darf nicht länger als 64 Zeichen sein.");
-      return;
-    }
-
-    if (!title || title.length == 0) {
-      setHasCreationError(true);
-      setCreationError("Es muss ein Titel angegeben werden");
-      return;
-    }
-
-    if (title.length > 64) {
-      setHasCreationError(true);
-      setCreationError("Der Titel darf nicht länger als 64 Zeichen sein.");
-      return;
+      setCreationError(validate);
     }
 
     const res = await requestApi("songs", "POST", {

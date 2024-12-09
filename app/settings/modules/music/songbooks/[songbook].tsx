@@ -14,6 +14,8 @@ import SettingsBackButton from "@/components/SettingsBackButton";
 import SettingsForm from "@/components/SettingsForm";
 import { Color } from "@/helpers/Constants";
 import useCreateSong from "@/hooks/api/useCreateSong";
+import useDeleteSong from "@/hooks/api/useDeleteSong";
+import useEditSong from "@/hooks/api/useEditSong";
 import useSetKnownState from "@/hooks/api/useSetKnownState";
 import useSongbook from "@/hooks/api/useSongbook";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -22,7 +24,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 
 export default function songbook() {
   const { songbook } = useLocalSearchParams();
@@ -31,12 +33,24 @@ export default function songbook() {
   const { isMd } = useMediaQueries();
   const { createSong, hasCreationError, creationError, successfulCreation } =
     useCreateSong();
+  const { editSong, hasEditError, editError, successfulEdit } = useEditSong();
+  const { deleteSong, succesfulDeletion } = useDeleteSong();
 
   const createModal = useRef<ModalHandle>(null);
   const createNumberInput = useRef<TextInput>(null);
   const createTitleInput = useRef<TextInput>(null);
   const [createNumber, setCreateNumber] = useState("");
   const [createTitle, setCreateTitle] = useState("");
+
+  const editModal = useRef<ModalHandle>(null);
+  const [selectedSong, setSelectedSong] =
+    useState<APIResponseSongbookSong | null>(null);
+  const editNumberInput = useRef<TextInput>(null);
+  const editTitleInput = useRef<TextInput>(null);
+  const [editNumber, setEditNumber] = useState("");
+  const [editTitle, setEditTitle] = useState("");
+
+  const deleteModal = useRef<ModalHandle>(null);
 
   useEffect(() => {
     if (songbook.length) {
@@ -50,6 +64,20 @@ export default function songbook() {
       createModal.current?.closeModal();
     }
   }, [successfulCreation]);
+
+  useEffect(() => {
+    if (successfulEdit) {
+      querySongbook(Number(songbook));
+      editModal.current?.closeModal();
+    }
+  }, [successfulEdit]);
+
+  useEffect(() => {
+    if (succesfulDeletion) {
+      querySongbook(Number(songbook));
+      deleteModal.current?.closeModal();
+    }
+  }, [succesfulDeletion]);
 
   return (
     <SettingsLayout actualSetting="modules">
@@ -114,8 +142,10 @@ export default function songbook() {
                       <Button
                         style={tw`p-2.5 self-start`}
                         onPress={() => {
-                          // TODO: setSelectedSongbook(songbook);
-                          // renameModal.current?.openModal();
+                          setSelectedSong(song);
+                          setEditNumber(song.number);
+                          setEditTitle(song.title);
+                          editModal.current?.openModal();
                         }}
                       >
                         <AntDesign name="edit" size={24} color="black" />
@@ -174,6 +204,88 @@ export default function songbook() {
             color={Color.GREEN}
           >
             Erstellen
+          </Button>
+        </View>
+      </ModalRewrite>
+      <ModalRewrite title="Lied hinzufügen" ref={editModal} scrollable>
+        <Text style={tw`mx-4`}>Verzeichnisnummer:</Text>
+        <Input
+          initialValue={selectedSong?.number}
+          placeholder="1, 12b oder 5-1"
+          onChangeText={setEditNumber}
+          ref={editNumberInput}
+          style={"mx-4"}
+          onSubmitEditing={() => {
+            editNumberInput.current?.blur();
+          }}
+        />
+        <Text style={tw`mx-4 mt-2`}>Titel:</Text>
+        <Input
+          initialValue={selectedSong?.title}
+          placeholder="Titel vom Lied"
+          onChangeText={setEditTitle}
+          ref={editTitleInput}
+          style={"mx-4"}
+          onSubmitEditing={() => {
+            editTitleInput.current?.blur();
+          }}
+        />
+        <Divider type="HORIZONTAL" style={tw`mt-3`} />
+        <Pressable
+          style={tw`py-3`}
+          onPress={() => {
+            editModal.current?.closeModal();
+            deleteModal.current?.openModal();
+          }}
+        >
+          <Text style={tw`text-lg text-red-500 font-semibold px-4`}>
+            Termin löschen
+          </Text>
+        </Pressable>
+        <Divider type="HORIZONTAL" style={tw`mb-1`} />
+        <ErrorDisplay
+          style={tw`mx-4`}
+          hasError={hasEditError}
+          error={editError}
+        />
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button onPress={() => editModal.current?.closeModal()}>
+            Abbrechen
+          </Button>
+          <Button
+            onPress={() => {
+              createTitleInput.current?.blur();
+              editSong(selectedSong!.id, editTitle, editNumber);
+            }}
+            color={Color.GREEN}
+          >
+            Speichern
+          </Button>
+        </View>
+      </ModalRewrite>
+      <ModalRewrite title="Lied löschen" ref={deleteModal}>
+        <Text style={tw`mx-4`}>
+          Soll das Lied{" "}
+          <Text style={tw`font-semibold`}>
+            {selectedSong?.title} ({selectedSong?.number})
+          </Text>{" "}
+          wirklich glöscht werden?
+        </Text>
+        <Text style={tw`text-red-400 mx-4 mt-2`}>
+          Alle damit in Verbindung stehende Statistiken werden ebenfalls
+          gelöscht.
+        </Text>
+        <View style={tw`justify-center flex-row gap-2 my-4`}>
+          <Button
+            onPress={() => {
+              deleteSong(selectedSong!.id);
+            }}
+            color={Color.RED}
+          >
+            Löschen
+          </Button>
+          <Button onPress={() => deleteModal.current?.closeModal()}>
+            Abbrechen
           </Button>
         </View>
       </ModalRewrite>

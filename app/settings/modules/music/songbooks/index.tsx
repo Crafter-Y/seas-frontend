@@ -145,6 +145,7 @@ export default function index() {
                   disabled={!songbook.editable}
                   onPress={() => {
                     setSelectedSongbook(songbook);
+                    setRenameName(songbook.name);
                     renameModal.current?.openModal();
                   }}
                 >
@@ -262,7 +263,7 @@ export default function index() {
           >
             Umbenennen
           </Button>
-          <Button onPress={() => deleteModal.current?.closeModal()}>
+          <Button onPress={() => renameModal.current?.closeModal()}>
             Abbrechen
           </Button>
         </View>
