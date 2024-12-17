@@ -2,5 +2,11 @@
   "welcome": "Willkommen!",
   "login": "Login",
   "copyrightFooter": "© (copyright) Helmut Haase 2022 - {{year}} • SEAS Kirchengemeinde UG (haftungsbeschränkt)",
-  "imprint": "Impressum"
+  "imprint": "Impressum",
+  "error.noServerIdSpecified": "Sie müssen eine Server ID eingeben",
+  "error.serverIdNotValid": "Die Server ID ist nicht gültig",
+  "welcomeToServerSelection": "Willkommen in der Serverauswahl",
+  "specifyServerId": "Geben Sie die Server ID Ihrer Gemeinde ein:",
+  "thisCanBeChangedLater": "Dies kann hinterher noch geändert werden.",
+  "save": "Speichern"
 }

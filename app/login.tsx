@@ -1,4 +1,4 @@
-import { Platform, useWindowDimensions, View } from "react-native";
+import { Platform, View } from "react-native";
 import React, { useEffect, useRef } from "react";
 import tw from "@/tailwind";
 import "@expo/match-media";
@@ -18,6 +18,7 @@ import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
 import Text from "@/components/elements/Text";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import clsx from "classnames";
 
 type WebConfig = {
   serverId: string;
@@ -26,8 +27,6 @@ type WebConfig = {
 export default function LoginScreen() {
   const { login, authError, hasAuthError, user } = useAuthentication();
   const { isSm, isMd } = useMediaQueries();
-
-  const { height } = useWindowDimensions();
 
   const isWeb = Platform.OS == "web";
 
@@ -91,50 +90,40 @@ export default function LoginScreen() {
   return (
     <StartScreenWrapper>
       <View>
-        <View
-          style={tw.style("flex w-full flex-row", {
-            height: height,
-          })}
-        >
+        <View className="flex-row">
           <View
-            style={tw.style(
-              {
-                hidden: !isMd,
-                flex: isMd,
-              },
-              ["flex-grow items-center gap-4"]
-            )}
+            className={clsx("flex-grow items-center gap-4", {
+              hidden: !isMd,
+              flex: isMd,
+            })}
           >
             <Text t={"welcome"} className="text-4xl font-semibold mt-[12%]" />
-            <Text style={tw`text-2xl`}>{serverName}</Text>
+            <Text className="text-2xl">{serverName}</Text>
           </View>
           <View
-            style={tw.style(
+            className={clsx(
+              "items-center border-l border-gray-200 px-4 h-screen",
               {
                 "bg-white": isMd,
                 "w-96": isMd,
                 "justify-center": isMd,
                 "w-full": !isMd,
                 "shadow-lg": isSm || isMd,
-              },
-              "items-center border-l border-gray-200 px-4",
-              {
-                height: height,
               }
             )}
           >
             {__DEV__ && Platform.OS == "web" && (
-              <View style={tw`w-full items-end p-1`}>
+              <View className="w-full items-end p-1">
                 <RoundIconButton
                   icon={<AntDesign name="setting" size={20} color="black" />}
                   onPress={() => apiModal.current!.openModal()}
-                  style={tw`border rounded-xl`}
+                  style="border rounded-xl"
                 />
               </View>
             )}
             <Text
               t={"welcome"}
-              style={tw.style(
+              className={clsx(
                 {
                   hidden: isMd,
                 },
@@ -142,7 +131,7 @@ export default function LoginScreen() {
               )}
             />
             <Text
-              style={tw.style(
+              className={clsx(
                 {
                   hidden: isMd,
                 },
@@ -175,18 +164,17 @@ export default function LoginScreen() {
             <Text
               t="copyrightFooter"
               values={{ year: new Date().getFullYear() + "" }}
-              style={tw`text-xs opacity-80 w-full text-center mt-12`}
+              className="text-xs opacity-80 text-center mt-12"
             />
-            <Text style={tw`text-xs opacity-80 w-full text-center`}></Text>
             <Text
               t="imprint"
-              style={tw.style(
-                { hidden: !isWeb },
-                "underline text-xs opacity-80 w-full text-center"
-              )}
               onPress={() => {
                 router.navigate("/imprint");
               }}
+              className={clsx(
+                { hidden: !isWeb },
+                "underline text-xs opacity-80 w-full text-center"
+              )}
             />
           </View>
         </View>
