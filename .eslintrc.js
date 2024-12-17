@@ -14,6 +14,7 @@ module.exports = exports = {
     "webpack.config.js",
     "tailwind.ts",
     "tailwind.config.js",
+    "twrnc.config.js",
     "metro.config.js",
     "babel.config.js",
     "app.config.js",

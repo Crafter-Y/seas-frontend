@@ -2,7 +2,7 @@ const handler = require("serve-handler");
 const http = require("http");
 
 const server = http.createServer((request, response) => {
-  if (request.url == "/assets/config.json" && process.env.REWRITE_CONFIG) {
+  if (request.url == "/config.json" && process.env.REWRITE_CONFIG) {
     response.writeHead(200, {
       "Content-Type": "application/json",
     });
@@ -12,7 +12,7 @@ const server = http.createServer((request, response) => {
       })
     );
     return;
-  } else if (process.env.SERVER_ID && request.url == "/assets/config.json") {
+  } else if (process.env.SERVER_ID && request.url == "/config.json") {
     response.writeHead(200, {
       "Content-Type": "application/json",
     });

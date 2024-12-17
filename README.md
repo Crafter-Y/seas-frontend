@@ -6,7 +6,7 @@ This is the official source code of frontend/website/android/iOS app of SEAS - K
 
 In the mobile app, you can freely choose community you want to use.
 
-Since the webapp is only for one community, you'll need to adjust the `assets/config.json` and use an existing product id.
+Since the webapp is only for one community, you'll need to adjust the `public/config.json` and use an existing product id.
 
 Feel free to request a demo community.
 
@@ -38,4 +38,4 @@ docker run -d -p 80:80 -e PORT=80 -e SERVER_ID=12345 --name seas craftery/seas-f
 npx expo export
 ```
 
-For the web export, you'll need to add the config.json file manually in the asset directory of the output.
+For the web export, you'll need to edit the config.json file manually in the directory of the output.

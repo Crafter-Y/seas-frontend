@@ -50,7 +50,7 @@ export default function LoginScreen() {
     if (Platform.OS == "web") {
       AsyncStorage.getItem("serverId").then((serverId) => {
         if (serverId == null) {
-          fetch("/assets/config.json")
+          fetch("/config.json")
             .then((res) => res.json())
             .then((res: WebConfig) => {
               if (res.serverId) {
@@ -105,7 +105,7 @@ export default function LoginScreen() {
               ["flex-grow items-center gap-4"]
             )}
           >
-            <Text t={"welcome"} style={tw`text-4xl font-semibold mt-[12%]`} />
+            <Text t={"welcome"} className="text-4xl font-semibold mt-[12%]" />
             <Text style={tw`text-2xl`}>{serverName}</Text>
           </View>
           <View

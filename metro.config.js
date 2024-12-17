@@ -1,10 +1,12 @@
 const { getDefaultConfig } = require("expo/metro-config");
 const { generate } = require("@storybook/react-native/scripts/generate");
 const path = require("path");
+const { withNativeWind } = require("nativewind/metro");
 
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
+// this is probably obsolete, since assets/config.json was moved to public/config.json and therefore, no json module needs to be bundled
 config.resolver.assetExts.push("json");
 config.resolver.sourceExts = config.resolver.sourceExts.filter(
   (el) => el !== "json"
@@ -43,4 +45,6 @@ config.transformer.minifierConfig = {
   },
 };
 
-module.exports = config;
+module.exports = withNativeWind(config, {
+  input: "./nativewind.css",
+});
