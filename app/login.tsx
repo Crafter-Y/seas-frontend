@@ -15,10 +15,9 @@ import { FetchState } from "@/helpers/Constants";
 import RoundIconButton from "@/components/RoundIconButton";
 import { ModalHandle } from "@/components/elements/Modal";
 import DevelopmentServerModal from "@/components/DevelopmentServerModal";
-import StartScreenWrapper from "@/components/StartScreenWrapper";
 import Text from "@/components/elements/Text";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import clsx from "classnames";
+import Constants from "expo-constants";
 
 type WebConfig = {
   serverId: string;
@@ -26,9 +25,7 @@ type WebConfig = {
 
 export default function LoginScreen() {
   const { login, authError, hasAuthError, user } = useAuthentication();
-  const { isSm, isMd } = useMediaQueries();
-
-  const isWeb = Platform.OS == "web";
+  const { isMd } = useMediaQueries();
 
   const { serverName, fetchServerError, fetchServerName } = useServerName();
 
@@ -88,30 +85,20 @@ export default function LoginScreen() {
   }, [user]);
 
   return (
-    <StartScreenWrapper>
+    <>
       <View>
+        <View
+          style={{
+            paddingTop: Constants.statusBarHeight,
+          }}
+          className="md:hidden"
+        />
         <View className="flex-row">
-          <View
-            className={clsx("flex-grow items-center gap-4", {
-              hidden: !isMd,
-              flex: isMd,
-            })}
-          >
-            <Text t={"welcome"} className="text-4xl font-semibold mt-[12%]" />
+          <View className="flex-grow items-center gap-4 hidden md:flex">
+            <Text t="welcome" className="text-4xl font-semibold mt-[12%]" />
             <Text className="text-2xl">{serverName}</Text>
           </View>
-          <View
-            className={clsx(
-              "items-center border-l border-gray-200 px-4 h-screen",
-              {
-                "bg-white": isMd,
-                "w-96": isMd,
-                "justify-center": isMd,
-                "w-full": !isMd,
-                "shadow-lg": isSm || isMd,
-              }
-            )}
-          >
+          <View className="items-center border-l border-gray-200 px-4 h-screen w-full md:bg-white md:w-96 md:justify-center sm:shadow-lg">
             {__DEV__ && Platform.OS == "web" && (
               <View className="w-full items-end p-1">
                 <RoundIconButton
@@ -122,31 +109,16 @@ export default function LoginScreen() {
               </View>
             )}
             <Text
-              t={"welcome"}
-              className={clsx(
-                {
-                  hidden: isMd,
-                },
-                "text-4xl font-semibold mt-12"
-              )}
+              t="welcome"
+              className="text-4xl font-semibold mt-12 md:hidden"
             />
-            <Text
-              className={clsx(
-                {
-                  hidden: isMd,
-                },
-                "text-2xl text-center"
-              )}
-            >
+            <Text className={"text-2xl text-center md:hidden"}>
               {serverName}
             </Text>
 
-            <Divider
-              type="HORIZONTAL"
-              style={tw.style("my-8 w-full", {
-                hidden: isMd,
-              })}
-            />
+            <View className="w-full md:hidden">
+              <Divider type="HORIZONTAL" style={tw.style("my-8 w-full")} />
+            </View>
 
             <H1
               t="login"
@@ -171,15 +143,12 @@ export default function LoginScreen() {
               onPress={() => {
                 router.navigate("/imprint");
               }}
-              className={clsx(
-                { hidden: !isWeb },
-                "underline text-xs opacity-80 w-full text-center"
-              )}
+              className="underline text-xs opacity-80 w-full text-center native:hidden"
             />
           </View>
         </View>
       </View>
       <DevelopmentServerModal ref={apiModal} />
-    </StartScreenWrapper>
+    </>
   );
 }
