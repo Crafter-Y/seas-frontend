@@ -12,7 +12,7 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
     process.env.REACT_NATIVE_PACKAGER_HOSTNAME ?? "192.168.178.95:8080";
 
   return (
-    <ModalRewrite title="Server API URL (Development only)" ref={ref}>
+    <ModalRewrite title="modal.apiEndpointUrl" ref={ref}>
       <Input
         placeholder="Server ID"
         initialValue={serverUrl}

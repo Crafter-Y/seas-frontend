@@ -173,7 +173,11 @@ export default function index() {
           )}
         </Form>
       </SettingsForm>
-      <ModalRewrite title="Chormappe erstellen" ref={createModal} scrollable>
+      <ModalRewrite
+        title="modal.music.createSongbook"
+        ref={createModal}
+        scrollable
+      >
         <Text style={tw`mx-4`}>Name</Text>
         <Input
           placeholder="Name der Chormappe"
@@ -205,7 +209,7 @@ export default function index() {
           </Button>
         </View>
       </ModalRewrite>
-      <ModalRewrite title="Chormappe löschen" ref={deleteModal}>
+      <ModalRewrite title="modal.music.deleteSongbook" ref={deleteModal}>
         <Text style={tw`mx-4`}>
           Soll der Plan{" "}
           <Text style={tw`font-semibold`}>{selectedSongbook?.name}</Text>{" "}
@@ -231,7 +235,7 @@ export default function index() {
           </Button>
         </View>
       </ModalRewrite>
-      <ModalRewrite title="Chormappe umbenennen" ref={renameModal}>
+      <ModalRewrite title="modal.music.renameSongbook" ref={renameModal}>
         <Text style={tw`mx-4`}>Name</Text>
         <Input
           initialValue={selectedSongbook?.name}

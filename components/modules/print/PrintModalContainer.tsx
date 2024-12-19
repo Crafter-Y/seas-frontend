@@ -1,8 +1,8 @@
 import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
-import PrintRangeModal from "./PrintRangeModal";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import PrintCoumnsModal from "./PrintCoumnsModal";
 import PrintOrderModal from "./PrintOrderModal";
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import PrintRangeModal from "./PrintRangeModal";
 
 const PrintModalContainer = forwardRef<ModalHandle>((props, ref) => {
   const printRangeModal = useRef<ModalHandle>(null);
@@ -20,14 +20,14 @@ const PrintModalContainer = forwardRef<ModalHandle>((props, ref) => {
 
   return (
     <>
-      <ModalRewrite title="Drucken - Zeitraum auswählen" ref={printRangeModal}>
+      <ModalRewrite title="modal.print.chooseRange" ref={printRangeModal}>
         <PrintRangeModal
           closeModal={() => printRangeModal.current?.closeModal()}
           openColumnsModal={() => printColumnsModal.current?.openModal()}
         />
       </ModalRewrite>
       <ModalRewrite
-        title="Drucken - Spalten auswählen"
+        title="modal.print.chooseColumns"
         ref={printColumnsModal}
         scrollable
       >
@@ -38,7 +38,7 @@ const PrintModalContainer = forwardRef<ModalHandle>((props, ref) => {
         />
       </ModalRewrite>
       <ModalRewrite
-        title="Drucken - Reihenfolge ändern"
+        title="modal.print.changeOrder"
         ref={printOrderModal}
         scrollable
       >

@@ -180,7 +180,7 @@ export default function ManagePagesScreen() {
         </Form>
       </SettingsForm>
 
-      <ModalRewrite title="Plan löschen" ref={deleteModal}>
+      <ModalRewrite title="modal.pages.deletePage" ref={deleteModal}>
         <DeletePageModal
           selectedPage={selectedPage}
           closeModal={deleteModal.current?.closeModal}
@@ -188,7 +188,7 @@ export default function ManagePagesScreen() {
         />
       </ModalRewrite>
 
-      <ModalRewrite title="Plan umbenennen" ref={renameModal}>
+      <ModalRewrite title="modal.pages.renamePage" ref={renameModal}>
         <RenamePageModal
           selectedPage={selectedPage}
           closeModal={renameModal.current?.closeModal}
@@ -196,7 +196,11 @@ export default function ManagePagesScreen() {
         />
       </ModalRewrite>
 
-      <ModalRewrite title="Moderator wählen" ref={moderatorModal} scrollable>
+      <ModalRewrite
+        title="modal.pages.chooseModerator"
+        ref={moderatorModal}
+        scrollable
+      >
         <UserSelectModal
           initialSelectedUserId={selectedPage?.moderatorUserId ?? null}
           closeModal={() => moderatorModal.current?.closeModal()}

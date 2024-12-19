@@ -23,7 +23,7 @@ import tw from "@/tailwind";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 
 export default function songbook() {
@@ -163,7 +163,7 @@ export default function songbook() {
           </SettingsForm>
         }
       />
-      <ModalRewrite title="Lied hinzufügen" ref={createModal} scrollable>
+      <ModalRewrite title="modal.music.addSong" ref={createModal} scrollable>
         <Text style={tw`mx-4`}>Verzeichnisnummer:</Text>
         <Input
           placeholder="1, 12b oder 5-1"
@@ -207,7 +207,7 @@ export default function songbook() {
           </Button>
         </View>
       </ModalRewrite>
-      <ModalRewrite title="Lied hinzufügen" ref={editModal} scrollable>
+      <ModalRewrite title="modal.music.addSong" ref={editModal} scrollable>
         <Text style={tw`mx-4`}>Verzeichnisnummer:</Text>
         <Input
           initialValue={selectedSong?.number}
@@ -263,7 +263,7 @@ export default function songbook() {
           </Button>
         </View>
       </ModalRewrite>
-      <ModalRewrite title="Lied löschen" ref={deleteModal}>
+      <ModalRewrite title="modal.music.deleteSong" ref={deleteModal}>
         <Text style={tw`mx-4`}>
           Soll das Lied{" "}
           <Text style={tw`font-semibold`}>

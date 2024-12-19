@@ -142,7 +142,7 @@ export default function ManageUsersScreen() {
         </Form>
       </SettingsForm>
 
-      <ModalRewrite title="Mitglied bearbeiten" ref={editModal}>
+      <ModalRewrite title="modal.users.editUser" ref={editModal}>
         <EditUserModal
           user={user!}
           editUser={editUser!}
@@ -154,7 +154,8 @@ export default function ManageUsersScreen() {
       </ModalRewrite>
 
       <ModalRewrite
-        title={`Informationen bearbeiten (ID: ${editUser?.id})`}
+        title="modal.users.editUserInformation"
+        values={{ id: editUser?.id + "" }}
         ref={changeInformationModal}
       >
         <ChangeUserInformationModal
@@ -166,7 +167,7 @@ export default function ManageUsersScreen() {
         />
       </ModalRewrite>
 
-      <ModalRewrite title="Mitglied löschen" ref={deleteUserModal}>
+      <ModalRewrite title="modal.users.deleteUser" ref={deleteUserModal}>
         <DeleteUserModal
           editUser={editUser!}
           queryUsers={queryUsers}
@@ -174,7 +175,10 @@ export default function ManageUsersScreen() {
         />
       </ModalRewrite>
 
-      <ModalRewrite title="Passwort zurücksetzen" ref={requestNewPasswordModal}>
+      <ModalRewrite
+        title="modal.users.resetPassword"
+        ref={requestNewPasswordModal}
+      >
         <RequestNewPasswordModal
           editUser={editUser!}
           closeModal={requestNewPasswordModal.current?.closeModal}
@@ -182,7 +186,10 @@ export default function ManageUsersScreen() {
         />
       </ModalRewrite>
 
-      <ModalRewrite title="Neues Passwort angefragt" ref={newPasswordModal}>
+      <ModalRewrite
+        title="modal.users.newPasswordRequested"
+        ref={newPasswordModal}
+      >
         <NewPasswordModal
           editUser={editUser!}
           closeModal={newPasswordModal.current?.closeModal}

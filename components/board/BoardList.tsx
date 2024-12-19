@@ -217,7 +217,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
           setCommentEditValue={setCommentEditValue}
         />
       </ModalRewrite>
-      <ModalRewrite title="Termin löschen" ref={deleteEventModal}>
+      <ModalRewrite title="modal.board.deleteEvent" ref={deleteEventModal}>
         <BoardRowDeleteModal
           closeModal={deleteEventModal.current?.closeModal}
           openRowModal={rowModal.current?.openModal}
@@ -225,7 +225,11 @@ const BoardList = ({ rows, fetchData }: Props) => {
           triggerBoardRefetch={fetchData}
         />
       </ModalRewrite>
-      <ModalRewrite title="Mitglied auswählen" ref={selectUserModal} scrollable>
+      <ModalRewrite
+        title="modal.board.selectUser"
+        ref={selectUserModal}
+        scrollable
+      >
         <UserSelectModal
           initialSelectedUserId={null}
           closeModal={() => {
@@ -243,7 +247,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
         />
       </ModalRewrite>
       <ModalRewrite
-        title="Kommentar anpassen"
+        title="modal.board.editComment"
         ref={editCommentModal}
         scrollable
       >

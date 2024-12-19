@@ -59,7 +59,7 @@ export default function ManagePositionsScreen() {
   const renameInput = useRef<TextInput>(null);
 
   const deleteColumnModal = useRef<ModalHandle>(null);
-  const modifyModal = useRef<ModalHandle>(null);
+  const editModal = useRef<ModalHandle>(null);
 
   const [columnToChange, setColumnToChange] = useState<APIResponseColumn>();
 
@@ -83,7 +83,7 @@ export default function ManagePositionsScreen() {
   useEffect(() => {
     if (successfulColumnRename && assignmentSuccessful) {
       queryColumns();
-      modifyModal.current?.closeModal();
+      editModal.current?.closeModal();
     }
   }, [successfulColumnRename, assignmentSuccessful]);
 
@@ -201,7 +201,7 @@ export default function ManagePositionsScreen() {
                     setColumnToChange(column);
                     setAssignmentChanges([]);
                     setColumnRenameName(column.name);
-                    modifyModal.current?.openModal();
+                    editModal.current?.openModal();
                   }}
                 >
                   <Image source={require("@/assets/img/edit.svg")} size={24} />
@@ -212,7 +212,7 @@ export default function ManagePositionsScreen() {
         </Form>
       </SettingsForm>
 
-      <ModalRewrite title="Spalte löschen?" ref={deleteColumnModal}>
+      <ModalRewrite title="modal.columns.deleteColumn" ref={deleteColumnModal}>
         <Text style={tw`mx-4`}>
           Soll die Spalte{" "}
           <Text style={tw`font-semibold`}>{columnToChange?.name}</Text> wirklich
@@ -237,7 +237,7 @@ export default function ManagePositionsScreen() {
         </View>
       </ModalRewrite>
 
-      <ModalRewrite title="Spalte bearbeiten" ref={modifyModal}>
+      <ModalRewrite title="modal.columns.editColumn" ref={editModal}>
         <Text style={tw`mt-4 mx-4`}>Neuen Spalten Namen festlegen</Text>
 
         <Input
@@ -293,7 +293,7 @@ export default function ManagePositionsScreen() {
         ))}
 
         <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button onPress={() => modifyModal.current?.closeModal()}>
+          <Button onPress={() => editModal.current?.closeModal()}>
             Abbrechen
           </Button>
           <Button

@@ -99,7 +99,7 @@ export default function BoardScreenScreen() {
         />
         <Footer />
       </ScrollView>
-      <ModalRewrite title="Kalender Export Modul" ref={calendarModal}>
+      <ModalRewrite title="modal.calendarExportModule" ref={calendarModal}>
         <CalendarModal />
       </ModalRewrite>
       <PrintModalContainer ref={printModal} />

@@ -1,3 +1,13 @@
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
+import { AntDesign } from "@expo/vector-icons";
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useState,
+} from "react";
+import { useTranslation } from "react-i18next";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -10,20 +20,14 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import React, {
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useState,
-} from "react";
-import tw from "@/tailwind";
 import { ScrollView } from "react-native-gesture-handler";
 import Divider from "./Divider";
-import { AntDesign } from "@expo/vector-icons";
-import useMediaQueries from "@/hooks/useMediaQueries";
 
 type Props = {
   title: string;
+  values?: {
+    [name: string]: string;
+  };
   children?: React.ReactNode;
   scrollable?: boolean;
 };
@@ -35,10 +39,15 @@ export type ModalHandle = {
 
 type HeaderProps = {
   title: string;
+  values?: {
+    [name: string]: string;
+  };
   closeModal: () => void;
 };
 
-const ModalHeader = ({ title, closeModal }: HeaderProps) => {
+const ModalHeader = ({ title, closeModal, values }: HeaderProps) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <View style={tw`pl-2 pr-2 py-2 flex-row justify-between items-center`}>
@@ -46,7 +55,7 @@ const ModalHeader = ({ title, closeModal }: HeaderProps) => {
         <Text
           style={tw`text-3xl font-semibold text-black/80 text-center flex-grow max-w-4/5`}
         >
-          {title}
+          {t(title, values)}
         </Text>
         <TouchableOpacity
           onPress={closeModal}
@@ -61,7 +70,7 @@ const ModalHeader = ({ title, closeModal }: HeaderProps) => {
 };
 
 const ModalRewrite = forwardRef<ModalHandle, Props>(
-  ({ title, children, scrollable = false }: Props, ref) => {
+  ({ title, values, children, scrollable = false }: Props, ref) => {
     const { isSm, isMd, isXl } = useMediaQueries();
     const { height } = useWindowDimensions();
 
@@ -118,7 +127,11 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
                 "bg-white rounded-xl grow-0"
               )}
             >
-              <ModalHeader title={title} closeModal={intCloseModal} />
+              <ModalHeader
+                title={title}
+                closeModal={intCloseModal}
+                values={values}
+              />
               {children}
             </ScrollView>
           </View>
@@ -142,7 +155,11 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
                     "bg-white rounded-xl shadow-lg"
                   )}
                 >
-                  <ModalHeader title={title} closeModal={intCloseModal} />
+                  <ModalHeader
+                    title={title}
+                    closeModal={intCloseModal}
+                    values={values}
+                  />
                   {children}
                 </View>
               </TouchableWithoutFeedback>
