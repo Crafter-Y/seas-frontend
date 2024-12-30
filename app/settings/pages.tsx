@@ -183,7 +183,7 @@ export default function ManagePagesScreen() {
       <ModalRewrite title="modal.pages.deletePage" ref={deleteModal}>
         <DeletePageModal
           selectedPage={selectedPage}
-          closeModal={deleteModal.current?.closeModal}
+          closeModal={() => deleteModal.current?.closeModal()}
           queryPages={queryPages}
         />
       </ModalRewrite>
@@ -191,7 +191,7 @@ export default function ManagePagesScreen() {
       <ModalRewrite title="modal.pages.renamePage" ref={renameModal}>
         <RenamePageModal
           selectedPage={selectedPage}
-          closeModal={renameModal.current?.closeModal}
+          closeModal={() => renameModal.current?.closeModal()}
           queryPages={queryPages}
         />
       </ModalRewrite>

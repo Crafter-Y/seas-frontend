@@ -87,14 +87,14 @@ export default function BoardScreenScreen() {
           logout={logout}
           changePassword={changePassword}
           settings={settings}
-          openCalendarModal={calendarModal.current?.openModal}
-          openPrintModal={printModal.current?.openModal}
+          openCalendarModal={() => calendarModal.current?.openModal()}
+          openPrintModal={() => printModal.current?.openModal()}
           openMusicModal={() => musicModal.current?.openModal()}
         />
         <Board
           boardType={boardType}
-          openCalendarModal={calendarModal.current?.openModal}
-          openPrintModal={printModal.current?.openModal}
+          openCalendarModal={() => calendarModal.current?.openModal()}
+          openPrintModal={() => printModal.current?.openModal()}
           openMusicModal={() => musicModal.current?.openModal()}
         />
         <Footer />

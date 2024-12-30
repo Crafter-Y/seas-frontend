@@ -208,10 +208,10 @@ const BoardList = ({ rows, fetchData }: Props) => {
         scrollable
       >
         <BoardRowModal
-          closeModal={rowModal.current?.closeModal}
-          openDeleteRowModal={deleteEventModal.current?.openModal}
-          openSelectOtherUserModal={selectUserModal.current?.openModal}
-          openEditCommentModal={editCommentModal.current?.openModal}
+          closeModal={() => rowModal.current?.closeModal()}
+          openDeleteRowModal={() => deleteEventModal.current?.openModal()}
+          openSelectOtherUserModal={() => selectUserModal.current?.openModal()}
+          openEditCommentModal={() => editCommentModal.current?.openModal()}
           triggerBoardRefetch={fetchData}
           setSelectedColumn={setSelectedColumn}
           setCommentEditValue={setCommentEditValue}
@@ -219,8 +219,8 @@ const BoardList = ({ rows, fetchData }: Props) => {
       </ModalRewrite>
       <ModalRewrite title="modal.board.deleteEvent" ref={deleteEventModal}>
         <BoardRowDeleteModal
-          closeModal={deleteEventModal.current?.closeModal}
-          openRowModal={rowModal.current?.openModal}
+          closeModal={() => deleteEventModal.current?.closeModal()}
+          openRowModal={() => rowModal.current?.openModal()}
           selectedRow={selectedRow}
           triggerBoardRefetch={fetchData}
         />
@@ -252,8 +252,8 @@ const BoardList = ({ rows, fetchData }: Props) => {
         scrollable
       >
         <BoardRowCommentModal
-          closeModal={editCommentModal.current?.closeModal}
-          openRowModal={rowModal.current?.openModal}
+          closeModal={() => editCommentModal.current?.closeModal()}
+          openRowModal={() => rowModal.current?.openModal()}
           setCommentEditValue={setCommentEditValue}
           commentEditValue={commentEditValue}
           selectedColumn={selectedColumn}

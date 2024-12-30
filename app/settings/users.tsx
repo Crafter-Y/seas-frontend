@@ -146,10 +146,14 @@ export default function ManageUsersScreen() {
         <EditUserModal
           user={user!}
           editUser={editUser!}
-          closeModal={editModal.current?.closeModal}
+          closeModal={() => editModal.current?.closeModal()}
           queryUsers={queryUsers}
-          openRequestPasswordModal={requestNewPasswordModal.current?.openModal}
-          openChangeInformationModal={changeInformationModal.current?.openModal}
+          openRequestPasswordModal={() =>
+            requestNewPasswordModal.current?.openModal()
+          }
+          openChangeInformationModal={() =>
+            changeInformationModal.current?.openModal()
+          }
         />
       </ModalRewrite>
 
@@ -163,7 +167,7 @@ export default function ManageUsersScreen() {
           queryUsers={queryUsers}
           maxUsersReached={maxUsersReached}
           maxAdminsReached={maxAdminsReached}
-          closeModal={changeInformationModal.current?.closeModal}
+          closeModal={() => changeInformationModal.current?.closeModal()}
         />
       </ModalRewrite>
 
@@ -171,7 +175,7 @@ export default function ManageUsersScreen() {
         <DeleteUserModal
           editUser={editUser!}
           queryUsers={queryUsers}
-          closeModal={deleteUserModal.current?.closeModal}
+          closeModal={() => deleteUserModal.current?.closeModal()}
         />
       </ModalRewrite>
 
@@ -181,8 +185,8 @@ export default function ManageUsersScreen() {
       >
         <RequestNewPasswordModal
           editUser={editUser!}
-          closeModal={requestNewPasswordModal.current?.closeModal}
-          openNewPasswordModal={newPasswordModal.current?.openModal}
+          closeModal={() => requestNewPasswordModal.current?.closeModal()}
+          openNewPasswordModal={() => newPasswordModal.current?.openModal()}
         />
       </ModalRewrite>
 
@@ -192,7 +196,7 @@ export default function ManageUsersScreen() {
       >
         <NewPasswordModal
           editUser={editUser!}
-          closeModal={newPasswordModal.current?.closeModal}
+          closeModal={() => newPasswordModal.current?.closeModal()}
         />
       </ModalRewrite>
     </SettingsLayout>

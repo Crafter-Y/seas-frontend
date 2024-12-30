@@ -1,6 +1,6 @@
 import { Pressable, Text, View } from "react-native";
 import tw from "@/tailwind";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Store } from "@/helpers/store";
 import Divider from "@/components/elements/Divider";
 import useAllPages from "@/hooks/api/useAllPages";
