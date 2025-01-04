@@ -201,17 +201,20 @@ const BoardList = ({ rows, fetchData }: Props) => {
         ))}
       </Form>
       <ModalRewrite
-        title={
-          selectedRow ? prettyDate(selectedRow?.date as string, false) : ""
-        }
+        title="literal"
+        values={{
+          text: selectedRow
+            ? prettyDate(selectedRow?.date as string, false)
+            : "",
+        }}
         ref={rowModal}
         scrollable
       >
         <BoardRowModal
-          closeModal={() => rowModal.current?.closeModal()}
-          openDeleteRowModal={() => deleteEventModal.current?.openModal()}
-          openSelectOtherUserModal={() => selectUserModal.current?.openModal()}
-          openEditCommentModal={() => editCommentModal.current?.openModal()}
+          closeModal={() => rowModal.current!.closeModal()}
+          openDeleteRowModal={() => deleteEventModal.current!.openModal()}
+          openSelectOtherUserModal={() => selectUserModal.current!.openModal()}
+          openEditCommentModal={() => editCommentModal.current!.openModal()}
           triggerBoardRefetch={fetchData}
           setSelectedColumn={setSelectedColumn}
           setCommentEditValue={setCommentEditValue}

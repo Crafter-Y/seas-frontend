@@ -4,6 +4,7 @@
   "error.serverIdNotValid": "Die Server ID ist nicht gültig",
   "imprint": "Impressum",
   "login": "Login",
+  "literal": "{{text}}",
   "modal.apiEndpointUrl": "API Endpunkt festlegen",
   "modal.board.deleteEvent": "Termin löschen",
   "modal.board.editComment": "Kommentar anpassen",

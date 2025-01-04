@@ -13,11 +13,11 @@ import useAssignUser from "@/hooks/api/useAssignUser";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
 
 type Props = {
-  closeModal?: () => void;
-  openDeleteRowModal?: () => void;
-  triggerBoardRefetch?: () => void;
-  openSelectOtherUserModal?: () => void;
-  openEditCommentModal?: () => void;
+  closeModal: () => void;
+  openDeleteRowModal: () => void;
+  triggerBoardRefetch: () => void;
+  openSelectOtherUserModal: () => void;
+  openEditCommentModal: () => void;
   selectedColumn?: APIResponseColumn;
   setSelectedColumn: (col: APIResponseColumn) => void;
   setCommentEditValue: (val: string) => void;
