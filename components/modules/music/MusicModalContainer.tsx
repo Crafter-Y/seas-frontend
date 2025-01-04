@@ -1,5 +1,5 @@
 import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
-import React, { forwardRef, memo, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import MusicActionModal from "./MusicActionModal";
 import MusicEntryDateModal from "./MusicEntryDateModal";
 import MusicEntryOverviewModal from "./MusicEntryOverviewModal";
@@ -32,10 +32,10 @@ const MusicModalContainer = forwardRef<ModalHandle>((props, ref) => {
     <>
       <ModalRewrite title="modal.music.seasMusicJournal" ref={musicActonModal}>
         <MusicActionModal
-          closeModal={() => musicActonModal.current?.closeModal()}
-          openEntryTypeModal={() => entryTypeModal.current?.openModal()}
-          openOverviewModal={() => overviewModal.current?.openModal()}
-          openHistoryModal={() => historyModal.current?.openModal()}
+          closeModal={() => musicActonModal.current!.closeModal()}
+          openEntryTypeModal={() => entryTypeModal.current!.openModal()}
+          openOverviewModal={() => overviewModal.current!.openModal()}
+          openHistoryModal={() => historyModal.current!.openModal()}
         />
       </ModalRewrite>
       <ModalRewrite title="modal.music.seasMusicJournal" ref={entryTypeModal}>
@@ -84,4 +84,4 @@ const MusicModalContainer = forwardRef<ModalHandle>((props, ref) => {
 });
 
 MusicModalContainer.displayName = "MusicModalContainer";
-export default memo(MusicModalContainer);
+export default MusicModalContainer;

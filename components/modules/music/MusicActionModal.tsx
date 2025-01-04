@@ -2,12 +2,13 @@ import tw from "@/tailwind";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Store } from "@/helpers/store";
+import React from "react";
 
 type Props = {
-  closeModal?: () => void;
-  openEntryTypeModal?: () => void;
-  openOverviewModal?: () => void;
-  openHistoryModal?: () => void;
+  closeModal: () => void;
+  openEntryTypeModal: () => void;
+  openOverviewModal: () => void;
+  openHistoryModal: () => void;
 };
 
 export default function MusicActionModal({
@@ -34,12 +35,12 @@ export default function MusicActionModal({
             Platform.OS == "web" ? "shadow-md" : ""
           }`}
           onPress={() => {
-            closeModal?.();
+            closeModal();
 
             if (musicRatings.length !== 0 && musicEntryType && musicDate) {
-              openOverviewModal?.();
+              openOverviewModal();
             } else {
-              openEntryTypeModal?.();
+              openEntryTypeModal();
             }
           }}
         >
@@ -63,8 +64,8 @@ export default function MusicActionModal({
             "flex-grow flex-1 rounded-lg border-gray-400 border-2 gap-4 justify-between px-2 pt-2"
           )}
           onPress={() => {
-            closeModal?.();
-            openHistoryModal?.();
+            closeModal();
+            openHistoryModal();
           }}
         >
           <Text style={tw`text-center text-xl font-semibold`}>
