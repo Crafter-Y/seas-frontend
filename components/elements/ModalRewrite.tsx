@@ -95,9 +95,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
     useImperativeHandle(ref, () => ({
       openModal() {
         setLastModalOpen(new Date());
-        setTimeout(() => {
-          setModalOpen(true);
-        }, 1); // TODO: somehow needed to work on iOS when closing and immideately reopening another modal
+        setModalOpen(true);
       },
       closeModal() {
         intCloseModal();
@@ -109,7 +107,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
         visible={isModalOpen}
         statusBarTranslucent
         transparent
-        animationType={Platform.OS !== "ios" ? "slide" : undefined} // TODO: immideately closing and reopening another modal freezes the whole app on iOS, so I disable the animation for now.
+        animationType="slide"
         onRequestClose={intCloseModal}
       >
         {/* TODO: Backdrop not working */}
