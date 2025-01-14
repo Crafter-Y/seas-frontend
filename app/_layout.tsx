@@ -1,5 +1,5 @@
 import { Stack } from "expo-router/stack";
-import { LogBox } from "react-native";
+import { LogBox, Text, useWindowDimensions } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Constants from "expo-constants";
@@ -16,6 +16,8 @@ import { de, registerTranslation } from "react-native-paper-dates";
 registerTranslation("de", de);
 
 function DefaultLayout() {
+  const { height, width } = useWindowDimensions();
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar translucent={true} animated={true} style="auto" />
@@ -27,6 +29,10 @@ function DefaultLayout() {
           }}
         />
       </I18nextProvider>
+      {/** without this, when refreshing a static exported page, the height and width is 0 and doesnt get updated */}
+      <Text className="hidden">
+        {height}x{width}
+      </Text>
     </GestureHandlerRootView>
   );
 }
