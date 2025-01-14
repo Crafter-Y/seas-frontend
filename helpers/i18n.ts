@@ -10,7 +10,7 @@ i18n.use(initReactI18next).init({
         de: { translation: deTranslation },
         en: { translation: enTranslation },
     },
-    lng: getLocales()[0].languageTag,
+    lng: getLocales()[0]?.languageTag,
     fallbackLng: "de",
     interpolation: {
         escapeValue: false,
