@@ -3,7 +3,7 @@
 DOCKER="/usr/bin/docker"
 
 # Build the docker image
-$DOCKER build -t craftery/seas-frontend:latest -t craftery/seas-frontend:1.0.12 .
+$DOCKER build -t craftery/seas-frontend:latest -t craftery/seas-frontend:1.0.13 .
 
 # Push the image to docker hub
 $DOCKER push craftery/seas-frontend -a
