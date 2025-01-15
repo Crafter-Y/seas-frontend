@@ -18,6 +18,7 @@ import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import CustomText from "@/components/elements/CustomText";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Constants from "expo-constants";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type WebConfig = {
   serverId: string;
@@ -86,7 +87,7 @@ export default function LoginScreen() {
 
   return (
     <>
-      <View>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
         <View
           style={{
             paddingTop: Constants.statusBarHeight,
@@ -101,7 +102,7 @@ export default function LoginScreen() {
             />
             <CustomText className="text-2xl">{serverName}</CustomText>
           </View>
-          <View className="items-center border-l border-gray-200 px-4 h-screen w-full md:bg-white md:w-96 md:justify-center sm:shadow-lg">
+          <View className="items-center border-l border-gray-200 px-4 md:h-screen w-full md:bg-white md:w-96 md:justify-center sm:shadow-lg pb-12 md:pb-0 min-h-screen">
             {__DEV__ && Platform.OS == "web" && (
               <View className="w-full items-end p-1">
                 <RoundIconButton
@@ -150,7 +151,7 @@ export default function LoginScreen() {
             />
           </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
       <DevelopmentServerModal ref={apiModal} />
     </>
   );

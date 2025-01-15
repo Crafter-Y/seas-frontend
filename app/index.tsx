@@ -88,7 +88,7 @@ export default function ServerSelectorScreen() {
         className="text-center text-3xl font-bold px-4"
         t="welcomeToServerSelection"
       />
-      <View className="px-4">
+      <View className="px-4 mb-2">
         <CustomText className="mt-6 text-lg" t="specifyServerId" />
         <Input
           placeholder="Server ID"

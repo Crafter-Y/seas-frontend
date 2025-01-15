@@ -18,9 +18,7 @@ const StartScreenWrapper = ({ children }: Props) => {
   return (
     <SafeAreaView>
       <KeyboardAwareScrollView
-        scrollEnabled={false}
         style={{ height }}
-        extraScrollHeight={75}
         keyboardShouldPersistTaps="handled"
       >
         <TouchableWithoutFeedback
