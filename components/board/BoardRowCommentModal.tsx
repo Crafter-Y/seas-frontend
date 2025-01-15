@@ -4,9 +4,10 @@ import useUpdateComment from "@/hooks/api/useUpdateComment";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
 import { useEffect } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, TextInput, View } from "react-native";
 import Button from "../elements/Button";
 import { Color } from "@/helpers/Constants";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   closeModal?: () => void;
@@ -70,15 +71,15 @@ export default function BoardRowCommentModal({
               setCommentEditValue(commentEditValue + comment.comment);
             }}
           >
-            <Text
+            <CustomText
               style={tw`font-semibold text-green-500 text-lg`}
               selectable={false}
             >
               +
-            </Text>
-            <Text style={tw`font-semibold`} selectable={false}>
+            </CustomText>
+            <CustomText style={tw`font-semibold`} selectable={false}>
               {comment.comment}
-            </Text>
+            </CustomText>
           </Pressable>
         ))}
       </View>

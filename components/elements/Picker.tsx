@@ -1,4 +1,4 @@
-import { Platform, Pressable, Text, View } from "react-native";
+import { Platform, Pressable, View } from "react-native";
 import React, {
   ReactElement,
   ReactNode,
@@ -13,6 +13,7 @@ import {
 } from "@react-native-picker/picker";
 import { AntDesign } from "@expo/vector-icons";
 import Modal, { ModalHandle } from "./Modal";
+import CustomText from "./CustomText";
 
 type Props = {
   selectedValue: string;
@@ -68,11 +69,11 @@ const Picker = ({
             "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center h-13 pl-4 pr-5"
           )}
         >
-          <Text style={tw.style({}, "text-lg")}>
+          <CustomText style={tw.style({}, "text-lg")}>
             {selectionCount == 1
               ? getAllPickerProps()[0].label
               : getParamValue(selectedValue)}
-          </Text>
+          </CustomText>
           <AntDesign name="caretdown" size={10} color="gray" />
         </Pressable>
         <Modal

@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import Input from "../elements/Input";
 import tw from "@/tailwind";
@@ -6,6 +6,7 @@ import ErrorDisplay from "../ErrorDisplay";
 import Button from "../elements/Button";
 import useRenamePage from "@/hooks/api/useRenamePage";
 import { Color } from "@/helpers/Constants";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   selectedPage?: APIResponsePage;
@@ -33,7 +34,7 @@ export default function RenamePageModal({
   }, [successfulPageRename]);
   return (
     <>
-      <Text style={tw`mt-4 mx-4`}>Neuen Plan Namen festlegen</Text>
+      <CustomText style={tw`mt-4 mx-4`}>Neuen Plan Namen festlegen</CustomText>
 
       <Input
         initialValue={selectedPage?.name}

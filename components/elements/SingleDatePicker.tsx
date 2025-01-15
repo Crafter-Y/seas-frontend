@@ -1,9 +1,10 @@
-import { Platform, Pressable, Text, View } from "react-native";
+import { Platform, Pressable, View } from "react-native";
 import React, { useState } from "react";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 import { DatePickerModal } from "react-native-paper-dates";
 import tw from "@/tailwind";
 import { AntDesign } from "@expo/vector-icons";
+import CustomText from "./CustomText";
 
 type Props = {
   setDate: (date: CalendarDate) => void;
@@ -31,9 +32,9 @@ const SingleDatePicker = ({ setDate }: Props) => {
           "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center"
         )}
       >
-        <Text style={tw.style({}, "text-lg")}>
+        <CustomText style={tw.style({}, "text-lg")}>
           {date ? date?.toLocaleDateString() : "Datum auswählen"}
-        </Text>
+        </CustomText>
         <AntDesign name="caretdown" size={10} color="gray" />
       </Pressable>
       <DatePickerModal

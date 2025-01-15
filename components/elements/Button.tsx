@@ -1,8 +1,9 @@
 import React, { ReactNode } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
 import { Color } from "@/helpers/Constants";
+import CustomText from "./CustomText";
 
 type Props = {
   children: ReactNode;
@@ -34,7 +35,11 @@ const Button = ({
     >
       {Object.keys(children as object).includes("type") && children}
       {!Object.keys(children as object).includes("type") && (
-        <Text style={tw`text-white text-lg`}>{children}</Text>
+        <CustomText style={tw`text-white text-lg`}>
+          {children}
+          {/** Fix for android font issues https://github.com/facebook/react-native/issues/15114 */}
+          {Platform.OS == "android" ? " " : undefined}
+        </CustomText>
       )}
     </TouchableOpacity>
   );

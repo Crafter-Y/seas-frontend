@@ -1,7 +1,7 @@
 import { Color } from "@/helpers/Constants";
 import tw from "@/tailwind";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, TextInput, useWindowDimensions, View } from "react-native";
+import { TextInput, useWindowDimensions, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import Image from "@/components/elements/Image";
 import { useEffect, useRef, useState } from "react";
@@ -13,6 +13,8 @@ import Button from "@/components/elements/Button";
 import useRedeemPasswordToken from "@/hooks/api/useRedeemPasswordToken";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
+import React from "react";
+import CustomText from "@/components/elements/CustomText";
 
 export default function VerifyScreen() {
   const { t, intent } = useLocalSearchParams<{ t: string; intent: string }>();
@@ -84,16 +86,16 @@ export default function VerifyScreen() {
             />
           </View>
 
-          <Text style={tw`text-center p-0 m-0 text-lg`}>
+          <CustomText style={tw`text-center p-0 m-0 text-lg`}>
             SEAS Kirchengemeinde
-          </Text>
+          </CustomText>
 
           <View style={tw`mx-5 mb-5`}>
-            <Text style={tw`font-semibold text-3xl text-center mb-8`}>
+            <CustomText style={tw`font-semibold text-3xl text-center mb-8`}>
               {title}
-            </Text>
+            </CustomText>
 
-            <Text style={tw`text-xs ml-2`}>Token</Text>
+            <CustomText style={tw`text-xs ml-2`}>Token</CustomText>
             <Input
               placeholder="Token"
               onChangeText={() => {}}
@@ -112,26 +114,30 @@ export default function VerifyScreen() {
             />
             {tokenValid === false && (
               <>
-                <Text style={tw`mt-4`}>Tut uns leid...</Text>
-                <Text style={tw`text-red-500 text-2xl font-semibold`}>
+                <CustomText style={tw`mt-4`}>Tut uns leid...</CustomText>
+                <CustomText style={tw`text-red-500 text-2xl font-semibold`}>
                   Dieser Link ist nicht mehr gültig.
-                </Text>
-                <Text style={tw`mt-2`}>
+                </CustomText>
+                <CustomText style={tw`mt-2`}>
                   Haben Sie bereits erneut ein Passwort angefordert?
-                </Text>
+                </CustomText>
               </>
             )}
             {tokenValid === true && productName && t && !successfulRedeem && (
               <>
-                <Text style={tw`mt-6`}>
+                <CustomText style={tw`mt-6`}>
                   {intent == "onboarding" ? "Willkommen" : "Hallo"} {firstname}{" "}
                   {lastname}, bitte setzen Sie Ihr Passwort für Ihren Account
-                  bei <Text style={tw`font-semibold`}>{productName}</Text>:
-                </Text>
-                <Text style={tw`mt-2`}>
+                  bei{" "}
+                  <CustomText style={tw`font-semibold`}>
+                    {productName}
+                  </CustomText>
+                  :
+                </CustomText>
+                <CustomText style={tw`mt-2`}>
                   Das neue Passwort muss mindestens 7 Zeichen haben. Erlaubt
                   sind Buchstaben, Zahlen und Sonderzeichen: -_!?/*%$
-                </Text>
+                </CustomText>
 
                 <Input
                   placeholder="Passwort festlegen"
@@ -168,14 +174,17 @@ export default function VerifyScreen() {
             )}
             {successfulRedeem && productName && (
               <>
-                <Text style={tw`text-green-500 text-2xl font-semibold`}>
+                <CustomText style={tw`text-green-500 text-2xl font-semibold`}>
                   Sie haben Ihr Passwort erfolgreich{" "}
                   {intent == "onboarding" ? "gesetzt" : "geändert"}.
-                </Text>
-                <Text style={tw`mt-2`}>
+                </CustomText>
+                <CustomText style={tw`mt-2`}>
                   Sie können sich nun mit Ihrer Email + Passwort bei{" "}
-                  <Text style={tw`font-semibold`}>{productName}</Text> anmelden.
-                </Text>
+                  <CustomText style={tw`font-semibold`}>
+                    {productName}
+                  </CustomText>{" "}
+                  anmelden.
+                </CustomText>
                 <Button onPress={() => router.replace("/login")}>
                   Zur Anmeldeseite
                 </Button>

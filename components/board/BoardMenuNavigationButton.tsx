@@ -1,9 +1,10 @@
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import React, { useRef } from "react";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 import { Color } from "@/helpers/Constants";
 import { BoardType } from "@/app/board";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   boardType: BoardType;
@@ -43,7 +44,7 @@ const BoardMenuNavigationButton = ({
           "w-1 h-8 rounded-r-md"
         )}
       ></View>
-      <Text
+      <CustomText
         style={tw.style({
           "font-semibold": boardType == currentBoardType,
           underline: isHovered,
@@ -51,7 +52,7 @@ const BoardMenuNavigationButton = ({
         })}
       >
         {boardType}
-      </Text>
+      </CustomText>
       <View></View>
     </Pressable>
   );

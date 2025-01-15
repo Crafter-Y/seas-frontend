@@ -1,8 +1,9 @@
 import tw from "@/tailwind";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Store } from "@/helpers/store";
 import React from "react";
+import CustomText from "@/components/elements/CustomText";
 
 type Props = {
   closeModal: () => void;
@@ -44,9 +45,9 @@ export default function MusicActionModal({
             }
           }}
         >
-          <Text style={tw`text-center text-xl font-semibold`}>
+          <CustomText style={tw`text-center text-xl font-semibold`}>
             Daten eingeben
-          </Text>
+          </CustomText>
           <AntDesign
             name="plus"
             size={64}
@@ -68,9 +69,9 @@ export default function MusicActionModal({
             openHistoryModal();
           }}
         >
-          <Text style={tw`text-center text-xl font-semibold`}>
+          <CustomText style={tw`text-center text-xl font-semibold`}>
             Informationen abrufen
-          </Text>
+          </CustomText>
           <AntDesign
             name="paperclip"
             size={64}

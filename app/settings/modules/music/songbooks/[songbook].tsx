@@ -1,5 +1,6 @@
 import Button from "@/components/elements/Button";
 import Checkbox from "@/components/elements/Checkbox";
+import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
 import Input from "@/components/elements/Input";
@@ -24,7 +25,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, TextInput, View } from "react-native";
 
 export default function songbook() {
   const { songbook } = useLocalSearchParams();
@@ -95,19 +96,19 @@ export default function songbook() {
             <SettingsTitle>Lieder bearbeiten</SettingsTitle>
 
             <SettingsForm>
-              <Text>
+              <CustomText>
                 Markierte Lieder sind bekannt. Sie können manuell Lieder als
                 &quot;Bekannt&quot; markieren. Manche Checkboxen können Sie
                 nicht mehr verändern, da bereits eine Eintragung für dieses Lied
                 vorhanden ist. Alle Änderungen werden automatisch gespeichert.
-              </Text>
+              </CustomText>
               <Button
                 style={tw`self-start mt-2 ${editable ? "" : "hidden"}`}
                 onPress={() => {
                   createModal.current?.openModal();
                 }}
               >
-                <Text>Lied hinzufügen</Text>
+                <CustomText>Lied hinzufügen</CustomText>
               </Button>
             </SettingsForm>
             <Divider type="HORIZONTAL" style={tw`my-4`} />
@@ -126,9 +127,9 @@ export default function songbook() {
               <Form>
                 <TR>
                   <TD cols={2}>
-                    <Text style={tw`text-lg`}>
+                    <CustomText style={tw`text-lg`}>
                       {song.title} ({song.number})
-                    </Text>
+                    </CustomText>
                   </TD>
                   <TD cols={2} style={tw`flex-row self-start justify-between`}>
                     <Checkbox
@@ -159,12 +160,14 @@ export default function songbook() {
         }}
         ListEmptyComponent={
           <SettingsForm>
-            <Text style={tw`m-2 text-lg`}>Noch keine Einträge vorhanden.</Text>
+            <CustomText style={tw`m-2 text-lg`}>
+              Noch keine Einträge vorhanden.
+            </CustomText>
           </SettingsForm>
         }
       />
       <ModalRewrite title="modal.music.addSong" ref={createModal} scrollable>
-        <Text style={tw`mx-4`}>Verzeichnisnummer:</Text>
+        <CustomText style={tw`mx-4`}>Verzeichnisnummer:</CustomText>
         <Input
           placeholder="1, 12b oder 5-1"
           onChangeText={setCreateNumber}
@@ -175,7 +178,7 @@ export default function songbook() {
           }}
           returnKeyType="next"
         />
-        <Text style={tw`mx-4 mt-2`}>Titel:</Text>
+        <CustomText style={tw`mx-4 mt-2`}>Titel:</CustomText>
         <Input
           placeholder="Titel vom Lied"
           onChangeText={setCreateTitle}
@@ -208,7 +211,7 @@ export default function songbook() {
         </View>
       </ModalRewrite>
       <ModalRewrite title="modal.music.addSong" ref={editModal} scrollable>
-        <Text style={tw`mx-4`}>Verzeichnisnummer:</Text>
+        <CustomText style={tw`mx-4`}>Verzeichnisnummer:</CustomText>
         <Input
           initialValue={selectedSong?.number}
           placeholder="1, 12b oder 5-1"
@@ -219,7 +222,7 @@ export default function songbook() {
             editNumberInput.current?.blur();
           }}
         />
-        <Text style={tw`mx-4 mt-2`}>Titel:</Text>
+        <CustomText style={tw`mx-4 mt-2`}>Titel:</CustomText>
         <Input
           initialValue={selectedSong?.title}
           placeholder="Titel vom Lied"
@@ -238,9 +241,9 @@ export default function songbook() {
             deleteModal.current?.openModal();
           }}
         >
-          <Text style={tw`text-lg text-red-500 font-semibold px-4`}>
+          <CustomText style={tw`text-lg text-red-500 font-semibold px-4`}>
             Termin löschen
-          </Text>
+          </CustomText>
         </Pressable>
         <Divider type="HORIZONTAL" style={tw`mb-1`} />
         <ErrorDisplay
@@ -264,17 +267,17 @@ export default function songbook() {
         </View>
       </ModalRewrite>
       <ModalRewrite title="modal.music.deleteSong" ref={deleteModal}>
-        <Text style={tw`mx-4`}>
+        <CustomText style={tw`mx-4`}>
           Soll das Lied{" "}
-          <Text style={tw`font-semibold`}>
+          <CustomText style={tw`font-semibold`}>
             {selectedSong?.title} ({selectedSong?.number})
-          </Text>{" "}
+          </CustomText>{" "}
           wirklich glöscht werden?
-        </Text>
-        <Text style={tw`text-red-400 mx-4 mt-2`}>
+        </CustomText>
+        <CustomText style={tw`text-red-400 mx-4 mt-2`}>
           Alle damit in Verbindung stehende Statistiken werden ebenfalls
           gelöscht.
-        </Text>
+        </CustomText>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
             onPress={() => {

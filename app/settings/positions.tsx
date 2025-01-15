@@ -23,12 +23,13 @@ import tw from "@/tailwind";
 import { Picker as RNPicker } from "@react-native-picker/picker";
 import Image from "@/components/elements/Image";
 import React, { useEffect, useRef, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import ModalRewrite from "@/components/elements/ModalRewrite";
 import { Color } from "@/helpers/Constants";
 import useRestrictions from "@/hooks/api/useRestrictions";
 import Callout from "@/components/elements/Callout";
+import CustomText from "@/components/elements/CustomText";
 
 export default function ManagePositionsScreen() {
   const {
@@ -109,10 +110,10 @@ export default function ManagePositionsScreen() {
       <SettingsTitle>Spalten verwalten</SettingsTitle>
 
       <SettingsForm>
-        <Text>
+        <CustomText>
           Hier können verscheidene Spalten erstellen werden und Plänen
           zugewiesen werden.
-        </Text>
+        </CustomText>
 
         <Input
           style={tw`mt-4`}
@@ -170,16 +171,16 @@ export default function ManagePositionsScreen() {
           {allColumns.map((column) => (
             <TR key={column.id}>
               <TD cols={3}>
-                <Text style={tw`text-lg`}>{column.name}</Text>
-                <Text>
+                <CustomText style={tw`text-lg`}>{column.name}</CustomText>
+                <CustomText>
                   {column.type == "COMMENT" ? "Kommentarfeld" : "Eintragefeld"}
-                </Text>
+                </CustomText>
               </TD>
               <TD cols={3}>
                 {column.pages.map((pageId) => (
-                  <Text key={pageId}>
+                  <CustomText key={pageId}>
                     {allPages.filter((page) => page.id == pageId)[0]?.name}
-                  </Text>
+                  </CustomText>
                 ))}
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
@@ -213,15 +214,17 @@ export default function ManagePositionsScreen() {
       </SettingsForm>
 
       <ModalRewrite title="modal.columns.deleteColumn" ref={deleteColumnModal}>
-        <Text style={tw`mx-4`}>
+        <CustomText style={tw`mx-4`}>
           Soll die Spalte{" "}
-          <Text style={tw`font-semibold`}>{columnToChange?.name}</Text> wirklich
-          glöscht werden?
-        </Text>
-        <Text style={tw`text-red-400 mx-4 mt-2`}>
+          <CustomText style={tw`font-semibold`}>
+            {columnToChange?.name}
+          </CustomText>{" "}
+          wirklich glöscht werden?
+        </CustomText>
+        <CustomText style={tw`text-red-400 mx-4 mt-2`}>
           Dadurch werden alle Eintragungen von Mitgliedern in dieser Spalte
           unwiderruflich gelöscht!
-        </Text>
+        </CustomText>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button onPress={() => deleteColumnModal.current?.closeModal()}>
             Abbrechen
@@ -238,7 +241,9 @@ export default function ManagePositionsScreen() {
       </ModalRewrite>
 
       <ModalRewrite title="modal.columns.editColumn" ref={editModal}>
-        <Text style={tw`mt-4 mx-4`}>Neuen Spalten Namen festlegen</Text>
+        <CustomText style={tw`mt-4 mx-4`}>
+          Neuen Spalten Namen festlegen
+        </CustomText>
 
         <Input
           initialValue={columnToChange?.name}
@@ -260,7 +265,9 @@ export default function ManagePositionsScreen() {
           error={renameError}
         />
 
-        <Text style={tw`mt-4 mx-4`}>Spalten zu Plänen zuordnen</Text>
+        <CustomText style={tw`mt-4 mx-4`}>
+          Spalten zu Plänen zuordnen
+        </CustomText>
         {allPages.map((page) => (
           <Checkbox
             label={page.name}

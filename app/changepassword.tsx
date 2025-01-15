@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Text, TextInput, useWindowDimensions, View } from "react-native";
+import { TextInput, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -13,6 +13,7 @@ import H1 from "@/components/elements/H1";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";
 import { router, Stack } from "expo-router";
+import CustomText from "@/components/elements/CustomText";
 
 export default function ChangePasswordScreen() {
   const { height } = useWindowDimensions();
@@ -50,10 +51,10 @@ export default function ChangePasswordScreen() {
         <SettingsBackButton backRoute="/board/" />
         <H1 style={tw`text-right`}>Passwort ändern</H1>
 
-        <Text style={tw`text-right mt-4 ml-4`}>
+        <CustomText style={tw`text-right mt-4 ml-4`}>
           Das neue Passwort muss mindestens 7 Zeichen haben. Erlaubt sind
           Buchstaben, Zahlen und Sonderzeichen: -_!?/*%$
-        </Text>
+        </CustomText>
         <Footer
           style={tw.style(
             {

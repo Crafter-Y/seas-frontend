@@ -1,7 +1,8 @@
-import { Platform, Pressable, Text } from "react-native";
+import { Platform, Pressable } from "react-native";
 import React, { useState } from "react";
 import ExpoCheckbox from "expo-checkbox";
 import tw from "@/tailwind";
+import CustomText from "./CustomText";
 
 type Props = {
   defaultValue?: boolean;
@@ -39,7 +40,7 @@ const Checkbox = ({
           }
         }}
       />
-      {label && <Text>{label}</Text>}
+      {label && <CustomText>{label}</CustomText>}
     </Pressable>
   );
 };

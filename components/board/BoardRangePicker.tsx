@@ -1,4 +1,4 @@
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import tw from "@/tailwind";
 import useYearState from "@/hooks/useYearState";
@@ -9,6 +9,7 @@ import useMediaQueries from "@/hooks/useMediaQueries";
 import useWeekState from "@/hooks/useWeekState";
 import { Color } from "@/helpers/Constants";
 import { BoardType } from "@/app/board";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   boardType: BoardType;
@@ -163,7 +164,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   };
 
   return (
-    <View style={tw`flex-row justify-center gap-3 items-center mt-4`}>
+    <View style={tw`flex-row justify-center sm:gap-3 gap-1 items-center mt-4`}>
       <TouchableOpacity
         onPress={backAction}
         style={tw.style(
@@ -174,25 +175,39 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
         )}
       >
         <Entypo name="arrow-bold-left" size={16} color="black" />
-        <Text style={tw`underline`} selectable={false} numberOfLines={1}>
-          {backText}
-        </Text>
+        <CustomText
+          className="underline"
+          selectable={false}
+          numberOfLines={1}
+          t="literal"
+          values={{ text: backText }}
+        />
       </TouchableOpacity>
       <Pressable
         style={tw`border rounded-sm px-2 py-1 bg-[${Color.GRAY}] items-center w-32`}
         onPress={middleAction}
       >
         {boardType == "Jahresansicht" && (
-          <Text style={tw`text-lg font-semibold`} selectable={false}>
-            {currentYear}
-          </Text>
+          <CustomText
+            style={tw`text-lg font-semibold`}
+            selectable={false}
+            t="literal"
+            values={{ text: currentYear + "" }}
+          />
         )}
         {boardType != "Jahresansicht" && (
           <>
-            <Text selectable={false}>{currentYear}</Text>
-            <Text style={tw`text-lg font-semibold`} selectable={false}>
-              {thisText}
-            </Text>
+            <CustomText
+              selectable={false}
+              t="literal"
+              values={{ text: currentYear + "" }}
+            />
+            <CustomText
+              style={tw`text-lg font-semibold`}
+              selectable={false}
+              t="literal"
+              values={{ text: thisText }}
+            />
           </>
         )}
       </Pressable>
@@ -206,9 +221,13 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
           "flex-row items-center gap-2 justify-start"
         )}
       >
-        <Text style={tw`underline`} selectable={false} numberOfLines={1}>
-          {nextText}
-        </Text>
+        <CustomText
+          style={tw`underline`}
+          selectable={false}
+          numberOfLines={1}
+          t="literal"
+          values={{ text: nextText }}
+        />
         <Entypo name="arrow-bold-right" size={16} color="black" />
       </TouchableOpacity>
     </View>

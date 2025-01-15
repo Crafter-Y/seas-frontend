@@ -3,13 +3,14 @@ import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import tw from "@/tailwind";
 import { FlashList } from "@shopify/flash-list";
-import { Animated, Text, TouchableOpacity, View } from "react-native";
+import { Animated, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useEffect, useRef } from "react";
 import Button from "@/components/elements/Button";
 import Ratings from "@/components/elements/Ratings";
 import { entryTypeMeanings } from "./MusicEntryTypeModal";
 import useSaveSongEntries from "@/hooks/api/useSaveSongEntries";
+import CustomText from "@/components/elements/CustomText";
 
 type Props = {
   closeModal?: () => void;
@@ -52,10 +53,10 @@ export default function MusicEntryOverviewModal({
 
   return (
     <View style={tw`mx-2 md:mx-4 pb-2`}>
-      <Text>{entryTypeMeanings[musicEntryType!]}</Text>
-      <Text style={tw`text-lg font-semibold mb-1`}>
+      <CustomText>{entryTypeMeanings[musicEntryType!]}</CustomText>
+      <CustomText style={tw`text-lg font-semibold mb-1`}>
         {prettyDate(formatDate(musicDate!), false)}
-      </Text>
+      </CustomText>
       <Animated.View
         style={{
           height: heightAnimate,
@@ -76,11 +77,11 @@ export default function MusicEntryOverviewModal({
             >
               <View style={tw`items-center flex-row gap-2`}>
                 <AntDesign name="plus" size={32} color="white" />
-                <Text style={tw`text-white`}>
+                <CustomText style={tw`text-white`}>
                   {musicRatings.length > 0
                     ? "Weiteres Lied"
                     : "Lied hinzufügen"}
-                </Text>
+                </CustomText>
               </View>
             </Button>
           }
@@ -93,12 +94,16 @@ export default function MusicEntryOverviewModal({
               >
                 <View style={tw`flex-row gap-2`}>
                   <View style={tw`w-4/5`}>
-                    <Text style={tw`text-lg leading-[18px]`}>
+                    <CustomText style={tw`text-lg leading-[18px]`}>
                       {item.title} ({item.number})
-                    </Text>
-                    <Text style={tw`text-xs`}>{item.book.name}</Text>
+                    </CustomText>
+                    <CustomText style={tw`text-xs`}>
+                      {item.book.name}
+                    </CustomText>
                     {item.comment && (
-                      <Text style={tw`text-base mt-1`}>{item.comment}</Text>
+                      <CustomText style={tw`text-base mt-1`}>
+                        {item.comment}
+                      </CustomText>
                     )}
                   </View>
                   <View style={tw`w-1/5 flex-1 items-center justify-center`}>

@@ -4,7 +4,14 @@ module.exports = {
   presets: [require("nativewind/preset")],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        roboto: ["Roboto"],
+      },
+      backgroundColor: {
+        "seas-gray": "#d1d5db",
+      },
+    },
   },
   plugins: [],
 };

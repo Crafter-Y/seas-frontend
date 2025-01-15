@@ -15,7 +15,7 @@ import { FetchState } from "@/helpers/Constants";
 import RoundIconButton from "@/components/RoundIconButton";
 import { ModalHandle } from "@/components/elements/Modal";
 import DevelopmentServerModal from "@/components/DevelopmentServerModal";
-import Text from "@/components/elements/Text";
+import CustomText from "@/components/elements/CustomText";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Constants from "expo-constants";
 
@@ -95,8 +95,11 @@ export default function LoginScreen() {
         />
         <View className="flex-row">
           <View className="flex-grow items-center gap-4 hidden md:flex">
-            <Text t="welcome" className="text-4xl font-semibold mt-[12%]" />
-            <Text className="text-2xl">{serverName}</Text>
+            <CustomText
+              t="welcome"
+              className="text-4xl font-semibold mt-[12%]"
+            />
+            <CustomText className="text-2xl">{serverName}</CustomText>
           </View>
           <View className="items-center border-l border-gray-200 px-4 h-screen w-full md:bg-white md:w-96 md:justify-center sm:shadow-lg">
             {__DEV__ && Platform.OS == "web" && (
@@ -108,13 +111,13 @@ export default function LoginScreen() {
                 />
               </View>
             )}
-            <Text
+            <CustomText
               t="welcome"
               className="text-4xl font-semibold mt-12 md:hidden"
             />
-            <Text className={"text-2xl text-center md:hidden"}>
+            <CustomText className={"text-2xl text-center md:hidden"}>
               {serverName}
-            </Text>
+            </CustomText>
 
             <View className="w-full md:hidden">
               <Divider type="HORIZONTAL" style={tw.style("my-8 w-full")} />
@@ -133,12 +136,12 @@ export default function LoginScreen() {
               authError={authError}
               back={back}
             />
-            <Text
+            <CustomText
               t="copyrightFooter"
               values={{ year: new Date().getFullYear() + "" }}
               className="text-xs opacity-80 text-center mt-12"
             />
-            <Text
+            <CustomText
               t="imprint"
               onPress={() => {
                 router.navigate("/imprint");

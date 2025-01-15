@@ -1,4 +1,4 @@
-import { Text, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import React from "react";
 import { FlashList, ListRenderItem } from "@shopify/flash-list";
 import MusicHistoryHeader from "./MusicHistoryHeader";
@@ -7,6 +7,7 @@ import { MusicEntryType } from "../MusicEntryTypeModal";
 import { HistoryType } from "../MusicHistoryModal";
 import { Color } from "@/helpers/Constants";
 import tw from "@/tailwind";
+import CustomText from "@/components/elements/CustomText";
 
 type Props = {
   headers: string[];
@@ -72,13 +73,15 @@ export default function MusicHistoryList<T>({
             >
               {headers.map((header) => (
                 <View key={header} style={tw`flex-1 mx-2`}>
-                  <Text style={tw`text-lg font-semibold`}>{header}</Text>
+                  <CustomText style={tw`text-lg font-semibold`}>
+                    {header}
+                  </CustomText>
                 </View>
               ))}
             </View>
-            <Text style={tw`${data.length ? "hidden" : ""} py-2 text-lg`}>
+            <CustomText style={tw`${data.length ? "hidden" : ""} py-2 text-lg`}>
               Keine Einträge in den letzten 365 Tagen.
-            </Text>
+            </CustomText>
           </>
         }
         ListFooterComponent={

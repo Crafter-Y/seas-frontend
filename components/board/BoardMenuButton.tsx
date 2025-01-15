@@ -1,9 +1,10 @@
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import React, { useRef } from "react";
 import Image from "@/components/elements/Image";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 import { ClassInput } from "twrnc/dist/esm/types";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   icon: string;
@@ -18,14 +19,14 @@ const BoardMenuButton = ({ icon, text, pressAction, style }: Props) => {
 
   return (
     <Pressable
-      style={tw.style("items-center flex-row p-4", style)}
+      style={tw.style("flex-row p-4", style)}
       ref={ref}
       onPress={pressAction}
     >
-      <View style={tw`flex-row gap-2`}>
+      <View style={tw`flex-row gap-2 items-center`}>
         <Image source={icon} size={18} />
 
-        <Text
+        <CustomText
           style={tw.style({
             underline: isHovered,
             "opacity-80": isHovered,
@@ -33,7 +34,7 @@ const BoardMenuButton = ({ icon, text, pressAction, style }: Props) => {
           })}
         >
           {text}
-        </Text>
+        </CustomText>
       </View>
     </Pressable>
   );

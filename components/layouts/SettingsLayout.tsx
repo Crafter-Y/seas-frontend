@@ -2,7 +2,6 @@ import {
   Pressable,
   RefreshControl,
   ScrollView,
-  Text,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -16,6 +15,7 @@ import H1 from "../elements/H1";
 import { useHover } from "react-native-web-hooks";
 import { Color } from "@/helpers/Constants";
 import { router, Stack } from "expo-router";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   children: React.ReactNode;
@@ -58,7 +58,7 @@ const InlineNavigationButton = ({
         }}
         ref={ref}
       >
-        <Text
+        <CustomText
           style={tw.style({
             "font-semibold": actualSetting == setting,
             underline: isHovered,
@@ -66,7 +66,7 @@ const InlineNavigationButton = ({
           })}
         >
           {settingsTitles[setting as keyof typeof settingsTitles]}
-        </Text>
+        </CustomText>
       </Pressable>
       <View
         style={tw.style(

@@ -1,4 +1,4 @@
-import { Platform, Text, TextInput, View } from "react-native";
+import { Platform, TextInput, View } from "react-native";
 import React, { useRef, useState } from "react";
 import tw from "@/tailwind";
 import Input from "./elements/Input";
@@ -6,6 +6,7 @@ import Button from "./elements/Button";
 import ErrorDisplay from "./ErrorDisplay";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import { router } from "expo-router";
+import CustomText from "./elements/CustomText";
 
 type Props = {
   back: () => void;
@@ -66,7 +67,7 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
         }
       />
 
-      <Text
+      <CustomText
         style={tw.style("underline opacity-80")}
         onPress={() => {
           router.navigate({
@@ -78,14 +79,14 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
         }}
       >
         Passwort vergessen
-      </Text>
+      </CustomText>
 
       <View
         style={tw.style({
           hidden: isWeb,
         })}
       >
-        <Text style={tw`mt-2 mb-0`}>Falsch hier?</Text>
+        <CustomText style={tw`mt-2 mb-0`}>Falsch hier?</CustomText>
         <Button onPress={back}>Woanders anmelden</Button>
       </View>
     </View>

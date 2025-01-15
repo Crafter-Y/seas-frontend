@@ -1,7 +1,7 @@
-import { Text } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
+import CustomText from "./elements/CustomText";
 
 type Props = {
   hasError: boolean;
@@ -11,7 +11,7 @@ type Props = {
 
 const ErrorDisplay = ({ hasError, error, style }: Props) => {
   return (
-    <Text
+    <CustomText
       style={tw.style(
         {
           hidden: !hasError,
@@ -21,7 +21,7 @@ const ErrorDisplay = ({ hasError, error, style }: Props) => {
       )}
     >
       {typeof error == "string" ? error : JSON.stringify(error)}
-    </Text>
+    </CustomText>
   );
 };
 

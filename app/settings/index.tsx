@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import React from "react";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
@@ -9,6 +9,7 @@ import {
 } from "@/components/layouts/SettingsLayout";
 import { router } from "expo-router";
 import useRestrictions from "@/hooks/api/useRestrictions";
+import CustomText from "@/components/elements/CustomText";
 
 export default function BaseSettingsScreen() {
   const { isMd, isSm } = useMediaQueries();
@@ -26,11 +27,11 @@ export default function BaseSettingsScreen() {
         )}
       >
         {isMd && (
-          <Text style={tw.style("w-52 text-lg")}>
+          <CustomText style={tw.style("w-52 text-lg")}>
             Dieser Bereich ist nur für Administratoren zugänglich. Über die
             Unterpunkte seitlich können die Inhalte der Seite eingestellt
             werden.
-          </Text>
+          </CustomText>
         )}
         {!isMd &&
           Object.keys(settingsSections).map((setting) => (
@@ -51,9 +52,9 @@ export default function BaseSettingsScreen() {
                 );
               }}
             >
-              <Text>
+              <CustomText>
                 {settingsSections[setting as keyof typeof settingsSections]}
-              </Text>
+              </CustomText>
               <Image
                 source={require("@/assets/img/previous.svg")}
                 size={16}

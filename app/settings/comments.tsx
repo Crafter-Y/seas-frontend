@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "@/components/elements/Image";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
@@ -18,6 +18,7 @@ import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
 import useCreateDefaultComment from "@/hooks/api/useCreateDefaultComment";
 import useDeleteDefaultComment from "@/hooks/api/useDeleteDefaultComment";
 import SettingsTitle from "@/components/settings/SettingsTitle";
+import CustomText from "@/components/elements/CustomText";
 
 export default function ManageCommentsScreen() {
   const { allDefaultComments, queryAllDefaultComments } =
@@ -55,11 +56,11 @@ export default function ManageCommentsScreen() {
       <SettingsTitle>Kommentarvorlagen</SettingsTitle>
 
       <SettingsForm>
-        <Text>
+        <CustomText>
           Auf den Plänen gibt es Kommentarfelder. Um diese leichter auszufüllen
           mit sich ähnelnden Inhalten, können Vorlagen erstellt werden, die mit
           einem Klick eingefügt werden können.
-        </Text>
+        </CustomText>
 
         <Input
           style={tw`mt-4`}
@@ -98,11 +99,11 @@ export default function ManageCommentsScreen() {
           {allDefaultComments.map((comment) => (
             <TR key={comment.id}>
               <TD style={tw`justify-center`} cols={2}>
-                <Text style={tw`text-lg`}>
+                <CustomText style={tw`text-lg`}>
                   {comment.comment.length > 32
                     ? comment.comment.substring(0, 32) + "..."
                     : comment.comment}
-                </Text>
+                </CustomText>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 <Button
@@ -124,15 +125,15 @@ export default function ManageCommentsScreen() {
 
       <Modal type="CENTER" ref={deleteModal}>
         <H1 style={tw`mt-2 text-center`}>Plan löschen?</H1>
-        <Text style={tw`mx-4`}>
+        <CustomText style={tw`mx-4`}>
           Soll der Standartkommentar{" "}
-          <Text style={tw`font-semibold`}>
+          <CustomText style={tw`font-semibold`}>
             {commentToDelete.length > 32
               ? commentToDelete.substring(0, 32) + "..."
               : commentToDelete}
-          </Text>{" "}
+          </CustomText>{" "}
           wirklich glöscht werden?
-        </Text>
+        </CustomText>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
             onPress={() => {

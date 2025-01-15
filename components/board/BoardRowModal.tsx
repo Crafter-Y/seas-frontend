@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import tw from "@/tailwind";
 import React, { useEffect, useState } from "react";
 import { Store } from "@/helpers/store";
@@ -11,6 +11,7 @@ import useUnAssignUser from "@/hooks/api/useUnAssignUser";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import useAssignUser from "@/hooks/api/useAssignUser";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   closeModal: () => void;
@@ -84,7 +85,7 @@ export default function BoardRowModal({
       )[0].text;
       return (
         <>
-          <Text selectable={true}>{value}</Text>
+          <CustomText selectable={true}>{value}</CustomText>
           {/* TODO: check for permission if user is allowed to edit the comment field */}
 
           {(user?.role == "ADMIN" || user?.id == page.moderatorUserId) && (
@@ -154,9 +155,9 @@ export default function BoardRowModal({
         // the assignment is another known user
         if (user?.role != "ADMIN" && user?.id != page.moderatorUserId)
           return (
-            <Text>
+            <CustomText>
               {usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
-            </Text>
+            </CustomText>
           );
 
         return (
@@ -173,7 +174,7 @@ export default function BoardRowModal({
 
       // User (somehow) does not exisit in database
       if (user?.role != "ADMIN" && user?.id != page.moderatorUserId)
-        return <Text>Unbekanntes Mitglied</Text>;
+        return <CustomText>Unbekanntes Mitglied</CustomText>;
 
       return (
         <BoardAssignButton
@@ -245,20 +246,20 @@ export default function BoardRowModal({
         {/* TODO: In the future, it should be checked if the user has the permission to see that page/segment */}
         {renderdAllPages.map((page) => (
           <View key={page.id}>
-            <Text style={tw`text-lg`}>{page.name}:</Text>
+            <CustomText style={tw`text-lg`}>{page.name}:</CustomText>
 
             {getColsForPageAndType(page.id, "POSITION").map((col) => (
               <View
                 key={col.id}
                 style={tw`flex-row py-1 items-center gap-2 flex-wrap`}
               >
-                <Text style={tw`mr-4`}>{col.name}</Text>
+                <CustomText style={tw`mr-4`}>{col.name}</CustomText>
                 {selectedRow ? getPositionForField(col, page) : null}
               </View>
             ))}
             {getColsForPageAndType(page.id, "COMMENT").map((col) => (
               <View key={col.id} style={tw`py-1`}>
-                <Text style={tw`mr-4`}>{col.name}:</Text>
+                <CustomText style={tw`mr-4`}>{col.name}:</CustomText>
                 <View style={tw`flex-row mt-1 flex-wrap`}>
                   <Divider type="VERTICAL" style={tw`mr-1`} />
                   {selectedRow ? getCommentForField(col, page) : null}
@@ -278,9 +279,9 @@ export default function BoardRowModal({
                 openDeleteRowModal?.();
               }}
             >
-              <Text style={tw`text-lg text-red-500 font-semibold`}>
+              <CustomText style={tw`text-lg text-red-500 font-semibold`}>
                 Termin löschen
-              </Text>
+              </CustomText>
             </Pressable>
             <Divider type="HORIZONTAL" style={tw`mb-1`} />
           </>

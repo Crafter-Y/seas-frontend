@@ -1,10 +1,11 @@
-import { Linking, Platform, Text, View } from "react-native";
+import { Linking, Platform, View } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
 import { router } from "expo-router";
 import * as MailComposer from "expo-mail-composer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomText from "./elements/CustomText";
 
 type Props = {
   style?: ClassInput;
@@ -34,11 +35,11 @@ const Footer = ({ style = {} }: Props) => {
 
   return (
     <View style={tw.style("my-4 flex items-center", style)}>
-      <Text style={tw`text-xs opacity-80 w-full text-center`}>
+      <CustomText style={tw`text-xs opacity-80 w-full text-center`}>
         &copy; (copyright) Helmut Haase 2022 - {new Date().getFullYear()} • SEAS
         Kirchengemeinde UG (haftungsbeschränkt)
-      </Text>
-      <Text
+      </CustomText>
+      <CustomText
         style={tw.style(
           {
             hidden: Platform.OS != "web",
@@ -50,13 +51,13 @@ const Footer = ({ style = {} }: Props) => {
         }}
       >
         Impressum
-      </Text>
-      <Text style={tw`text-xs opacity-80 w-full text-center mt-2`}>
+      </CustomText>
+      <CustomText style={tw`text-xs opacity-80 w-full text-center mt-2`}>
         Mit ♥️ programmiert von Bastian Biedermann &#x2022;{" "}
-        <Text style={tw`underline`} onPress={mailtoReport}>
+        <CustomText style={tw`underline`} onPress={mailtoReport}>
           Fehler melden
-        </Text>
-      </Text>
+        </CustomText>
+      </CustomText>
     </View>
   );
 };

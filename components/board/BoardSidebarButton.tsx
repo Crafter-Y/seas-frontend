@@ -1,9 +1,10 @@
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import React, { useRef } from "react";
 import Image from "@/components/elements/Image";
 import tw from "@/tailwind";
 import { useHover } from "react-native-web-hooks";
 import { Color } from "@/helpers/Constants";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   icon: string;
@@ -24,7 +25,7 @@ const BoardSidebarButton = ({ icon, text, pressAction }: Props) => {
       <View></View>
       <View style={tw`flex-row items-center gap-2`}>
         <Image source={icon} size={18} />
-        <Text
+        <CustomText
           style={tw.style({
             underline: isHovered,
             "opacity-80": isHovered,
@@ -32,7 +33,7 @@ const BoardSidebarButton = ({ icon, text, pressAction }: Props) => {
           })}
         >
           {text}
-        </Text>
+        </CustomText>
       </View>
 
       <View

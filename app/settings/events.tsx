@@ -18,9 +18,10 @@ import tw from "@/tailwind";
 import { Picker as RNPicker } from "@react-native-picker/picker";
 import Image from "@/components/elements/Image";
 import React, { useEffect, useRef, useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 import SettingsTitle from "@/components/settings/SettingsTitle";
+import CustomText from "@/components/elements/CustomText";
 
 export default function ManageEventsScreen() {
   const {
@@ -119,12 +120,12 @@ export default function ManageEventsScreen() {
       <SettingsTitle>Termine erstellen</SettingsTitle>
 
       <SettingsForm>
-        <Text>
+        <CustomText>
           Hier können einzelne oder regelmäßige Termine eingetragen, eingesehen
           und gelöscht werden. Dazu muss als erstes im Formular der Termintyp
           ausgewählt werden. Danach besteht die Eingabemöglichkeit für weitere
           Angaben.
-        </Text>
+        </CustomText>
 
         {/* Event Type Selector */}
         <Picker
@@ -214,7 +215,7 @@ export default function ManageEventsScreen() {
 
         <ErrorDisplay hasError={hasCreationError} error={creationError} />
 
-        <Text
+        <CustomText
           style={tw.style(
             {
               hidden: !singleDateCreated,
@@ -223,7 +224,7 @@ export default function ManageEventsScreen() {
           )}
         >
           Einzeltermin erfolgreich erstellt
-        </Text>
+        </CustomText>
 
         <Button
           onPress={() => {
@@ -248,14 +249,14 @@ export default function ManageEventsScreen() {
           {allRecurringEvents?.map((event) => (
             <TR key={event.id + event.eventType}>
               <TD style={tw`justify-center`} cols={2}>
-                <Text style={tw`text-lg`}>
+                <CustomText style={tw`text-lg`}>
                   {formatEvent(
                     event.eventType,
                     event.dayOfWeek || 0,
                     event.dayOfMonth || 0,
                     event.eventMonth || 0
                   )}
-                </Text>
+                </CustomText>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 <Button
@@ -285,16 +286,16 @@ export default function ManageEventsScreen() {
 
       <Modal type="CENTER" ref={deleteModal}>
         <H1 style={tw`mt-2 text-center`}>Plan löschen?</H1>
-        <Text style={tw`mx-4`}>
+        <CustomText style={tw`mx-4`}>
           Soll der Termin{" "}
-          <Text style={tw`font-semibold`}>{eventNameToDelete}</Text> wirklich
-          glöscht werden?
-        </Text>
-        <Text style={tw`text-red-400 mx-4 mt-2`}>
+          <CustomText style={tw`font-semibold`}>{eventNameToDelete}</CustomText>{" "}
+          wirklich glöscht werden?
+        </CustomText>
+        <CustomText style={tw`text-red-400 mx-4 mt-2`}>
           Dadurch werden alle Eintragungen von Mitgliedern zu{" "}
-          <Text style={tw`font-semibold`}>allen</Text> zugehörigen Terminen
-          gelöscht. Dies kann nicht mehr Rückgängig gemacht werden!
-        </Text>
+          <CustomText style={tw`font-semibold`}>allen</CustomText> zugehörigen
+          Terminen gelöscht. Dies kann nicht mehr Rückgängig gemacht werden!
+        </CustomText>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
             onPress={() => {

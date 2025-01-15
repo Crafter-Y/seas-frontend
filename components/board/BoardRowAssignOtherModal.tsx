@@ -1,10 +1,12 @@
 import tw from "@/tailwind";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import BoardAssignButton from "./BoardAssignButton";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import useAssignUser from "@/hooks/api/useAssignUser";
 import { useEffect } from "react";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
+import React from "react";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   closeModal?: () => void;
@@ -25,9 +27,9 @@ export default function BoardRowAssignOtherModal({
 
   return (
     <>
-      <Text style={tw`mx-4`}>
+      <CustomText style={tw`mx-4`}>
         Folgende Mitglieder sind in diesem Produkt verfügbar:
-      </Text>
+      </CustomText>
       <View style={tw`flex-row flex-wrap px-2`}>
         {allExistingUsers
           .filter((user_) => user_.firstname != "root")

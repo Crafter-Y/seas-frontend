@@ -1,6 +1,6 @@
 import { Color } from "@/helpers/Constants";
 import tw from "@/tailwind";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { Store } from "@/helpers/store";
 import { prettyDate } from "@/helpers/format";
@@ -10,6 +10,8 @@ import { DatePickerModal } from "react-native-paper-dates";
 import Button from "@/components/elements/Button";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 import ErrorDisplay from "@/components/ErrorDisplay";
+import CustomText from "@/components/elements/CustomText";
+import React from "react";
 
 type Props = {
   closeModal?: () => void;
@@ -65,13 +67,13 @@ export default function PrintRangeModal({
             }}
             color={Color.BLUE}
           />
-          <Text>Aktueller Plan:</Text>
+          <CustomText>Aktueller Plan:</CustomText>
         </Pressable>
-        <Text>
+        <CustomText>
           {prettyDate(formatDate(fromDate!), false) +
             " - " +
             prettyDate(formatDate(toDate!), false)}
-        </Text>
+        </CustomText>
 
         <Pressable
           style={tw`flex-row items-center mt-2`}
@@ -85,14 +87,14 @@ export default function PrintRangeModal({
             }}
             color={Color.BLUE}
           />
-          <Text>Fester Zeitraum:</Text>
+          <CustomText>Fester Zeitraum:</CustomText>
         </Pressable>
         {pickerRange.startDate && pickerRange.endDate && (
-          <Text>
+          <CustomText>
             {prettyDate(formatDate(pickerRange.startDate!), false) +
               " - " +
               prettyDate(formatDate(pickerRange.endDate!), false)}
-          </Text>
+          </CustomText>
         )}
         <View style={tw`flex-row`}>
           <Button

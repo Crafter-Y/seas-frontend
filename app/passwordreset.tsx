@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -12,6 +12,7 @@ import H1 from "@/components/elements/H1";
 import Button from "@/components/elements/Button";
 import { Stack, useLocalSearchParams } from "expo-router";
 import useResetPassword from "@/hooks/api/useResetPassword";
+import CustomText from "@/components/elements/CustomText";
 
 export default function ResetPasswordScreen() {
   const { height } = useWindowDimensions();
@@ -44,10 +45,10 @@ export default function ResetPasswordScreen() {
         <SettingsBackButton backRoute="/login/" />
         <H1 style={tw`text-right`}>Passwort zurücksetzen</H1>
 
-        <Text style={tw`text-right mt-4 ml-4`}>
+        <CustomText style={tw`text-right mt-4 ml-4`}>
           Sie haben Ihr Passwort vergessen? Hier können Sie ein neues
           beantragen. Wir senden Ihnen ein neues Passwort per E-Mail.
-        </Text>
+        </CustomText>
         <Footer
           style={tw.style(
             {
@@ -94,10 +95,10 @@ export default function ResetPasswordScreen() {
           />
 
           {successfulRequest && (
-            <Text style={tw`text-green-500`}>
+            <CustomText style={tw`text-green-500`}>
               Sie sollten in Kürze eine E-Mail mit Link zum Zurücksetzen
               bekommen!
-            </Text>
+            </CustomText>
           )}
 
           <Button

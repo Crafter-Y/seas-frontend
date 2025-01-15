@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { ScrollView, Text } from "react-native";
+import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "@/tailwind";
 import { Stack } from "expo-router";
 import { Linking } from "react-native";
+import CustomText from "@/components/elements/CustomText";
 
 export default function ImprintScreen() {
   useEffect(() => {
@@ -19,24 +20,28 @@ export default function ImprintScreen() {
           "px-4 gap-2 pt-4 pb-12"
         )}
       >
-        <Text style={tw`text-4xl font-bold opacity-95 underline`}>
+        <CustomText style={tw`text-4xl font-bold opacity-95 underline`}>
           Impressum
-        </Text>
-        <Text style={tw`mt-6 text-2xl`}>SEAS-Kirchengemeinde UG</Text>
-        <Text style={tw`text-2xl`}>(haftungsbeschränkt)</Text>
+        </CustomText>
+        <CustomText style={tw`mt-6 text-2xl`}>
+          SEAS-Kirchengemeinde UG
+        </CustomText>
+        <CustomText style={tw`text-2xl`}>(haftungsbeschränkt)</CustomText>
 
-        <Text style={tw`mt-6`}>Am Hohlweg 17</Text>
-        <Text>58256 Ennepetal</Text>
-        <Text>Deutschland</Text>
+        <CustomText style={tw`mt-6`}>Am Hohlweg 17</CustomText>
+        <CustomText>58256 Ennepetal</CustomText>
+        <CustomText>Deutschland</CustomText>
 
-        <Text style={tw`mt-6 text-2xl`}>Geschäftsführender Gesellschafter</Text>
-        <Text>Helmut Haase</Text>
-        <Text style={tw`mt-6 text-2xl`}>Handelsregister</Text>
-        <Text>HRB 12989</Text>
-        <Text>Amtsgericht Hagen</Text>
+        <CustomText style={tw`mt-6 text-2xl`}>
+          Geschäftsführender Gesellschafter
+        </CustomText>
+        <CustomText>Helmut Haase</CustomText>
+        <CustomText style={tw`mt-6 text-2xl`}>Handelsregister</CustomText>
+        <CustomText>HRB 12989</CustomText>
+        <CustomText>Amtsgericht Hagen</CustomText>
 
-        <Text style={tw`mt-6 text-2xl`}>Kontakt</Text>
-        <Text>E-Mail-Adresse:</Text>
+        <CustomText style={tw`mt-6 text-2xl`}>Kontakt</CustomText>
+        <CustomText>E-Mail-Adresse:</CustomText>
         <a
           style={tw`text-green-700`}
           href="mailto:info@seas-kirchengemeinde.de"
@@ -44,32 +49,36 @@ export default function ImprintScreen() {
           info@seas-kirchengemeinde.de
         </a>
 
-        <Text style={tw`mt-3`}>Telefon:</Text>
-        <Text>+49 177 3764645</Text>
+        <CustomText style={tw`mt-3`}>Telefon:</CustomText>
+        <CustomText>+49 177 3764645</CustomText>
 
-        <Text style={tw`mt-6 text-2xl`}>Kontoverbindung</Text>
-        <Text>Kontoinhaber: Seas-Kirchengemeinde UG (haftungsbeschränkt)</Text>
-        <Text>IBAN: DE67 1101 0100 2038 6082 75</Text>
-        <Text>BIC: SOBKDEBBXXX</Text>
-        <Text>Bank: Solaris Bank</Text>
+        <CustomText style={tw`mt-6 text-2xl`}>Kontoverbindung</CustomText>
+        <CustomText>
+          Kontoinhaber: Seas-Kirchengemeinde UG (haftungsbeschränkt)
+        </CustomText>
+        <CustomText>IBAN: DE67 1101 0100 2038 6082 75</CustomText>
+        <CustomText>BIC: SOBKDEBBXXX</CustomText>
+        <CustomText>Bank: Solaris Bank</CustomText>
 
-        <Text style={tw`mt-6 text-2xl`}>Online-Streitbeilegung</Text>
-        <Text style={tw`text-lg`}>
+        <CustomText style={tw`mt-6 text-2xl`}>
+          Online-Streitbeilegung
+        </CustomText>
+        <CustomText style={tw`text-lg`}>
           Plattform der Europäischen Kommission zur Online-Streitbeilegung (OS)
           für Verbraucher{" "}
-          <Text
+          <CustomText
             style={tw`text-green-700`}
             onPress={() =>
               Linking.openURL("https://ec.europa.eu/consumers/odr")
             }
           >
             https://ec.europa.eu/consumers/odr
-          </Text>
-        </Text>
-        <Text style={tw`text-lg`}>
+          </CustomText>
+        </CustomText>
+        <CustomText style={tw`text-lg`}>
           Wir sind nicht verpflichtet, an einem Streitbeteiligungsverfahren vor
           einer Verbraucherschlichtungsstelle teilzunehmen.
-        </Text>
+        </CustomText>
       </ScrollView>
     </SafeAreaView>
   );

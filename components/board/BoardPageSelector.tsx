@@ -1,10 +1,11 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import React, { memo, useRef } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import { Store } from "@/helpers/store";
 import useAllPages from "@/hooks/api/useAllPages";
 import { useHover } from "react-native-web-hooks";
+import CustomText from "../elements/CustomText";
 
 type ButtonProps = {
   page: APIResponsePage;
@@ -24,7 +25,7 @@ const BoardPageButton = ({ page }: ButtonProps) => {
         })
       }
     >
-      <Text
+      <CustomText
         style={tw.style(
           {
             "border-black": !isHovered,
@@ -33,9 +34,9 @@ const BoardPageButton = ({ page }: ButtonProps) => {
           },
           "border rounded-xl text-lg px-2"
         )}
-      >
-        {page.name}
-      </Text>
+        t="literal"
+        values={{ text: page.name }}
+      />
     </TouchableOpacity>
   );
 };
@@ -63,16 +64,16 @@ const BoardPageSelector = () => {
       {allPages.map((page) =>
         page.id == currentPage ? (
           <View key={page.id} style={tw`rounded-xl bg-green-600`}>
-            <Text
+            <CustomText
               style={tw.style(
                 {
                   borderRadius: 12,
                 },
                 "text-lg px-2 text-white"
               )}
-            >
-              {page.name}
-            </Text>
+              t="literal"
+              values={{ text: page.name }}
+            />
           </View>
         ) : (
           <BoardPageButton page={page} key={page.id} />

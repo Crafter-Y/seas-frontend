@@ -1,9 +1,10 @@
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import { Entypo } from "@expo/vector-icons";
 import { Color } from "@/helpers/Constants";
 import { ClassInput } from "twrnc/dist/esm/types";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   onPress: () => void;
@@ -52,21 +53,22 @@ const BoardAssignButton = ({
               "w-8": !text,
               "gap-1": !!text,
               cursor: "pointer",
+              "pl-1": !!text,
             },
-            "h-8 rounded-xl justify-center items-center flex-row px-2",
+            "h-8 rounded-xl justify-center items-center flex-row",
             style
           )}
         >
           {actionType == "PLUS" && (
-            <Text style={tw`font-bold text-lg`} selectable={false}>
-              +
-            </Text>
+            <View style={tw`items-center justify-center`}>
+              <Entypo name="plus" size={22} color="black" />
+            </View>
           )}
 
           {actionType == "CROSS" && (
-            <Entypo name="cross" size={18} color="black" />
+            <Entypo name="cross" size={22} color="black" />
           )}
-          <Text>{text}</Text>
+          {text && <CustomText style={tw`px-2`}>{text}</CustomText>}
         </TouchableOpacity>
       </Pressable>
     </View>

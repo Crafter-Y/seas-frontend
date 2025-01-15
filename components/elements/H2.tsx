@@ -1,7 +1,7 @@
-import { Text } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
 import { ClassInput } from "twrnc/dist/esm/types";
+import CustomText from "./CustomText";
 
 type Props = {
   children?: React.ReactNode;
@@ -10,9 +10,11 @@ type Props = {
 
 const H2 = ({ children, style }: Props) => {
   return (
-    <Text style={tw.style("text-3xl font-semibold opacity-85 mb-3", style)}>
+    <CustomText
+      style={tw.style("text-3xl font-semibold opacity-85 mb-3", style)}
+    >
       {children}
-    </Text>
+    </CustomText>
   );
 };
 

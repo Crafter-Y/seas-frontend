@@ -12,7 +12,7 @@ import useAllPages from "@/hooks/api/useAllPages";
 import useCreatePage from "@/hooks/api/useCreatePage";
 import tw from "@/tailwind";
 import React, { useEffect, useRef, useState } from "react";
-import { Text, TextInput } from "react-native";
+import { TextInput } from "react-native";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import useRestrictions from "@/hooks/api/useRestrictions";
 import Callout from "@/components/elements/Callout";
@@ -23,6 +23,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import UserSelectModal from "@/components/elements/UserSelectModal";
 import useSetPageModerator from "@/hooks/api/useSetPageModerator";
 import useAllUsers from "@/hooks/api/useAllUsers";
+import CustomText from "@/components/elements/CustomText";
 
 export default function ManagePagesScreen() {
   const { allPages, queryPages } = useAllPages();
@@ -82,10 +83,10 @@ export default function ManagePagesScreen() {
       <SettingsTitle>Pläne verwalten</SettingsTitle>
 
       <SettingsForm>
-        <Text>
+        <CustomText>
           Durch verschiedene Pläne können Gruppen erstellt werden, die getrennt
           voneinander angezeigt werden können.
-        </Text>
+        </CustomText>
 
         <Input
           style={tw`mt-4`}
@@ -140,7 +141,7 @@ export default function ManagePagesScreen() {
           {allPages.map((page) => (
             <TR key={page.id}>
               <TD style={tw`justify-center`} cols={2}>
-                <Text style={tw`text-lg`}>{page.name}</Text>
+                <CustomText style={tw`text-lg`}>{page.name}</CustomText>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 <Button

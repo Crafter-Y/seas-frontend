@@ -5,10 +5,12 @@ import useAuthentication from "@/hooks/api/useAuthentication";
 import useServerName from "@/hooks/api/useServerName";
 import tw from "@/tailwind";
 import { useState } from "react";
-import { Platform, Text, View } from "react-native";
+import { Platform, View } from "react-native";
 import * as ExpoCalendar from "expo-calendar";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
+import CustomText from "@/components/elements/CustomText";
+import React from "react";
 
 const CALENDAR_NAME = "SEAS Termine";
 
@@ -232,18 +234,20 @@ END:VEVENT`;
         )}
       >
         <View style={tw`flex-row items-center gap-2 flex-wrap`}>
-          <Text>Den angezeigten Plan mit dem Kalender synchronisieren?</Text>
+          <CustomText>
+            Den angezeigten Plan mit dem Kalender synchronisieren?
+          </CustomText>
           <Button onPress={() => syncCalendar()}>Jetzt synchronisieren</Button>
         </View>
       </View>
       <View style={tw`my-2 mx-2 gap-2`}>
         <ErrorDisplay error={calendarError} hasError={!!calendarError} />
         {syncSuccessful && (
-          <Text style={tw`text-green-500`}>
+          <CustomText style={tw`text-green-500`}>
             Kalender erfolgreich synchronisiert
-          </Text>
+          </CustomText>
         )}
-        <Text>Die angezeigten Termine downloaden:</Text>
+        <CustomText>Die angezeigten Termine downloaden:</CustomText>
         <Button onPress={() => downloadICS()}>
           {Platform.OS == "android" ? ".ics teilen" : "Download .ics"}
         </Button>

@@ -1,8 +1,8 @@
-import tw from "@/tailwind";
 import {
   Keyboard,
   Platform,
   TouchableWithoutFeedback,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -13,11 +13,13 @@ type Props = {
 };
 
 const StartScreenWrapper = ({ children }: Props) => {
+  const { height } = useWindowDimensions();
+
   return (
     <SafeAreaView>
       <KeyboardAwareScrollView
         scrollEnabled={false}
-        style={tw`h-full`}
+        style={{ height }}
         extraScrollHeight={75}
         keyboardShouldPersistTaps="handled"
       >

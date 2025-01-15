@@ -8,11 +8,6 @@ module.exports = {
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
     newArchEnabled: true,
-    splash: {
-      image: "./assets/splash.png",
-      resizeMode: "contain",
-      backgroundColor: "#ffffff",
-    },
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: true,
@@ -47,6 +42,20 @@ module.exports = {
         {
           calendarPermission:
             "Die App benötigt hierfür Zugriff auf den Kalender",
+        },
+      ],
+      [
+        "expo-font",
+        {
+          fonts: ["./assets/fonts/Roboto.ttf"],
+        },
+      ],
+      [
+        "expo-splash-screen",
+        {
+          backgroundColor: "#ffffff",
+          image: "./assets/splash.png",
+          imageWidth: 1061,
         },
       ],
     ],

@@ -1,9 +1,10 @@
 import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import tw from "@/tailwind";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { DatePickerModal } from "react-native-paper-dates";
 
 type Props = {
@@ -30,13 +31,13 @@ export default function MusicEntryDateModal({
 
   return (
     <View style={tw`mx-2 md:mx-4`}>
-      <Text>Datum auswählen:</Text>
+      <CustomText>Datum auswählen:</CustomText>
 
-      <Text style={tw`text-lg font-semibold`}>
+      <CustomText style={tw`text-lg font-semibold`}>
         {musicDate
           ? `Ausgewähltes Datum: ${prettyDate(formatDate(musicDate), false)}`
           : "Kein Datum ausgewählt"}
-      </Text>
+      </CustomText>
 
       <Button
         onPress={() => {

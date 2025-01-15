@@ -1,12 +1,13 @@
 import tw from "@/tailwind";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { MusicEntryType } from "./MusicEntryTypeModal";
 import useSongHistory from "@/hooks/api/useSongHistory";
 import { Color } from "@/helpers/Constants";
 import { prettyDate } from "@/helpers/format";
 import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
 import MusicHistoryList from "./history/MusicHistoryList";
+import CustomText from "@/components/elements/CustomText";
 
 export type HistoryType =
   | "GOOD"
@@ -63,19 +64,23 @@ export default function MusicHistoryModal() {
                   {/* TODO: figure out, why the date needs to be casted to the date object */}
                   {new Date(item.date).getFullYear() !==
                     new Date().getFullYear() && (
-                    <Text>{new Date(item.date).getFullYear()}</Text>
+                    <CustomText>{new Date(item.date).getFullYear()}</CustomText>
                   )}
-                  <Text style={tw`mr-3`}>
+                  <CustomText style={tw`mr-3`}>
                     {prettyDate(item.date.toString(), true)}
-                  </Text>
+                  </CustomText>
                 </View>
                 <View style={tw`flex-1`}>
-                  <Text style={tw`text-lg leading-[18px]`}>
+                  <CustomText style={tw`text-lg leading-[18px]`}>
                     {item.song.title} ({item.song.number})
-                  </Text>
-                  <Text style={tw`text-xs`}>{item.song.book.name}</Text>
+                  </CustomText>
+                  <CustomText style={tw`text-xs`}>
+                    {item.song.book.name}
+                  </CustomText>
                   {item.comment && (
-                    <Text style={tw`text-base mt-1`}>{item.comment}</Text>
+                    <CustomText style={tw`text-base mt-1`}>
+                      {item.comment}
+                    </CustomText>
                   )}
                   <Ratings
                     size="small"
@@ -111,10 +116,10 @@ export default function MusicHistoryModal() {
                 } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
               >
                 <View style={tw`flex-1`}>
-                  <Text style={tw`text-lg leading-[18px]`}>
+                  <CustomText style={tw`text-lg leading-[18px]`}>
                     {item.title} ({item.number})
-                  </Text>
-                  <Text style={tw`text-xs`}>{item.book}</Text>
+                  </CustomText>
+                  <CustomText style={tw`text-xs`}>{item.book}</CustomText>
                 </View>
                 <View style={tw`flex-1 items-center justify-center`}>
                   <Ratings
@@ -123,12 +128,12 @@ export default function MusicHistoryModal() {
                     initialValue={(item.rating + "") as Rating}
                     frozen
                   />
-                  <Text style={tw`text-center`}>
+                  <CustomText style={tw`text-center`}>
                     {(item.rating + "").replace(".", ",")} Sterne
-                  </Text>
-                  <Text style={tw`text-center px-1 text-xs`}>
+                  </CustomText>
+                  <CustomText style={tw`text-center px-1 text-xs`}>
                     {ratingMeaning[(item.rating + "") as Rating]}
-                  </Text>
+                  </CustomText>
                 </View>
               </View>
             );
@@ -158,15 +163,15 @@ export default function MusicHistoryModal() {
                 } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
               >
                 <View style={tw`flex-1`}>
-                  <Text style={tw`text-lg leading-[18px]`}>
+                  <CustomText style={tw`text-lg leading-[18px]`}>
                     {item.title} ({item.number})
-                  </Text>
-                  <Text style={tw`text-xs`}>{item.book}</Text>
+                  </CustomText>
+                  <CustomText style={tw`text-xs`}>{item.book}</CustomText>
                 </View>
                 <View style={tw`items-center justify-center`}>
-                  <Text style={tw`text-center text-lg`}>
+                  <CustomText style={tw`text-center text-lg`}>
                     {item.count}x vorgetragen
-                  </Text>
+                  </CustomText>
                 </View>
               </View>
             );
@@ -196,10 +201,10 @@ export default function MusicHistoryModal() {
                 } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
               >
                 <View style={tw`flex-1`}>
-                  <Text style={tw`text-lg leading-[18px]`}>
+                  <CustomText style={tw`text-lg leading-[18px]`}>
                     {item.title} ({item.number})
-                  </Text>
-                  <Text style={tw`text-xs`}>{item.book.name}</Text>
+                  </CustomText>
+                  <CustomText style={tw`text-xs`}>{item.book.name}</CustomText>
                 </View>
               </View>
             );

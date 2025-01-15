@@ -14,7 +14,6 @@ import {
   Platform,
   Pressable,
   Modal as RNModal,
-  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   useWindowDimensions,
@@ -22,6 +21,7 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Divider from "./Divider";
+import CustomText from "./CustomText";
 
 type Props = {
   title: string;
@@ -52,11 +52,11 @@ const ModalHeader = ({ title, closeModal, values }: HeaderProps) => {
     <>
       <View style={tw`pl-2 pr-2 py-2 flex-row justify-between items-center`}>
         <View style={tw`w-10 h-1`}></View>
-        <Text
+        <CustomText
           style={tw`text-3xl font-semibold text-black/80 text-center flex-grow max-w-4/5`}
         >
           {t(title, values)}
-        </Text>
+        </CustomText>
         <TouchableOpacity
           onPress={closeModal}
           style={tw`p-2 w-10 rounded-full`}

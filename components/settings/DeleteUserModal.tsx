@@ -1,9 +1,11 @@
 import tw from "@/tailwind";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import Button from "../elements/Button";
 import { Color } from "@/helpers/Constants";
 import { useEffect } from "react";
 import useDeleteUser from "@/hooks/api/useDeleteUser";
+import React from "react";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   editUser: APIFullResponseUser;
@@ -26,13 +28,13 @@ export default function DeleteUserModal({
   }, [succesfulDeletion]);
   return (
     <>
-      <Text style={tw`mx-4`}>
+      <CustomText style={tw`mx-4`}>
         Soll das Mitglied{" "}
-        <Text
+        <CustomText
           style={tw`font-semibold`}
-        >{`${editUser.firstname} ${editUser.lastname}`}</Text>{" "}
+        >{`${editUser.firstname} ${editUser.lastname}`}</CustomText>{" "}
         wirklich glöscht werden?
-      </Text>
+      </CustomText>
       <View style={tw`justify-center flex-row gap-2 my-4`}>
         <Button onPress={closeModal}>Abbrechen</Button>
         <Button

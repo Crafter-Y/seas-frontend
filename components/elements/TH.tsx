@@ -1,7 +1,8 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
+import CustomText from "./CustomText";
 
 type Props = {
   titles: string[];
@@ -19,7 +20,7 @@ const TH = ({ titles }: Props) => {
           })}
           key={title}
         >
-          <Text
+          <CustomText
             style={tw.style("font-semibold uppercase py-4", {
               "text-lg": isMd,
               "px-1": !isSm,
@@ -27,7 +28,7 @@ const TH = ({ titles }: Props) => {
             })}
           >
             {title}
-          </Text>
+          </CustomText>
         </View>
       ))}
     </View>

@@ -14,7 +14,7 @@ import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useTranslation } from "react-i18next";
-import Text from "@/components/elements/Text";
+import CustomText from "@/components/elements/CustomText";
 
 export default function ServerSelectorScreen() {
   const { height, width } = useWindowDimensions();
@@ -84,12 +84,12 @@ export default function ServerSelectorScreen() {
           }}
         />
       </View>
-      <Text
+      <CustomText
         className="text-center text-3xl font-bold px-4"
         t="welcomeToServerSelection"
       />
       <View className="px-4">
-        <Text className="mt-6 text-lg" t="specifyServerId" />
+        <CustomText className="mt-6 text-lg" t="specifyServerId" />
         <Input
           placeholder="Server ID"
           autoFocus={true}
@@ -104,7 +104,7 @@ export default function ServerSelectorScreen() {
           error={fetchServerError || ""}
         />
 
-        <Text className="my-2" t="thisCanBeChangedLater" />
+        <CustomText className="my-2" t="thisCanBeChangedLater" />
         <Button onPress={login}>{t("save")}</Button>
       </View>
       <DevelopmentServerModal ref={apiModal} />

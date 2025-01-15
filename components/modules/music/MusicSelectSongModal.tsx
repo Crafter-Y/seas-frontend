@@ -5,11 +5,12 @@ import useMusicSearch from "@/hooks/api/useMusicSearch";
 import tw from "@/tailwind";
 import { FlashList } from "@shopify/flash-list";
 import { useEffect, useRef, useState } from "react";
-import { Animated, Text, TouchableOpacity, View } from "react-native";
+import { Animated, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SegmentedButtons } from "react-native-paper";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
+import CustomText from "@/components/elements/CustomText";
 
 type Props = {
   closeModal?: () => void;
@@ -47,9 +48,9 @@ export default function MusicSelectSongModal({
 
   return (
     <View style={tw`mx-2 md:mx-4 mb-2`}>
-      <Text style={tw`text-lg font-semibold mb-1`}>
+      <CustomText style={tw`text-lg font-semibold mb-1`}>
         {prettyDate(formatDate(musicDate!), false)}
-      </Text>
+      </CustomText>
       <SegmentedButtons
         value={searchType}
         onValueChange={(text) => setSearchType(text as "NUMBER" | "TITLE")}
@@ -89,7 +90,7 @@ export default function MusicSelectSongModal({
         <FlashList
           ListHeaderComponent={
             songs.length ? undefined : (
-              <Text>Tippen, damit Ergebnisse erscheinen</Text>
+              <CustomText>Tippen, damit Ergebnisse erscheinen</CustomText>
             )
           }
           estimatedItemSize={50}
@@ -104,10 +105,10 @@ export default function MusicSelectSongModal({
                 }`}
               >
                 <View style={tw`w-4/5`}>
-                  <Text style={tw`text-lg leading-[18px]`}>
+                  <CustomText style={tw`text-lg leading-[18px]`}>
                     {item.title} ({item.number})
-                  </Text>
-                  <Text style={tw`text-xs`}>{item.book.name}</Text>
+                  </CustomText>
+                  <CustomText style={tw`text-xs`}>{item.book.name}</CustomText>
                 </View>
                 <View style={tw`w-1/5 flex-1 items-center justify-center`}>
                   <TouchableOpacity

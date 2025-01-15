@@ -1,5 +1,6 @@
 import Button from "@/components/elements/Button";
 import Callout from "@/components/elements/Callout";
+import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
 import Input from "@/components/elements/Input";
@@ -24,7 +25,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 
 export default function index() {
   const { isMd } = useMediaQueries();
@@ -84,10 +85,10 @@ export default function index() {
       <SettingsTitle>Chorlisten verwalten</SettingsTitle>
 
       <SettingsForm>
-        <Text>
+        <CustomText>
           Neben den Chorlisten, die wir Ihrem Produkt zugeteilt haben, können
           Sie Ihre eigenen Chorlisten erstellen und verwalten.
-        </Text>
+        </CustomText>
         <Button
           style={tw`self-start mt-2`}
           disabled={
@@ -98,7 +99,7 @@ export default function index() {
           }
           onPress={() => createModal.current?.openModal()}
         >
-          <Text>Chorliste erstellen</Text>
+          <CustomText>Chorliste erstellen</CustomText>
         </Button>
         <Callout
           visible={
@@ -119,13 +120,13 @@ export default function index() {
           {songbooks.map((songbook) => (
             <TR key={songbook.id}>
               <TD cols={3}>
-                <Text style={tw`text-lg`}>{songbook.name}</Text>
+                <CustomText style={tw`text-lg`}>{songbook.name}</CustomText>
               </TD>
               <TD cols={3}>
-                <Text>
+                <CustomText>
                   {songbook.knownSongs} / {songbook.count}
-                </Text>
-                <Text>Lieder</Text>
+                </CustomText>
+                <CustomText>Lieder</CustomText>
               </TD>
 
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
@@ -169,7 +170,9 @@ export default function index() {
             </TR>
           ))}
           {songbooks.length == 0 && (
-            <Text style={tw`m-2 text-lg`}>Noch keine Einträge vorhanden.</Text>
+            <CustomText style={tw`m-2 text-lg`}>
+              Noch keine Einträge vorhanden.
+            </CustomText>
           )}
         </Form>
       </SettingsForm>
@@ -178,7 +181,7 @@ export default function index() {
         ref={createModal}
         scrollable
       >
-        <Text style={tw`mx-4`}>Name</Text>
+        <CustomText style={tw`mx-4`}>Name</CustomText>
         <Input
           placeholder="Name der Chormappe"
           onChangeText={setCreateName}
@@ -210,17 +213,21 @@ export default function index() {
         </View>
       </ModalRewrite>
       <ModalRewrite title="modal.music.deleteSongbook" ref={deleteModal}>
-        <Text style={tw`mx-4`}>
+        <CustomText style={tw`mx-4`}>
           Soll der Plan{" "}
-          <Text style={tw`font-semibold`}>{selectedSongbook?.name}</Text>{" "}
+          <CustomText style={tw`font-semibold`}>
+            {selectedSongbook?.name}
+          </CustomText>{" "}
           wirklich glöscht werden?
-        </Text>
-        <Text style={tw`text-red-400 mx-4 mt-2`}>
+        </CustomText>
+        <CustomText style={tw`text-red-400 mx-4 mt-2`}>
           Dadurch werden alle{" "}
-          <Text style={tw`font-semibold`}>{selectedSongbook?.count}</Text> Songs
-          gelöscht. Alle damit in Verbindung stehende Statistiken werden
+          <CustomText style={tw`font-semibold`}>
+            {selectedSongbook?.count}
+          </CustomText>{" "}
+          Songs gelöscht. Alle damit in Verbindung stehende Statistiken werden
           ebenfalls gelöscht.
-        </Text>
+        </CustomText>
         <View style={tw`justify-center flex-row gap-2 my-4`}>
           <Button
             onPress={() => {
@@ -236,7 +243,7 @@ export default function index() {
         </View>
       </ModalRewrite>
       <ModalRewrite title="modal.music.renameSongbook" ref={renameModal}>
-        <Text style={tw`mx-4`}>Name</Text>
+        <CustomText style={tw`mx-4`}>Name</CustomText>
         <Input
           initialValue={selectedSongbook?.name}
           style={"mx-4"}

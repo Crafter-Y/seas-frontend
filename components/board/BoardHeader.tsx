@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import React, { memo, useCallback, useRef } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -14,6 +14,7 @@ import useModuleStatus from "@/hooks/api/useModuleStatus";
 import { FetchState } from "@/helpers/Constants";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import CustomText from "../elements/CustomText";
 
 type BoardHeaderProps = {
   user: User | null;
@@ -62,19 +63,21 @@ const BoardHeader = ({
       <View
         style={tw`bg-white shadow-lg items-center justify-between px-2 h-16 flex-row`}
       >
-        <Text
+        <CustomText
           style={tw.style(
             {
               "text-xl": isLg,
               "text-lg": !isLg,
               "ml-4": isLg,
               "text-red-500": fetchState == FetchState.ERROR,
+              maxWidth: "80%",
             },
             "font-bold"
           )}
-        >
-          {titleState()}
-        </Text>
+          t="literal"
+          values={{ text: titleState() }}
+          numberOfLines={1}
+        />
         <View
           style={tw.style(
             {
@@ -112,12 +115,14 @@ const BoardHeader = ({
         />
 
         <Modal ref={modal} modalOpenCondition={!isLg} type="MOBILE_BOTTOM">
-          <Text style={tw`w-full text-center px-2 text-lg font-semibold mt-6`}>
+          <CustomText
+            style={tw`w-full text-center px-2 text-lg font-semibold mt-6`}
+          >
             {user?.firstname} {user?.lastname}
-          </Text>
-          <Text style={tw`w-full text-center px-2 text-sm mb-4`}>
+          </CustomText>
+          <CustomText style={tw`w-full text-center px-2 text-sm mb-4`}>
             {user?.email}
-          </Text>
+          </CustomText>
           <Divider type="HORIZONTAL" style={tw`mx-2 my-2`} />
 
           <BoardMenuNavigationButton

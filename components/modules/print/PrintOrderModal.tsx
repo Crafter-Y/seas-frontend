@@ -1,6 +1,6 @@
 import Divider from "@/components/elements/Divider";
 import tw from "@/tailwind";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import Button from "@/components/elements/Button";
@@ -13,6 +13,8 @@ import { requestApi } from "@/helpers/api";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import { AntDesign } from "@expo/vector-icons";
 import Animated, { CurvedTransition } from "react-native-reanimated";
+import CustomText from "@/components/elements/CustomText";
+import React from "react";
 
 type Item = { text: string; key: number };
 
@@ -163,10 +165,10 @@ export default function PrintOrderModal({
   return (
     <>
       <View style={tw`px-4`}>
-        <Text>
+        <CustomText>
           Sie können hier die Reihenfolge ändern. Der oberste Eintrag wird auf
           dem Plan ganz links sein.
-        </Text>
+        </CustomText>
         <Divider type="HORIZONTAL" style={tw`mt-2 mb-4`} />
 
         <View style={tw`gap-1`}>
@@ -177,7 +179,7 @@ export default function PrintOrderModal({
               layout={CurvedTransition.duration(150).delay(50)}
               exiting={CurvedTransition.duration(150).delay(50)}
             >
-              <Text>{row.text}</Text>
+              <CustomText>{row.text}</CustomText>
               <View style={tw`flex-row`}>
                 {idx !== 0 && (
                   <TouchableOpacity

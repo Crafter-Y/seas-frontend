@@ -1,4 +1,4 @@
-import { Text, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -6,6 +6,7 @@ import BoardSidebarButton from "./BoardSidebarButton";
 import BoardSidebarNavigationButton from "./BoardSidebarNavigationButton";
 import Divider from "../elements/Divider";
 import { BoardType } from "@/app/board";
+import CustomText from "../elements/CustomText";
 
 const BoardSidebar = (props: {
   user: User | null;
@@ -30,10 +31,10 @@ const BoardSidebar = (props: {
     >
       <View>
         <View style={tw`mt-6 px-2`}>
-          <Text style={tw`text-sm`}>Hallo,</Text>
-          <Text style={tw`font-semibold mt-1 opacity-85`}>
+          <CustomText style={tw`text-sm`}>Hallo,</CustomText>
+          <CustomText style={tw`font-semibold mt-1 opacity-85`}>
             {props.user?.firstname} {props.user?.lastname}
-          </Text>
+          </CustomText>
         </View>
         <View
           style={tw.style(

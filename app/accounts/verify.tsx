@@ -1,12 +1,14 @@
 import { Color } from "@/helpers/Constants";
 import tw from "@/tailwind";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import Image from "@/components/elements/Image";
 import useVerifyTokenValidation from "@/hooks/api/useVerifyTokenValidation";
 import { useEffect } from "react";
 import Footer from "@/components/Footer";
+import CustomText from "@/components/elements/CustomText";
+import React from "react";
 
 export default function VerifyScreen() {
   const { t } = useLocalSearchParams<{ t: string }>();
@@ -43,38 +45,38 @@ export default function VerifyScreen() {
             />
           </View>
 
-          <Text style={tw`text-center p-0 m-0 text-lg`}>
+          <CustomText style={tw`text-center p-0 m-0 text-lg`}>
             SEAS Kirchengemeinde
-          </Text>
+          </CustomText>
 
           {tokenValid && productName && (
-            <Text style={tw`text-center mb-4`}>{productName}</Text>
+            <CustomText style={tw`text-center mb-4`}>{productName}</CustomText>
           )}
 
           <View style={tw`mx-5 mb-5`}>
-            <Text style={tw`font-semibold text-3xl text-center mb-8`}>
+            <CustomText style={tw`font-semibold text-3xl text-center mb-8`}>
               Account verifizieren
-            </Text>
+            </CustomText>
             {tokenValid === false && (
               <>
-                <Text>Tut uns leid...</Text>
-                <Text style={tw`text-red-500 text-2xl font-semibold`}>
+                <CustomText>Tut uns leid...</CustomText>
+                <CustomText style={tw`text-red-500 text-2xl font-semibold`}>
                   Dieser Link ist nicht mehr gültig.
-                </Text>
-                <Text style={tw`mt-2`}>
+                </CustomText>
+                <CustomText style={tw`mt-2`}>
                   Eine weitere Mail wurde vermutlich bereits von Ihrem
                   Administrator versendet.
-                </Text>
+                </CustomText>
               </>
             )}
             {tokenValid === true && (
               <>
-                <Text style={tw`text-green-500 text-2xl font-semibold`}>
+                <CustomText style={tw`text-green-500 text-2xl font-semibold`}>
                   Sie haben ihre E-Mail Adresse erfolgreich verifiziert.
-                </Text>
-                <Text style={tw`mt-2`}>
+                </CustomText>
+                <CustomText style={tw`mt-2`}>
                   Sie können diesen Tab nun schließen.
-                </Text>
+                </CustomText>
               </>
             )}
           </View>

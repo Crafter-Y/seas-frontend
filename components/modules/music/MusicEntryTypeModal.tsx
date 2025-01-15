@@ -1,8 +1,9 @@
 import tw from "@/tailwind";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Button from "@/components/elements/Button";
 import { Store } from "@/helpers/store";
+import CustomText from "@/components/elements/CustomText";
 
 type Props = {
   closeModal?: () => void;
@@ -24,7 +25,7 @@ export default function MusicEntryTypeModal({
 }: Props) {
   return (
     <View style={tw`mx-2 md:mx-4`}>
-      <Text>Typ des Datensatzes:</Text>
+      <CustomText>Typ des Datensatzes:</CustomText>
       <TouchableOpacity
         style={tw`flex-row justify-between border-2 border-gray-400 rounded-lg px-4 py-2 mt-1 ${
           Platform.OS == "web" ? "shadow-md" : ""
@@ -38,9 +39,9 @@ export default function MusicEntryTypeModal({
           openEntryDateModal?.();
         }}
       >
-        <Text style={tw`text-xl font-semibold`}>
+        <CustomText style={tw`text-xl font-semibold`}>
           {entryTypeMeanings["MISSION"]}
-        </Text>
+        </CustomText>
         <AntDesign name="star" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity
@@ -55,9 +56,9 @@ export default function MusicEntryTypeModal({
           openEntryDateModal?.();
         }}
       >
-        <Text style={tw`text-xl font-semibold`}>
+        <CustomText style={tw`text-xl font-semibold`}>
           {entryTypeMeanings["TEST"]}
-        </Text>
+        </CustomText>
       </TouchableOpacity>
       <Button
         style={tw`mb-2`}

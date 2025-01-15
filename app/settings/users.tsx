@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import tw from "@/tailwind";
@@ -22,6 +22,7 @@ import DeleteUserModal from "@/components/settings/DeleteUserModal";
 import RequestNewPasswordModal from "@/components/settings/RequestNewPasswordModal";
 import NewPasswordModal from "@/components/settings/NewPasswordModal";
 import useRestrictions from "@/hooks/api/useRestrictions";
+import CustomText from "@/components/elements/CustomText";
 
 export default function ManageUsersScreen() {
   const { user } = useAuthentication();
@@ -77,21 +78,21 @@ export default function ManageUsersScreen() {
           {allUsers.map((entry) => (
             <TR key={entry.id}>
               <TD cols={2}>
-                <Text style={tw`text-lg`}>
+                <CustomText style={tw`text-lg`}>
                   {entry.firstname} {entry.lastname}
-                </Text>
-                <Text
+                </CustomText>
+                <CustomText
                   style={tw.style({
                     hidden: entry.email == "root",
                   })}
                 >
                   {entry.email}
-                </Text>
+                </CustomText>
                 <View style={tw`flex-row gap-1`}>
-                  <Text style={tw`border rounded-full px-1 py-0.5`}>
+                  <CustomText style={tw`border rounded-full px-1 py-0.5`}>
                     {toUpperStarting(entry.role)}
-                  </Text>
-                  <Text
+                  </CustomText>
+                  <CustomText
                     style={tw.style(
                       {
                         hidden: entry.email == "root",
@@ -100,7 +101,7 @@ export default function ManageUsersScreen() {
                     )}
                   >
                     {toUpperStarting(entry.state)}
-                  </Text>
+                  </CustomText>
                 </View>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>

@@ -1,10 +1,11 @@
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import tw from "@/tailwind";
 import Input from "./Input";
 import { FlashList } from "@shopify/flash-list";
 import ExpoCheckbox from "expo-checkbox";
+import CustomText from "./CustomText";
 
 type Props = {
   closeModal?: () => void;
@@ -95,7 +96,9 @@ export default function UserSelectModal({
           extraData={selectedUser}
           estimatedItemSize={20}
           ListEmptyComponent={() => {
-            return <Text style={tw`mx-2`}>Keine Treffer gefunden</Text>;
+            return (
+              <CustomText style={tw`mx-2`}>Keine Treffer gefunden</CustomText>
+            );
           }}
           renderItem={({ item, index }) => (
             <TouchableOpacity
@@ -115,11 +118,11 @@ export default function UserSelectModal({
               </Pressable>
 
               {item && (
-                <Text>
+                <CustomText>
                   {item.firstname} {item.lastname}
-                </Text>
+                </CustomText>
               )}
-              {!item && <Text>---</Text>}
+              {!item && <CustomText>---</CustomText>}
             </TouchableOpacity>
           )}
         />

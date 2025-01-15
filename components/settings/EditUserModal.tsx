@@ -1,10 +1,12 @@
 import { Color } from "@/helpers/Constants";
 import tw from "@/tailwind";
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import Divider from "@/components/elements/Divider";
 import Image from "@/components/elements/Image";
 import Button from "@/components/elements/Button";
 import useRequestVerification from "@/hooks/api/useRequestVerification";
+import React from "react";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   user: User;
@@ -40,13 +42,13 @@ const EditUserModal = ({
           openRequestPasswordModal?.();
         }}
       >
-        <Text
+        <CustomText
           style={tw.style("text-lg font-semibold", {
             color: Color.BLUE,
           })}
         >
           Passwort zurücksetzen
-        </Text>
+        </CustomText>
         <Image
           source={require("@/assets/img/refresh.svg")}
           size={24}
@@ -74,13 +76,13 @@ const EditUserModal = ({
           openChangeInformationModal?.();
         }}
       >
-        <Text
+        <CustomText
           style={tw.style("text-lg font-semibold", {
             color: Color.BLUE,
           })}
         >
           Nutzer bearbeiten
-        </Text>
+        </CustomText>
         <Image
           source={require("@/assets/img/edit.svg")}
           size={24}
@@ -114,13 +116,13 @@ const EditUserModal = ({
           }, 1000);
         }}
       >
-        <Text
+        <CustomText
           style={tw.style("text-lg font-semibold", {
             color: Color.BLUE,
           })}
         >
           Verifizierung anfragen
-        </Text>
+        </CustomText>
         <Image
           source={require("@/assets/img/changepassword.svg")}
           size={24}

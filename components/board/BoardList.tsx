@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -19,6 +19,7 @@ import BoardRowDeleteModal from "./BoardRowDeleteModal";
 import BoardRowCommentModal from "./BoardRowCommentModal";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
 import UserSelectModal from "../elements/UserSelectModal";
+import CustomText from "../elements/CustomText";
 
 type Props = {
   rows: BoardRow[];
@@ -74,10 +75,10 @@ const BoardList = ({ rows, fetchData }: Props) => {
       const value = row.comments.filter(
         (row_) => row_.boardColumnId == column.id
       )[0].text;
-      return <Text>{value}</Text>;
+      return <CustomText>{value}</CustomText>;
     }
 
-    return <Text>-</Text>;
+    return <CustomText>-</CustomText>;
   };
 
   const getPositionForField = (column: APIResponseColumn, date: string) => {
@@ -102,29 +103,29 @@ const BoardList = ({ rows, fetchData }: Props) => {
         if (usersWithCol[0].id == user?.id) {
           // underlined name for the inline view
           return (
-            <Text style={tw`font-semibold underline`}>
+            <CustomText style={tw`font-semibold underline`}>
               {usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
-            </Text>
+            </CustomText>
           );
         }
 
         // the assignment is another known user
         return (
-          <Text>
+          <CustomText>
             {usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
-          </Text>
+          </CustomText>
         );
       }
 
       // User (somehow) does not exisit in database
-      return <Text>Unbekanntes Mitglied</Text>;
+      return <CustomText>Unbekanntes Mitglied</CustomText>;
     }
 
     // Nobody is assigned
     if (
       row.assignments.map((assignment) => assignment.userId).includes(user!.id)
     ) {
-      return <Text>-</Text>;
+      return <CustomText>-</CustomText>;
     }
 
     return (
@@ -185,7 +186,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
             }}
           >
             <TD style={tw`justify-center`} cols={titles.length}>
-              <Text>{prettyDate(row.date, !isSm)}</Text>
+              <CustomText>{prettyDate(row.date, !isSm)}</CustomText>
             </TD>
             {getColsForPageAndType(currentPage, "POSITION").map((col) => (
               <TD key={col.id} style={tw`justify-center`} cols={titles.length}>
