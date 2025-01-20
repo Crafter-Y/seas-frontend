@@ -95,8 +95,8 @@ export const SettingsLayout = ({
       style={{
         flexDirection: "row",
         backgroundColor: Color.SETTINGS_BG,
-        height, // this is needed. Parent containers must have a set height for ScrollView to work
       }}
+      className="h-full" // this is needed. Parent containers must have a set height for ScrollView to work. Before, I just set the height to the window diemension height.
     >
       <Stack.Screen
         options={{

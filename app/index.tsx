@@ -98,7 +98,10 @@ export default function ServerSelectorScreen() {
           style={"mt-1"}
           onSubmitEditing={login}
         />
-        <ErrorDisplay hasError={isError} error={t(inputError)} />
+        <ErrorDisplay
+          hasError={isError}
+          error={isError && inputError != "" ? t(inputError) : ""}
+        />
         <ErrorDisplay
           hasError={!!fetchServerError}
           error={fetchServerError || ""}

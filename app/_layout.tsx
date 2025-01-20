@@ -1,18 +1,13 @@
 import { Stack } from "expo-router/stack";
 import { SplashScreen } from "expo-router";
 import * as Font from "expo-font";
-import { LogBox, useWindowDimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Constants from "expo-constants";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/helpers/i18n";
 import "../nativewind.css";
-
-LogBox.ignoreLogs(["new NativeEventEmitter"]);
-LogBox.ignoreLogs(["The `redirect` prop on"]);
-LogBox.ignoreLogs(["VirtualizedLists shoul"]);
-LogBox.ignoreLogs(["i18next::pluralResolve"]);
 
 import { de, registerTranslation } from "react-native-paper-dates";
 import { useEffect } from "react";

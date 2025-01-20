@@ -31,7 +31,8 @@
         "appName": "SEAS Kirchengemeinde",
         "language": "de-DE",
         "companyName": "SEAS Kirchengemeinde UG (haftungsbeschränkt)",
-        "bundleIdentifier": "de.craftery.seasfrontend"
+        "bundleIdentifier": "de.craftery.seasfrontend",
+        "ascAppId": "6683308883"
       }
     }
   }
