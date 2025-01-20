@@ -202,8 +202,9 @@ export default function MusicHistoryModal() {
               >
                 <View style={tw`flex-1`}>
                   <CustomText style={tw`text-lg leading-[18px]`}>
-                    {item.title} ({item.number})
+                    {item.title}
                   </CustomText>
+                  <CustomText>({item.number})</CustomText>
                   <CustomText style={tw`text-xs`}>{item.book.name}</CustomText>
                 </View>
               </View>

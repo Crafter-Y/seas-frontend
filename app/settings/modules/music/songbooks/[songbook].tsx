@@ -127,9 +127,8 @@ export default function songbook() {
               <Form>
                 <TR>
                   <TD cols={2}>
-                    <CustomText style={tw`text-lg`}>
-                      {song.title} ({song.number})
-                    </CustomText>
+                    <CustomText style={tw`text-lg`}>{song.title}</CustomText>
+                    <CustomText style={tw`text-lg`}>({song.number})</CustomText>
                   </TD>
                   <TD cols={2} style={tw`flex-row self-start justify-between`}>
                     <Checkbox
