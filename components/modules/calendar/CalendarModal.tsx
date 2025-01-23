@@ -233,7 +233,7 @@ END:VEVENT`;
           "my-2 mx-2"
         )}
       >
-        <View style={tw`flex-row items-center gap-2 flex-wrap`}>
+        <View className="gap-2">
           <CustomText>
             Den angezeigten Plan mit dem Kalender synchronisieren?
           </CustomText>
