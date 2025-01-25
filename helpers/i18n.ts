@@ -4,13 +4,17 @@ import { getLocales } from "expo-localization";
 import deTranslation from "@/locales/de.json";
 import enTranslation from "@/locales/en.json";
 
+export const resources = {
+    de: { translation: deTranslation },
+    en: { translation: enTranslation }
+} as const;
+
+export const defaultNS = "de";
+
 i18n.use(initReactI18next).init({
     debug: __DEV__,
     compatibilityJSON: "v3",
-    resources: {
-        de: { translation: deTranslation },
-        en: { translation: enTranslation }
-    },
+    resources: resources,
     lng: getLocales()[0]?.languageTag,
     fallbackLng: "de",
     interpolation: {

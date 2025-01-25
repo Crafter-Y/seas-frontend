@@ -1,6 +1,5 @@
 import React, { forwardRef, memo } from "react";
 import Input from "./elements/Input";
-import tw from "@/tailwind";
 import { Store } from "@/helpers/store";
 import Button from "./elements/Button";
 import ModalRewrite, { ModalHandle } from "./elements/ModalRewrite";
@@ -21,10 +20,10 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
             state.serverDevUrl = id;
           })
         }
-        style={"m-2"}
+        className="m-2"
       />
       <Button
-        style={tw`m-2`}
+        className="m-2"
         onPress={() => {
           Store.update((state) => {
             state.serverDevUrl = "http://" + localIp;
@@ -34,7 +33,7 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
         {localIp}
       </Button>
       <Button
-        style={tw`m-2`}
+        className="m-2"
         onPress={() => {
           Store.update((state) => {
             state.serverDevUrl =
@@ -45,7 +44,7 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
         seas-kirchengemeinden.craftingapis.de
       </Button>
       <Button
-        style={tw`m-2`}
+        className="m-2"
         onPress={() => {
           Store.update((state) => {
             state.serverDevUrl = "https://api.seas-kirchengemeinde.de";

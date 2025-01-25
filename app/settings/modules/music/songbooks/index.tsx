@@ -90,7 +90,7 @@ export default function index() {
           Sie Ihre eigenen Chorlisten erstellen und verwalten.
         </CustomText>
         <Button
-          style={tw`self-start mt-2`}
+          className="self-start mt-2"
           disabled={
             restrictions?.maxOwnSongbooks
               ? restrictions.maxOwnSongbooks <=
@@ -132,7 +132,7 @@ export default function index() {
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
                 <Button
                   color="#f67e7e"
-                  style={tw`p-2.5`}
+                  className="p-2.5"
                   disabled={!songbook.editable}
                   onPress={() => {
                     setSelectedSongbook(songbook);
@@ -142,7 +142,7 @@ export default function index() {
                   <AntDesign name="close" size={24} color="black" />
                 </Button>
                 <Button
-                  style={tw`p-2.5`}
+                  className="p-2.5"
                   disabled={!songbook.editable}
                   onPress={() => {
                     setSelectedSongbook(songbook);
@@ -153,7 +153,7 @@ export default function index() {
                   <AntDesign name="edit" size={24} color="black" />
                 </Button>
                 <Button
-                  style={tw`p-2.5`}
+                  className="p-2.5"
                   onPress={() => {
                     router.navigate(
                       "/settings/modules/music/songbooks/" + songbook.id
@@ -186,7 +186,7 @@ export default function index() {
           placeholder="Name der Chormappe"
           onChangeText={setCreateName}
           ref={createNameInput}
-          style={"mx-4"}
+          className="mx-4"
           onSubmitEditing={() => {
             createNameInput.current?.blur();
             createSongbook(createName);
@@ -246,7 +246,7 @@ export default function index() {
         <CustomText style={tw`mx-4`}>Name</CustomText>
         <Input
           initialValue={selectedSongbook?.name}
-          style={"mx-4"}
+          className="mx-4"
           placeholder="Name der Chormappe"
           onChangeText={(text) => setRenameName(text)}
           secureTextEntry={false}

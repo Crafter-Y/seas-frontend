@@ -79,7 +79,7 @@ export default function MusicSelectSongModal({
         inputMode={searchType == "NUMBER" ? "numeric" : "text"}
         onChangeText={(text) => querySongs(text)}
         autoFocus
-        style={tw`mt-2`}
+        className="mt-2"
       />
       <Animated.View
         style={{

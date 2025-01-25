@@ -95,7 +95,7 @@ export default function ServerSelectorScreen() {
           autoFocus={true}
           inputMode="numeric"
           onChangeText={(id) => setServerId(id)}
-          style={"mt-1"}
+          className="mt-1"
           onSubmitEditing={login}
         />
         <ErrorDisplay

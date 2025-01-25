@@ -19,6 +19,7 @@ import CustomText from "@/components/elements/CustomText";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Constants from "expo-constants";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useTranslation } from "react-i18next";
 
 type WebConfig = {
   serverId: string;
@@ -26,10 +27,10 @@ type WebConfig = {
 
 export default function LoginScreen() {
   const { login, authError, hasAuthError, user } = useAuthentication();
-  const { isMd } = useMediaQueries();
-
   const { serverName, fetchServerError, fetchServerName } = useServerName();
 
+  const { isMd } = useMediaQueries();
+  const { t } = useTranslation();
   const segments = useSegments();
 
   const apiModal = useRef<ModalHandle>(null);
@@ -54,7 +55,7 @@ export default function LoginScreen() {
                 AsyncStorage.setItem("serverId", res.serverId).then(() => {
                   fetchServerName();
                 });
-                document.title = "Login ⋅ " + res.serverId;
+                document.title = `${t("login")} ⋅ ${res.serverId}`;
               }
             });
         } else {
@@ -67,7 +68,7 @@ export default function LoginScreen() {
   // set title for web if serverName is loaded
   useEffect(() => {
     if (Platform.OS == "web" && serverName && segments[0] == "login")
-      document.title = "Login ⋅ " + serverName;
+      document.title = t("login") + " ⋅ " + serverName;
   }, [serverName, segments]);
 
   // (mobile) if serverName is not or error, redirect to server select page
@@ -96,10 +97,9 @@ export default function LoginScreen() {
         />
         <View className="flex-row">
           <View className="flex-grow items-center gap-4 hidden md:flex">
-            <CustomText
-              t="welcome"
-              className="text-4xl font-semibold mt-[12%]"
-            />
+            <CustomText className="text-4xl font-semibold mt-[12%]">
+              {t("welcome")}!
+            </CustomText>
             <CustomText className="text-2xl">{serverName}</CustomText>
           </View>
           <View className="items-center border-l border-gray-200 px-4 md:h-screen w-full md:bg-white md:w-96 md:justify-center sm:shadow-lg pb-12 md:pb-0 min-h-screen">
@@ -112,10 +112,9 @@ export default function LoginScreen() {
                 />
               </View>
             )}
-            <CustomText
-              t="welcome"
-              className="text-4xl font-semibold mt-12 md:hidden"
-            />
+            <CustomText className="text-4xl font-semibold mt-12 md:hidden">
+              {t("welcome")}!
+            </CustomText>
             <CustomText className={"text-2xl text-center md:hidden"}>
               {serverName}
             </CustomText>

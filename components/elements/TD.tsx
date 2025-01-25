@@ -1,32 +1,17 @@
-import { View } from "react-native";
-import React, { ReactNode } from "react";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import { ClassInput } from "twrnc/dist/esm/types";
+import { View, ViewProps } from "react-native";
+import React from "react";
 
 type Props = {
-  children?: ReactNode;
-  style?: ClassInput;
   cols: number;
-};
+} & ViewProps;
 
-const TD = ({ children, style, cols }: Props) => {
-  const { isSm } = useMediaQueries();
-
+const TD = ({ cols, className, ...props }: Props) => {
   return (
     <View
-      style={tw.style(
-        "py-4",
-        {
-          "px-1": !isSm,
-          "px-4": isSm,
-          width: 100 / cols + "%",
-        },
-        style
-      )}
-    >
-      {children}
-    </View>
+      className={`py-4 px-1 sm:px-4 ${className}`}
+      style={{ width: `${Math.ceil(100 / cols)}%` }}
+      {...props}
+    />
   );
 };
 

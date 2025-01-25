@@ -1,16 +1,11 @@
-import { TextProps } from "react-native";
 import React from "react";
-import tw from "@/tailwind";
-import CustomText from "./CustomText";
+import CustomText, { CustomTextProps } from "./CustomText";
 
-const H1 = (props: TextProps & { t?: string }) => {
+const H1 = ({ className, ...props }: CustomTextProps) => {
   return (
     <CustomText
+      className={`text-4xl font-bold opacity-85 underline mb-4 ${className}`}
       {...props}
-      style={[
-        tw.style("text-4xl font-bold opacity-85 underline mb-4"),
-        props.style,
-      ]}
     />
   );
 };

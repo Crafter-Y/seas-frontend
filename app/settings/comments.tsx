@@ -63,7 +63,7 @@ export default function ManageCommentsScreen() {
         </CustomText>
 
         <Input
-          style={tw`mt-4`}
+          className="mt-4"
           placeholder="Kommentar"
           onChangeText={(text) => setDefaultComment(text)}
           secureTextEntry={false}
@@ -108,7 +108,7 @@ export default function ManageCommentsScreen() {
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 <Button
                   color="#f67e7e"
-                  style={tw`p-2.5`}
+                  className="p-2.5"
                   onPress={() => {
                     setCommentIdToDelete(comment.id);
                     setCommentToDelete(comment.comment);

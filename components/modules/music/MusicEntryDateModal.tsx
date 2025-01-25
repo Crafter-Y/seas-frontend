@@ -53,7 +53,7 @@ export default function MusicEntryDateModal({
             closeModal?.();
             openMusicEntryTypeModal?.();
           }}
-          style={tw`flex-1`}
+          className="flex-1"
         >
           Zurück
         </Button>
@@ -62,7 +62,7 @@ export default function MusicEntryDateModal({
             closeModal?.();
             openMusicSelectonModal?.();
           }}
-          style={tw`flex-1`}
+          className="flex-1"
           disabled={!musicDate}
         >
           Weiter

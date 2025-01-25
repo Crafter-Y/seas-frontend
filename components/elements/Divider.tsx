@@ -1,28 +1,23 @@
-import { View } from "react-native";
+import { View, ViewProps } from "react-native";
 import React from "react";
-import tw from "@/tailwind";
-import { ClassInput } from "twrnc/dist/esm/types";
-import { Color } from "@/helpers/Constants";
 
 type DividerType = "HORIZONTAL" | "VERTICAL";
 
 type Props = {
-  style?: ClassInput;
   type: DividerType;
+} & ViewProps;
+
+const variantStyles = {
+  VERTICAL: "w-0.5",
+  HORIZONTAL: "h-0.5",
 };
 
-const Divider = ({ style, type }: Props) => {
+const Divider = ({ className, ...props }: Props) => {
   return (
     <View
-      style={tw.style(
-        `bg-[${Color.DARK_GRAY}]`,
-        {
-          "w-0.5": type == "VERTICAL",
-          "h-0.5": type == "HORIZONTAL",
-        },
-        style
-      )}
-    ></View>
+      className={`bg-seas-dark-gray ${variantStyles[props.type]} ${className}`}
+      {...props}
+    />
   );
 };
 

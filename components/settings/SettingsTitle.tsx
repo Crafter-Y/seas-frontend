@@ -1,22 +1,12 @@
-import H2 from "@/components/elements/H2";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
+import CustomText, { CustomTextProps } from "../elements/CustomText";
 
-type Props = {
-  children?: React.ReactNode;
-};
-
-const SettingsTitle = ({ children }: Props) => {
-  const { isMd } = useMediaQueries();
-
+const SettingsTitle = ({ className, ...props }: CustomTextProps) => {
   return (
-    <H2
-      style={tw.style({
-        "text-center": !isMd,
-      })}
-    >
-      {children}
-    </H2>
+    <CustomText
+      //TODO: BUG: md:text-start does not overwrite text-center on iOS
+      className={`mt-4 md:mt-0 text-3xl font-semibold opacity-85 mb-3 md:text-start text-center ${className}`}
+      {...props}
+    />
   );
 };
 

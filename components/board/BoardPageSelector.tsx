@@ -34,9 +34,9 @@ const BoardPageButton = ({ page }: ButtonProps) => {
           },
           "border rounded-xl text-lg px-2"
         )}
-        t="literal"
-        values={{ text: page.name }}
-      />
+      >
+        {page.name}
+      </CustomText>
     </TouchableOpacity>
   );
 };
@@ -71,9 +71,9 @@ const BoardPageSelector = () => {
                 },
                 "text-lg px-2 text-white"
               )}
-              t="literal"
-              values={{ text: page.name }}
-            />
+            >
+              {page.name}
+            </CustomText>
           </View>
         ) : (
           <BoardPageButton page={page} key={page.id} />

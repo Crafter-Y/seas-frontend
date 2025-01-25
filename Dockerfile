@@ -14,7 +14,7 @@ COPY . .
 
 RUN npm run build:web
 
-# TODO: this part can be rewritten to nginx to just serve the files
+# TODO: this part can be rewritten to nginx to just serve the files and rewrite config.json
 FROM base AS runner
 WORKDIR /app
 

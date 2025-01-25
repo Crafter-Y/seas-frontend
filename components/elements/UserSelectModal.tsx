@@ -87,7 +87,7 @@ export default function UserSelectModal({
       <Input
         placeholder="Suchen ..."
         onChangeText={(text) => setSearch(text)}
-        style={tw`mx-2`}
+        className="mx-2"
       />
 
       <View style={{ height: 256, paddingTop: 8 }}>

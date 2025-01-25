@@ -1,17 +1,12 @@
-import { Linking, Platform, View } from "react-native";
+import { Linking, Platform, View, ViewProps } from "react-native";
 import React from "react";
 import tw from "@/tailwind";
-import { ClassInput } from "twrnc/dist/esm/types";
 import { router } from "expo-router";
 import * as MailComposer from "expo-mail-composer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomText from "./elements/CustomText";
 
-type Props = {
-  style?: ClassInput;
-};
-
-const Footer = ({ style = {} }: Props) => {
+const Footer = (props: ViewProps) => {
   const mailtoReport = async () => {
     const isAvailable = await MailComposer.isAvailableAsync();
     if (!isAvailable) {
@@ -34,7 +29,7 @@ const Footer = ({ style = {} }: Props) => {
   };
 
   return (
-    <View style={tw.style("my-4 flex items-center", style)}>
+    <View className="my-4 flex items-center" {...props}>
       <CustomText style={tw`text-xs opacity-80 w-full text-center`}>
         &copy; (copyright) Helmut Haase 2022 - {new Date().getFullYear()} • SEAS
         Kirchengemeinde UG (haftungsbeschränkt)

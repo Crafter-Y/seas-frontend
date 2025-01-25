@@ -8,6 +8,7 @@ import Button from "../elements/Button";
 import { Color } from "@/helpers/Constants";
 import { useEffect, useRef, useState } from "react";
 import useUpdateUser from "@/hooks/api/useUpdateUser";
+import React from "react";
 
 type Props = {
   editUser: APIFullResponseUser;

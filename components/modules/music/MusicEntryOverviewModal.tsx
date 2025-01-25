@@ -72,7 +72,7 @@ export default function MusicEntryOverviewModal({
                 closeModal?.();
                 openSelectSongModal?.();
               }}
-              style={tw`mt-2`}
+              className="mt-2"
               disabled={musicRatings.length == 10}
             >
               <View style={tw`items-center flex-row gap-2`}>
@@ -137,7 +137,7 @@ export default function MusicEntryOverviewModal({
           });
           closeModal?.();
         }}
-        style={tw`mt-4`}
+        className="mt-4"
         disabled={musicRatings.length == 0}
       >
         Fertig

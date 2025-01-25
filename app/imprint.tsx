@@ -1,73 +1,66 @@
 import React, { useEffect } from "react";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import tw from "@/tailwind";
 import { Stack } from "expo-router";
 import { Linking } from "react-native";
 import CustomText from "@/components/elements/CustomText";
+import { useTranslation } from "react-i18next";
 
 export default function ImprintScreen() {
+  const { t } = useTranslation();
+
   useEffect(() => {
-    document.title = "Impressum";
+    document.title = t("imprint");
   }, []);
 
   return (
-    <SafeAreaView style={{ margin: 0, padding: 0 }}>
-      <Stack.Screen options={{ headerShown: true, title: "Impressum" }} />
-      <ScrollView
-        style={tw.style(
-          { backgroundColor: "#f2f2f2" },
-          "px-4 gap-2 pt-4 pb-12"
-        )}
-      >
-        <CustomText style={tw`text-4xl font-bold opacity-95 underline`}>
-          Impressum
-        </CustomText>
-        <CustomText style={tw`mt-6 text-2xl`}>
+    <SafeAreaView className="h-full">
+      <Stack.Screen options={{ headerShown: true, title: t("imprint") }} />
+      <ScrollView className="px-4 gap-2 pt-4 pb-12 bg-seas-settings-bg">
+        <CustomText
+          className="text-4xl font-bold opacity-95 underline"
+          t="imprint"
+        />
+        <CustomText className="mt-6 text-2xl">
           SEAS-Kirchengemeinde UG
         </CustomText>
-        <CustomText style={tw`text-2xl`}>(haftungsbeschränkt)</CustomText>
+        <CustomText className="text-2xl">(haftungsbeschränkt)</CustomText>
 
-        <CustomText style={tw`mt-6`}>Am Hohlweg 17</CustomText>
+        <CustomText className="mt-6">Am Hohlweg 17</CustomText>
         <CustomText>58256 Ennepetal</CustomText>
-        <CustomText>Deutschland</CustomText>
+        <CustomText t="germany" />
 
-        <CustomText style={tw`mt-6 text-2xl`}>
-          Geschäftsführender Gesellschafter
-        </CustomText>
+        <CustomText className="mt-6 text-2xl" t="managingPartner" />
         <CustomText>Helmut Haase</CustomText>
-        <CustomText style={tw`mt-6 text-2xl`}>Handelsregister</CustomText>
+        <CustomText className="mt-6 text-2xl" t="commercialRegister" />
         <CustomText>HRB 12989</CustomText>
         <CustomText>Amtsgericht Hagen</CustomText>
 
-        <CustomText style={tw`mt-6 text-2xl`}>Kontakt</CustomText>
-        <CustomText>E-Mail-Adresse:</CustomText>
+        <CustomText className="mt-6 text-2xl" t="contact" />
+        <CustomText>{t("email")}:</CustomText>
         <a
-          style={tw`text-green-700`}
+          className="text-green-700"
           href="mailto:info@seas-kirchengemeinde.de"
         >
           info@seas-kirchengemeinde.de
         </a>
 
-        <CustomText style={tw`mt-3`}>Telefon:</CustomText>
+        <CustomText className="mt-3">{t("telephone")}:</CustomText>
         <CustomText>+49 177 3764645</CustomText>
 
-        <CustomText style={tw`mt-6 text-2xl`}>Kontoverbindung</CustomText>
+        <CustomText className="mt-6 text-2xl" t="bankDetails" />
         <CustomText>
-          Kontoinhaber: Seas-Kirchengemeinde UG (haftungsbeschränkt)
+          {t("accountHolder")}: Seas-Kirchengemeinde UG (haftungsbeschränkt)
         </CustomText>
         <CustomText>IBAN: DE67 1101 0100 2038 6082 75</CustomText>
         <CustomText>BIC: SOBKDEBBXXX</CustomText>
-        <CustomText>Bank: Solaris Bank</CustomText>
+        <CustomText>{t("bank")}: Solaris Bank</CustomText>
 
-        <CustomText style={tw`mt-6 text-2xl`}>
-          Online-Streitbeilegung
-        </CustomText>
-        <CustomText style={tw`text-lg`}>
-          Plattform der Europäischen Kommission zur Online-Streitbeilegung (OS)
-          für Verbraucher{" "}
+        <CustomText className="mt-6 text-2xl" t="onlineDisputeResolution" />
+        <CustomText className="text-lg">
+          {t("onlineDisputePlatform")}{" "}
           <CustomText
-            style={tw`text-green-700`}
+            className="text-green-700"
             onPress={() =>
               Linking.openURL("https://ec.europa.eu/consumers/odr")
             }
@@ -75,10 +68,7 @@ export default function ImprintScreen() {
             https://ec.europa.eu/consumers/odr
           </CustomText>
         </CustomText>
-        <CustomText style={tw`text-lg`}>
-          Wir sind nicht verpflichtet, an einem Streitbeteiligungsverfahren vor
-          einer Verbraucherschlichtungsstelle teilzunehmen.
-        </CustomText>
+        <CustomText className="text-lg" t="onlineDisputeExlusionClause" />
       </ScrollView>
     </SafeAreaView>
   );

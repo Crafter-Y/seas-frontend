@@ -61,7 +61,7 @@ export default function MusicEntryTypeModal({
         </CustomText>
       </TouchableOpacity>
       <Button
-        style={tw`mb-2`}
+        className="mb-2"
         onPress={() => {
           closeModal?.();
           openMusicActionModal?.();

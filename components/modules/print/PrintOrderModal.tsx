@@ -212,13 +212,7 @@ export default function PrintOrderModal({
         <Button onPress={print} color={Color.BLUE}>
           Drucken
         </Button>
-        <Button
-          onPress={pdf}
-          color={Color.BLUE}
-          style={tw.style({
-            hidden: Platform.OS == "web",
-          })}
-        >
+        <Button onPress={pdf} color={Color.BLUE} className="web:hidden">
           Als .pdf exportieren
         </Button>
       </View>

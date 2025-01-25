@@ -116,7 +116,7 @@ export default function ManagePositionsScreen() {
         </CustomText>
 
         <Input
-          style={tw`mt-4`}
+          className="mt-4"
           disabled={maxColsReached}
           placeholder="Spaltenname"
           onChangeText={(text) => setColumnName(text)}
@@ -186,7 +186,7 @@ export default function ManagePositionsScreen() {
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
                 <Button
                   color={Color.RED}
-                  style={tw`p-2.5`}
+                  className="p-2.5"
                   disabled={!restrictions?.columnsDeletable}
                   onPress={() => {
                     setColumnToChange(column);
@@ -196,7 +196,7 @@ export default function ManagePositionsScreen() {
                   <Image source={require("@/assets/img/close.svg")} size={24} />
                 </Button>
                 <Button
-                  style={tw`p-2.5`}
+                  className="p-2.5"
                   disabled={!restrictions?.columnsChangable}
                   onPress={() => {
                     setColumnToChange(column);
@@ -247,7 +247,7 @@ export default function ManagePositionsScreen() {
 
         <Input
           initialValue={columnToChange?.name}
-          style={"mx-4"}
+          className="mx-4"
           placeholder="Plan Name"
           onChangeText={(text) => setColumnRenameName(text)}
           secureTextEntry={false}

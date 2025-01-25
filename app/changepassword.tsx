@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
-import { TextInput, useWindowDimensions, View } from "react-native";
+import { TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import Input from "@/components/elements/Input";
 import useUpdatePassword from "@/hooks/api/useUpdatePassword";
@@ -14,13 +13,13 @@ import ErrorDisplay from "@/components/ErrorDisplay";
 import Button from "@/components/elements/Button";
 import { router, Stack } from "expo-router";
 import CustomText from "@/components/elements/CustomText";
+import { useTranslation } from "react-i18next";
 
 export default function ChangePasswordScreen() {
-  const { height } = useWindowDimensions();
+  const { updatePassword, hasUpdateError, updateError } = useUpdatePassword();
 
   const { isMd } = useMediaQueries();
-
-  const { updatePassword, hasUpdateError, updateError } = useUpdatePassword();
+  const { t } = useTranslation();
 
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword1, setNewPassword1] = useState("");
@@ -30,66 +29,29 @@ export default function ChangePasswordScreen() {
   const thirdInput = useRef<TextInput>(null);
 
   return (
-    <SafeAreaView style={tw`flex-row`}>
+    <SafeAreaView className="flex-row h-full">
       <Stack.Screen
         options={{
-          title: "Passwort ändern",
-          headerTitle: "Passwort ändern",
-          headerBackTitle: "Board",
+          title: t("changePassword"),
+          headerTitle: t("changePassword"),
+          headerBackTitle: t("board"),
           headerShown: !isMd,
         }}
       />
-      <View
-        style={tw.style(
-          {
-            hidden: !isMd,
-            height,
-          },
-          "w-1/3 items-end justify-center pl-4"
-        )}
-      >
+      <View className="w-1/3 items-end justify-center pl-4 hidden md:flex">
         <SettingsBackButton backRoute="/board/" />
-        <H1 style={tw`text-right`}>Passwort ändern</H1>
+        <H1 className="text-right" t="changePassword" />
 
-        <CustomText style={tw`text-right mt-4 ml-4`}>
-          Das neue Passwort muss mindestens 7 Zeichen haben. Erlaubt sind
-          Buchstaben, Zahlen und Sonderzeichen: -_!?/*%$
-        </CustomText>
-        <Footer
-          style={tw.style(
-            {
-              hidden: !isMd,
-            },
-            "w-48 mt-12"
-          )}
-        />
+        <CustomText className="text-right mt-4 ml-4" t="newPasswordCriteria" />
+        <Footer className="w-48 mt-12 hidden md:flex" />
       </View>
-      <Divider
-        type="VERTICAL"
-        style={tw.style(
-          {
-            hidden: !isMd,
-          },
-          "my-16 mx-5"
-        )}
-      />
-      <View
-        style={tw.style({
-          "justify-center": isMd,
-          "items-center": !isMd,
-          "w-full": !isMd,
-        })}
-      >
-        <H1
-          style={tw.style("text-center mt-6 mb-12", {
-            hidden: isMd,
-          })}
-        >
-          Passwort ändern
-        </H1>
+      <Divider type="VERTICAL" className="my-16 mx-5 hidden md:flex" />
+      <View className="md:justify-center items-center md:items-start w-full md:w-auto">
+        <H1 t="changePassword" className="text-center mb-12 md:hidden" />
         <SettingsForm>
+          <CustomText className="md:hidden mb-2" t="newPasswordCriteria" />
           <Input
-            placeholder="Vorheriges Passwort"
+            placeholder={t("previousPassword")}
             onChangeText={(text) => setOldPassword(text)}
             secureTextEntry={true}
             autoComplete="password"
@@ -97,7 +59,7 @@ export default function ChangePasswordScreen() {
             returnKeyType="next"
           />
           <Input
-            placeholder="Neues Passwort festlegen"
+            placeholder={t("setNewPassword")}
             onChangeText={(text) => setNewPassword1(text)}
             secureTextEntry={true}
             autoComplete="new-password"
@@ -106,7 +68,7 @@ export default function ChangePasswordScreen() {
             returnKeyType="next"
           />
           <Input
-            placeholder="Passwort wiederholen"
+            placeholder={t("repeatPassword")}
             onChangeText={(text) => setNewPassword2(text)}
             secureTextEntry={true}
             autoComplete="new-password"
@@ -116,6 +78,7 @@ export default function ChangePasswordScreen() {
 
           <ErrorDisplay
             hasError={hasUpdateError}
+            // TODO: i18n: translate errors in hook and api responses
             error={
               updateError == "Wrong password"
                 ? "Das eingegebene Passwort stimmt nicht"
@@ -128,15 +91,10 @@ export default function ChangePasswordScreen() {
               updatePassword(oldPassword, newPassword1, newPassword2, router)
             }
           >
-            Passwort ändern
+            {t("changePassword")}
           </Button>
         </SettingsForm>
-        <Footer
-          style={tw.style({
-            hidden: isMd,
-            "w-[90%]": true,
-          })}
-        />
+        <Footer className="md:hidden w-[90%] mt-12" />
       </View>
     </SafeAreaView>
   );

@@ -89,7 +89,7 @@ export default function ManagePagesScreen() {
         </CustomText>
 
         <Input
-          style={tw`mt-4`}
+          className="mt-4"
           placeholder="Plan Name"
           onChangeText={(text) => setPageName(text)}
           disabled={maxPagesReached}
@@ -146,7 +146,6 @@ export default function ManagePagesScreen() {
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
                 <Button
                   color="#f67e7e"
-                  style={tw`p-2.5`}
                   disabled={!restrictions?.pagesDeletable}
                   onPress={() => {
                     setSelectedPage(page);
@@ -157,7 +156,6 @@ export default function ManagePagesScreen() {
                 </Button>
 
                 <Button
-                  style={tw`p-2.5`}
                   disabled={!restrictions?.pagesChangable}
                   onPress={() => {
                     setSelectedPage(page);
@@ -167,7 +165,6 @@ export default function ManagePagesScreen() {
                   <AntDesign name="edit" size={24} color="black" />
                 </Button>
                 <Button
-                  style={tw`p-2.5`}
                   onPress={() => {
                     setSelectedPage(page);
                     moderatorModal.current?.openModal();

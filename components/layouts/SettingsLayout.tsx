@@ -1,21 +1,14 @@
-import {
-  Pressable,
-  RefreshControl,
-  ScrollView,
-  useWindowDimensions,
-  View,
-} from "react-native";
-import React, { useRef } from "react";
+import { Pressable, RefreshControl, ScrollView, View } from "react-native";
+import React from "react";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 import Footer from "@/components/Footer";
 import SettingsBackButton from "../SettingsBackButton";
 import Divider from "../elements/Divider";
 import H1 from "../elements/H1";
-import { useHover } from "react-native-web-hooks";
 import { Color } from "@/helpers/Constants";
 import { router, Stack } from "expo-router";
 import CustomText from "../elements/CustomText";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   children: React.ReactNode;
@@ -24,6 +17,7 @@ type Props = {
   refreshAction?: () => void;
 };
 
+//TODO: i18n: translate titles
 export const settingsSections = {
   users: "Mitglieder verwalten",
   positions: "Spalten verwalten",
@@ -47,35 +41,34 @@ const InlineNavigationButton = ({
   setting,
   actualSetting,
 }: NavigationButtonProps) => {
-  const ref = useRef(null);
-  const isHovered = useHover(ref);
-
   return (
-    <View style={tw.style("items-center mt-2 gap-3 flex-row -mr-2")}>
+    <View className="items-center mt-2 gap-3 flex-row -mr-2">
       <Pressable
         onPress={() => {
+          console.log("here");
           router.replace(`/settings/${setting}`);
         }}
-        ref={ref}
       >
         <CustomText
-          style={tw.style({
-            "font-semibold": actualSetting == setting,
-            underline: isHovered,
-            "opacity-80": isHovered,
-          })}
+          className={`hidden web:flex hover:opacity-80 hover:underline ${
+            actualSetting == setting ? "font-semibold" : ""
+          }`}
+        >
+          {settingsTitles[setting as keyof typeof settingsTitles]}
+        </CustomText>
+        <CustomText
+          className={`hidden native:flex ${
+            actualSetting == setting ? "font-semibold" : ""
+          }`}
         >
           {settingsTitles[setting as keyof typeof settingsTitles]}
         </CustomText>
       </Pressable>
       <View
-        style={tw.style(
-          {
-            backgroundColor: actualSetting == setting ? Color.BLUE : Color.GRAY,
-          },
-          "w-1 h-8 rounded-l-md"
-        )}
-      ></View>
+        className={`w-1 h-8 rounded-l-md ${
+          actualSetting == setting ? "bg-seas-blue" : "bg-seas-gray"
+        }`}
+      />
     </View>
   );
 };
@@ -86,36 +79,24 @@ export const SettingsLayout = ({
   backTitle,
   refreshAction,
 }: Props) => {
-  const { height } = useWindowDimensions();
+  const { t } = useTranslation();
 
   const { isMd } = useMediaQueries();
 
   return (
     <View
-      style={{
-        flexDirection: "row",
-        backgroundColor: Color.SETTINGS_BG,
-      }}
-      className="h-full" // this is needed. Parent containers must have a set height for ScrollView to work. Before, I just set the height to the window diemension height.
+      className="h-full flex-row bg-seas-settings-bg" // this is needed. Parent containers must have a set height for ScrollView to work. Before, I just set the height to the window diemension height.
     >
       <Stack.Screen
         options={{
           headerShown: !isMd,
-          title: "Einstellungen",
+          title: t("settings"),
           headerBackTitle: backTitle,
         }}
       />
-      <View
-        style={tw.style(
-          {
-            hidden: !isMd,
-            height,
-          },
-          "w-1/3 items-end justify-center pl-4"
-        )}
-      >
+      <View className="w-1/3 items-end justify-center pl-4 hidden md:flex">
         <SettingsBackButton backRoute="/board/" />
-        <H1 style={tw`text-right`}>Einstellungen</H1>
+        <H1 className="text-right" t="settings" />
         {Object.keys(settingsSections).map((setting) => (
           <InlineNavigationButton
             actualSetting={actualSetting}
@@ -123,24 +104,9 @@ export const SettingsLayout = ({
             setting={setting as keyof typeof settingsTitles}
           />
         ))}
-        <Footer
-          style={tw.style(
-            {
-              hidden: !isMd,
-            },
-            "w-48 mt-12"
-          )}
-        />
+        <Footer className="w-48 mt-12 hidden md:flex" />
       </View>
-      <Divider
-        type="VERTICAL"
-        style={tw.style(
-          {
-            hidden: !isMd,
-          },
-          "my-16 mx-2"
-        )}
-      />
+      <Divider type="VERTICAL" className="my-16 mx-2 hidden md:flex" />
 
       <ScrollView
         keyboardShouldPersistTaps="handled"
@@ -153,18 +119,9 @@ export const SettingsLayout = ({
             />
           ) : undefined
         }
-        contentContainerStyle={tw.style(
-          {
-            "py-14": isMd,
-            "pb-14": !isMd,
-            "px-4": isMd,
-            "justify-center": isMd,
-          },
-          "flex-grow"
-        )}
-        style={tw.style({
-          "pt-4": actualSetting != "settings",
-        })}
+        contentContainerClassName={`md:justify-center md:min-h-[90%] pb-14 md:py-14 md:px-4 ${
+          actualSetting != "settings" ? "pt-4" : ""
+        }`}
       >
         {children}
       </ScrollView>

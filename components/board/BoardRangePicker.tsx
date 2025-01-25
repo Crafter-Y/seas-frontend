@@ -175,39 +175,25 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
         )}
       >
         <Entypo name="arrow-bold-left" size={16} color="black" />
-        <CustomText
-          className="underline"
-          selectable={false}
-          numberOfLines={1}
-          t="literal"
-          values={{ text: backText }}
-        />
+        <CustomText className="underline" selectable={false} numberOfLines={1}>
+          {backText}
+        </CustomText>
       </TouchableOpacity>
       <Pressable
         style={tw`border rounded-sm px-2 py-1 bg-[${Color.GRAY}] items-center w-32`}
         onPress={middleAction}
       >
         {boardType == "Jahresansicht" && (
-          <CustomText
-            style={tw`text-lg font-semibold`}
-            selectable={false}
-            t="literal"
-            values={{ text: currentYear + "" }}
-          />
+          <CustomText style={tw`text-lg font-semibold`} selectable={false}>
+            {currentYear}
+          </CustomText>
         )}
         {boardType != "Jahresansicht" && (
           <>
-            <CustomText
-              selectable={false}
-              t="literal"
-              values={{ text: currentYear + "" }}
-            />
-            <CustomText
-              style={tw`text-lg font-semibold`}
-              selectable={false}
-              t="literal"
-              values={{ text: thisText }}
-            />
+            <CustomText selectable={false}>{currentYear}</CustomText>
+            <CustomText style={tw`text-lg font-semibold`} selectable={false}>
+              {thisText}
+            </CustomText>
           </>
         )}
       </Pressable>
@@ -221,13 +207,9 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
           "flex-row items-center gap-2 justify-start"
         )}
       >
-        <CustomText
-          style={tw`underline`}
-          selectable={false}
-          numberOfLines={1}
-          t="literal"
-          values={{ text: nextText }}
-        />
+        <CustomText style={tw`underline`} selectable={false} numberOfLines={1}>
+          {nextText}
+        </CustomText>
         <Entypo name="arrow-bold-right" size={16} color="black" />
       </TouchableOpacity>
     </View>

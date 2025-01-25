@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useWindowDimensions, View } from "react-native";
+import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
@@ -13,9 +13,9 @@ import Button from "@/components/elements/Button";
 import { Stack, useLocalSearchParams } from "expo-router";
 import useResetPassword from "@/hooks/api/useResetPassword";
 import CustomText from "@/components/elements/CustomText";
+import { useTranslation } from "react-i18next";
 
 export default function ResetPasswordScreen() {
-  const { height } = useWindowDimensions();
   const { email: initEmail } = useLocalSearchParams();
   const { resetPasswordRequest, successfulRequest } = useResetPassword();
 
@@ -23,67 +23,35 @@ export default function ResetPasswordScreen() {
 
   const [email, setEmail] = useState((initEmail ?? "") as string);
 
+  const { t } = useTranslation();
+
   return (
-    <SafeAreaView style={tw`flex-row`}>
+    <SafeAreaView className="flex-row h-full">
       <Stack.Screen
         options={{
-          title: "Passwort zurücksetzen",
-          headerTitle: "Passwort zurücksetzen",
-          headerBackTitle: "Login",
+          title: t("resetPassword"),
+          headerTitle: t("resetPassword"),
+          headerBackTitle: t("login"),
           headerShown: !isMd,
         }}
       />
-      <View
-        style={tw.style(
-          {
-            hidden: !isMd,
-            height,
-          },
-          "w-1/3 items-end justify-center pl-4"
-        )}
-      >
+      <View className="w-1/3 items-end justify-center pl-4 hidden md:flex">
         <SettingsBackButton backRoute="/login/" />
-        <H1 style={tw`text-right`}>Passwort zurücksetzen</H1>
+        <H1 style={tw`text-right`} t="resetPassword" />
 
-        <CustomText style={tw`text-right mt-4 ml-4`}>
-          Sie haben Ihr Passwort vergessen? Hier können Sie ein neues
-          beantragen. Wir senden Ihnen ein neues Passwort per E-Mail.
-        </CustomText>
-        <Footer
-          style={tw.style(
-            {
-              hidden: !isMd,
-            },
-            "w-48 mt-12"
-          )}
-        />
+        <CustomText className="text-right mt-4 ml-4" t="resetPasswordText" />
+        <Footer className="w-48 mt-12 hidden md:flex" />
       </View>
-      <Divider
-        type="VERTICAL"
-        style={tw.style(
-          {
-            hidden: !isMd,
-          },
-          "my-16 mx-5"
-        )}
-      />
-      <View
-        style={tw.style({
-          "justify-center": isMd,
-          "items-center": !isMd,
-          "w-full": !isMd,
-        })}
-      >
+      <Divider type="VERTICAL" className="mx-5 my-16 hidden md:flex" />
+      <View className="md:justify-center items-center md:items-start w-full md:w-auto">
         <H1
-          style={tw.style("text-center mt-6 mb-12", {
-            hidden: isMd,
-          })}
-        >
-          Passwort zurücksetzen
-        </H1>
+          className="text-center mt-6 mb-12 md:hidden px-4"
+          t="resetPassword"
+        />
         <SettingsForm>
+          <CustomText className="md:hidden mb-2" t="resetPasswordText" />
           <Input
-            placeholder="Email"
+            placeholder={t("email")}
             inputMode="email"
             autoComplete="email"
             initialValue={email}
@@ -95,26 +63,20 @@ export default function ResetPasswordScreen() {
           />
 
           {successfulRequest && (
-            <CustomText style={tw`text-green-500`}>
-              Sie sollten in Kürze eine E-Mail mit Link zum Zurücksetzen
-              bekommen!
-            </CustomText>
+            <CustomText className="text-green-500" t="passwordResetRequested" />
           )}
 
-          <Button
-            onPress={() => {
-              resetPasswordRequest(email);
-            }}
-          >
-            Passwort zurücksetzen
-          </Button>
+          {!successfulRequest && (
+            <Button
+              onPress={() => {
+                resetPasswordRequest(email);
+              }}
+            >
+              {t("resetPassword")}
+            </Button>
+          )}
         </SettingsForm>
-        <Footer
-          style={tw.style({
-            hidden: isMd,
-            "w-full": true,
-          })}
-        />
+        <Footer className="md:hidden w-full mt-12" />
       </View>
     </SafeAreaView>
   );

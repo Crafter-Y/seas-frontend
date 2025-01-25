@@ -1,8 +1,8 @@
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { requestApi } from "@/helpers/api";
-import { Router } from "expo-router/build/types";
 import { Store } from "@/helpers/store";
+import { Router } from "expo-router";
 
 export default function useUpdatePassword() {
   const [hasUpdateError, setHasUpdateError] = useState(false);

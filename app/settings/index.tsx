@@ -1,7 +1,5 @@
 import { Pressable, View } from "react-native";
 import React from "react";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 import Image from "@/components/elements/Image";
 import {
   SettingsLayout,
@@ -10,42 +8,25 @@ import {
 import { router } from "expo-router";
 import useRestrictions from "@/hooks/api/useRestrictions";
 import CustomText from "@/components/elements/CustomText";
+import { useTranslation } from "react-i18next";
 
 export default function BaseSettingsScreen() {
-  const { isMd, isSm } = useMediaQueries();
+  const { t } = useTranslation();
 
-  useRestrictions();
+  useRestrictions(); // pre-fetch restrictions
 
   return (
-    <SettingsLayout actualSetting="settings" backTitle="Zurück">
-      <View
-        style={tw.style(
-          {
-            "justify-center": isMd,
-          },
-          "min-h-full"
-        )}
-      >
-        {isMd && (
-          <CustomText style={tw.style("w-52 text-lg")}>
-            Dieser Bereich ist nur für Administratoren zugänglich. Über die
-            Unterpunkte seitlich können die Inhalte der Seite eingestellt
-            werden.
-          </CustomText>
-        )}
-        {!isMd &&
-          Object.keys(settingsSections).map((setting) => (
+    <SettingsLayout actualSetting="settings" backTitle={t("back")}>
+      <View className="md:justify-center">
+        <CustomText
+          className="w-52 text-lg hidden md:flex"
+          t="settingsGreetings"
+        />
+        <View className="md:hidden">
+          {Object.keys(settingsSections).map((setting) => (
             <Pressable
               key={setting}
-              style={tw.style(
-                {
-                  borderBottomWidth: 2,
-                  "mx-6": isSm,
-                  "mt-6": isSm,
-                  "rounded-md": isSm,
-                },
-                "border-gray-400 px-4 py-6 text-lg opacity-85 bg-gray-200 justify-between flex-row"
-              )}
+              className="border-gray-400 px-4 py-6 text-lg opacity-85 bg-gray-200 justify-between flex-row sm:mx-6 sm:mt-6 border-b-[2px]"
               onPress={() => {
                 router.navigate(
                   `/settings/${setting as keyof typeof settingsSections}`
@@ -62,6 +43,7 @@ export default function BaseSettingsScreen() {
               />
             </Pressable>
           ))}
+        </View>
       </View>
     </SettingsLayout>
   );

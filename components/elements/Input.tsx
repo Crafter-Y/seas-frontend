@@ -1,46 +1,24 @@
-import {
-  InputModeOptions,
-  Platform,
-  ReturnKeyTypeOptions,
-  TextInput,
-  TextInputProps,
-} from "react-native";
+import { TextInput, TextInputProps } from "react-native";
 import React, { forwardRef, useEffect, useState } from "react";
-import tw from "@/tailwind";
-import { ClassInput } from "twrnc/dist/esm/types";
 
 type Props = {
-  placeholder: string;
-  autoFocus?: boolean;
-  onChangeText: (text: string) => void;
-  style?: ClassInput;
-  secureTextEntry?: boolean;
-  onSubmitEditing?: () => void;
-  returnKeyType?: ReturnKeyTypeOptions;
-  inputMode?: InputModeOptions;
   initialValue?: string;
   disabled?: boolean;
-  maxLength?: number;
-  autoComplete?: TextInputProps["autoComplete"];
-};
+} & TextInputProps;
 
 // TODO: there is something wrong with the normal text input #see CreateUserForm - name input is lagging, same on column creation
 // NOTE: this only appears on android and only for plain text input - see above
+// NOTE: 21-01-2025 this seems to be fixed - this note can probably be deleted
 const Input = forwardRef<TextInput, Props>(
   (
     {
-      placeholder,
-      autoFocus,
       onChangeText,
-      style,
-      secureTextEntry,
-      onSubmitEditing,
-      returnKeyType,
       inputMode,
       initialValue,
+      secureTextEntry,
       disabled,
-      autoComplete,
-      maxLength,
+      className,
+      ...props
     }: Props,
     ref
   ) => {
@@ -52,34 +30,22 @@ const Input = forwardRef<TextInput, Props>(
 
     return (
       <TextInput
+        className={`border border-black border-opacity-20 rounded-xl px-2 py-2 web:py-1 ${className}`}
+        style={{ fontSize: 18 }}
         defaultValue={intVal}
-        placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
         autoCorrect={false}
-        maxLength={maxLength}
-        autoComplete={autoComplete ? autoComplete : undefined}
         autoCapitalize="none"
+        secureTextEntry={secureTextEntry}
         keyboardType={secureTextEntry ? "default" : "visible-password"}
-        style={tw.style(
-          {
-            "py-2": Platform.OS == "ios",
-            "py-1": Platform.OS != "ios",
-            fontSize: 18,
-          },
-          style,
-          "border border-black border-opacity-20 rounded-xl px-2"
-        )}
-        autoFocus={autoFocus ? autoFocus : false}
         onChangeText={(text) => {
           setIntVal(text);
-          onChangeText(text);
+          onChangeText?.(text);
         }}
         placeholderTextColor={"gray"}
-        onSubmitEditing={onSubmitEditing}
-        returnKeyType={returnKeyType ? returnKeyType : "default"}
         ref={ref}
         inputMode={inputMode ?? "text"}
         aria-disabled={disabled}
+        {...props}
       />
     );
   }

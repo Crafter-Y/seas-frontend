@@ -12,6 +12,7 @@ import { ModalHandle } from "@/components/elements/Modal";
 import UserReactivatedModal from "./UserReactivatedModal";
 import ReactivateUserModal from "./ReactivateUserModal";
 import Callout from "../elements/Callout";
+import React from "react";
 
 type Props = {
   queryUsers: () => Promise<void>;

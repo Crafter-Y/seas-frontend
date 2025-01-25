@@ -91,7 +91,7 @@ export default function MusicEntryRatingModal({
           });
           openOverviewModal?.();
         }}
-        style={tw`mt-4`}
+        className="mt-4"
         disabled={!rating}
       >
         Weiter

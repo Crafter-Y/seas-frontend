@@ -38,7 +38,7 @@ export default function RenamePageModal({
 
       <Input
         initialValue={selectedPage?.name}
-        style={"mx-4"}
+        className="mx-4"
         placeholder="Plan Name"
         onChangeText={(text) => setPageRenameName(text)}
         secureTextEntry={false}

@@ -74,10 +74,10 @@ const BoardHeader = ({
             },
             "font-bold"
           )}
-          t="literal"
-          values={{ text: titleState() }}
           numberOfLines={1}
-        />
+        >
+          {titleState()}
+        </CustomText>
         <View
           style={tw.style(
             {

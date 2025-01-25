@@ -5,7 +5,7 @@ import { useWindowDimensions } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Constants from "expo-constants";
-import { I18nextProvider } from "react-i18next";
+import { I18nextProvider, useTranslation } from "react-i18next";
 import i18n from "@/helpers/i18n";
 import "../nativewind.css";
 
@@ -20,6 +20,7 @@ SplashScreen.preventAutoHideAsync();
 
 function DefaultLayout() {
   const { height, width } = useWindowDimensions();
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function loadFonts() {
@@ -31,8 +32,8 @@ function DefaultLayout() {
         console.warn(e);
         Toast.show({
           type: "error",
-          text1: "Font loading failed",
-          text2: "The font 'Roboto' could not be loaded",
+          text1: t("error.fontLoadingFailed"),
+          text2: t("error.fontCouldNotBeFound", { font: "Roboto" }),
         });
       } finally {
         SplashScreen.hideAsync();
@@ -53,7 +54,7 @@ function DefaultLayout() {
           }}
         />
       </I18nextProvider>
-      {/** without this, when refreshing a static exported page, the height and width is 0 and doesnt get updated */}
+      {/** without this, when refreshing a static exported page, the height and width is 0 and doesn't get updated */}
       <CustomText className="hidden">
         {height}x{width}
       </CustomText>

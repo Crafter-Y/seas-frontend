@@ -103,7 +103,7 @@ export default function songbook() {
                 vorhanden ist. Alle Änderungen werden automatisch gespeichert.
               </CustomText>
               <Button
-                style={tw`self-start mt-2 ${editable ? "" : "hidden"}`}
+                className={`self-start mt-2 ${editable ? "" : "hidden"}`}
                 onPress={() => {
                   createModal.current?.openModal();
                 }}
@@ -140,7 +140,7 @@ export default function songbook() {
                     />
                     {editable && (
                       <Button
-                        style={tw`p-2.5 self-start`}
+                        className="p-2.5 self-start"
                         onPress={() => {
                           setSelectedSong(song);
                           setEditNumber(song.number);
@@ -171,7 +171,7 @@ export default function songbook() {
           placeholder="1, 12b oder 5-1"
           onChangeText={setCreateNumber}
           ref={createNumberInput}
-          style={"mx-4"}
+          className="mx-4"
           onSubmitEditing={() => {
             createTitleInput.current?.focus();
           }}
@@ -182,7 +182,7 @@ export default function songbook() {
           placeholder="Titel vom Lied"
           onChangeText={setCreateTitle}
           ref={createTitleInput}
-          style={"mx-4"}
+          className="mx-4"
           onSubmitEditing={() => {
             createTitleInput.current?.blur();
             createSong(createNumber, createTitle, Number(songbook));
@@ -216,7 +216,7 @@ export default function songbook() {
           placeholder="1, 12b oder 5-1"
           onChangeText={setEditNumber}
           ref={editNumberInput}
-          style={"mx-4"}
+          className="mx-4"
           onSubmitEditing={() => {
             editNumberInput.current?.blur();
           }}
@@ -227,7 +227,7 @@ export default function songbook() {
           placeholder="Titel vom Lied"
           onChangeText={setEditTitle}
           ref={editTitleInput}
-          style={"mx-4"}
+          className="mx-4"
           onSubmitEditing={() => {
             editTitleInput.current?.blur();
           }}

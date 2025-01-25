@@ -1,15 +1,16 @@
 import { Platform, Text, TextProps } from "react-native";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { resources } from "@/helpers/i18n";
 
-type Props = {
-  t?: string;
+export type CustomTextProps = {
+  t?: keyof (typeof resources)["de"]["translation"];
   values?: {
     [name: string]: string;
   };
 } & TextProps;
 
-export default function CustomText(props: Props) {
+export default function CustomText(props: CustomTextProps) {
   const { t: i18n } = useTranslation();
 
   return (

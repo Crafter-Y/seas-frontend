@@ -1,8 +1,7 @@
-import { Platform, ScrollView, useWindowDimensions } from "react-native";
+import { Platform, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useRef, useState } from "react";
 import useAuthentication from "@/hooks/api/useAuthentication";
-import tw from "@/tailwind";
 import BoardHeader from "@/components/board/BoardHeader";
 import BoardSidebar from "@/components/board/BoardSidebar";
 import Footer from "@/components/Footer";
@@ -16,7 +15,9 @@ import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
 import CalendarModal from "@/components/modules/calendar/CalendarModal";
 import PrintModalContainer from "@/components/modules/print/PrintModalContainer";
 import MusicModalContainer from "@/components/modules/music/MusicModalContainer";
+import { useTranslation } from "react-i18next";
 
+// TODO: i18n: build proper object with translation keys
 export type BoardType =
   | "Jahresansicht"
   | "Quartal Ansicht"
@@ -24,12 +25,12 @@ export type BoardType =
   | "Wochenansicht";
 
 export default function BoardScreenScreen() {
-  const segments = useSegments();
-  const { height } = useWindowDimensions();
-
   const { user, hasAuthError, logout } = useAuthentication();
   const { serverName, fetchServerName } = useServerName();
   const { loading, requeryBoard } = useBoard();
+
+  const segments = useSegments();
+  const { t } = useTranslation();
 
   const [boardType, setBoardType] = useState<BoardType>("Quartal Ansicht");
 
@@ -43,7 +44,7 @@ export default function BoardScreenScreen() {
 
   useEffect(() => {
     if (Platform.OS == "web" && serverName && segments[0] == "board")
-      document.title = "Plan ⋅ " + serverName;
+      document.title = t("board") + " ⋅ " + serverName;
 
     if (!serverName) fetchServerName();
   }, [serverName, segments]);
@@ -57,12 +58,7 @@ export default function BoardScreenScreen() {
   };
 
   return (
-    <SafeAreaView
-      style={tw.style(`m-0 p-0 bg-[${Color.LIGHT_GRAY}] flex flex-row`, {
-        height:
-          Platform.OS == "web" || Platform.OS == "ios" ? height : undefined,
-      })}
-    >
+    <SafeAreaView className="bg-seas-light-gray flex-row h-full">
       <BoardSidebar
         user={user}
         boardType={boardType}

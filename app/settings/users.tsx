@@ -23,9 +23,12 @@ import RequestNewPasswordModal from "@/components/settings/RequestNewPasswordMod
 import NewPasswordModal from "@/components/settings/NewPasswordModal";
 import useRestrictions from "@/hooks/api/useRestrictions";
 import CustomText from "@/components/elements/CustomText";
+import { useTranslation } from "react-i18next";
+import { Color } from "@/helpers/Constants";
 
 export default function ManageUsersScreen() {
   const { user } = useAuthentication();
+  const { t } = useTranslation();
 
   const { allUsers, queryUsers } = useAllUsers();
   const { restrictions } = useRestrictions();
@@ -62,7 +65,7 @@ export default function ManageUsersScreen() {
 
   return (
     <SettingsLayout actualSetting="users">
-      <SettingsTitle>Nutzer erstellen</SettingsTitle>
+      <SettingsTitle t="createUser" className="" />
 
       <CreateUserForm
         queryUsers={queryUsers}
@@ -70,15 +73,15 @@ export default function ManageUsersScreen() {
         maxAdminsReached={maxAdminsReached}
       />
 
-      <Divider type="HORIZONTAL" style={tw`my-4`} />
+      <Divider type="HORIZONTAL" className="my-4" />
 
-      <SettingsForm style={tw`mb-8`}>
+      <SettingsForm className="mb-12">
         <Form>
-          <TH titles={["Mitglieder", ""]}></TH>
+          <TH titles={[t("members"), ""]}></TH>
           {allUsers.map((entry) => (
             <TR key={entry.id}>
               <TD cols={2}>
-                <CustomText style={tw`text-lg`}>
+                <CustomText className="text-lg">
                   {entry.firstname} {entry.lastname}
                 </CustomText>
                 <CustomText
@@ -88,27 +91,25 @@ export default function ManageUsersScreen() {
                 >
                   {entry.email}
                 </CustomText>
-                <View style={tw`flex-row gap-1`}>
-                  <CustomText style={tw`border rounded-full px-1 py-0.5`}>
+                <View className="flex-row gap-1">
+                  <CustomText className="border rounded-full px-1 py-0.5">
                     {toUpperStarting(entry.role)}
                   </CustomText>
                   <CustomText
-                    style={tw.style(
-                      {
-                        hidden: entry.email == "root",
-                      },
-                      "border rounded-full px-1 py-0.5"
-                    )}
+                    // TODO: remove root user from existance - only for legacy imported products & should no longer exist
+                    className={`border rounded-full px-1 py-0.5 ${
+                      entry.email == "root" ? "hidden" : ""
+                    }`}
                   >
                     {toUpperStarting(entry.state)}
                   </CustomText>
                 </View>
               </TD>
-              <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
+              <TD className="justify-end flex-row items-center gap-1" cols={2}>
                 {entry.email != "root" && entry.id != user?.id && (
                   <Button
-                    color="#f67e7e"
-                    style={tw`p-2.5`}
+                    color={Color.RED}
+                    className="p-2.5"
                     onPress={() => {
                       setEditUser(entry);
                       deleteUserModal.current?.openModal();
@@ -125,7 +126,7 @@ export default function ManageUsersScreen() {
                     entry.state == "UNVERIFIED" ||
                     entry.state == "VERIFICATION_PENDING") && (
                     <Button
-                      style={tw`p-2.5`}
+                      className="p-2.5"
                       onPress={() => {
                         setEditUser(entry);
                         editModal.current?.openModal();
