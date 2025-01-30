@@ -48,7 +48,7 @@ const ReactivateUserModal = forwardRef<ModalHandle, Props>(
         </View>
       </Modal>
     );
-  }
+  },
 );
 
 ReactivateUserModal.displayName = "ReactivateUserModal";

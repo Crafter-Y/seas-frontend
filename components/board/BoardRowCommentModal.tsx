@@ -10,12 +10,12 @@ import { Color } from "@/helpers/Constants";
 import CustomText from "../elements/CustomText";
 
 type Props = {
-  closeModal?: () => void;
-  openRowModal?: () => void;
+  closeModal: () => void;
+  openRowModal: () => void;
   commentEditValue: string;
   setCommentEditValue: (val: string) => void;
   selectedColumn?: APIResponseColumn;
-  triggerBoardRefetch?: () => void;
+  triggerBoardRefetch: () => void;
 };
 
 export default function BoardRowCommentModal({
@@ -34,11 +34,11 @@ export default function BoardRowCommentModal({
   useEffect(() => {
     if (successfulUpdate) {
       querySingleRow(selectedRow!.date);
-      closeModal?.();
-      openRowModal?.();
-      triggerBoardRefetch?.();
+      closeModal();
+      openRowModal();
+      triggerBoardRefetch();
     }
-  }, [successfulUpdate]);
+  }, [selectedRow, successfulUpdate]);
 
   return (
     <View
@@ -47,7 +47,7 @@ export default function BoardRowCommentModal({
           "px-6": isSm,
           "px-4": !isSm,
         },
-        "py-6"
+        "py-6",
       )}
     >
       <Pressable>
@@ -87,8 +87,8 @@ export default function BoardRowCommentModal({
       <View style={tw`justify-center flex-row gap-2 my-4`}>
         <Button
           onPress={() => {
-            closeModal?.();
-            openRowModal?.();
+            closeModal();
+            openRowModal();
           }}
         >
           Abbrechen
@@ -98,7 +98,7 @@ export default function BoardRowCommentModal({
             updateComment(
               selectedRow!.date,
               selectedColumn!.id,
-              commentEditValue
+              commentEditValue,
             );
           }}
           color={Color.GREEN}

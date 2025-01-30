@@ -3,7 +3,7 @@ import Constants from "expo-constants";
 import { Store } from "./store";
 import { router } from "expo-router";
 
-type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT"
+type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 
 const getApi = (): string => {
   if (__DEV__) {
@@ -20,39 +20,43 @@ export const getWebServer = async () => {
   } else {
     try {
       const serverId = await AsyncStorage.getItem("serverId");
-      if (serverId == null) return "https://58119.seas-kirchengemeinde.de";
+      if (serverId === null) return "https://58119.seas-kirchengemeinde.de";
 
       return `https://${serverId}.seas-kirchengemeinde.de`;
-    } catch (e) {
+    } catch (_ignored) {
       return "https://58119.seas-kirchengemeinde.de";
     }
-
   }
 };
 
-const requestApi = async (endpoint: string, method: RequestMethod, body: object | undefined = undefined): Promise<ApiResponse | null> => {
+const requestApi = async (
+  endpoint: string,
+  method: RequestMethod,
+  body: object | undefined = undefined,
+): Promise<ApiResponse | null> => {
   try {
     const token = await AsyncStorage.getItem("token");
-    if (token == null) return null;
+    if (token === null) return null;
 
     const rawResponse = await fetch(`${getApi()}/api/v1/${endpoint}`, {
       method,
       body: body ? JSON.stringify(body) : undefined,
       headers: {
-        "Authorization": "Bearer " + token,
-        "Content-Type": "application/json"
-      }
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
     });
 
     const response: ApiResponse = await rawResponse.json();
 
-    if (response.data.error && (
-      response.data.error === "Authentication required" ||
-      response.data.error === "Authentication failed" ||
-      response.data.error === "The user does not exist" ||
-      response.data.error === "Your password has changed"
-    )) {
-      Store.update(state => {
+    if (
+      response.data.error &&
+      (response.data.error === "Authentication required" ||
+        response.data.error === "Authentication failed" ||
+        response.data.error === "The user does not exist" ||
+        response.data.error === "Your password has changed")
+    ) {
+      Store.update((state) => {
         state.user = null;
       });
       await AsyncStorage.removeItem("token");
@@ -66,13 +70,17 @@ const requestApi = async (endpoint: string, method: RequestMethod, body: object 
   }
 };
 
-const requestApiWithoutCredentials = async (endpoint: string, method: RequestMethod, body: object | undefined = undefined): Promise<ApiResponse> => {
+const requestApiWithoutCredentials = async (
+  endpoint: string,
+  method: RequestMethod,
+  body: object | undefined = undefined,
+): Promise<ApiResponse> => {
   const rawResponse = await fetch(`${getApi()}/api/v1/${endpoint}`, {
     method,
     body: body ? JSON.stringify(body) : undefined,
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
   const response: ApiResponse = await rawResponse.json();
 

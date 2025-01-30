@@ -27,7 +27,7 @@ import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import { TextInput, View } from "react-native";
 
-export default function index() {
+export default function Index() {
   const { isMd } = useMediaQueries();
   const { songbooks, querySongbooks } = useSongbooks();
   const { restrictions } = useRestrictions();
@@ -156,7 +156,7 @@ export default function index() {
                   className="p-2.5"
                   onPress={() => {
                     router.navigate(
-                      "/settings/modules/music/songbooks/" + songbook.id
+                      "/settings/modules/music/songbooks/" + songbook.id,
                     );
                   }}
                 >
@@ -169,7 +169,7 @@ export default function index() {
               </TD>
             </TR>
           ))}
-          {songbooks.length == 0 && (
+          {songbooks.length === 0 && (
             <CustomText style={tw`m-2 text-lg`}>
               Noch keine Einträge vorhanden.
             </CustomText>

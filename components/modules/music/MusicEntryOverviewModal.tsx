@@ -13,8 +13,8 @@ import useSaveSongEntries from "@/hooks/api/useSaveSongEntries";
 import CustomText from "@/components/elements/CustomText";
 
 type Props = {
-  closeModal?: () => void;
-  openSelectSongModal?: () => void;
+  closeModal: () => void;
+  openSelectSongModal: () => void;
 };
 
 export default function MusicEntryOverviewModal({
@@ -30,7 +30,7 @@ export default function MusicEntryOverviewModal({
         musicRatings: state.musicRatings,
         musicEntryType: state.musicEntryType,
       };
-    }
+    },
   );
 
   const heightAnimate = useRef(new Animated.Value(128)).current;
@@ -49,7 +49,7 @@ export default function MusicEntryOverviewModal({
         useNativeDriver: false,
       }).start();
     }
-  }, [musicRatings]);
+  }, [heightAnimate, musicRatings]);
 
   return (
     <View style={tw`mx-2 md:mx-4 pb-2`}>
@@ -69,11 +69,11 @@ export default function MusicEntryOverviewModal({
           ListFooterComponent={
             <Button
               onPress={() => {
-                closeModal?.();
-                openSelectSongModal?.();
+                closeModal();
+                openSelectSongModal();
               }}
               className="mt-2"
-              disabled={musicRatings.length == 10}
+              disabled={musicRatings.length === 10}
             >
               <View style={tw`items-center flex-row gap-2`}>
                 <AntDesign name="plus" size={32} color="white" />
@@ -89,8 +89,8 @@ export default function MusicEntryOverviewModal({
             return (
               <View
                 style={tw`border-b-2 p-1 border-[${Color.GRAY}] ${
-                  index == 0 ? "border-t-2" : ""
-                } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
+                  index === 0 ? "border-t-2" : ""
+                } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
                 <View style={tw`flex-row gap-2`}>
                   <View style={tw`w-4/5`}>
@@ -135,10 +135,10 @@ export default function MusicEntryOverviewModal({
             state.musicEntryType = undefined;
             state.musicDate = undefined;
           });
-          closeModal?.();
+          closeModal();
         }}
         className="mt-4"
-        disabled={musicRatings.length == 0}
+        disabled={musicRatings.length === 0}
       >
         Fertig
       </Button>

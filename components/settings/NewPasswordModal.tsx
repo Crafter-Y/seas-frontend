@@ -6,7 +6,7 @@ import CustomText from "../elements/CustomText";
 
 type Props = {
   editUser: APIFullResponseUser;
-  closeModal?: () => void;
+  closeModal: () => void;
 };
 
 export default function NewPasswordModal({ closeModal, editUser }: Props) {

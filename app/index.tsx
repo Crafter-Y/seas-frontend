@@ -29,18 +29,18 @@ export default function ServerSelectorScreen() {
 
   // If this is web, redirect immediately
   useEffect(() => {
-    if (Platform.OS == "web") {
+    if (Platform.OS === "web") {
       setTimeout(() => {
         router.replace("/login");
       }, 1);
     } else {
       fetchServerName();
     }
-  }, []);
+  }, [fetchServerName]);
 
   // redirect after successfull fetch
   useEffect(() => {
-    if (fetchState == FetchState.SUCCEEDED)
+    if (fetchState === FetchState.SUCCEEDED)
       setTimeout(() => {
         router.replace("/login");
       }, 1);
@@ -48,7 +48,7 @@ export default function ServerSelectorScreen() {
 
   const login = async () => {
     setIsError(false);
-    if (serverId.length == 0) {
+    if (serverId.length === 0) {
       setIsError(true);
       setInputError("error.noServerIdSpecified");
       return;
@@ -100,7 +100,7 @@ export default function ServerSelectorScreen() {
         />
         <ErrorDisplay
           hasError={isError}
-          error={isError && inputError != "" ? t(inputError) : ""}
+          error={isError && inputError !== "" ? t(inputError) : ""}
         />
         <ErrorDisplay
           hasError={!!fetchServerError}

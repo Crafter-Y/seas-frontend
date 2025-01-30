@@ -27,7 +27,7 @@ import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import { Pressable, TextInput, View } from "react-native";
 
-export default function songbook() {
+export default function Songbook() {
   const { songbook } = useLocalSearchParams();
   const { songs, querySongbook, editable } = useSongbook();
   const { setKnwonState } = useSetKnownState();
@@ -64,21 +64,21 @@ export default function songbook() {
       querySongbook(Number(songbook));
       createModal.current?.closeModal();
     }
-  }, [successfulCreation]);
+  }, [songbook, successfulCreation]);
 
   useEffect(() => {
     if (successfulEdit) {
       querySongbook(Number(songbook));
       editModal.current?.closeModal();
     }
-  }, [successfulEdit]);
+  }, [songbook, successfulEdit]);
 
   useEffect(() => {
     if (succesfulDeletion) {
       querySongbook(Number(songbook));
       deleteModal.current?.closeModal();
     }
-  }, [succesfulDeletion]);
+  }, [songbook, succesfulDeletion]);
 
   return (
     <SettingsLayout actualSetting="modules">

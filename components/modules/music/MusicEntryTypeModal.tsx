@@ -6,9 +6,9 @@ import { Store } from "@/helpers/store";
 import CustomText from "@/components/elements/CustomText";
 
 type Props = {
-  closeModal?: () => void;
-  openMusicActionModal?: () => void;
-  openEntryDateModal?: () => void;
+  closeModal: () => void;
+  openMusicActionModal: () => void;
+  openEntryDateModal: () => void;
 };
 
 export const entryTypeMeanings = {
@@ -28,15 +28,15 @@ export default function MusicEntryTypeModal({
       <CustomText>Typ des Datensatzes:</CustomText>
       <TouchableOpacity
         style={tw`flex-row justify-between border-2 border-gray-400 rounded-lg px-4 py-2 mt-1 ${
-          Platform.OS == "web" ? "shadow-md" : ""
+          Platform.OS === "web" ? "shadow-md" : ""
         }`}
         onPress={() => {
           Store.update((state) => {
             state.musicEntryType = "MISSION";
           });
 
-          closeModal?.();
-          openEntryDateModal?.();
+          closeModal();
+          openEntryDateModal();
         }}
       >
         <CustomText style={tw`text-xl font-semibold`}>
@@ -46,14 +46,14 @@ export default function MusicEntryTypeModal({
       </TouchableOpacity>
       <TouchableOpacity
         style={tw` border-2 border-gray-400 rounded-lg px-4 py-2 mt-1 mb-3 ${
-          Platform.OS == "web" ? "shadow-md" : ""
+          Platform.OS === "web" ? "shadow-md" : ""
         }`}
         onPress={() => {
           Store.update((state) => {
             state.musicEntryType = "TEST";
           });
-          closeModal?.();
-          openEntryDateModal?.();
+          closeModal();
+          openEntryDateModal();
         }}
       >
         <CustomText style={tw`text-xl font-semibold`}>
@@ -63,8 +63,8 @@ export default function MusicEntryTypeModal({
       <Button
         className="mb-2"
         onPress={() => {
-          closeModal?.();
-          openMusicActionModal?.();
+          closeModal();
+          openMusicActionModal();
         }}
       >
         Zurück

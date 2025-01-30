@@ -9,7 +9,7 @@ import CustomText from "../elements/CustomText";
 
 type Props = {
   editUser: APIFullResponseUser;
-  closeModal?: () => void;
+  closeModal: () => void;
   queryUsers: () => void;
 };
 
@@ -22,8 +22,8 @@ export default function DeleteUserModal({
 
   useEffect(() => {
     if (succesfulDeletion) {
-      queryUsers?.();
-      closeModal?.();
+      queryUsers();
+      closeModal();
     }
   }, [succesfulDeletion]);
   return (

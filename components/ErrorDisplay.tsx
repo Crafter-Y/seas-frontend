@@ -12,7 +12,7 @@ const ErrorDisplay = ({ hasError, error, className, ...props }: Props) => {
       className={`text-red-500 mb-2 ${hasError ? "" : "hidden"} ${className}`}
       {...props}
     >
-      {typeof error == "string" ? error : JSON.stringify(error)}
+      {typeof error === "string" ? error : JSON.stringify(error)}
     </CustomText>
   );
 };

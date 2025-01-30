@@ -56,16 +56,16 @@ const BoardAssignButton = ({
               "pl-1": !!text,
             },
             "h-8 rounded-xl justify-center items-center flex-row",
-            style
+            style,
           )}
         >
-          {actionType == "PLUS" && (
+          {actionType === "PLUS" && (
             <View style={tw`items-center justify-center`}>
               <Entypo name="plus" size={22} color="black" />
             </View>
           )}
 
-          {actionType == "CROSS" && (
+          {actionType === "CROSS" && (
             <Entypo name="cross" size={22} color="black" />
           )}
           {text && <CustomText style={tw`px-2`}>{text}</CustomText>}

@@ -12,7 +12,7 @@ export default function useUpdatePassword() {
     oldPassword: string,
     newPassword1: string,
     newPassword2: string,
-    router: Router
+    router: Router,
   ) => {
     if (newPassword1 !== newPassword2) {
       setHasUpdateError(true);
@@ -20,17 +20,17 @@ export default function useUpdatePassword() {
       return;
     }
 
-    if (oldPassword == null || oldPassword.length == 0) {
+    if (oldPassword === null || oldPassword.length === 0) {
       setHasUpdateError(true);
       setUpdateError("Das alte Passwort muss angegeben werden");
       return;
     }
 
     if (
-      newPassword1 == null ||
-      newPassword1.length == 0 ||
-      newPassword2 == null ||
-      newPassword2.length == 0
+      newPassword1 === null ||
+      newPassword1.length === 0 ||
+      newPassword2 === null ||
+      newPassword2.length === 0
     ) {
       setHasUpdateError(true);
       setUpdateError("Das neue Passwort muss angegeben und wiederholt werden");
@@ -40,21 +40,19 @@ export default function useUpdatePassword() {
     if (!newPassword1.match(/^[\w\d\s\-äöüÄÖÜß_!?/*%$]{7,64}$/)) {
       setHasUpdateError(true);
       setUpdateError(
-        "Das neue Passwort stimmt nicht mit den Kriterien überein. Kriterium: Mindestens 7 Zeichen. Es sind Buchstaben, Zahlen und -_!?/*%$ erlaubt."
+        "Das neue Passwort stimmt nicht mit den Kriterien überein. Kriterium: Mindestens 7 Zeichen. Es sind Buchstaben, Zahlen und -_!?/*%$ erlaubt.",
       );
       return;
     }
 
     const res = await requestApi("users", "PATCH", {
       oldPassword,
-      newPassword: newPassword1
+      newPassword: newPassword1,
     });
 
-    if (res == null) {
+    if (res === null) {
       setHasUpdateError(true);
-      setUpdateError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
-      );
+      setUpdateError("Server nicht verfügbar. Bitte später erneut versuchen.");
       return;
     }
 
@@ -62,7 +60,7 @@ export default function useUpdatePassword() {
       setHasUpdateError(false);
       setUpdateError("");
 
-      Store.update(state => {
+      Store.update((state) => {
         state.user = null;
       });
       await AsyncStorage.removeItem("token");

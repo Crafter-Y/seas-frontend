@@ -11,20 +11,20 @@ export default function useCreatePage() {
 
     setIsSuccessfulPageCreation(false);
 
-    if (!name || name.length == 0) {
+    if (!name || name.length === 0) {
       setHasCreationError(true);
       setCreationError("Ein Name muss angegeben werden");
       return;
     }
 
     const res = await requestApi("pages", "POST", {
-      name
+      name,
     });
 
-    if (res == null) {
+    if (res === null) {
       setHasCreationError(true);
       setCreationError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
+        "Server nicht verfügbar. Bitte später erneut versuchen.",
       );
       return;
     }

@@ -51,14 +51,14 @@ const InlineNavigationButton = ({
       >
         <CustomText
           className={`hidden web:flex hover:opacity-80 hover:underline ${
-            actualSetting == setting ? "font-semibold" : ""
+            actualSetting === setting ? "font-semibold" : ""
           }`}
         >
           {settingsTitles[setting as keyof typeof settingsTitles]}
         </CustomText>
         <CustomText
           className={`hidden native:flex ${
-            actualSetting == setting ? "font-semibold" : ""
+            actualSetting === setting ? "font-semibold" : ""
           }`}
         >
           {settingsTitles[setting as keyof typeof settingsTitles]}
@@ -66,7 +66,7 @@ const InlineNavigationButton = ({
       </Pressable>
       <View
         className={`w-1 h-8 rounded-l-md ${
-          actualSetting == setting ? "bg-seas-blue" : "bg-seas-gray"
+          actualSetting === setting ? "bg-seas-blue" : "bg-seas-gray"
         }`}
       />
     </View>
@@ -120,7 +120,7 @@ export const SettingsLayout = ({
           ) : undefined
         }
         contentContainerClassName={`md:justify-center md:min-h-[90%] pb-14 md:py-14 md:px-4 ${
-          actualSetting != "settings" ? "pt-4" : ""
+          actualSetting !== "settings" ? "pt-4" : ""
         }`}
       >
         {children}

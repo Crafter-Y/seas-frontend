@@ -25,7 +25,7 @@ export default function MusicActionModal({
         musicEntryType: state.musicEntryType,
         musicDate: state.musicDate,
       };
-    }
+    },
   );
 
   return (
@@ -33,7 +33,7 @@ export default function MusicActionModal({
       <View style={tw`flex-row m-3 md:m-4 gap-3`}>
         <TouchableOpacity
           style={tw`flex-grow flex-1 rounded-lg border-gray-400 border-2 gap-4 justify-between p-2 ${
-            Platform.OS == "web" ? "shadow-md" : ""
+            Platform.OS === "web" ? "shadow-md" : ""
           }`}
           onPress={() => {
             closeModal();
@@ -58,11 +58,11 @@ export default function MusicActionModal({
         <TouchableOpacity
           style={tw.style(
             {
-              "shadow-md": Platform.OS == "web",
-              "pb-10": Platform.OS == "ios", // wriedly, in ios, the icons clip out the bottom
-              "pb-2": Platform.OS != "ios",
+              "shadow-md": Platform.OS === "web",
+              "pb-10": Platform.OS === "ios", // wriedly, in ios, the icons clip out the bottom
+              "pb-2": Platform.OS !== "ios",
             },
-            "flex-grow flex-1 rounded-lg border-gray-400 border-2 gap-4 justify-between px-2 pt-2"
+            "flex-grow flex-1 rounded-lg border-gray-400 border-2 gap-4 justify-between px-2 pt-2",
           )}
           onPress={() => {
             closeModal();

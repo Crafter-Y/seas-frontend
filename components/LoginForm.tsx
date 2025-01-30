@@ -17,7 +17,7 @@ type Props = {
 
 const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
   const { isSm, isMd } = useMediaQueries();
-  const isWeb = Platform.OS == "web";
+  const isWeb = Platform.OS === "web";
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
           "w-full": !isMd,
           "px-2": !isMd && !isSm,
         },
-        "mt-4 gap-2"
+        "mt-4 gap-2",
       )}
     >
       <Input
@@ -61,7 +61,7 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
       <ErrorDisplay
         hasError={hasAuthError}
         error={
-          authError == "Wrong credentials"
+          authError === "Wrong credentials"
             ? "Email oder Passwort stimmt nicht"
             : authError
         }

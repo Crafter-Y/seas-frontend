@@ -48,8 +48,8 @@ const BoardHeader = ({
   const { moduleStatus } = useModuleStatus();
 
   const titleState = useCallback(() => {
-    if (fetchState == FetchState.SUCCEEDED && serverName) return serverName;
-    if (fetchState == FetchState.FETCHING) return "Wird geladen...";
+    if (fetchState === FetchState.SUCCEEDED && serverName) return serverName;
+    if (fetchState === FetchState.FETCHING) return "Wird geladen...";
     return "Server zur Zeit nicht erreichbar";
   }, [fetchState, serverName]);
 
@@ -69,10 +69,10 @@ const BoardHeader = ({
               "text-xl": isLg,
               "text-lg": !isLg,
               "ml-4": isLg,
-              "text-red-500": fetchState == FetchState.ERROR,
+              "text-red-500": fetchState === FetchState.ERROR,
               maxWidth: "80%",
             },
-            "font-bold"
+            "font-bold",
           )}
           numberOfLines={1}
         >
@@ -83,7 +83,7 @@ const BoardHeader = ({
             {
               hidden: !isLg,
             },
-            "flex-row gap-2"
+            "flex-row gap-2",
           )}
         >
           <RoundIconButton
@@ -150,7 +150,7 @@ const BoardHeader = ({
             closeModal={() => modal.current?.closeModal()}
           />
           <Divider type="HORIZONTAL" style={tw`mx-2`} />
-          {user?.role == "ADMIN" && [
+          {user?.role === "ADMIN" && [
             <BoardMenuButton
               key={3}
               icon={require("@/assets/img/settings.svg")}
@@ -180,7 +180,7 @@ const BoardHeader = ({
               logout();
             }}
             style={tw.style({
-              "mb-1": Platform.OS != "web",
+              "mb-1": Platform.OS !== "web",
             })}
           />
         </Modal>

@@ -43,11 +43,11 @@ export default function BoardScreenScreen() {
   }, [hasAuthError]);
 
   useEffect(() => {
-    if (Platform.OS == "web" && serverName && segments[0] == "board")
+    if (Platform.OS === "web" && serverName && segments[0] === "board")
       document.title = t("board") + " ⋅ " + serverName;
 
     if (!serverName) fetchServerName();
-  }, [serverName, segments]);
+  }, [serverName, segments, t]);
 
   const changePassword = () => {
     router.navigate("/changepassword");

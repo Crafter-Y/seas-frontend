@@ -10,30 +10,27 @@ export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authError, setAuthError] = useState("");
 
-  const user = Store.useState(state => state.user);
+  const user = Store.useState((state) => state.user);
 
   const logout = async () => {
     await AsyncStorage.removeItem("token");
 
     const currentDevUrl = Store.getRawState().serverDevUrl;
-    Store.update(state => {
+    Store.update((state) => {
       Object.assign(state, defaultState);
       state.serverDevUrl = currentDevUrl;
     });
 
-    // wiredly, on ios, the replace crashes the app. 
+    // wiredly, on ios, the replace crashes the app.
     // I disabled the back gesture on the login screen for ios, so there should be nothing that could go wrong
-    if (Platform.OS == "ios") {
+    if (Platform.OS === "ios") {
       router.navigate("/login");
     } else {
       router.replace("/login");
     }
   };
 
-  const login = async (
-    email: string,
-    password: string
-  ) => {
+  const login = async (email: string, password: string) => {
     setHasAuthError(false);
     setAuthError("");
 
@@ -41,24 +38,28 @@ export default function useAuthentication() {
     password = password.trim();
 
     const serverId = await AsyncStorage.getItem("serverId");
-    if (serverId == null) {
+    if (serverId === null) {
       router.replace("/");
       return;
     }
 
     try {
-      const res = await requestApiWithoutCredentials(`auth/${serverId}`, "POST", {
-        email,
-        password,
-        expiration: Platform.OS == "web" ? "short" : "long"
-      });
+      const res = await requestApiWithoutCredentials(
+        `auth/${serverId}`,
+        "POST",
+        {
+          email,
+          password,
+          expiration: Platform.OS === "web" ? "short" : "long",
+        },
+      );
 
       if (res.success) {
         AsyncStorage.setItem("token", res.data.token).then(() => {
           populateUserData();
         });
       } else {
-        if (typeof res.data.error == "string") {
+        if (typeof res.data.error === "string") {
           setAuthError(res.data.error + "");
         } else {
           setAuthError("Ungültige Eingaben");
@@ -70,24 +71,23 @@ export default function useAuthentication() {
       setAuthError(e + "");
       setHasAuthError(true);
     }
-
   };
 
   const populateUserData = async () => {
     const token = await AsyncStorage.getItem("token");
 
-    if (token == null || token == undefined) {
+    if (token === null || token === undefined) {
       return;
     }
 
     let tokenContents: {
-      productId: number,
-      userId: number,
-      email: string,
-      firstname: string,
-      lastname: string,
-      role: Role,
-      exp: number
+      productId: number;
+      userId: number;
+      email: string;
+      firstname: string;
+      lastname: string;
+      role: Role;
+      exp: number;
     };
 
     try {
@@ -108,13 +108,13 @@ export default function useAuthentication() {
     const res = await requestApi("auth/validate", "GET");
     if (!res || !res.success) return;
 
-    Store.update(state => {
+    Store.update((state) => {
       state.user = {
         id: tokenContents.userId,
         firstname: tokenContents.firstname,
         lastname: tokenContents.lastname,
         email: tokenContents.email,
-        role: tokenContents.role
+        role: tokenContents.role,
       };
     });
     setHasAuthError(false);
@@ -122,6 +122,8 @@ export default function useAuthentication() {
 
   useEffect(() => {
     if (!user) populateUserData();
+    // TODO: implement proper just fetch once functionality
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {

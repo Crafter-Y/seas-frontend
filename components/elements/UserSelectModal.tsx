@@ -1,5 +1,5 @@
 import { Pressable, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "./Button";
 import tw from "@/tailwind";
 import Input from "./Input";
@@ -8,7 +8,7 @@ import ExpoCheckbox from "expo-checkbox";
 import CustomText from "./CustomText";
 
 type Props = {
-  closeModal?: () => void;
+  closeModal: () => void;
   initialSelectedUserId: number | null;
   onUserSet: (userId: number | null) => void;
   allUsers: { firstname: string; lastname: string; id: number }[];
@@ -27,15 +27,15 @@ export default function UserSelectModal({
   const [search, setSearch] = useState("");
 
   const [selectedUser, setSelectedUser] = useState<number>(
-    initialSelectedUserId ?? -1
+    initialSelectedUserId ?? -1,
   );
 
-  const includeEmptySelection = () => {
+  const includeEmptySelection = useCallback(() => {
     const renderItems: typeof renderedItems = Array.from(allUsers);
     renderItems.push(null);
-    renderItems.sort((a) => (a != null ? 1 : -1));
+    renderItems.sort((a) => (a !== null ? 1 : -1));
     setRenderedItems(renderItems);
-  };
+  }, [allUsers]);
 
   useEffect(() => {
     if (allUsers.length) {
@@ -54,14 +54,14 @@ export default function UserSelectModal({
 
       allUsers.forEach((user) => {
         const searchableTokens = [user.firstname, user.lastname].map((el) =>
-          el.toLowerCase()
+          el.toLowerCase(),
         );
 
         let matches = 0;
 
         searchTerms.forEach((term) => {
           searchableTokens.forEach((token) => {
-            if (term == token) {
+            if (term === token) {
               matches += 5;
             } else if (token.includes(term)) {
               matches += 3;
@@ -69,7 +69,7 @@ export default function UserSelectModal({
           });
         });
 
-        if (res[matches] == undefined) {
+        if (res[matches] === undefined) {
           res[matches] = [user];
         } else {
           res[matches].push(user);
@@ -80,7 +80,7 @@ export default function UserSelectModal({
     } else {
       includeEmptySelection();
     }
-  }, [search]);
+  }, [allUsers, search]);
 
   return (
     <View>
@@ -104,15 +104,15 @@ export default function UserSelectModal({
             <TouchableOpacity
               key={item?.id ?? -1}
               style={tw`h-12 flex-row items-center bg-gray-200 px-2 gap-2 ${
-                index % 2 == 0 ? "bg-gray-100" : ""
+                index % 2 === 0 ? "bg-gray-100" : ""
               }`}
               onPress={() => setSelectedUser(item?.id ?? -1)}
               activeOpacity={0.5}
             >
               <Pressable onPress={() => setSelectedUser(item?.id ?? -1)}>
                 <ExpoCheckbox
-                  key={(selectedUser == item?.id) + ""}
-                  value={selectedUser == (item?.id ?? -1)}
+                  key={(selectedUser === item?.id) + ""}
+                  value={selectedUser === (item?.id ?? -1)}
                   onValueChange={() => setSelectedUser(item?.id ?? -1)}
                 />
               </Pressable>
@@ -131,8 +131,8 @@ export default function UserSelectModal({
       <View style={tw`flex-row justify-center my-2`}>
         <Button
           onPress={() => {
-            onUserSet(selectedUser == -1 ? null : selectedUser);
-            closeModal?.();
+            onUserSet(selectedUser === -1 ? null : selectedUser);
+            closeModal();
           }}
         >
           Fertig

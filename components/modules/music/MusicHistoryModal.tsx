@@ -57,8 +57,8 @@ export default function MusicHistoryModal() {
             return (
               <View
                 style={tw`border-b-2 p-1 flex-row border-[${Color.GRAY}] ${
-                  index == 0 ? "border-t-2" : ""
-                } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
+                  index === 0 ? "border-t-2" : ""
+                } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
                 <View style={tw``}>
                   {/* TODO: figure out, why the date needs to be casted to the date object */}
@@ -95,7 +95,7 @@ export default function MusicHistoryModal() {
       )}
 
       {/* Ratings Component */}
-      {(historyType === "GOOD" || historyType == "BAD") && (
+      {(historyType === "GOOD" || historyType === "BAD") && (
         <MusicHistoryList
           data={ratingResponse}
           headers={["Eintrag", "Bewertung"]}
@@ -112,8 +112,8 @@ export default function MusicHistoryModal() {
             return (
               <View
                 style={tw`border-b-2 p-1 flex-row border-[${Color.GRAY}] ${
-                  index == 0 ? "border-t-2" : ""
-                } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
+                  index === 0 ? "border-t-2" : ""
+                } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
                 <View style={tw`flex-1`}>
                   <CustomText style={tw`text-lg leading-[18px]`}>
@@ -142,7 +142,7 @@ export default function MusicHistoryModal() {
       )}
 
       {/* Counts Component */}
-      {(historyType === "MIN" || historyType == "MAX") && (
+      {(historyType === "MIN" || historyType === "MAX") && (
         <MusicHistoryList
           data={countResponse}
           headers={["Eintrag", "# oft vorgetragen"]}
@@ -159,8 +159,8 @@ export default function MusicHistoryModal() {
             return (
               <View
                 style={tw`border-b-2 p-1 flex-row border-[${Color.GRAY}] ${
-                  index == 0 ? "border-t-2" : ""
-                } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
+                  index === 0 ? "border-t-2" : ""
+                } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
                 <View style={tw`flex-1`}>
                   <CustomText style={tw`text-lg leading-[18px]`}>
@@ -180,7 +180,7 @@ export default function MusicHistoryModal() {
       )}
 
       {/* Knwon/Unknown list component */}
-      {(historyType === "KNOWN" || historyType == "UNKNOWN") && (
+      {(historyType === "KNOWN" || historyType === "UNKNOWN") && (
         <MusicHistoryList
           data={knownResponse}
           headers={["Titel"]}
@@ -189,7 +189,7 @@ export default function MusicHistoryModal() {
           setHistoryType={setHistoryType}
           historyType={historyType}
           page={page}
-          responseLength={historyType == "KNOWN" ? knownResponse.length : 0}
+          responseLength={historyType === "KNOWN" ? knownResponse.length : 0}
           setPage={setPage}
           queryReports={queryReports}
           totalRecords={totalRecords}
@@ -197,8 +197,8 @@ export default function MusicHistoryModal() {
             return (
               <View
                 style={tw`border-b-2 p-1 flex-row border-[${Color.GRAY}] ${
-                  index == 0 ? "border-t-2" : ""
-                } ${index % 2 == 0 ? "bg-gray-100" : ""}`}
+                  index === 0 ? "border-t-2" : ""
+                } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
                 <View style={tw`flex-1`}>
                   <CustomText style={tw`text-lg leading-[18px]`}>

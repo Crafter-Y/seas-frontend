@@ -1,48 +1,18 @@
-/* eslint-env node */
-module.exports = exports = {
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-native/all",
-  ],
-  parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "react", "react-native"],
-  root: true,
-  ignorePatterns: [
-    "dist/**/*",
-    "webpack.config.js",
-    "tailwind.ts",
-    "tailwind.config.js",
-    "twrnc.config.js",
-    "metro.config.js",
-    "babel.config.js",
-    "app.config.js",
-    "serve.js",
-    "proxy.js",
-    ".dockerignore",
-  ],
+// https://docs.expo.dev/guides/using-eslint/
+module.exports = {
+  extends: ["prettier", "expo", "plugin:eqeqeq-fix/recommended"],
+  plugins: ["prettier"],
+  ignorePatterns: ["/dist/*"],
   rules: {
-    semi: ["error", "always"],
-    quotes: ["error", "double"],
-    "sort-imports": [
+    "prettier/prettier": "warn",
+    "@typescript-eslint/no-unused-vars": [
       "error",
       {
-        ignoreCase: true,
-        ignoreDeclarationSort: true,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
-        allowSeparatedGroups: false,
+        argsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
       },
     ],
-    "@typescript-eslint/no-explicit-any": "warn",
-    "react/react-in-jsx-scope": "off",
-    "react-native/no-raw-text": "off",
-    "react-native/no-inline-styles": "off",
-  },
-  settings: {
-    react: {
-      version: "detect",
-    },
   },
 };

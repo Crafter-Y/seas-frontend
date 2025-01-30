@@ -26,7 +26,7 @@ const Image = ({ source, size = 4, style }: Props) => {
           height: size,
           width: size,
         },
-        style
+        style,
       )}
     />
   );

@@ -39,7 +39,7 @@ export default function MusicHistoryHeader({
           mode="outlined"
           textColor="black"
           rippleColor="#e3e3e4"
-          buttonColor={historyType == "HISTORY" ? "#e8def8" : undefined}
+          buttonColor={historyType === "HISTORY" ? "#e8def8" : undefined}
           onPress={() => setHistoryType("HISTORY")}
           icon={({ size, color }) => (
             <AntDesign name="book" size={size} color={color} />

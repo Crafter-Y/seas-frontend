@@ -49,7 +49,7 @@ export default function ManageUsersScreen() {
       restrictions &&
       allUsers &&
       restrictions.maxUsers <=
-        allUsers.filter((user) => user.role == "USER").length
+        allUsers.filter((user) => user.role === "USER").length
     ) {
       setMaxUsersReached(true);
     }
@@ -57,7 +57,7 @@ export default function ManageUsersScreen() {
       restrictions &&
       allUsers &&
       restrictions.maxAdmins <=
-        allUsers.filter((user) => user.role == "ADMIN").length
+        allUsers.filter((user) => user.role === "ADMIN").length
     ) {
       setMaxAdminsReached(true);
     }
@@ -86,7 +86,7 @@ export default function ManageUsersScreen() {
                 </CustomText>
                 <CustomText
                   style={tw.style({
-                    hidden: entry.email == "root",
+                    hidden: entry.email === "root",
                   })}
                 >
                   {entry.email}
@@ -98,7 +98,7 @@ export default function ManageUsersScreen() {
                   <CustomText
                     // TODO: remove root user from existance - only for legacy imported products & should no longer exist
                     className={`border rounded-full px-1 py-0.5 ${
-                      entry.email == "root" ? "hidden" : ""
+                      entry.email === "root" ? "hidden" : ""
                     }`}
                   >
                     {toUpperStarting(entry.state)}
@@ -106,7 +106,7 @@ export default function ManageUsersScreen() {
                 </View>
               </TD>
               <TD className="justify-end flex-row items-center gap-1" cols={2}>
-                {entry.email != "root" && entry.id != user?.id && (
+                {entry.email !== "root" && entry.id !== user?.id && (
                   <Button
                     color={Color.RED}
                     className="p-2.5"
@@ -121,10 +121,10 @@ export default function ManageUsersScreen() {
                     />
                   </Button>
                 )}
-                {entry.email != "root" &&
-                  (entry.id != user?.id ||
-                    entry.state == "UNVERIFIED" ||
-                    entry.state == "VERIFICATION_PENDING") && (
+                {entry.email !== "root" &&
+                  (entry.id !== user?.id ||
+                    entry.state === "UNVERIFIED" ||
+                    entry.state === "VERIFICATION_PENDING") && (
                     <Button
                       className="p-2.5"
                       onPress={() => {

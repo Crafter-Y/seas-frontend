@@ -16,7 +16,7 @@ const PressableTR = ({ children, onPress, date }: Props) => {
         {
           "bg-black/10": new Date(formatDate(new Date())) > new Date(date),
         },
-        "border-t border-gray-300"
+        "border-t border-gray-300",
       )}
     >
       <TouchableOpacity
@@ -25,7 +25,7 @@ const PressableTR = ({ children, onPress, date }: Props) => {
           {
             minHeight: 64,
           },
-          "flex-row w-full"
+          "flex-row w-full",
         )}
         onPress={onPress}
       >

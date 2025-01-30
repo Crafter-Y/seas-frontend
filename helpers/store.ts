@@ -4,38 +4,38 @@ import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calen
 import { Rating } from "@/components/elements/Ratings";
 import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
 
-export type RatedSong = APIResponseSong & { rating: Rating, comment?: string }
+export type RatedSong = APIResponseSong & { rating: Rating; comment?: string };
 
 interface GlobalStore {
   currentPage: number;
-  allPages: APIResponsePage[],
-  allColumns: APIResponseColumn[]
-  selectedRow?: BoardRow,
+  allPages: APIResponsePage[];
+  allColumns: APIResponseColumn[];
+  selectedRow?: BoardRow;
 
-  board: BoardRow[],
-  boardLoading: boolean,
+  board: BoardRow[];
+  boardLoading: boolean;
 
-  allExistingUsers: APIResponseUser[],
-  user: User | null,
-  moduleStatus: APIModuleStatus | null,
-  allDefaultComments: APIResponseDefaultComment[],
-  lastQueryFrom: Date | null,
-  lastQueryTo: Date | null,
+  allExistingUsers: APIResponseUser[];
+  user: User | null;
+  moduleStatus: APIModuleStatus | null;
+  allDefaultComments: APIResponseDefaultComment[];
+  lastQueryFrom: Date | null;
+  lastQueryTo: Date | null;
 
-  serverName: string | null,
-  serverNameState: FetchState,
-  serverDevUrl: string,
+  serverName: string | null;
+  serverNameState: FetchState;
+  serverDevUrl: string;
 
-  printDateStart: Date | null,
-  printDateEnd: Date | null,
-  printColumns: number[],
+  printDateStart: Date | null;
+  printDateEnd: Date | null;
+  printColumns: number[];
 
-  musicEntryType?: MusicEntryType,
-  musicDate?: CalendarDate,
-  musicSongSelected?: APIResponseSong,
-  musicRatings: RatedSong[]
+  musicEntryType?: MusicEntryType;
+  musicDate?: CalendarDate;
+  musicSongSelected?: APIResponseSong;
+  musicRatings: RatedSong[];
 
-  restrictions?: APIRestrictions,
+  restrictions?: APIRestrictions;
 }
 
 export const defaultState: GlobalStore = {
@@ -61,7 +61,7 @@ export const defaultState: GlobalStore = {
   printDateEnd: null,
   printColumns: [],
 
-  musicRatings: []
+  musicRatings: [],
 };
 
 export const Store = new Pullstate<GlobalStore>(defaultState);

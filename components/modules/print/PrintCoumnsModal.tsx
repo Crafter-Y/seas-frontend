@@ -5,11 +5,12 @@ import { Platform, View } from "react-native";
 import { Store } from "@/helpers/store";
 import Button from "@/components/elements/Button";
 import { Color } from "@/helpers/Constants";
+import React from "react";
 
 type Props = {
-  closeModal?: () => void;
-  openPrintRangeModal?: () => void;
-  openPrintOrderModal?: () => void;
+  closeModal: () => void;
+  openPrintRangeModal: () => void;
+  openPrintOrderModal: () => void;
 };
 
 export default function PrintCoumnsModal({
@@ -43,7 +44,7 @@ export default function PrintCoumnsModal({
                     state.printColumns.push(col.id);
                 } else {
                   state.printColumns = state.printColumns.filter(
-                    (el) => el != col.id
+                    (el) => el !== col.id,
                   );
                 }
               });
@@ -53,8 +54,8 @@ export default function PrintCoumnsModal({
       </View>
       <View
         style={tw.style(
-          { "mb-10": Platform.OS == "ios", "mb-4": Platform.OS != "ios" }, // BUG: on iOS the button wriedly clip out the bottom
-          "justify-center flex-row gap-2 mt-4"
+          { "mb-10": Platform.OS === "ios", "mb-4": Platform.OS !== "ios" }, // BUG: on iOS the button wriedly clip out the bottom
+          "justify-center flex-row gap-2 mt-4",
         )}
       >
         <Button onPress={closeModal} color={Color.RED}>
@@ -62,8 +63,8 @@ export default function PrintCoumnsModal({
         </Button>
         <Button
           onPress={() => {
-            closeModal?.();
-            openPrintRangeModal?.();
+            closeModal();
+            openPrintRangeModal();
           }}
           color={Color.BLUE}
         >
@@ -71,8 +72,8 @@ export default function PrintCoumnsModal({
         </Button>
         <Button
           onPress={() => {
-            closeModal?.();
-            openPrintOrderModal?.();
+            closeModal();
+            openPrintOrderModal();
           }}
           color={Color.BLUE}
         >

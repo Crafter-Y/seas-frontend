@@ -29,7 +29,7 @@ export default function BaseSettingsScreen() {
               className="border-gray-400 px-4 py-6 text-lg opacity-85 bg-gray-200 justify-between flex-row sm:mx-6 sm:mt-6 border-b-[2px]"
               onPress={() => {
                 router.navigate(
-                  `/settings/${setting as keyof typeof settingsSections}`
+                  `/settings/${setting as keyof typeof settingsSections}`,
                 );
               }}
             >

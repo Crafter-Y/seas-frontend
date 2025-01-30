@@ -3,14 +3,16 @@ import { requestApi } from "@/helpers/api";
 import { Store } from "@/helpers/store";
 
 export default function useModuleStatus() {
-  const moduleStatus = Store.useState(state => state.moduleStatus);
+  const moduleStatus = Store.useState((state) => state.moduleStatus);
 
   const queryModuleStatus = async () => {
     const res = await requestApi("modules", "GET");
 
-    if (res == null || !res.success) return;
+    if (res === null || !res.success) return;
 
-    Store.update(state => { state.moduleStatus = res.data.modules; });
+    Store.update((state) => {
+      state.moduleStatus = res.data.modules;
+    });
   };
 
   useEffect(() => {

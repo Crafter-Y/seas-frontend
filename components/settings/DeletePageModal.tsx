@@ -8,7 +8,7 @@ import CustomText from "../elements/CustomText";
 
 type Props = {
   selectedPage?: APIResponsePage;
-  closeModal?: () => void;
+  closeModal: () => void;
   queryPages: () => void;
 };
 
@@ -22,7 +22,7 @@ export default function DeletePageModal({
   useEffect(() => {
     if (succesfulDeletion) {
       queryPages();
-      closeModal?.();
+      closeModal();
     }
   }, [succesfulDeletion]);
 

@@ -3,7 +3,10 @@ import { requestApi } from "@/helpers/api";
 export default function useDeleteRecurringEvent() {
   const [successfulDelete, setSuccessfulDelete] = useState(false);
 
-  const deleteRecurringEvent = async (taskId: number, type: "YEARLY" | "MONTHLY" | "WEEKLY") => {
+  const deleteRecurringEvent = async (
+    taskId: number,
+    type: "YEARLY" | "MONTHLY" | "WEEKLY",
+  ) => {
     setSuccessfulDelete(false);
 
     let res: ApiResponse | null = null;

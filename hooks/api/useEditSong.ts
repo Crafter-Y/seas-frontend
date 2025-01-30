@@ -7,29 +7,23 @@ export default function useEditSong() {
   const [editError, setEditError] = useState("");
   const [successfulEdit, setSuccessfulEdit] = useState(false);
 
-  const editSong = async (
-    id: number,
-    title: string,
-    number: string
-  ) => {
+  const editSong = async (id: number, title: string, number: string) => {
     setSuccessfulEdit(false);
 
     const validate = validateSong(number, title);
-    if (validate != null) {
+    if (validate !== null) {
       setHasEditError(true);
       setEditError(validate);
     }
 
     const res = await requestApi(`songs/${id}`, "PATCH", {
       number,
-      title
+      title,
     });
 
     if (!res) {
       setHasEditError(true);
-      setEditError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
-      );
+      setEditError("Server nicht verfügbar. Bitte später erneut versuchen.");
       return;
     }
 

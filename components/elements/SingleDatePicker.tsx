@@ -22,14 +22,14 @@ const SingleDatePicker = ({ setDate }: Props) => {
         }}
         style={tw.style(
           {
-            "h-13": Platform.OS != "web",
-            "pl-4": Platform.OS != "web",
-            "pr-5": Platform.OS != "web",
-            "pl-2": Platform.OS == "web",
-            "py-0.5": Platform.OS == "web",
-            "pr-1": Platform.OS == "web",
+            "h-13": Platform.OS !== "web",
+            "pl-4": Platform.OS !== "web",
+            "pr-5": Platform.OS !== "web",
+            "pl-2": Platform.OS === "web",
+            "py-0.5": Platform.OS === "web",
+            "pr-1": Platform.OS === "web",
           },
-          "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center"
+          "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center",
         )}
       >
         <CustomText style={tw.style({}, "text-lg")}>

@@ -32,21 +32,6 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
 
   const { isMd } = useMediaQueries();
 
-  const months = [
-    "Januar",
-    "Februar",
-    "März",
-    "April",
-    "Mai",
-    "Juni",
-    "Juli",
-    "August",
-    "September",
-    "Oktober",
-    "November",
-    "Dezember",
-  ];
-
   const getDateByWeek = (w: number, y: number) => {
     const simple = new Date(y, 0, 1 + (w - 1) * 7);
     const dow = simple.getDay();
@@ -57,16 +42,31 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   };
 
   useEffect(() => {
+    const months = [
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember",
+    ];
+
     setInternalYear(currentYear);
-    if (boardType == "Jahresansicht") {
+    if (boardType === "Jahresansicht") {
       setBackText(beforeYear + "");
       setNextText(nextYear + "");
 
       queryPageChange(
         new Date(currentYear, 0, 1),
-        new Date(currentYear, 11, 31)
+        new Date(currentYear, 11, 31),
       );
-    } else if (boardType == "Quartal Ansicht") {
+    } else if (boardType === "Quartal Ansicht") {
       setBackText(beforeQuarter + ". Quartal");
       setNextText(nextQuarter + ". Quartal");
       setThisText(currentQuarter + ". Quartal");
@@ -74,20 +74,20 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
       const startThisQuarter = new Date(
         currentYear,
         (currentQuarter - 1) * 3,
-        1
+        1,
       );
       queryPageChange(
         startThisQuarter,
-        new Date(currentYear, startThisQuarter.getMonth() + 3, 0)
+        new Date(currentYear, startThisQuarter.getMonth() + 3, 0),
       );
-    } else if (boardType == "Monatsansicht") {
+    } else if (boardType === "Monatsansicht") {
       setBackText(months[beforeMonth - 1]);
       setNextText(months[nextMonth - 1]);
       setThisText(months[currentMonth - 1]);
 
       queryPageChange(
         new Date(currentYear, currentMonth - 1, 1),
-        new Date(currentYear, currentMonth, 0)
+        new Date(currentYear, currentMonth, 0),
       );
     } else {
       setBackText("KW " + beforeWeek);
@@ -115,14 +115,14 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   ]);
 
   const backAction = useCallback(() => {
-    if (boardType == "Jahresansicht") {
+    if (boardType === "Jahresansicht") {
       setCurrentYear(beforeYear);
-    } else if (boardType == "Quartal Ansicht") {
+    } else if (boardType === "Quartal Ansicht") {
       setCurrentQuarter(beforeQuarter);
-      if (beforeQuarter == 4) setCurrentYear(currentYear - 1);
-    } else if (boardType == "Monatsansicht") {
+      if (beforeQuarter === 4) setCurrentYear(currentYear - 1);
+    } else if (boardType === "Monatsansicht") {
       setCurrentMonth(beforeMonth);
-      if (beforeMonth == 12) setCurrentYear(currentYear - 1);
+      if (beforeMonth === 12) setCurrentYear(currentYear - 1);
     } else {
       if (beforeWeek > currentWeek) {
         setCurrentYear(currentYear - 1);
@@ -131,28 +131,43 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
     }
   }, [
     boardType,
-    currentYear,
+    setCurrentYear,
     beforeYear,
+    setCurrentQuarter,
     beforeQuarter,
+    currentYear,
+    setCurrentMonth,
     beforeMonth,
     beforeWeek,
     currentWeek,
+    setCurrentWeek,
   ]);
 
   const nextAction = useCallback(() => {
-    if (boardType == "Jahresansicht") {
+    if (boardType === "Jahresansicht") {
       setCurrentYear(nextYear);
-    } else if (boardType == "Quartal Ansicht") {
+    } else if (boardType === "Quartal Ansicht") {
       setCurrentQuarter(nextQuarter);
-      if (nextQuarter == 1) setCurrentYear(currentYear + 1);
-    } else if (boardType == "Monatsansicht") {
+      if (nextQuarter === 1) setCurrentYear(currentYear + 1);
+    } else if (boardType === "Monatsansicht") {
       setCurrentMonth(nextMonth);
-      if (nextMonth == 1) setCurrentYear(currentYear + 1);
+      if (nextMonth === 1) setCurrentYear(currentYear + 1);
     } else {
       setCurrentWeek(nextWeek);
-      if (nextWeek == 1) setCurrentYear(currentYear + 1);
+      if (nextWeek === 1) setCurrentYear(currentYear + 1);
     }
-  }, [boardType, nextYear, nextQuarter, currentYear, nextMonth, nextWeek]);
+  }, [
+    boardType,
+    setCurrentYear,
+    nextYear,
+    setCurrentQuarter,
+    nextQuarter,
+    currentYear,
+    setCurrentMonth,
+    nextMonth,
+    setCurrentWeek,
+    nextWeek,
+  ]);
 
   const middleAction = () => {
     /*TODO: if (boardType == "Jahresansicht") {
@@ -171,7 +186,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
           {
             "w-32": isMd,
           },
-          "flex-row items-center gap-2 justify-end"
+          "flex-row items-center gap-2 justify-end",
         )}
       >
         <Entypo name="arrow-bold-left" size={16} color="black" />
@@ -183,12 +198,12 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
         style={tw`border rounded-sm px-2 py-1 bg-[${Color.GRAY}] items-center w-32`}
         onPress={middleAction}
       >
-        {boardType == "Jahresansicht" && (
+        {boardType === "Jahresansicht" && (
           <CustomText style={tw`text-lg font-semibold`} selectable={false}>
             {currentYear}
           </CustomText>
         )}
-        {boardType != "Jahresansicht" && (
+        {boardType !== "Jahresansicht" && (
           <>
             <CustomText selectable={false}>{currentYear}</CustomText>
             <CustomText style={tw`text-lg font-semibold`} selectable={false}>
@@ -204,7 +219,7 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
           {
             "w-32": isMd,
           },
-          "flex-row items-center gap-2 justify-start"
+          "flex-row items-center gap-2 justify-start",
         )}
       >
         <CustomText style={tw`underline`} selectable={false} numberOfLines={1}>

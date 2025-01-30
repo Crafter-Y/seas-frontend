@@ -11,7 +11,7 @@ export default function ImprintScreen() {
 
   useEffect(() => {
     document.title = t("imprint");
-  }, []);
+  }, [t]);
 
   return (
     <SafeAreaView className="h-full">

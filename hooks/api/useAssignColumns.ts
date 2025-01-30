@@ -12,7 +12,7 @@ export default function useAssignColumns() {
 
   const assignColumns = (changes: AssignmentChange[]) => {
     setAssignmentSuccessful(false);
-    if (changes.length == 0) {
+    if (changes.length === 0) {
       setAssignmentSuccessful(true);
       return;
     }
@@ -24,13 +24,12 @@ export default function useAssignColumns() {
       await requestApi("columns/assign", "PATCH", {
         columnId: change.columnId,
         pageId: change.pageId,
-        assign: change.isAssigned
+        assign: change.isAssigned,
       });
 
       pendingAssignments.pop();
-      if (pendingAssignments.length == 0) setAssignmentSuccessful(true);
+      if (pendingAssignments.length === 0) setAssignmentSuccessful(true);
     });
-
   };
 
   return { assignColumns, assignmentSuccessful };

@@ -20,7 +20,7 @@ const Input = forwardRef<TextInput, Props>(
       className,
       ...props
     }: Props,
-    ref
+    ref,
   ) => {
     const [intVal, setIntVal] = useState("");
 
@@ -48,7 +48,7 @@ const Input = forwardRef<TextInput, Props>(
         {...props}
       />
     );
-  }
+  },
 );
 
 Input.displayName = "Input";

@@ -36,7 +36,7 @@ const ActualButton = ({ icon, onPress, style }: BtnProps) => {
           backgroundColor: isHovered ? Color.LIGHT_GRAY : undefined,
         },
         "items-center justify-center h-10 w-10 rounded-full",
-        style
+        style,
       )}
       onPress={callback}
     >

@@ -9,20 +9,20 @@ export default function useCreateSongbook() {
   const createSongbook = async (name: string) => {
     setSuccessfulCreation(false);
 
-    if (!name || name.length == 0) {
+    if (!name || name.length === 0) {
       setHasCreationError(true);
       setCreationError("Ein Name muss angegeben werden");
       return;
     }
 
     const res = await requestApi("songs/songbooks", "POST", {
-      name
+      name,
     });
 
-    if (res == null) {
+    if (res === null) {
       setHasCreationError(true);
       setCreationError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
+        "Server nicht verfügbar. Bitte später erneut versuchen.",
       );
       return;
     }

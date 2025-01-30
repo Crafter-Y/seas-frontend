@@ -21,7 +21,7 @@ type Props = {
   queryReports: (
     searchType: MusicEntryType,
     historyType: HistoryType,
-    page: number
+    page: number,
   ) => void;
   responseLength: number;
 };
@@ -40,7 +40,7 @@ export default function MusicHistoryList<T>({
   responseLength,
   totalRecords,
 }: {
-  data: ReadonlyArray<T>;
+  data: readonly T[];
   renderItem: ListRenderItem<T>;
 } & Props) {
   const { height, width } = useWindowDimensions();
@@ -49,10 +49,10 @@ export default function MusicHistoryList<T>({
     <View
       style={tw.style(
         {
-          height: responseLength == 4 ? height * 0.6 : undefined,
+          height: responseLength === 4 ? height * 0.6 : undefined,
           width: Math.min(350, width - 75), // this bs is done, because otherwise there would be a bug where the layout is wiredly glitching
         },
-        "mx-auto"
+        "mx-auto",
       )}
     >
       <FlashList

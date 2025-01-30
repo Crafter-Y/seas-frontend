@@ -9,27 +9,25 @@ export default function useCreateDefaultComment() {
     setIsSuccessfulDefaultCommentCreation,
   ] = useState(false);
 
-  const createDefaultComment = async (
-    comment: string
-  ) => {
+  const createDefaultComment = async (comment: string) => {
     // clientside validation
 
     setIsSuccessfulDefaultCommentCreation(false);
 
-    if (!comment || comment.length == 0) {
+    if (!comment || comment.length === 0) {
       setHasCreationError(true);
       setCreationError("Es muss ein Kommentar angegeben werden");
       return;
     }
 
     const res = await requestApi("defaultcomments", "POST", {
-      comment
+      comment,
     });
 
-    if (res == null) {
+    if (res === null) {
       setHasCreationError(true);
       setCreationError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
+        "Server nicht verfügbar. Bitte später erneut versuchen.",
       );
       return;
     }

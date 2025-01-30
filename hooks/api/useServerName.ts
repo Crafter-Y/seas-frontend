@@ -5,36 +5,47 @@ import { Store } from "@/helpers/store";
 import { FetchState } from "@/helpers/Constants";
 
 export default function useServerName() {
-  const serverName = Store.useState(state => state.serverName);
-  const fetchState = Store.useState(state => state.serverNameState);
+  const serverName = Store.useState((state) => state.serverName);
+  const fetchState = Store.useState((state) => state.serverNameState);
   const [fetchServerError, setFetchServerError] = useState<string | null>(null);
 
   const fetchServerName = async () => {
-    Store.update(state => { state.serverNameState = FetchState.FETCHING; });
+    Store.update((state) => {
+      state.serverNameState = FetchState.FETCHING;
+    });
 
     setFetchServerError(null);
 
     const serverId = await AsyncStorage.getItem("serverId");
-    if (serverId == null) {
-      Store.update(state => { state.serverNameState = FetchState.UNFETCHED; });
+    if (serverId === null) {
+      Store.update((state) => {
+        state.serverNameState = FetchState.UNFETCHED;
+      });
       return;
     }
 
     try {
-      const res = await requestApiWithoutCredentials(`products/${serverId}`, "GET");
+      const res = await requestApiWithoutCredentials(
+        `products/${serverId}`,
+        "GET",
+      );
 
       if (res.success) {
-        Store.update(state => {
+        Store.update((state) => {
           state.serverName = res.data.name;
           state.serverNameState = FetchState.SUCCEEDED;
         });
       } else {
         setFetchServerError(res.data.error);
-        Store.update(state => { state.serverNameState = FetchState.ERROR; });
+        Store.update((state) => {
+          state.serverNameState = FetchState.ERROR;
+        });
       }
     } catch (e) {
       setFetchServerError(e + "");
-      Store.update(state => { state.serverNameState = FetchState.ERROR; });
+      Store.update((state) => {
+        state.serverNameState = FetchState.ERROR;
+      });
     }
   };
 
@@ -42,6 +53,6 @@ export default function useServerName() {
     fetchServerName,
     serverName,
     fetchServerError,
-    fetchState
+    fetchState,
   };
 }

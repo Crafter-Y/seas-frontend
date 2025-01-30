@@ -19,8 +19,8 @@ import React from "react";
 type Item = { text: string; key: number };
 
 type Props = {
-  closeModal?: () => void;
-  openColumnsModal?: () => void;
+  closeModal: () => void;
+  openColumnsModal: () => void;
 };
 
 export default function PrintOrderModal({
@@ -41,7 +41,7 @@ export default function PrintOrderModal({
 
   const initialData: Item[] = [...new Set(printColumns)].map((el) => ({
     key: el,
-    text: allColumns.filter((col) => col.id == el)[0].name,
+    text: allColumns.filter((col) => col.id === el)[0].name,
   }));
 
   initialData.unshift({
@@ -52,20 +52,20 @@ export default function PrintOrderModal({
   const [data, setData] = useState(initialData);
 
   const mapPrintEntry = (row: BoardRow, columnId: number) => {
-    if (columnId == -1) return prettyDate(row.date, false);
+    if (columnId === -1) return prettyDate(row.date, false);
 
     const matchingComment = row.comments.filter(
-      (comment) => comment.boardColumnId == columnId
+      (comment) => comment.boardColumnId === columnId,
     )[0];
     if (matchingComment) return matchingComment.text;
 
     const matchingAssignment = row.assignments.filter(
-      (entry) => entry.boardColumnId == columnId
+      (entry) => entry.boardColumnId === columnId,
     )[0];
     if (!matchingAssignment) return "";
 
     const matchingUser = allExistingUsers.filter(
-      (user) => user.id == matchingAssignment.userId
+      (user) => user.id === matchingAssignment.userId,
     )[0];
     if (!matchingUser) return "";
 
@@ -75,7 +75,7 @@ export default function PrintOrderModal({
   const createHTML = async () => {
     const res = await requestApi(
       `board?from=${formatDate(printStart!)}&to=${formatDate(printEnd!)}`,
-      "GET"
+      "GET",
     );
 
     const board: BoardRow[] = res?.data;
@@ -86,7 +86,7 @@ export default function PrintOrderModal({
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
   </head>
   <body style="margin: 0; padding: ${
-    Platform.OS == "web" ? 0 : "1.2cm"
+    Platform.OS === "web" ? 0 : "1.2cm"
   }; min-height: 100vh;">
     <div style="display: flex; flex-wrap: wrap;">
       <span style="width: 100%; text-align: center; opacity: 0.8; font-weight: 700; font-size: 2.25rem; line-height: 2.5rem;">${serverName}</span>
@@ -105,7 +105,7 @@ export default function PrintOrderModal({
                 style="text-transform: uppercase; font-size: 0.875rem; line-height: 1.25rem; padding-left: 0.25rem; padding-right: 0.25rem; overflow: hidden; border: 2px solid black;"
               >
                 ${el.text}
-              </th>`
+              </th>`,
             )
             .join("")}
         </tr>
@@ -117,13 +117,13 @@ export default function PrintOrderModal({
               ${data
                 .map(
                   (
-                    col
+                    col,
                   ) => `<td style="font-size: 1rem; line-height: 1.5rem; padding: 0.25rem; white-space: normal; overflow: hidden; border: 2px solid black;">
                 ${mapPrintEntry(row, col.key)}
-              </td>`
+              </td>`,
                 )
                 .join("")}
-          </tr>`
+          </tr>`,
           )
           .join("")}
       </tbody>
@@ -134,7 +134,7 @@ export default function PrintOrderModal({
 
   const print = async () => {
     const html = await createHTML();
-    if (Platform.OS == "web") {
+    if (Platform.OS === "web") {
       const pW = window.open("", "", "height=500, width=500");
       pW?.document.write(html);
       pW?.document.close();
@@ -174,6 +174,7 @@ export default function PrintOrderModal({
         <View style={tw`gap-1`}>
           {data.map((row, idx, arr) => (
             <Animated.View
+              // TODO: seems to be not working on chrome web - maybe broken otherwhere?
               key={row.key}
               style={tw`flex-row p-2 border items-center justify-between`}
               layout={CurvedTransition.duration(150).delay(50)}
@@ -222,8 +223,8 @@ export default function PrintOrderModal({
         </Button>
         <Button
           onPress={() => {
-            closeModal?.();
-            openColumnsModal?.();
+            closeModal();
+            openColumnsModal();
           }}
           color={Color.BLUE}
         >

@@ -6,12 +6,12 @@ export const Color = {
   GRAY: "#d1d5db", // gray-300
   DARK_GRAY: "#e0e2e5", // divider gray
   LIGHT_GRAY: "#F6F7F9", // background gray
-  SETTINGS_BG: "#f2f2f2"
+  SETTINGS_BG: "#f2f2f2",
 } as const;
 
 export enum FetchState {
   UNFETCHED,
   FETCHING,
   SUCCEEDED,
-  ERROR
+  ERROR,
 }

@@ -3,18 +3,22 @@ import { requestApi } from "@/helpers/api";
 import { Store } from "@/helpers/store";
 
 export default function useAllColumns() {
-  const allColumns = Store.useState(state => state.allColumns);
+  const allColumns = Store.useState((state) => state.allColumns);
 
   const queryColumns = async () => {
     const res = await requestApi("columns", "GET");
 
     if (res && res.success) {
-      Store.update(state => { state.allColumns = res?.data.columns; });
+      Store.update((state) => {
+        state.allColumns = res?.data.columns;
+      });
     }
   };
 
   useEffect(() => {
-    if (allColumns.length == 0) queryColumns();
+    if (allColumns.length === 0) queryColumns();
+    // TODO: implement proper just fetch once functionality
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { allColumns, queryColumns };

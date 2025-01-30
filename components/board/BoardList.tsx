@@ -62,18 +62,18 @@ const BoardList = ({ rows, fetchData }: Props) => {
     if (assignmentSuccessful) {
       querySingleRow(selectedRow!.date);
     }
-  }, [assignmentSuccessful]);
+  }, [assignmentSuccessful, selectedRow]);
 
   const getCommentForField = (column: APIResponseColumn, date: string) => {
-    const row = rows.filter((row_) => row_.date == date)[0];
+    const row = rows.filter((row_) => row_.date === date)[0];
     if (!row) return;
     const commentExist =
-      row.comments.filter((row_) => row_.boardColumnId == column.id).length ==
+      row.comments.filter((row_) => row_.boardColumnId === column.id).length ===
       1;
 
     if (commentExist) {
       const value = row.comments.filter(
-        (row_) => row_.boardColumnId == column.id
+        (row_) => row_.boardColumnId === column.id,
       )[0].text;
       return <CustomText>{value}</CustomText>;
     }
@@ -82,25 +82,25 @@ const BoardList = ({ rows, fetchData }: Props) => {
   };
 
   const getPositionForField = (column: APIResponseColumn, date: string) => {
-    const row = rows.filter((row_) => row_.date == date)[0];
+    const row = rows.filter((row_) => row_.date === date)[0];
     if (!user) return;
     if (!row) return;
     const positionUsed =
-      row.assignments.filter((row_) => row_.boardColumnId == column.id)
-        .length == 1;
+      row.assignments.filter((row_) => row_.boardColumnId === column.id)
+        .length === 1;
 
     if (positionUsed) {
       const assignment = row.assignments.filter(
-        (row_) => row_.boardColumnId == column.id
+        (row_) => row_.boardColumnId === column.id,
       )[0];
       const usersWithCol = allExistingUsers.filter(
-        (user) => user.id == assignment.userId
+        (user) => user.id === assignment.userId,
       );
 
       // The user exists
-      if (usersWithCol.length == 1) {
+      if (usersWithCol.length === 1) {
         // This is the current user
-        if (usersWithCol[0].id == user?.id) {
+        if (usersWithCol[0].id === user?.id) {
           // underlined name for the inline view
           return (
             <CustomText style={tw`font-semibold underline`}>
@@ -147,12 +147,12 @@ const BoardList = ({ rows, fetchData }: Props) => {
     titles.push("Termin");
 
     allColumns.forEach((column) => {
-      if (column.pages.includes(currentPage) && column.type == "POSITION") {
+      if (column.pages.includes(currentPage) && column.type === "POSITION") {
         titles.push(column.name);
       }
     });
     allColumns.forEach((column) => {
-      if (column.pages.includes(currentPage) && column.type == "COMMENT") {
+      if (column.pages.includes(currentPage) && column.type === "COMMENT") {
         titles.push(column.name);
       }
     });
@@ -161,7 +161,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
 
   const getColsForPageAndType = (page: number, type: ColumnType) => {
     return allColumns.filter(
-      (col) => col.pages.includes(page) && col.type == type
+      (col) => col.pages.includes(page) && col.type === type,
     );
   };
 
@@ -246,7 +246,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
               : () => {}
           }
           allUsers={Array.from(allExistingUsers).filter(
-            (user) => !user.deleted
+            (user) => !user.deleted,
           )}
         />
       </ModalRewrite>

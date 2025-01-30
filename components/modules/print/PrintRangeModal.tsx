@@ -14,8 +14,8 @@ import CustomText from "@/components/elements/CustomText";
 import React from "react";
 
 type Props = {
-  closeModal?: () => void;
-  openColumnsModal?: () => void;
+  closeModal: () => void;
+  openColumnsModal: () => void;
 };
 
 export default function PrintRangeModal({
@@ -38,7 +38,7 @@ export default function PrintRangeModal({
   const [isPickerOpen, setPickerOpen] = useState(false);
 
   const [selectedRadio, setSelectedRadio] = useState<"first" | "second">(
-    "first"
+    "first",
   );
 
   const onConfirm = ({
@@ -61,7 +61,7 @@ export default function PrintRangeModal({
         >
           <RadioButton.Android
             value="first"
-            status={selectedRadio == "first" ? "checked" : "unchecked"}
+            status={selectedRadio === "first" ? "checked" : "unchecked"}
             onPress={() => {
               setSelectedRadio("first");
             }}
@@ -81,7 +81,7 @@ export default function PrintRangeModal({
         >
           <RadioButton.Android
             value="first"
-            status={selectedRadio == "second" ? "checked" : "unchecked"}
+            status={selectedRadio === "second" ? "checked" : "unchecked"}
             onPress={() => {
               setSelectedRadio("second");
             }}
@@ -125,12 +125,12 @@ export default function PrintRangeModal({
         </Button>
         <Button
           onPress={() => {
-            if (selectedRadio == "first") {
+            if (selectedRadio === "first") {
               Store.update((state) => {
                 state.printDateStart = fromDate;
                 state.printDateEnd = toDate;
               });
-            } else if (selectedRadio == "second") {
+            } else if (selectedRadio === "second") {
               if (!pickerRange.startDate || !pickerRange.endDate) {
                 setPickerError("Der Zeitraum muss komplett angegeben werden!");
                 return;
@@ -140,8 +140,8 @@ export default function PrintRangeModal({
                 state.printDateEnd = pickerRange.endDate!;
               });
             }
-            closeModal?.();
-            openColumnsModal?.();
+            closeModal();
+            openColumnsModal();
           }}
           color={Color.BLUE}
         >

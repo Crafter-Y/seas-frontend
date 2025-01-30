@@ -12,7 +12,7 @@ type Props = {
   queryReports: (
     searchType: MusicEntryType,
     historyType: HistoryType,
-    page: number
+    page: number,
   ) => void;
   searchType: MusicEntryType;
   historyType: HistoryType;

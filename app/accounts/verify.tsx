@@ -17,7 +17,7 @@ export default function VerifyScreen() {
     useVerifyTokenValidation();
 
   useEffect(() => {
-    if (t && t.length == 36) {
+    if (t && t.length === 36) {
       verify(t);
     } else {
       setTokenValid(false);

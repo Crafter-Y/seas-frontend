@@ -80,7 +80,7 @@ export default function ChangePasswordScreen() {
             hasError={hasUpdateError}
             // TODO: i18n: translate errors in hook and api responses
             error={
-              updateError == "Wrong password"
+              updateError === "Wrong password"
                 ? "Das eingegebene Passwort stimmt nicht"
                 : updateError
             }

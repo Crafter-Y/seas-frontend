@@ -37,9 +37,9 @@ const Footer = (props: ViewProps) => {
       <CustomText
         style={tw.style(
           {
-            hidden: Platform.OS != "web",
+            hidden: Platform.OS !== "web",
           },
-          "text-xs opacity-80 text-center underline"
+          "text-xs opacity-80 text-center underline",
         )}
         onPress={() => {
           router.navigate("/imprint");

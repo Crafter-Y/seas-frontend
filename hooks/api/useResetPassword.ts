@@ -10,7 +10,7 @@ export default function useResetPassword() {
     setSuccessfulRequest(false);
     const serverId = await AsyncStorage.getItem("serverId");
 
-    if (serverId == null) {
+    if (serverId === null) {
       router.back();
       return;
     }
@@ -22,7 +22,7 @@ export default function useResetPassword() {
         url: await getWebServer(),
         email: email,
         serverId: serverId,
-      }
+      },
     );
 
     if (res.success) {

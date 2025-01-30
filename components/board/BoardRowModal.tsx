@@ -51,44 +51,44 @@ export default function BoardRowModal({
 
   useEffect(() => {
     if (assignmentSuccessful) querySingleRow(selectedRow!.date);
-  }, [assignmentSuccessful]);
+  }, [assignmentSuccessful, selectedRow]);
 
   useEffect(() => {
     if (unassignmentSuccessful) querySingleRow(selectedRow!.date);
-  }, [unassignmentSuccessful]);
+  }, [selectedRow, unassignmentSuccessful]);
 
   useEffect(() => {
     setRenderdAllPages(
       JSON.parse(JSON.stringify(allPages)).sort((a: APIResponsePage) =>
-        a.id != currentPage ? 1 : -1
-      )
+        a.id !== currentPage ? 1 : -1,
+      ),
     );
   }, [allPages, currentPage]);
 
   const getColsForPageAndType = (page: number, type: ColumnType) => {
     return allColumns.filter(
-      (col) => col.pages.includes(page) && col.type == type
+      (col) => col.pages.includes(page) && col.type === type,
     );
   };
 
   const getCommentForField = (
     column: APIResponseColumn,
-    page: APIResponsePage
+    page: APIResponsePage,
   ) => {
     const commentExist =
-      selectedRow?.comments.filter((row_) => row_.boardColumnId == column.id)
-        .length == 1;
+      selectedRow?.comments.filter((row_) => row_.boardColumnId === column.id)
+        .length === 1;
 
     if (commentExist) {
       const value = selectedRow?.comments.filter(
-        (row_) => row_.boardColumnId == column.id
+        (row_) => row_.boardColumnId === column.id,
       )[0].text;
       return (
         <>
           <CustomText selectable={true}>{value}</CustomText>
           {/* TODO: check for permission if user is allowed to edit the comment field */}
 
-          {(user?.role == "ADMIN" || user?.id == page.moderatorUserId) && (
+          {(user?.role === "ADMIN" || user?.id === page.moderatorUserId) && (
             <BoardAssignButton
               style={tw`ml-2`}
               color="BLUE"
@@ -96,15 +96,15 @@ export default function BoardRowModal({
               onPress={() => {
                 setSelectedColumn(column);
                 setCommentEditValue(value || "");
-                closeModal?.();
-                openEditCommentModal?.();
+                closeModal();
+                openEditCommentModal();
               }}
             />
           )}
         </>
       );
     }
-    if (user?.role == "ADMIN" || user?.id == page.moderatorUserId) {
+    if (user?.role === "ADMIN" || user?.id === page.moderatorUserId) {
       return (
         <BoardAssignButton
           color="BLUE"
@@ -112,8 +112,8 @@ export default function BoardRowModal({
           onPress={() => {
             setSelectedColumn(column);
             setCommentEditValue("");
-            closeModal?.();
-            openEditCommentModal?.();
+            closeModal();
+            openEditCommentModal();
           }}
         />
       );
@@ -122,24 +122,25 @@ export default function BoardRowModal({
 
   const getPositionForField = (
     column: APIResponseColumn,
-    page: APIResponsePage
+    page: APIResponsePage,
   ) => {
     const positionUsed =
-      selectedRow?.assignments.filter((row_) => row_.boardColumnId == column.id)
-        .length == 1;
+      selectedRow?.assignments.filter(
+        (row_) => row_.boardColumnId === column.id,
+      ).length === 1;
 
     if (positionUsed) {
       const assignment = selectedRow?.assignments.filter(
-        (row_) => row_.boardColumnId == column.id
+        (row_) => row_.boardColumnId === column.id,
       )[0];
       const usersWithCol = allExistingUsers.filter(
-        (user) => user.id == assignment?.userId
+        (user) => user.id === assignment?.userId,
       );
 
       // The user exists
-      if (usersWithCol.length == 1) {
+      if (usersWithCol.length === 1) {
         // This is the current user
-        if (usersWithCol[0].id == user?.id) {
+        if (usersWithCol[0].id === user?.id) {
           return (
             <BoardAssignButton
               color="RED"
@@ -153,7 +154,7 @@ export default function BoardRowModal({
         }
 
         // the assignment is another known user
-        if (user?.role != "ADMIN" && user?.id != page.moderatorUserId)
+        if (user?.role !== "ADMIN" && user?.id !== page.moderatorUserId)
           return (
             <CustomText>
               {usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
@@ -173,7 +174,7 @@ export default function BoardRowModal({
       }
 
       // User (somehow) does not exisit in database
-      if (user?.role != "ADMIN" && user?.id != page.moderatorUserId)
+      if (user?.role !== "ADMIN" && user?.id !== page.moderatorUserId)
         return <CustomText>Unbekanntes Mitglied</CustomText>;
 
       return (
@@ -203,14 +204,14 @@ export default function BoardRowModal({
               assignUser(user!.id, selectedRow!.date, column.id);
             }}
           />
-          {(user?.role == "ADMIN" || user?.id == page.moderatorUserId) && (
+          {(user?.role === "ADMIN" || user?.id === page.moderatorUserId) && (
             <BoardAssignButton
               color="GREEN"
               text="Mitglied eintragen"
               onPress={() => {
                 setSelectedColumn(column);
-                closeModal?.();
-                openSelectOtherUserModal?.();
+                closeModal();
+                openSelectOtherUserModal();
               }}
             />
           )}
@@ -225,14 +226,14 @@ export default function BoardRowModal({
           text="Teilnehmen"
           onPress={() => assignUser(user!.id, selectedRow!.date, column.id)}
         />
-        {(user?.role == "ADMIN" || user?.id == page.moderatorUserId) && (
+        {(user?.role === "ADMIN" || user?.id === page.moderatorUserId) && (
           <BoardAssignButton
             color="GREEN"
             text="Mitglied eintragen"
             onPress={() => {
               setSelectedColumn(column);
-              closeModal?.();
-              openSelectOtherUserModal?.();
+              closeModal();
+              openSelectOtherUserModal();
             }}
           />
         )}
@@ -270,13 +271,13 @@ export default function BoardRowModal({
           </View>
         ))}
 
-        {user?.role == "ADMIN" && (
+        {user?.role === "ADMIN" && (
           <>
             <Pressable
               style={tw`py-3`}
               onPress={() => {
-                closeModal?.();
-                openDeleteRowModal?.();
+                closeModal();
+                openDeleteRowModal();
               }}
             >
               <CustomText style={tw`text-lg text-red-500 font-semibold`}>

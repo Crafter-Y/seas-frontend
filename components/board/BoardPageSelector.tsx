@@ -32,7 +32,7 @@ const BoardPageButton = ({ page }: ButtonProps) => {
             "border-gray-600": isHovered,
             "text-gray-600": isHovered,
           },
-          "border rounded-xl text-lg px-2"
+          "border rounded-xl text-lg px-2",
         )}
       >
         {page.name}
@@ -58,18 +58,18 @@ const BoardPageSelector = () => {
           "px-6": isSm,
           "mx-2": !isSm,
         },
-        "flex-row flex-wrap gap-2 mt-2"
+        "flex-row flex-wrap gap-2 mt-2",
       )}
     >
       {allPages.map((page) =>
-        page.id == currentPage ? (
+        page.id === currentPage ? (
           <View key={page.id} style={tw`rounded-xl bg-green-600`}>
             <CustomText
               style={tw.style(
                 {
                   borderRadius: 12,
                 },
-                "text-lg px-2 text-white"
+                "text-lg px-2 text-white",
               )}
             >
               {page.name}
@@ -77,7 +77,7 @@ const BoardPageSelector = () => {
           </View>
         ) : (
           <BoardPageButton page={page} key={page.id} />
-        )
+        ),
       )}
     </View>
   );

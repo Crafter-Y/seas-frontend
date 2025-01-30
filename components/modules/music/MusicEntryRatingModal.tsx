@@ -10,9 +10,9 @@ import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
 import CustomText from "@/components/elements/CustomText";
 
 type Props = {
-  closeModal?: () => void;
-  openSelectSongModal?: () => void;
-  openOverviewModal?: () => void;
+  closeModal: () => void;
+  openSelectSongModal: () => void;
+  openOverviewModal: () => void;
 };
 
 export default function MusicEntryRatingModal({
@@ -47,8 +47,8 @@ export default function MusicEntryRatingModal({
         <View style={tw`items-center justify-center`}>
           <TouchableOpacity
             onPress={() => {
-              closeModal?.();
-              openSelectSongModal?.();
+              closeModal();
+              openSelectSongModal();
             }}
           >
             <AntDesign name="edit" size={32} color="gray" />
@@ -81,15 +81,15 @@ export default function MusicEntryRatingModal({
 
       <Button
         onPress={() => {
-          closeModal?.();
+          closeModal();
           Store.update((state) => {
             state.musicRatings.push({
               ...song!,
               rating: rating!,
-              comment: comment.trim() == "" ? undefined : comment,
+              comment: comment.trim() === "" ? undefined : comment,
             });
           });
-          openOverviewModal?.();
+          openOverviewModal();
         }}
         className="mt-4"
         disabled={!rating}

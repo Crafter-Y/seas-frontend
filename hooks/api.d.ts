@@ -7,7 +7,7 @@ type ApiResponse = {
 type ChildType = React.ReactNode | React.ReactNode[];
 
 // https://stackoverflow.com/questions/41253310/typescript-retrieve-element-type-information-from-array-type
-type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
+type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
 
 type User = {
   id: number;
@@ -23,10 +23,10 @@ type APIResponseUser = {
   id: number;
   firstname: string;
   lastname: string;
-  deleted: boolean,
+  deleted: boolean;
 };
 
-type AccountState = "UNVERIFIED" | "VERIFICATION_PENDING" | "VERIFIED" // potentially also DELETED, but these users will never be send by the backend
+type AccountState = "UNVERIFIED" | "VERIFICATION_PENDING" | "VERIFIED"; // potentially also DELETED, but these users will never be send by the backend
 
 type APIFullResponseUser = {
   id: number;
@@ -34,7 +34,7 @@ type APIFullResponseUser = {
   lastname: string;
   email: string;
   role: Role;
-  state: AccountState
+  state: AccountState;
 };
 
 type APIResponsePage = {
@@ -59,7 +59,7 @@ type BoardComment = {
   id: number;
   boardColumnId: number;
   text: string;
-}
+};
 
 type ColumnType = "POSITION" | "COMMENT";
 
@@ -77,38 +77,38 @@ type APIResponseDefaultComment = {
 
 type APIRecurringEventsResponse = {
   weeklyEvents: {
-    id: number,
-    day: number
-  }[],
+    id: number;
+    day: number;
+  }[];
   monthlyEvents: {
-    id: number,
-    day: number
-  }[],
+    id: number;
+    day: number;
+  }[];
   yearlyEvents: {
-    id: number,
-    day: number,
-    month: number
-  }[],
+    id: number;
+    day: number;
+    month: number;
+  }[];
 };
 
 type APIModuleStatus = {
-  moduleCalendar: boolean
-  modulePrint: boolean
-  moduleMusic: boolean
-}
+  moduleCalendar: boolean;
+  modulePrint: boolean;
+  moduleMusic: boolean;
+};
 
 type APIRestrictions = {
-  maxAdmins: number
-  maxUsers: number
-  maxColumns: number
-  maxPages: number
-  maxOwnSongbooks: number
-  columnsChangable: boolean
-  columnsDeletable: boolean
-  pagesChangable: boolean
-  pagesDeletable: boolean
-  modulesManagable: boolean
-}
+  maxAdmins: number;
+  maxUsers: number;
+  maxColumns: number;
+  maxPages: number;
+  maxOwnSongbooks: number;
+  columnsChangable: boolean;
+  columnsDeletable: boolean;
+  pagesChangable: boolean;
+  pagesDeletable: boolean;
+  modulesManagable: boolean;
+};
 
 type APIResponseSong = {
   id: number;
@@ -117,7 +117,7 @@ type APIResponseSong = {
   book: {
     id: number;
     name: string;
-  }
+  };
 };
 
 type APISongbookResponse = {
@@ -134,7 +134,7 @@ type APIResponseSongbookSong = {
   number: string;
   known: boolean;
   locked: boolean;
-}
+};
 
 type APIResponseHistoryEntry = {
   date: Date;
@@ -147,23 +147,23 @@ type APIResponseHistoryEntry = {
       name: string;
     };
   };
-}
+};
 
 type APIResponseHistoryRatingEntry = {
   title: string;
   number: string;
   book: string;
   rating: number;
-}
+};
 
 type APIResponseHistoryCountEntry = {
   title: string;
   number: string;
   book: string;
   count: number;
-}
+};
 
-type Module = "print" | "calendar" | "music"
+type Module = "print" | "calendar" | "music";
 
 type EventType = "UNSET" | "SINGLE" | "YEARLY" | "MONTHLY" | "WEEKLY";
 

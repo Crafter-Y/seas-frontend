@@ -82,7 +82,7 @@ export default function ManageEventsScreen() {
     type: EventType,
     dayOfWeek: number,
     dayOfMonth: number,
-    monthOfYear: number
+    monthOfYear: number,
   ): string => {
     switch (type) {
       case "WEEKLY":
@@ -140,10 +140,12 @@ export default function ManageEventsScreen() {
         </Picker>
 
         {/* Single Event */}
-        {createType == "SINGLE" && <SingleDatePicker setDate={setSingleDate} />}
+        {createType === "SINGLE" && (
+          <SingleDatePicker setDate={setSingleDate} />
+        )}
 
         {/* Weekly Event */}
-        {createType == "WEEKLY" && (
+        {createType === "WEEKLY" && (
           <Picker
             selectedValue={dayOfWeek}
             onValueChange={(item) => setDayOfWeek(item)}
@@ -159,7 +161,7 @@ export default function ManageEventsScreen() {
         )}
 
         {/* Monthly Event */}
-        {createType == "MONTHLY" && (
+        {createType === "MONTHLY" && (
           <Picker
             selectedValue={dayOfMonth}
             onValueChange={(item) => setDayOfMonth(item)}
@@ -177,7 +179,7 @@ export default function ManageEventsScreen() {
         )}
 
         {/* Yearly Event */}
-        {createType == "YEARLY" && [
+        {createType === "YEARLY" && [
           <Picker
             key={1}
             selectedValue={monthOfYear}
@@ -220,7 +222,7 @@ export default function ManageEventsScreen() {
             {
               hidden: !singleDateCreated,
             },
-            "text-green-500 mb-2"
+            "text-green-500 mb-2",
           )}
         >
           Einzeltermin erfolgreich erstellt
@@ -233,7 +235,7 @@ export default function ManageEventsScreen() {
               singleDate,
               Number(dayOfWeek),
               Number(dayOfMonth),
-              Number(monthOfYear)
+              Number(monthOfYear),
             );
           }}
         >
@@ -254,7 +256,7 @@ export default function ManageEventsScreen() {
                     event.eventType,
                     event.dayOfWeek || 0,
                     event.dayOfMonth || 0,
-                    event.eventMonth || 0
+                    event.eventMonth || 0,
                   )}
                 </CustomText>
               </TD>
@@ -270,8 +272,8 @@ export default function ManageEventsScreen() {
                         event.eventType,
                         event.dayOfWeek || 0,
                         event.dayOfMonth || 0,
-                        event.eventMonth || 0
-                      )
+                        event.eventMonth || 0,
+                      ),
                     );
                     deleteModal.current?.openModal();
                   }}

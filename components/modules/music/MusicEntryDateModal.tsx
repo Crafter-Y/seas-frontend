@@ -8,9 +8,9 @@ import { View } from "react-native";
 import { DatePickerModal } from "react-native-paper-dates";
 
 type Props = {
-  closeModal?: () => void;
-  openMusicEntryTypeModal?: () => void;
-  openMusicSelectonModal?: () => void;
+  closeModal: () => void;
+  openMusicEntryTypeModal: () => void;
+  openMusicSelectonModal: () => void;
 };
 
 export default function MusicEntryDateModal({
@@ -50,8 +50,8 @@ export default function MusicEntryDateModal({
       <View style={tw`mb-2 mt-3 flex-row gap-2`}>
         <Button
           onPress={() => {
-            closeModal?.();
-            openMusicEntryTypeModal?.();
+            closeModal();
+            openMusicEntryTypeModal();
           }}
           className="flex-1"
         >
@@ -59,8 +59,8 @@ export default function MusicEntryDateModal({
         </Button>
         <Button
           onPress={() => {
-            closeModal?.();
-            openMusicSelectonModal?.();
+            closeModal();
+            openMusicSelectonModal();
           }}
           className="flex-1"
           disabled={!musicDate}

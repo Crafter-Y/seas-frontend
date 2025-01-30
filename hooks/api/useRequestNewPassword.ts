@@ -8,9 +8,9 @@ export default function useRequestNewPassword() {
   const requestNewPassword = async (userId: number) => {
     setSuccessfulPasswordCreation(false);
     const res = await requestApi(`users/password/${userId}`, "PATCH", {
-      url: await getWebServer()
+      url: await getWebServer(),
     });
-    if (res == null) return;
+    if (res === null) return;
 
     if (res.success) {
       setSuccessfulPasswordCreation(true);

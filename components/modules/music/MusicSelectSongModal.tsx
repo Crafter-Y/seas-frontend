@@ -13,9 +13,9 @@ import { Store } from "@/helpers/store";
 import CustomText from "@/components/elements/CustomText";
 
 type Props = {
-  closeModal?: () => void;
-  openEntryDateModal?: () => void;
-  openRatingsModal?: () => void;
+  closeModal: () => void;
+  openEntryDateModal: () => void;
+  openRatingsModal: () => void;
 };
 
 export default function MusicSelectSongModal({
@@ -44,7 +44,7 @@ export default function MusicSelectSongModal({
         useNativeDriver: false,
       }).start();
     }
-  }, [songs]);
+  }, [heightAnimate, songs]);
 
   return (
     <View style={tw`mx-2 md:mx-4 mb-2`}>
@@ -74,9 +74,9 @@ export default function MusicSelectSongModal({
 
       <Input
         placeholder={
-          searchType == "NUMBER" ? "Nummer eingeben" : "Titel eingeben"
+          searchType === "NUMBER" ? "Nummer eingeben" : "Titel eingeben"
         }
-        inputMode={searchType == "NUMBER" ? "numeric" : "text"}
+        inputMode={searchType === "NUMBER" ? "numeric" : "text"}
         onChangeText={(text) => querySongs(text)}
         autoFocus
         className="mt-2"
@@ -100,8 +100,8 @@ export default function MusicSelectSongModal({
               <View
                 style={tw`border-b-2 p-1 flex-row gap-2 border-[${
                   Color.GRAY
-                }] ${index == 0 ? "border-t-2" : ""} ${
-                  index % 2 == 0 ? "bg-gray-100" : ""
+                }] ${index === 0 ? "border-t-2" : ""} ${
+                  index % 2 === 0 ? "bg-gray-100" : ""
                 }`}
               >
                 <View style={tw`w-4/5`}>
@@ -116,8 +116,8 @@ export default function MusicSelectSongModal({
                       Store.update((state) => {
                         state.musicSongSelected = item;
                       });
-                      closeModal?.();
-                      openRatingsModal?.();
+                      closeModal();
+                      openRatingsModal();
                     }}
                   >
                     <AntDesign name="check" size={32} color="gray" />
@@ -130,8 +130,8 @@ export default function MusicSelectSongModal({
       </Animated.View>
       <Button
         onPress={() => {
-          closeModal?.();
-          openEntryDateModal?.();
+          closeModal();
+          openEntryDateModal();
         }}
       >
         Zurück

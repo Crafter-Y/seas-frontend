@@ -10,10 +10,10 @@ import CustomText from "../elements/CustomText";
 import React from "react";
 
 type Props = {
-  closeModal?: () => void;
-  openRowModal?: () => void;
+  closeModal: () => void;
+  openRowModal: () => void;
   selectedRow?: BoardRow;
-  triggerBoardRefetch?: () => void;
+  triggerBoardRefetch: () => void;
 };
 
 export default function BoardRowDeleteModal({
@@ -30,8 +30,8 @@ export default function BoardRowDeleteModal({
       Store.update((state) => {
         state.selectedRow = undefined;
       });
-      triggerBoardRefetch?.();
-      closeModal?.();
+      triggerBoardRefetch();
+      closeModal();
     }
   }, [succesfulDeletion]);
 
@@ -60,8 +60,8 @@ export default function BoardRowDeleteModal({
         </Button>
         <Button
           onPress={() => {
-            closeModal?.();
-            openRowModal?.();
+            closeModal();
+            openRowModal();
           }}
         >
           Abbrechen

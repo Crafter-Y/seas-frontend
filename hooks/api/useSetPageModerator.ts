@@ -9,7 +9,7 @@ export default function useSetPageModerator() {
 
     await requestApi("pages/moderator", "PUT", {
       pageId,
-      userId
+      userId,
     });
 
     setSuccessfulAssignment(true);

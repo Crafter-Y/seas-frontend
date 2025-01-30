@@ -2,71 +2,72 @@ import { useEffect, useState } from "react";
 import { requestApi } from "@/helpers/api";
 
 export default function useMusicSearch() {
-    const [cachedSongs, setCachedSongs] = useState<APIResponseSong[]>([]);
-    const [songs, setSongs] = useState<APIResponseSong[]>([]);
+  const [cachedSongs, setCachedSongs] = useState<APIResponseSong[]>([]);
+  const [songs, setSongs] = useState<APIResponseSong[]>([]);
 
+  const updateSongs = (search: string) => {
+    const searchTerms = search
+      .split(" ")
+      .map((el) => el.toLowerCase())
+      .filter((el) => el.length);
 
-    const updateSongs = (search: string) => {
-        const searchTerms = search
-            .split(" ")
-            .map((el) => el.toLowerCase())
-            .filter((el) => el.length);
+    const res: APIResponseSong[][] = [];
+    cachedSongs.forEach((song) => {
+      const songTokens = song.title
+        .split(" ")
+        .map((el) => el.toLowerCase())
+        .filter((el) => el.length);
 
-        const res: APIResponseSong[][] = [];
-        cachedSongs.forEach(song => {
-            const songTokens = song.title
-                .split(" ")
-                .map((el) => el.toLowerCase())
-                .filter((el) => el.length);
+      let matches = 0;
 
-            let matches = 0;
-
-            searchTerms.forEach((term) => {
-                songTokens.forEach((token) => {
-                    if (term == token) {
-                        matches += 5;
-                    } else if (token.includes(term)) {
-                        matches += 3;
-                    } else if (term.includes(token)) matches++;
-                });
-            });
-            if (res[matches] == undefined) {
-                res[matches] = [
-                    song
-                ];
-            } else {
-                res[matches].push(song);
-            }
+      searchTerms.forEach((term) => {
+        songTokens.forEach((token) => {
+          if (term === token) {
+            matches += 5;
+          } else if (token.includes(term)) {
+            matches += 3;
+          } else if (term.includes(token)) matches++;
         });
-        res[0] = [];
-        setSongs(res.flat().reverse());
-    };
+      });
+      if (res[matches] === undefined) {
+        res[matches] = [song];
+      } else {
+        res[matches].push(song);
+      }
+    });
+    res[0] = [];
+    setSongs(res.flat().reverse());
+  };
 
-    const querySongs = async (search: string) => {
-        search = search.trim();
+  const querySongs = async (search: string) => {
+    search = search.trim();
 
-        if (/^\d+$/.test(search)) {
-            const idSongs = cachedSongs.filter(song => (song.number + "").includes(search)).sort((a, b) => a.number > b.number ? -1 : 1).sort((a) => a.number == Number(search) ? -1 : 1);
-            setSongs(idSongs);
-        } else {
-            updateSongs(search);
-        }
-    };
+    if (/^\d+$/.test(search)) {
+      const idSongs = cachedSongs
+        .filter((song) => (song.number + "").includes(search))
+        .sort((a, b) => (a.number > b.number ? -1 : 1))
+        .sort((a) => (a.number === search ? -1 : 1));
+      setSongs(idSongs);
+    } else {
+      updateSongs(search);
+    }
+  };
 
-    const queryCache = async () => {
-        const res = await requestApi("songs", "GET");
+  const queryCache = async () => {
+    const res = await requestApi("songs", "GET");
 
-        if (res && res.success) {
-            setCachedSongs(res.data.songs);
-        }
-    };
+    if (res && res.success) {
+      setCachedSongs(res.data.songs);
+    }
+  };
 
+  useEffect(() => {
+    if (cachedSongs.length === 0) {
+      queryCache();
+    }
+    // TODO: implement proper just fetch once functionality
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    useEffect(() => {
-        if (cachedSongs.length == 0) {
-            queryCache();
-        }
-    }, []);
-
-    return { songs, querySongs };
+  return { songs, querySongs };
 }

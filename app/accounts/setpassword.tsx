@@ -49,10 +49,10 @@ export default function VerifyScreen() {
     if (tokenValid) {
       AsyncStorage.setItem("serverId", productId);
     }
-  }, [tokenValid]);
+  }, [productId, tokenValid]);
 
   useEffect(() => {
-    if (t && t.length == 36) {
+    if (t && t.length === 36) {
       verify(t);
     } else {
       setTokenValid(false);
@@ -126,7 +126,7 @@ export default function VerifyScreen() {
             {tokenValid === true && productName && t && !successfulRedeem && (
               <>
                 <CustomText className="mt-6">
-                  {intent == "onboarding" ? i18n("welcome") : i18n("hello")}{" "}
+                  {intent === "onboarding" ? i18n("welcome") : i18n("hello")}{" "}
                   {firstname} {lastname}, {i18n("pleaseSetAccountPassword")}{" "}
                   <CustomText className="font-semibold">
                     {productName}
@@ -157,7 +157,7 @@ export default function VerifyScreen() {
                   className="mt-2 mb-4"
                 />
                 <ErrorDisplay
-                  hasError={redeemError != ""}
+                  hasError={redeemError !== ""}
                   // TODO: i18n: translate errors in hook and api
                   error={redeemError}
                 />
@@ -173,7 +173,7 @@ export default function VerifyScreen() {
               <>
                 <CustomText style={tw`text-green-500 text-2xl font-semibold`}>
                   {i18n("passwordSuccessfully")}{" "}
-                  {intent == "onboarding" ? i18n("hasSet") : i18n("changed")}.
+                  {intent === "onboarding" ? i18n("hasSet") : i18n("changed")}.
                 </CustomText>
                 <CustomText style={tw`mt-2`}>
                   {i18n("canNowLogin.0")}{" "}

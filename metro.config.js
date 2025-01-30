@@ -9,7 +9,7 @@ const config = getDefaultConfig(__dirname);
 // this is probably obsolete, since assets/config.json was moved to public/config.json and therefore, no json module needs to be bundled
 config.resolver.assetExts.push("json");
 config.resolver.sourceExts = config.resolver.sourceExts.filter(
-  (el) => el !== "json"
+  (el) => el !== "json",
 );
 
 generate({
@@ -23,7 +23,7 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   const defaultResolveResult = context.resolveRequest(
     context,
     moduleName,
-    platform
+    platform,
   );
 
   if (

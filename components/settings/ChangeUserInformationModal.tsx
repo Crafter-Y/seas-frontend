@@ -13,7 +13,7 @@ import React from "react";
 type Props = {
   editUser: APIFullResponseUser;
   queryUsers: () => void;
-  closeModal?: () => void;
+  closeModal: () => void;
   maxUsersReached: boolean;
   maxAdminsReached: boolean;
 };
@@ -49,7 +49,7 @@ const ChangeUserInformationModal = ({
 
   useEffect(() => {
     if (successfulUpdate) {
-      closeModal?.();
+      closeModal();
       queryUsers();
     }
   }, [successfulUpdate]);
@@ -90,10 +90,10 @@ const ChangeUserInformationModal = ({
           selectedValue={editRole}
           onValueChange={(itemValue) => setEditRole(itemValue as Role)}
         >
-          {(editRole == "USER" || !maxUsersReached) && (
+          {(editRole === "USER" || !maxUsersReached) && (
             <RNPicker.Item label="User" value="USER" />
           )}
-          {(editRole == "ADMIN" || !maxAdminsReached) && (
+          {(editRole === "ADMIN" || !maxAdminsReached) && (
             <RNPicker.Item label="Admin" value="ADMIN" />
           )}
         </Picker>
@@ -113,7 +113,7 @@ const ChangeUserInformationModal = ({
               editFirstName,
               editLastName,
               editEmail,
-              editRole as Role
+              editRole as Role,
             );
           }}
           color={Color.GREEN}

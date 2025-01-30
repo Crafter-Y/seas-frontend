@@ -38,7 +38,7 @@ const Modal = forwardRef<ModalHandle, Props>(
       type,
       swipeDirection = ["down"],
     }: Props,
-    ref
+    ref,
   ) => {
     const { height, width } = useWindowDimensions();
     const { isSm } = useMediaQueries();
@@ -75,10 +75,10 @@ const Modal = forwardRef<ModalHandle, Props>(
         onBackdropPress={intCloseModal}
         style={tw.style(
           {
-            "justify-end": Platform.OS != "web" && type == "MOBILE_BOTTOM",
-            "justify-center": Platform.OS == "web" || type == "CENTER",
+            "justify-end": Platform.OS !== "web" && type === "MOBILE_BOTTOM",
+            "justify-center": Platform.OS === "web" || type === "CENTER",
           },
-          "m-0 items-center"
+          "m-0 items-center",
         )}
         swipeDirection={swipeDirection}
         onSwipeComplete={intCloseModal}
@@ -89,7 +89,7 @@ const Modal = forwardRef<ModalHandle, Props>(
                 height,
                 width,
               },
-              "bg-opacity-35 bg-black"
+              "bg-opacity-35 bg-black",
             )}
             onPress={intCloseModal}
           ></TouchableOpacity>
@@ -102,18 +102,18 @@ const Modal = forwardRef<ModalHandle, Props>(
             style={tw.style(
               {
                 flexGrow: 0,
-                "w-1/2": Platform.OS == "web",
-                "rounded-md": Platform.OS == "web",
+                "w-1/2": Platform.OS === "web",
+                "rounded-md": Platform.OS === "web",
                 "rounded-t-xl":
-                  Platform.OS == "android" && type == "MOBILE_BOTTOM",
+                  Platform.OS === "android" && type === "MOBILE_BOTTOM",
                 width:
-                  Platform.OS == "web"
+                  Platform.OS === "web"
                     ? isSm
                       ? width / 2
                       : width * 0.75
                     : width,
               },
-              "bg-white shadow-lg"
+              "bg-white shadow-lg",
             )}
           >
             {children}
@@ -121,7 +121,7 @@ const Modal = forwardRef<ModalHandle, Props>(
         </View>
       </ReactNativeModal>
     );
-  }
+  },
 );
 
 Modal.displayName = "Modal";

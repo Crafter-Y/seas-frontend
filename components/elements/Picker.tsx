@@ -2,6 +2,7 @@ import { Platform, Pressable, View } from "react-native";
 import React, {
   ReactElement,
   ReactNode,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -34,18 +35,18 @@ const Picker = ({
 
   const [selectionCount, setSelectionCount] = useState(0);
 
-  const getAllPickerProps = () => {
+  const getAllPickerProps = useCallback(() => {
     return children
       .filter((child) => React.isValidElement(child))
       .map((child) => {
         const ch = child as ReactElement;
         return ch.props as PickerItemProps;
       });
-  };
+  }, [children]);
 
   const getParamValue = (key: string) => {
     return (
-      getAllPickerProps().filter((prop) => prop.value == key)[0]?.label ??
+      getAllPickerProps().filter((prop) => prop.value === key)[0]?.label ??
       undefined
     );
   };
@@ -54,7 +55,7 @@ const Picker = ({
     setSelectionCount(getAllPickerProps().length);
   }, [children]);
 
-  if (Platform.OS == "ios")
+  if (Platform.OS === "ios")
     return (
       <View>
         <Pressable
@@ -66,11 +67,11 @@ const Picker = ({
             }
           }}
           style={tw.style(
-            "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center h-13 pl-4 pr-5"
+            "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center h-13 pl-4 pr-5",
           )}
         >
           <CustomText style={tw.style({}, "text-lg")}>
-            {selectionCount == 1
+            {selectionCount === 1
               ? getAllPickerProps()[0].label
               : getParamValue(selectedValue)}
           </CustomText>
@@ -103,7 +104,7 @@ const Picker = ({
             border: "none",
           },
 
-          "rounded-xl px-2 bg-transparent py-1"
+          "rounded-xl px-2 bg-transparent py-1",
         )}
         selectedValue={selectedValue}
         onValueChange={onValueChange}

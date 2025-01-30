@@ -7,15 +7,12 @@ export default function useCreateColumn() {
   const [successfulColumnCreation, setIsSuccessfulColumnCreation] =
     useState(false);
 
-  const createColumn = async (
-    name: string,
-    type: string,
-  ) => {
+  const createColumn = async (name: string, type: string) => {
     // clientside validation
 
     setIsSuccessfulColumnCreation(false);
 
-    if (name == null || name == "") {
+    if (name === null || name === "") {
       setHasCreationError(true);
       setCreationError("Der Name muss angegeben werden");
       return;
@@ -29,13 +26,13 @@ export default function useCreateColumn() {
 
     const res = await requestApi("columns", "POST", {
       name,
-      type
+      type,
     });
 
-    if (res == null) {
+    if (res === null) {
       setHasCreationError(true);
       setCreationError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
+        "Server nicht verfügbar. Bitte später erneut versuchen.",
       );
       return;
     }

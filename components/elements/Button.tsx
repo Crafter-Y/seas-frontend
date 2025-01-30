@@ -28,7 +28,7 @@ const Button = ({
         disabled ? "cursor-not-allowed" : "cursor-pointer"
       } ${className}`}
       style={{
-        backgroundColor: disabled ? Color.GRAY : color ?? Color.BLUE,
+        backgroundColor: disabled ? Color.GRAY : (color ?? Color.BLUE),
       }}
       onPress={onPress}
       {...props}
@@ -38,7 +38,7 @@ const Button = ({
         <CustomText style={tw`text-white text-lg`}>
           {children}
           {/** Fix for android font issues https://github.com/facebook/react-native/issues/15114 */}
-          {Platform.OS == "android" ? " " : undefined}
+          {Platform.OS === "android" ? " " : undefined}
         </CustomText>
       )}
     </TouchableOpacity>

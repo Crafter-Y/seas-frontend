@@ -39,14 +39,14 @@ const BoardMenuNavigationButton = ({
         style={tw.style(
           {
             backgroundColor:
-              boardType == currentBoardType ? Color.BLUE : Color.GRAY,
+              boardType === currentBoardType ? Color.BLUE : Color.GRAY,
           },
-          "w-1 h-8 rounded-r-md"
+          "w-1 h-8 rounded-r-md",
         )}
       ></View>
       <CustomText
         style={tw.style({
-          "font-semibold": boardType == currentBoardType,
+          "font-semibold": boardType === currentBoardType,
           underline: isHovered,
           "opacity-80": isHovered,
         })}

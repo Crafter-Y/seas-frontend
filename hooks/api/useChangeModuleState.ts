@@ -9,7 +9,7 @@ export default function useChangeModuleState() {
 
     const res = await requestApi("modules", "PUT", {
       module,
-      state
+      state,
     });
     if (res && res.success) {
       setChangeSuccessful(true);

@@ -124,7 +124,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
                   "max-w-96": isSm,
                   width: isXl ? 580 : undefined,
                 },
-                "bg-white rounded-xl grow-0"
+                "bg-white rounded-xl grow-0",
               )}
             >
               <ModalHeader
@@ -140,10 +140,10 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
           <Pressable style={tw`bg-zinc-900/40 h-full`} onPress={intCloseModal}>
             <KeyboardAvoidingView
               style={tw`items-center justify-center h-full px-2`}
-              behavior={Platform.OS == "ios" ? "padding" : "height"}
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
               <TouchableWithoutFeedback
-                onPress={Platform.OS == "web" ? undefined : Keyboard.dismiss}
+                onPress={Platform.OS === "web" ? undefined : Keyboard.dismiss}
               >
                 <View
                   style={tw.style(
@@ -152,7 +152,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
                       "max-w-96": isSm,
                       width: isXl ? 580 : undefined,
                     },
-                    "bg-white rounded-xl shadow-lg"
+                    "bg-white rounded-xl shadow-lg",
                   )}
                 >
                   <ModalHeader
@@ -168,7 +168,7 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
         )}
       </RNModal>
     );
-  }
+  },
 );
 
 ModalRewrite.displayName = "ModalRewrite";

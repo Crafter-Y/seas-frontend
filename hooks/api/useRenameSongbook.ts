@@ -6,35 +6,30 @@ export default function useRenameSongbook() {
   const [renameError, setRenameError] = useState("");
   const [successfulRename, setSuccessfulRename] = useState(false);
 
-  const renamePage = async (
-    id: number,
-    newName: string
-  ) => {
+  const renamePage = async (id: number, newName: string) => {
     setSuccessfulRename(false);
 
-    if (!newName || newName.length == 0) {
+    if (!newName || newName.length === 0) {
       setHasRenameError(true);
       setRenameError("Ein Name muss angegeben werden");
       return;
     }
 
-    if (!id || id == 0) {
+    if (!id || id === 0) {
       setHasRenameError(true);
       setRenameError(
-        "Die Plan ID darf nicht leer sein. Bitte melden Sie diesen Bug."
+        "Die Plan ID darf nicht leer sein. Bitte melden Sie diesen Bug.",
       );
       return;
     }
 
     const res = await requestApi(`songs/songbooks/${id}`, "PATCH", {
-      name: newName
+      name: newName,
     });
 
     if (!res) {
       setHasRenameError(true);
-      setRenameError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
-      );
+      setRenameError("Server nicht verfügbar. Bitte später erneut versuchen.");
       return;
     }
 

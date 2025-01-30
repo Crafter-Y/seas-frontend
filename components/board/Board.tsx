@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import tw from "@/tailwind";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import BoardRangePicker from "./BoardRangePicker";
@@ -42,21 +42,24 @@ const Board = ({
   const endThisQuarter = new Date(
     startThisQuarter.getFullYear(),
     startThisQuarter.getMonth() + 3,
-    0
+    0,
   );
   const [dateStart, setDateStart] = useState<Date>(startThisQuarter);
   const [dateEnd, setDateEnd] = useState<Date>(endThisQuarter);
 
-  const fetchData = (start: Date, end: Date) => {
-    setDateStart(start);
-    setDateEnd(end);
+  const fetchData = useCallback(
+    (start: Date, end: Date) => {
+      setDateStart(start);
+      setDateEnd(end);
 
-    queryBoard(start, end);
-    console.log("query", start, end);
-  };
+      queryBoard(start, end);
+      console.log("query", start, end);
+    },
+    [queryBoard],
+  );
 
   useEffect(() => {
-    if (allPages.length != 0) {
+    if (allPages.length !== 0) {
       Store.update((state) => {
         state.currentPage = allPages[0].id;
       });
@@ -70,7 +73,7 @@ const Board = ({
           "mx-2": !isSm,
           "mx-4": isSm,
         },
-        "bg-white mt-4 shadow-lg"
+        "bg-white mt-4 shadow-lg",
       )}
     >
       <BoardRangePicker boardType={boardType} queryPageChange={fetchData} />
@@ -89,7 +92,7 @@ const Board = ({
           {
             hidden: isLg,
           },
-          "flex-row gap-2 m-2"
+          "flex-row gap-2 m-2",
         )}
       >
         <RoundIconButton

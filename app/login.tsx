@@ -45,9 +45,9 @@ export default function LoginScreen() {
 
   // (web) prepare server id if not set in local Storage
   useEffect(() => {
-    if (Platform.OS == "web") {
+    if (Platform.OS === "web") {
       AsyncStorage.getItem("serverId").then((serverId) => {
-        if (serverId == null) {
+        if (serverId === null) {
           fetch("/config.json")
             .then((res) => res.json())
             .then((res: WebConfig) => {
@@ -63,17 +63,17 @@ export default function LoginScreen() {
         }
       });
     }
-  }, []);
+  }, [t]);
 
   // set title for web if serverName is loaded
   useEffect(() => {
-    if (Platform.OS == "web" && serverName && segments[0] == "login")
+    if (Platform.OS === "web" && serverName && segments[0] === "login")
       document.title = t("login") + " ⋅ " + serverName;
-  }, [serverName, segments]);
+  }, [serverName, segments, t]);
 
   // (mobile) if serverName is not or error, redirect to server select page
   useEffect(() => {
-    if (Platform.OS != "web" && !serverName && fetchServerError)
+    if (Platform.OS !== "web" && !serverName && fetchServerError)
       setTimeout(() => {
         router.replace("/");
       }, 1);
@@ -81,7 +81,7 @@ export default function LoginScreen() {
 
   // if user object is set, redirect to board
   useEffect(() => {
-    if (user != null) {
+    if (user !== null) {
       router.replace("/board/");
     }
   }, [user]);
@@ -103,7 +103,7 @@ export default function LoginScreen() {
             <CustomText className="text-2xl">{serverName}</CustomText>
           </View>
           <View className="items-center border-l border-gray-200 px-4 md:h-screen w-full md:bg-white md:w-96 md:justify-center sm:shadow-lg pb-12 md:pb-0 min-h-screen">
-            {__DEV__ && Platform.OS == "web" && (
+            {__DEV__ && Platform.OS === "web" && (
               <View className="w-full items-end p-1">
                 <RoundIconButton
                   icon={<AntDesign name="setting" size={20} color="black" />}

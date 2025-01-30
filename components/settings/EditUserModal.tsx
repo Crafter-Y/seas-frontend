@@ -11,10 +11,10 @@ import CustomText from "../elements/CustomText";
 type Props = {
   user: User;
   editUser: APIFullResponseUser;
-  closeModal?: () => void;
+  closeModal: () => void;
   queryUsers: () => void;
-  openRequestPasswordModal?: () => void;
-  openChangeInformationModal?: () => void;
+  openRequestPasswordModal: () => void;
+  openChangeInformationModal: () => void;
 };
 
 const EditUserModal = ({
@@ -35,11 +35,11 @@ const EditUserModal = ({
           {
             hidden: editUser.id === user.id,
           },
-          "pb-3 pt-1 flex-row items-center mx-4 gap-2"
+          "pb-3 pt-1 flex-row items-center mx-4 gap-2",
         )}
         onPress={() => {
-          closeModal?.();
-          openRequestPasswordModal?.();
+          closeModal();
+          openRequestPasswordModal();
         }}
       >
         <CustomText
@@ -61,7 +61,7 @@ const EditUserModal = ({
           {
             hidden: editUser.id === user.id,
           },
-          "mb-1"
+          "mb-1",
         )}
       />
       <Pressable
@@ -69,11 +69,11 @@ const EditUserModal = ({
           {
             hidden: editUser.id === user.id,
           },
-          "py-3 flex-row items-center mx-4 gap-2"
+          "py-3 flex-row items-center mx-4 gap-2",
         )}
         onPress={() => {
-          closeModal?.();
-          openChangeInformationModal?.();
+          closeModal();
+          openChangeInformationModal();
         }}
       >
         <CustomText
@@ -95,21 +95,21 @@ const EditUserModal = ({
           {
             hidden: editUser.id === user.id,
           },
-          "mb-1"
+          "mb-1",
         )}
       />
       <Pressable
         style={tw.style(
           {
             hidden:
-              editUser.state != "UNVERIFIED" &&
-              editUser.state != "VERIFICATION_PENDING",
+              editUser.state !== "UNVERIFIED" &&
+              editUser.state !== "VERIFICATION_PENDING",
           },
-          "py-3 flex-row items-center mx-4 gap-2"
+          "py-3 flex-row items-center mx-4 gap-2",
         )}
         onPress={() => {
           // TODO: refactor to use event driven code (without timeout)
-          closeModal?.();
+          closeModal();
           requestVerification(editUser.id);
           setTimeout(() => {
             queryUsers();
@@ -134,10 +134,10 @@ const EditUserModal = ({
         style={tw.style(
           {
             hidden:
-              editUser.state != "UNVERIFIED" &&
-              editUser.state != "VERIFICATION_PENDING",
+              editUser.state !== "UNVERIFIED" &&
+              editUser.state !== "VERIFICATION_PENDING",
           },
-          "mb-1"
+          "mb-1",
         )}
       />
 

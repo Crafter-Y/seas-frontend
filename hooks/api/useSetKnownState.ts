@@ -9,7 +9,7 @@ export default function useSetKnownState() {
 
     await requestApi("songs/known", "PUT", {
       id: songId,
-      state
+      state,
     });
 
     setSuccessfulChange(true);

@@ -22,7 +22,7 @@ const StartScreenWrapper = ({ children }: Props) => {
         keyboardShouldPersistTaps="handled"
       >
         <TouchableWithoutFeedback
-          onPress={Platform.OS == "web" ? undefined : Keyboard.dismiss} // on touch browsers, it would not work otherwise
+          onPress={Platform.OS === "web" ? undefined : Keyboard.dismiss} // on touch browsers, it would not work otherwise
         >
           <View>{children}</View>
         </TouchableWithoutFeedback>

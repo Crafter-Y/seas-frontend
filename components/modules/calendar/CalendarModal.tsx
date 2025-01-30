@@ -34,15 +34,15 @@ export default function CalendarModal() {
   };
 
   const getApplicableDates = () => {
-    if (from == null || to == null || board.length == 0) return [];
+    if (from === null || to === null || board.length === 0) return [];
 
     return board
-      .filter((entry) => entry.assignments.length != 0)
+      .filter((entry) => entry.assignments.length !== 0)
       .filter(
         (entry) =>
           entry.assignments.filter(
-            (assignment) => assignment.userId == user?.id
-          ).length != 0
+            (assignment) => assignment.userId === user?.id,
+          ).length !== 0,
       )
       .map((entry) => entry.date);
   };
@@ -52,7 +52,7 @@ export default function CalendarModal() {
     if (status === "granted") {
       setCalendarError(undefined);
       const calendars = await ExpoCalendar.getCalendarsAsync(
-        ExpoCalendar.EntityTypes.EVENT
+        ExpoCalendar.EntityTypes.EVENT,
       );
 
       const defaultCalendarSource =
@@ -65,7 +65,7 @@ export default function CalendarModal() {
               type: ExpoCalendar.EntityTypes.EVENT,
             };
 
-      const expoCalendar = calendars.find((cal) => cal.name == CALENDAR_NAME);
+      const expoCalendar = calendars.find((cal) => cal.name === CALENDAR_NAME);
       let calId;
 
       if (!expoCalendar) {
@@ -85,7 +85,7 @@ export default function CalendarModal() {
         calId = expoCalendar.id;
       }
 
-      if (from == null || to == null) {
+      if (from === null || to === null) {
         setCalendarError("Es gab einen Fehler beim erstellen der Einträge");
         return;
       }
@@ -100,8 +100,8 @@ export default function CalendarModal() {
 
         if (
           datesToExist.filter(
-            (dateStr) => new Date(dateStr).toISOString() == event.startDate
-          ).length == 0
+            (dateStr) => new Date(dateStr).toISOString() === event.startDate,
+          ).length === 0
         ) {
           await ExpoCalendar.deleteEventAsync(event.id);
         }
@@ -113,8 +113,8 @@ export default function CalendarModal() {
 
         if (
           allEvents.filter(
-            (event) => event.startDate == new Date(date).toISOString()
-          ).length != 0
+            (event) => event.startDate === new Date(date).toISOString(),
+          ).length !== 0
         )
           continue;
 
@@ -160,14 +160,14 @@ END:VEVENT`;
 
   const downloadICS = async () => {
     const datesToExist = getApplicableDates();
-    if (datesToExist.length == 0) {
+    if (datesToExist.length === 0) {
       setCalendarError("Es gibt keine Eintragung in diesem Zeitraum");
       return;
     }
 
     const icsContent = constructICSFile();
 
-    if (Platform.OS == "web") {
+    if (Platform.OS === "web") {
       const anchor = document.createElement("a");
       const blob = new Blob([icsContent], { type: "text/calendar" });
       anchor.href = URL.createObjectURL(blob);
@@ -193,7 +193,7 @@ END:VEVENT`;
 
   const androidReallySave = async () => {
     const datesToExist = getApplicableDates();
-    if (datesToExist.length == 0) {
+    if (datesToExist.length === 0) {
       setCalendarError("Es gibt keine Eintragung in diesem Zeitraum");
       return;
     }
@@ -214,7 +214,7 @@ END:VEVENT`;
       const newUri = await FileSystem.StorageAccessFramework.createFileAsync(
         androidDirectPermission.directoryUri,
         new Date().getTime() + ".ics",
-        "text/calendar"
+        "text/calendar",
       );
 
       await FileSystem.writeAsStringAsync(newUri, base64, {
@@ -228,9 +228,9 @@ END:VEVENT`;
       <View
         style={tw.style(
           {
-            hidden: Platform.OS == "web",
+            hidden: Platform.OS === "web",
           },
-          "my-2 mx-2"
+          "my-2 mx-2",
         )}
       >
         <View className="gap-2">
@@ -249,9 +249,9 @@ END:VEVENT`;
         )}
         <CustomText>Die angezeigten Termine downloaden:</CustomText>
         <Button onPress={() => downloadICS()}>
-          {Platform.OS == "android" ? ".ics teilen" : "Download .ics"}
+          {Platform.OS === "android" ? ".ics teilen" : "Download .ics"}
         </Button>
-        {Platform.OS == "android" && (
+        {Platform.OS === "android" && (
           <Button onPress={() => androidReallySave()}>Download .ics</Button>
         )}
       </View>

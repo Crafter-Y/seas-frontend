@@ -17,7 +17,7 @@ export default function Callout({ visible = true, message }: Props) {
         {
           hidden: !visible,
         },
-        "flex-row gap-1"
+        "flex-row gap-1",
       )}
     >
       <AntDesign

@@ -21,7 +21,7 @@ export default function CenterModal({ children }: Props) {
     <Pressable
       style={tw.style(
         { flex: 1, alignItems: "center", justifyContent: "center" },
-        "bg-opacity-35 bg-black"
+        "bg-opacity-35 bg-black",
       )}
       onPress={() => {
         if (new Date().getTime() - lastModalOpen.getTime() < 200) return;
@@ -39,15 +39,15 @@ export default function CenterModal({ children }: Props) {
           style={tw.style(
             {
               flexGrow: 0,
-              "w-1/2": Platform.OS == "web",
+              "w-1/2": Platform.OS === "web",
               width:
-                Platform.OS == "web"
+                Platform.OS === "web"
                   ? isSm
                     ? width / 2
                     : width * 0.75
                   : width,
             },
-            "bg-white shadow-lg"
+            "bg-white shadow-lg",
           )}
         >
           <Pressable style={tw.style({ cursor: "default" })}>

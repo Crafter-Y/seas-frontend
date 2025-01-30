@@ -10,7 +10,7 @@ import CustomText from "../elements/CustomText";
 
 type Props = {
   selectedPage?: APIResponsePage;
-  closeModal?: () => void;
+  closeModal: () => void;
   queryPages: () => void;
 };
 
@@ -29,7 +29,7 @@ export default function RenamePageModal({
   useEffect(() => {
     if (successfulPageRename) {
       queryPages();
-      closeModal?.();
+      closeModal();
     }
   }, [successfulPageRename]);
   return (

@@ -15,21 +15,21 @@ export default function useCreateEvent() {
     singleDate: CalendarDate,
     dayOfWeek: number,
     dayOfMonth: number,
-    monthOfYear: number
+    monthOfYear: number,
   ) => {
     // clientside validation
 
     setIsSuccessfulEventCreation(false);
     setIsSingleDateCreated(false);
 
-    if (createType == "UNSET") {
+    if (createType === "UNSET") {
       setHasCreationError(true);
       setCreationError("Ein Typ muss ausgewählt werden");
       return;
     }
 
     // single event creation
-    if (createType == "SINGLE") {
+    if (createType === "SINGLE") {
       if (!singleDate) {
         setHasCreationError(true);
         setCreationError("Ein Datum muss angegeben werden.");
@@ -37,47 +37,47 @@ export default function useCreateEvent() {
       }
 
       const res = await requestApi("events/single", "POST", {
-        date: formatDate(singleDate)
+        date: formatDate(singleDate),
       });
 
       if (handleResponseErrors(res)) setIsSingleDateCreated(true);
     }
 
-    if (createType == "WEEKLY") {
-      if (!dayOfWeek || dayOfWeek == 0) {
+    if (createType === "WEEKLY") {
+      if (!dayOfWeek || dayOfWeek === 0) {
         setHasCreationError(true);
         setCreationError("Ein Wochentag muss angegeben werden");
         return;
       }
 
       const res = await requestApi("events/weekly", "POST", {
-        day: dayOfWeek
+        day: dayOfWeek,
       });
 
       handleResponseErrors(res);
     }
 
-    if (createType == "MONTHLY") {
-      if (!dayOfMonth || dayOfMonth == 0) {
+    if (createType === "MONTHLY") {
+      if (!dayOfMonth || dayOfMonth === 0) {
         setHasCreationError(true);
         setCreationError("Der Tag des Monats muss angegeben werden");
         return;
       }
 
       const res = await requestApi("events/monthly", "POST", {
-        day: dayOfMonth
+        day: dayOfMonth,
       });
 
       handleResponseErrors(res);
     }
 
-    if (createType == "YEARLY") {
-      if (!dayOfMonth || dayOfMonth == 0) {
+    if (createType === "YEARLY") {
+      if (!dayOfMonth || dayOfMonth === 0) {
         setHasCreationError(true);
         setCreationError("Der Tag des Monats muss angegeben werden");
         return;
       }
-      if (!monthOfYear || monthOfYear == 0) {
+      if (!monthOfYear || monthOfYear === 0) {
         setHasCreationError(true);
         setCreationError("Der Monat muss angegeben werden");
         return;
@@ -85,7 +85,7 @@ export default function useCreateEvent() {
 
       const res = await requestApi("events/yearly", "POST", {
         day: dayOfMonth,
-        month: monthOfYear
+        month: monthOfYear,
       });
 
       handleResponseErrors(res);
@@ -93,10 +93,10 @@ export default function useCreateEvent() {
   };
 
   const handleResponseErrors = (res: ApiResponse | null) => {
-    if (res == null) {
+    if (res === null) {
       setHasCreationError(true);
       setCreationError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
+        "Server nicht verfügbar. Bitte später erneut versuchen.",
       );
       return false;
     }

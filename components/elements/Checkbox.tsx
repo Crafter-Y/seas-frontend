@@ -33,7 +33,7 @@ const Checkbox = ({
         value={checked}
         disabled={disabled}
         onValueChange={(val) => {
-          if (Platform.OS != "web") {
+          if (Platform.OS !== "web") {
             // needed so that web doesn't double fire and native work
             setChecked(val);
             onChange(checked);

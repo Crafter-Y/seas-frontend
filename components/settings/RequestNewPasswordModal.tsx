@@ -8,8 +8,8 @@ import CustomText from "../elements/CustomText";
 
 type Props = {
   editUser: APIFullResponseUser;
-  closeModal?: () => void;
-  openNewPasswordModal?: () => void;
+  closeModal: () => void;
+  openNewPasswordModal: () => void;
 };
 
 export default function RequestNewPasswordModal({
@@ -22,8 +22,8 @@ export default function RequestNewPasswordModal({
 
   useEffect(() => {
     if (successfulPasswordCreation) {
-      closeModal?.();
-      openNewPasswordModal?.();
+      closeModal();
+      openNewPasswordModal();
     }
   }, [successfulPasswordCreation]);
   return (

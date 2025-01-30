@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { requestApi } from "@/helpers/api";
 
-
 export const validateSong = (number: string, title: string) => {
-  if (!number || number.length == 0) return "Eine Liednummer angegeben werden";
+  if (!number || number.length === 0) return "Eine Liednummer angegeben werden";
 
-  if (number.length > 64) return "Die Liednummer darf nicht länger als 64 Zeichen sein.";
+  if (number.length > 64)
+    return "Die Liednummer darf nicht länger als 64 Zeichen sein.";
 
-  if (!title || title.length == 0) return "Es muss ein Titel angegeben werden";
-  if (title.length > 64) return "Der Titel darf nicht länger als 64 Zeichen sein.";
+  if (!title || title.length === 0) return "Es muss ein Titel angegeben werden";
+  if (title.length > 64)
+    return "Der Titel darf nicht länger als 64 Zeichen sein.";
 
   return null;
 };
@@ -18,11 +19,15 @@ export default function useCreateSong() {
   const [creationError, setCreationError] = useState("");
   const [successfulCreation, setSuccessfulCreation] = useState(false);
 
-  const createSong = async (number: string, title: string, songbookId: number) => {
+  const createSong = async (
+    number: string,
+    title: string,
+    songbookId: number,
+  ) => {
     setSuccessfulCreation(false);
 
     const validate = validateSong(number, title);
-    if (validate != null) {
+    if (validate !== null) {
       setHasCreationError(true);
       setCreationError(validate);
     }
@@ -30,13 +35,13 @@ export default function useCreateSong() {
     const res = await requestApi("songs", "POST", {
       number,
       title,
-      songbookId
+      songbookId,
     });
 
-    if (res == null) {
+    if (res === null) {
       setHasCreationError(true);
       setCreationError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
+        "Server nicht verfügbar. Bitte später erneut versuchen.",
       );
       return;
     }

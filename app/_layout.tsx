@@ -41,7 +41,7 @@ function DefaultLayout() {
     }
 
     loadFonts();
-  }, []);
+  }, [t]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

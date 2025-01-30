@@ -6,37 +6,32 @@ export default function useRenameColumn() {
   const [renameError, setRenameError] = useState("");
   const [successfulColumnRename, setIsSuccessfulColumnRename] = useState(false);
 
-  const renameColumn = async (
-    columnId: number,
-    newName: string
-  ) => {
+  const renameColumn = async (columnId: number, newName: string) => {
     // clientside validation
 
     setIsSuccessfulColumnRename(false);
 
-    if (!newName || newName.length == 0) {
+    if (!newName || newName.length === 0) {
       setHasRenameError(true);
       setRenameError("Ein Name muss angegeben werden");
       return;
     }
 
-    if (!columnId || columnId == 0) {
+    if (!columnId || columnId === 0) {
       setHasRenameError(true);
       setRenameError(
-        "Die Spalten ID darf nicht leer sein. Das ist ein Fehler in der Logik dieser App."
+        "Die Spalten ID darf nicht leer sein. Das ist ein Fehler in der Logik dieser App.",
       );
       return;
     }
 
     const res = await requestApi(`columns/${columnId}`, "PATCH", {
-      name: newName
+      name: newName,
     });
 
-    if (res == null) {
+    if (res === null) {
       setHasRenameError(true);
-      setRenameError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
-      );
+      setRenameError("Server nicht verfügbar. Bitte später erneut versuchen.");
       return;
     }
 

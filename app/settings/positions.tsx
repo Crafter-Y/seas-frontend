@@ -79,7 +79,7 @@ export default function ManagePositionsScreen() {
       queryColumns();
       deleteColumnModal.current?.closeModal();
     }
-  }, [succesfulDeletion]);
+  }, [queryColumns, succesfulDeletion]);
 
   useEffect(() => {
     if (successfulColumnRename && assignmentSuccessful) {
@@ -173,13 +173,13 @@ export default function ManagePositionsScreen() {
               <TD cols={3}>
                 <CustomText style={tw`text-lg`}>{column.name}</CustomText>
                 <CustomText>
-                  {column.type == "COMMENT" ? "Kommentarfeld" : "Eintragefeld"}
+                  {column.type === "COMMENT" ? "Kommentarfeld" : "Eintragefeld"}
                 </CustomText>
               </TD>
               <TD cols={3}>
                 {column.pages.map((pageId) => (
                   <CustomText key={pageId}>
-                    {allPages.filter((page) => page.id == pageId)[0]?.name}
+                    {allPages.filter((page) => page.id === pageId)[0]?.name}
                   </CustomText>
                 ))}
               </TD>
@@ -274,7 +274,7 @@ export default function ManagePositionsScreen() {
             key={page.id}
             defaultValue={columnToChange?.pages.includes(page.id)}
             onChange={(isAssigned) => {
-              if (columnToChange?.pages.includes(page.id) == isAssigned) {
+              if (columnToChange?.pages.includes(page.id) === isAssigned) {
                 // thing has changed - add it to the changes array
                 assignmentChanges.push({
                   pageId: page.id,
@@ -286,9 +286,9 @@ export default function ManagePositionsScreen() {
                 const index = assignmentChanges.indexOf(
                   assignmentChanges.filter(
                     (entr) =>
-                      entr.columnId == columnToChange!.id &&
-                      entr.pageId == page.id
-                  )[0]
+                      entr.columnId === columnToChange!.id &&
+                      entr.pageId === page.id,
+                  )[0],
                 );
 
                 if (index > -1) {

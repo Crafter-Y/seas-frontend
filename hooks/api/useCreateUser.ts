@@ -6,23 +6,28 @@ export const validateUser = (
   firstname: string,
   lastname: string,
   email: string,
-  role: string
+  role: string,
 ): string | null => {
-  if (firstname == null || firstname == "") return "Der Vorname muss angegeben werden.";
+  if (firstname === null || firstname === "")
+    return "Der Vorname muss angegeben werden.";
 
-  if (lastname == null || lastname == "") return "Der Nachname muss angegeben werden.";
+  if (lastname === null || lastname === "")
+    return "Der Nachname muss angegeben werden.";
 
-  if (email == null || email == "") return "Die Email muss angegeben werden.";
+  if (email === null || email === "") return "Die Email muss angegeben werden.";
 
-  if (role == null || role == "") return "Die Rolle muss angegeben werden.";
+  if (role === null || role === "") return "Die Rolle muss angegeben werden.";
 
-  if (!firstname.match(/^[\w\d\s\-ÖÄÜßäöüß]{2,64}$/)) return "Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 2-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\"";
+  if (!firstname.match(/^[\w\d\s\-ÖÄÜßäöüß]{2,64}$/))
+    return 'Der Vorname stimmt nicht mit den Kriterien überein. Kriterien: 2-23 Zeichen, Buchstaben, Zahlen, Leerzeichen und "-"';
 
-  if (!lastname.match(/^[\w\d\s\-ÖÄÜßäöüß]{2,64}$/)) return "Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 2-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und \"-\"";
+  if (!lastname.match(/^[\w\d\s\-ÖÄÜßäöüß]{2,64}$/))
+    return 'Der Nachname stimmt nicht mit den Kriterien überein. Kriterien: 2-55 Zeichen, Buchstaben, Zahlen, Leerzeichen und "-"';
 
   if (!validate(email)) return "Die angegebene Email-Adresse ist nicht gültig.";
 
-  if (role !== "USER" && role !== "ADMIN") return "Die angegebene Rolle ist nicht gültig.";
+  if (role !== "USER" && role !== "ADMIN")
+    return "Die angegebene Rolle ist nicht gültig.";
 
   return null;
 };
@@ -48,7 +53,7 @@ export default function useCreateUser() {
     setReactivationRequired(false);
 
     const validationResponse = validateUser(firstname, lastname, email, role);
-    if (validationResponse != null) {
+    if (validationResponse !== null) {
       setCreationError(validationResponse);
       setHasCreationError(true);
       return;
@@ -59,13 +64,13 @@ export default function useCreateUser() {
       lastname,
       email,
       role,
-      url: await getWebServer()
+      url: await getWebServer(),
     });
 
-    if (res == null) {
+    if (res === null) {
       setHasCreationError(true);
       setCreationError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
+        "Server nicht verfügbar. Bitte später erneut versuchen.",
       );
       return;
     }
@@ -75,7 +80,7 @@ export default function useCreateUser() {
       setHasCreationError(false);
       setCreationError("");
     } else {
-      if (res.data.error == "Reactivation required") {
+      if (res.data.error === "Reactivation required") {
         setHasCreationError(false);
         setCreationError("");
         setReactivationRequired(true);
@@ -86,7 +91,6 @@ export default function useCreateUser() {
       setCreationError(res.data.error + ""); // just incase this is a json object (ZodError)
     }
   };
-
 
   const reactivateUser = async (
     firstname: string,
@@ -99,7 +103,7 @@ export default function useCreateUser() {
     setIsSuccessfulUserReactivation(false);
 
     const validationResponse = validateUser(firstname, lastname, email, role);
-    if (validationResponse != null) {
+    if (validationResponse !== null) {
       setCreationError(validationResponse);
       setHasCreationError(true);
       return;
@@ -111,13 +115,13 @@ export default function useCreateUser() {
       email,
       role,
       reactivate: true,
-      url: await getWebServer()
+      url: await getWebServer(),
     });
 
-    if (res == null) {
+    if (res === null) {
       setHasCreationError(true);
       setCreationError(
-        "Server nicht verfügbar. Bitte später erneut versuchen."
+        "Server nicht verfügbar. Bitte später erneut versuchen.",
       );
       return;
     }

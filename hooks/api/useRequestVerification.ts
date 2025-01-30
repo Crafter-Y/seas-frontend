@@ -7,7 +7,7 @@ export default function useRequestVerification() {
   const requestVerification = async (userId: number) => {
     setVerificationSent(false);
     await requestApi(`users/requestVerification/${userId}`, "POST", {
-      url: await getWebServer()
+      url: await getWebServer(),
     });
     setVerificationSent(true);
   };
