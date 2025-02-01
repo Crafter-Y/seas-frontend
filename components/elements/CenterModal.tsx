@@ -1,9 +1,10 @@
-import { Platform, Pressable, useWindowDimensions, View } from "react-native";
 import { router, Stack } from "expo-router";
-import { ScrollView } from "react-native-gesture-handler";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import { useState } from "react";
+import { Platform, Pressable, useWindowDimensions, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 type Props = {
   children?: React.ReactNode;

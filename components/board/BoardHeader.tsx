@@ -1,20 +1,21 @@
-import { View } from "react-native";
-import React, { memo, useCallback, useRef } from "react";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import useServerName from "@/hooks/api/useServerName";
-import { Platform } from "react-native";
-import BoardMenuNavigationButton from "./BoardMenuNavigationButton";
-import BoardMenuButton from "./BoardMenuButton";
-import RoundIconButton from "../RoundIconButton";
-import Divider from "../elements/Divider";
-import Modal, { ModalHandle } from "../elements/Modal";
-import { BoardType } from "@/app/board";
-import useModuleStatus from "@/hooks/api/useModuleStatus";
-import { FetchState } from "@/helpers/Constants";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import CustomText from "../elements/CustomText";
+import React, { memo, useCallback, useRef } from "react";
+import { Platform } from "react-native";
+import { View } from "react-native";
+
+import { BoardType } from "@/app/board";
+import BoardMenuButton from "@/components/board/BoardMenuButton";
+import BoardMenuNavigationButton from "@/components/board/BoardMenuNavigationButton";
+import CustomText from "@/components/elements/CustomText";
+import Divider from "@/components/elements/Divider";
+import Modal, { ModalHandle } from "@/components/elements/Modal";
+import RoundIconButton from "@/components/RoundIconButton";
+import { FetchState } from "@/helpers/Constants";
+import useModuleStatus from "@/hooks/api/useModuleStatus";
+import useServerName from "@/hooks/api/useServerName";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 type BoardHeaderProps = {
   user: User | null;

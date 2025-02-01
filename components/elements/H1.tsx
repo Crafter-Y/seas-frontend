@@ -1,5 +1,6 @@
 import React from "react";
-import CustomText, { CustomTextProps } from "./CustomText";
+
+import CustomText, { CustomTextProps } from "@/components/elements/CustomText";
 
 const H1 = ({ className, ...props }: CustomTextProps) => {
   return (

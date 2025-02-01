@@ -1,10 +1,11 @@
-import { Pressable, View } from "react-native";
 import React, { useRef } from "react";
-import Image from "@/components/elements/Image";
-import tw from "@/tailwind";
+import { Pressable, View } from "react-native";
 import { useHover } from "react-native-web-hooks";
 import { ClassInput } from "twrnc/dist/esm/types";
-import CustomText from "../elements/CustomText";
+
+import CustomText from "@/components/elements/CustomText";
+import Image from "@/components/elements/Image";
+import tw from "@/tailwind";
 
 type Props = {
   icon: string;

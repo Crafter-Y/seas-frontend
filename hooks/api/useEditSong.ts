@@ -1,6 +1,7 @@
 import { useState } from "react";
+
 import { requestApi } from "@/helpers/api";
-import { validateSong } from "./useCreateSong";
+import { validateSong } from "@/hooks/api/useCreateSong";
 
 export default function useEditSong() {
   const [hasEditError, setHasEditError] = useState(false);

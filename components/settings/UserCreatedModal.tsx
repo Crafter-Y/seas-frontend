@@ -1,9 +1,10 @@
+import { forwardRef, MutableRefObject } from "react";
+import { View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
 import tw from "@/tailwind";
-import { View } from "react-native";
-import Button from "@/components/elements/Button";
-import { forwardRef, MutableRefObject } from "react";
-import CustomText from "../elements/CustomText";
 
 const UserCreatedModal = forwardRef<ModalHandle>((props, ref) => {
   return (

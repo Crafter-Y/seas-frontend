@@ -1,8 +1,9 @@
 import { Store as Pullstate } from "pullstate";
-import { FetchState } from "./Constants";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
+
 import { Rating } from "@/components/elements/Ratings";
 import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
+import { FetchState } from "@/helpers/Constants";
 
 export type RatedSong = APIResponseSong & { rating: Rating; comment?: string };
 

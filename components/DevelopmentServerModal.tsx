@@ -1,9 +1,10 @@
-import React, { forwardRef, memo } from "react";
-import Input from "./elements/Input";
-import { Store } from "@/helpers/store";
-import Button from "./elements/Button";
-import ModalRewrite, { ModalHandle } from "./elements/ModalRewrite";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { forwardRef, memo } from "react";
+
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
+import { Store } from "@/helpers/store";
 
 const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
   const serverUrl = Store.useState((state) => state.serverDevUrl);

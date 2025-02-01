@@ -1,5 +1,3 @@
-import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 import { AntDesign } from "@expo/vector-icons";
 import React, {
   forwardRef,
@@ -11,17 +9,20 @@ import { useTranslation } from "react-i18next";
 import {
   Keyboard,
   KeyboardAvoidingView,
+  Modal as RNModal,
   Platform,
   Pressable,
-  Modal as RNModal,
   TouchableOpacity,
   TouchableWithoutFeedback,
   useWindowDimensions,
   View,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import Divider from "./Divider";
-import CustomText from "./CustomText";
+
+import CustomText from "@/components/elements/CustomText";
+import Divider from "@/components/elements/Divider";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 type Props = {
   title: string;

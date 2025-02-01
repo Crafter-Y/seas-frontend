@@ -1,4 +1,8 @@
-import { Platform, Pressable, View } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import {
+  Picker as RNPicker,
+  PickerItemProps,
+} from "@react-native-picker/picker";
 import React, {
   ReactElement,
   ReactNode,
@@ -7,14 +11,11 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { Platform, Pressable, View } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
+import Modal, { ModalHandle } from "@/components/elements/Modal";
 import tw from "@/tailwind";
-import {
-  PickerItemProps,
-  Picker as RNPicker,
-} from "@react-native-picker/picker";
-import { AntDesign } from "@expo/vector-icons";
-import Modal, { ModalHandle } from "./Modal";
-import CustomText from "./CustomText";
 
 type Props = {
   selectedValue: string;

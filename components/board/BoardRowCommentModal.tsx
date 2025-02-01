@@ -1,13 +1,14 @@
+import { useEffect } from "react";
+import { Pressable, TextInput, View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import { Color } from "@/helpers/Constants";
 import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
 import useUpdateComment from "@/hooks/api/useUpdateComment";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
-import { useEffect } from "react";
-import { Pressable, TextInput, View } from "react-native";
-import Button from "../elements/Button";
-import { Color } from "@/helpers/Constants";
-import CustomText from "../elements/CustomText";
 
 type Props = {
   closeModal: () => void;

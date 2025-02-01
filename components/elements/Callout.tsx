@@ -1,9 +1,10 @@
-import { View } from "react-native";
-import React from "react";
-import tw from "@/tailwind";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import React from "react";
+import { View } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
 import { Color } from "@/helpers/Constants";
-import CustomText from "./CustomText";
+import tw from "@/tailwind";
 
 type Props = {
   visible?: boolean;

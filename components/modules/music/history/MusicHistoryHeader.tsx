@@ -1,9 +1,10 @@
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { View } from "react-native";
 import { Button, SegmentedButtons } from "react-native-paper";
-import { MusicEntryType } from "../MusicEntryTypeModal";
+
+import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
+import { HistoryType } from "@/components/modules/music/MusicHistoryModal";
 import tw from "@/tailwind";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { HistoryType } from "../MusicHistoryModal";
 
 type Props = {
   setSearchType: (text: MusicEntryType) => void;

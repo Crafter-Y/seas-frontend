@@ -1,29 +1,30 @@
-import ErrorDisplay from "@/components/ErrorDisplay";
-import SettingsForm from "@/components/SettingsForm";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import React, { useEffect, useRef, useState } from "react";
+import { TextInput } from "react-native";
+
 import Button from "@/components/elements/Button";
+import Callout from "@/components/elements/Callout";
+import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
 import Input from "@/components/elements/Input";
+import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
 import TD from "@/components/elements/TD";
 import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
+import UserSelectModal from "@/components/elements/UserSelectModal";
+import ErrorDisplay from "@/components/ErrorDisplay";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
-import useAllPages from "@/hooks/api/useAllPages";
-import useCreatePage from "@/hooks/api/useCreatePage";
-import tw from "@/tailwind";
-import React, { useEffect, useRef, useState } from "react";
-import { TextInput } from "react-native";
-import SettingsTitle from "@/components/settings/SettingsTitle";
-import useRestrictions from "@/hooks/api/useRestrictions";
-import Callout from "@/components/elements/Callout";
-import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
 import DeletePageModal from "@/components/settings/DeletePageModal";
 import RenamePageModal from "@/components/settings/RenamePageModal";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import UserSelectModal from "@/components/elements/UserSelectModal";
-import useSetPageModerator from "@/hooks/api/useSetPageModerator";
+import SettingsTitle from "@/components/settings/SettingsTitle";
+import SettingsForm from "@/components/SettingsForm";
+import useAllPages from "@/hooks/api/useAllPages";
 import useAllUsers from "@/hooks/api/useAllUsers";
-import CustomText from "@/components/elements/CustomText";
+import useCreatePage from "@/hooks/api/useCreatePage";
+import useRestrictions from "@/hooks/api/useRestrictions";
+import useSetPageModerator from "@/hooks/api/useSetPageModerator";
+import tw from "@/tailwind";
 
 export default function ManagePagesScreen() {
   const { allPages, queryPages } = useAllPages();

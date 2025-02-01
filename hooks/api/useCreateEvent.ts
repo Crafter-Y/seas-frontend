@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
-import { formatDate } from "@/helpers/format";
+
 import { requestApi } from "@/helpers/api";
+import { formatDate } from "@/helpers/format";
 
 export default function useCreateEvent() {
   const [hasCreationError, setHasCreationError] = useState(false);

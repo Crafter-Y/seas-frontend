@@ -1,15 +1,16 @@
-import { Pressable, TouchableOpacity, View } from "react-native";
-import React, { memo, useCallback, useEffect, useState } from "react";
-import tw from "@/tailwind";
-import useYearState from "@/hooks/useYearState";
 import { Entypo } from "@expo/vector-icons";
-import useQuarterState from "@/hooks/useQuarterState";
-import useMonthState from "@/hooks/useMonthState";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import useWeekState from "@/hooks/useWeekState";
-import { Color } from "@/helpers/Constants";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { Pressable, TouchableOpacity, View } from "react-native";
+
 import { BoardType } from "@/app/board";
-import CustomText from "../elements/CustomText";
+import CustomText from "@/components/elements/CustomText";
+import { Color } from "@/helpers/Constants";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import useMonthState from "@/hooks/useMonthState";
+import useQuarterState from "@/hooks/useQuarterState";
+import useWeekState from "@/hooks/useWeekState";
+import useYearState from "@/hooks/useYearState";
+import tw from "@/tailwind";
 
 type Props = {
   boardType: BoardType;

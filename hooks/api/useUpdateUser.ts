@@ -1,6 +1,8 @@
 import { useState } from "react";
+
 import { requestApi } from "@/helpers/api";
-import { validateUser } from "./useCreateUser";
+import { validateUser } from "@/hooks/api/useCreateUser";
+
 export default function useUpdateUser() {
   const [successfulUpdate, setSuccessfulUpdate] = useState(false);
   const [updateError, setUpdateError] = useState<string | null>(null);

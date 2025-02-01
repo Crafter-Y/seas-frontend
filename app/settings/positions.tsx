@@ -1,16 +1,26 @@
-import ErrorDisplay from "@/components/ErrorDisplay";
-import SettingsForm from "@/components/SettingsForm";
+import { Picker as RNPicker } from "@react-native-picker/picker";
+import React, { useEffect, useRef, useState } from "react";
+import { TextInput, View } from "react-native";
+
 import Button from "@/components/elements/Button";
+import Callout from "@/components/elements/Callout";
 import Checkbox from "@/components/elements/Checkbox";
+import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
+import Image from "@/components/elements/Image";
 import Input from "@/components/elements/Input";
 import { ModalHandle } from "@/components/elements/Modal";
+import ModalRewrite from "@/components/elements/ModalRewrite";
 import Picker from "@/components/elements/Picker";
 import TD from "@/components/elements/TD";
 import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
+import ErrorDisplay from "@/components/ErrorDisplay";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import SettingsTitle from "@/components/settings/SettingsTitle";
+import SettingsForm from "@/components/SettingsForm";
+import { Color } from "@/helpers/Constants";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllPages from "@/hooks/api/useAllPages";
 import useAssignColumns, {
@@ -19,17 +29,8 @@ import useAssignColumns, {
 import useCreateColumn from "@/hooks/api/useCreateColumn";
 import useDeleteColumn from "@/hooks/api/useDeleteColumn";
 import useRenameColumn from "@/hooks/api/useRenameColumn";
-import tw from "@/tailwind";
-import { Picker as RNPicker } from "@react-native-picker/picker";
-import Image from "@/components/elements/Image";
-import React, { useEffect, useRef, useState } from "react";
-import { TextInput, View } from "react-native";
-import SettingsTitle from "@/components/settings/SettingsTitle";
-import ModalRewrite from "@/components/elements/ModalRewrite";
-import { Color } from "@/helpers/Constants";
 import useRestrictions from "@/hooks/api/useRestrictions";
-import Callout from "@/components/elements/Callout";
-import CustomText from "@/components/elements/CustomText";
+import tw from "@/tailwind";
 
 export default function ManagePositionsScreen() {
   const {

@@ -1,11 +1,12 @@
-import { Pressable, TouchableOpacity, View } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
-import Button from "./Button";
-import tw from "@/tailwind";
-import Input from "./Input";
 import { FlashList } from "@shopify/flash-list";
 import ExpoCheckbox from "expo-checkbox";
-import CustomText from "./CustomText";
+import React, { useCallback, useEffect, useState } from "react";
+import { Pressable, TouchableOpacity, View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Input from "@/components/elements/Input";
+import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;

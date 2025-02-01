@@ -4,9 +4,10 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
-import tw from "@/tailwind";
-import CustomText from "./CustomText";
+
+import CustomText from "@/components/elements/CustomText";
 import { Color } from "@/helpers/Constants";
+import tw from "@/tailwind";
 
 type Props = {
   color?: string;

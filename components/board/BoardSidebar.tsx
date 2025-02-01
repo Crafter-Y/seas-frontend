@@ -1,12 +1,13 @@
-import { useWindowDimensions, View } from "react-native";
 import React from "react";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import BoardSidebarButton from "./BoardSidebarButton";
-import BoardSidebarNavigationButton from "./BoardSidebarNavigationButton";
-import Divider from "../elements/Divider";
+import { useWindowDimensions, View } from "react-native";
+
 import { BoardType } from "@/app/board";
-import CustomText from "../elements/CustomText";
+import BoardSidebarButton from "@/components/board/BoardSidebarButton";
+import BoardSidebarNavigationButton from "@/components/board/BoardSidebarNavigationButton";
+import CustomText from "@/components/elements/CustomText";
+import Divider from "@/components/elements/Divider";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 const BoardSidebar = (props: {
   user: User | null;

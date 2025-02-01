@@ -1,20 +1,21 @@
-import SettingsForm from "@/components/SettingsForm";
-import Button from "@/components/elements/Button";
-import Divider from "@/components/elements/Divider";
-import { SettingsLayout } from "@/components/layouts/SettingsLayout";
-import { Color } from "@/helpers/Constants";
-import tw from "@/tailwind";
-import React, { useEffect } from "react";
-import { View } from "react-native";
-import useModuleStatus from "@/hooks/api/useModuleStatus";
-import useChangeModuleState from "@/hooks/api/useChangeModuleState";
-import SettingsTitle from "@/components/settings/SettingsTitle";
-import useRestrictions from "@/hooks/api/useRestrictions";
-import Callout from "@/components/elements/Callout";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { router } from "expo-router";
+import React, { useEffect } from "react";
+import { View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import Button from "@/components/elements/Button";
+import Callout from "@/components/elements/Callout";
 import CustomText from "@/components/elements/CustomText";
+import Divider from "@/components/elements/Divider";
+import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import SettingsTitle from "@/components/settings/SettingsTitle";
+import SettingsForm from "@/components/SettingsForm";
+import { Color } from "@/helpers/Constants";
+import useChangeModuleState from "@/hooks/api/useChangeModuleState";
+import useModuleStatus from "@/hooks/api/useModuleStatus";
+import useRestrictions from "@/hooks/api/useRestrictions";
+import tw from "@/tailwind";
 
 export default function ManagePagesScreen() {
   const { moduleStatus, queryModuleStatus } = useModuleStatus();

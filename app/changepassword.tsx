@@ -1,19 +1,20 @@
+import { router, Stack } from "expo-router";
 import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import useMediaQueries from "@/hooks/useMediaQueries";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Divider from "@/components/elements/Divider";
+import H1 from "@/components/elements/H1";
 import Input from "@/components/elements/Input";
-import useUpdatePassword from "@/hooks/api/useUpdatePassword";
+import ErrorDisplay from "@/components/ErrorDisplay";
 import Footer from "@/components/Footer";
 import SettingsBackButton from "@/components/SettingsBackButton";
-import Divider from "@/components/elements/Divider";
 import SettingsForm from "@/components/SettingsForm";
-import H1 from "@/components/elements/H1";
-import ErrorDisplay from "@/components/ErrorDisplay";
-import Button from "@/components/elements/Button";
-import { router, Stack } from "expo-router";
-import CustomText from "@/components/elements/CustomText";
-import { useTranslation } from "react-i18next";
+import useUpdatePassword from "@/hooks/api/useUpdatePassword";
+import useMediaQueries from "@/hooks/useMediaQueries";
 
 export default function ChangePasswordScreen() {
   const { updatePassword, hasUpdateError, updateError } = useUpdatePassword();

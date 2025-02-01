@@ -1,20 +1,21 @@
-import Divider from "@/components/elements/Divider";
-import tw from "@/tailwind";
-import { Platform, TouchableOpacity, View } from "react-native";
-import { Store } from "@/helpers/store";
-import useAllColumns from "@/hooks/api/useAllColumns";
-import Button from "@/components/elements/Button";
-import { Color } from "@/helpers/Constants";
-import { useState } from "react";
+import { AntDesign } from "@expo/vector-icons";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
-import { formatDate, prettyDate } from "@/helpers/format";
-import { requestApi } from "@/helpers/api";
-import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
-import { AntDesign } from "@expo/vector-icons";
-import Animated, { CurvedTransition } from "react-native-reanimated";
-import CustomText from "@/components/elements/CustomText";
+import { useState } from "react";
 import React from "react";
+import { Platform, TouchableOpacity, View } from "react-native";
+import Animated, { CurvedTransition } from "react-native-reanimated";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Divider from "@/components/elements/Divider";
+import { requestApi } from "@/helpers/api";
+import { Color } from "@/helpers/Constants";
+import { formatDate, prettyDate } from "@/helpers/format";
+import { Store } from "@/helpers/store";
+import useAllColumns from "@/hooks/api/useAllColumns";
+import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
+import tw from "@/tailwind";
 
 type Item = { text: string; key: number };
 
@@ -178,7 +179,6 @@ export default function PrintOrderModal({
               key={row.key}
               style={tw`flex-row p-2 border items-center justify-between`}
               layout={CurvedTransition.duration(150).delay(50)}
-              exiting={CurvedTransition.duration(150).delay(50)}
             >
               <CustomText>{row.text}</CustomText>
               <View style={tw`flex-row`}>

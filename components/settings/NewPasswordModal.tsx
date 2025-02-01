@@ -1,8 +1,9 @@
-import { View } from "react-native";
 import React from "react";
+import { View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
 import tw from "@/tailwind";
-import Button from "../elements/Button";
-import CustomText from "../elements/CustomText";
 
 type Props = {
   editUser: APIFullResponseUser;

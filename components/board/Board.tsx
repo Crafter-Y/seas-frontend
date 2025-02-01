@@ -1,19 +1,20 @@
-import { View } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import BoardRangePicker from "./BoardRangePicker";
-import BoardList from "./BoardList";
-import useAllPages from "@/hooks/api/useAllPages";
-import BoardPageSelector from "./BoardPageSelector";
-import Divider from "../elements/Divider";
-import { BoardType } from "@/app/board";
-import { Store } from "@/helpers/store";
-import RoundIconButton from "../RoundIconButton";
-import useModuleStatus from "@/hooks/api/useModuleStatus";
-import useBoard from "@/hooks/api/useBoard";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import React, { useCallback, useEffect, useState } from "react";
+import { View } from "react-native";
+
+import { BoardType } from "@/app/board";
+import BoardList from "@/components/board/BoardList";
+import BoardPageSelector from "@/components/board/BoardPageSelector";
+import BoardRangePicker from "@/components/board/BoardRangePicker";
+import Divider from "@/components/elements/Divider";
+import RoundIconButton from "@/components/RoundIconButton";
+import { Store } from "@/helpers/store";
+import useAllPages from "@/hooks/api/useAllPages";
+import useBoard from "@/hooks/api/useBoard";
+import useModuleStatus from "@/hooks/api/useModuleStatus";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 type Props = {
   boardType: BoardType;

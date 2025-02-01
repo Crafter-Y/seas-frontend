@@ -1,10 +1,3 @@
-import {
-  Platform,
-  ScrollView,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from "react-native";
 import React, {
   forwardRef,
   memo,
@@ -12,9 +5,17 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
+import {
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import ReactNativeModal, { Direction } from "react-native-modal";
-import tw from "@/tailwind";
+
 import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 type ModalType = "MOBILE_BOTTOM" | "CENTER";
 

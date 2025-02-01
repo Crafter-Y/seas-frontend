@@ -1,3 +1,9 @@
+import AntDesign from "@expo/vector-icons/AntDesign";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { router } from "expo-router";
+import React, { useEffect, useRef, useState } from "react";
+import { TextInput, View } from "react-native";
+
 import Button from "@/components/elements/Button";
 import Callout from "@/components/elements/Callout";
 import CustomText from "@/components/elements/CustomText";
@@ -21,11 +27,6 @@ import useRestrictions from "@/hooks/api/useRestrictions";
 import useSongbooks from "@/hooks/api/useSongbooks";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { router } from "expo-router";
-import React, { useEffect, useRef, useState } from "react";
-import { TextInput, View } from "react-native";
 
 export default function Index() {
   const { isMd } = useMediaQueries();

@@ -1,6 +1,7 @@
-const { getDefaultConfig } = require("expo/metro-config");
-const { generate } = require("@storybook/react-native/scripts/generate");
 const path = require("path");
+
+const { generate } = require("@storybook/react-native/scripts/generate");
+const { getDefaultConfig } = require("expo/metro-config");
 const { withNativeWind } = require("nativewind/metro");
 
 /** @type {import('expo/metro-config').MetroConfig} */

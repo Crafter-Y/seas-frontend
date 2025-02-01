@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
+import { InvalidTokenError, jwtDecode as decode } from "jwt-decode";
+import { useEffect, useState } from "react";
 import { Platform } from "react-native";
-import { jwtDecode as decode, InvalidTokenError } from "jwt-decode";
+
 import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
 import { defaultState, Store } from "@/helpers/store";
-import { router } from "expo-router";
 
 export default function useAuthentication() {
   const [hasAuthError, setHasAuthError] = useState(false);

@@ -1,21 +1,22 @@
-import tw from "@/tailwind";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { TextInput, View } from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import Image from "@/components/elements/Image";
-import { useEffect, useRef, useState } from "react";
-import Footer from "@/components/Footer";
-import Input from "@/components/elements/Input";
-import usePasswordTokenInfo from "@/hooks/api/usePasswortTokenInfo";
-import ErrorDisplay from "@/components/ErrorDisplay";
-import Button from "@/components/elements/Button";
-import useRedeemPasswordToken from "@/hooks/api/useRedeemPasswordToken";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useLocalSearchParams } from "expo-router";
 import { router } from "expo-router";
+import { useEffect, useRef, useState } from "react";
 import React from "react";
-import CustomText from "@/components/elements/CustomText";
-import { resources } from "@/helpers/i18n";
 import { useTranslation } from "react-i18next";
+import { TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Image from "@/components/elements/Image";
+import Input from "@/components/elements/Input";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import Footer from "@/components/Footer";
+import { resources } from "@/helpers/i18n";
+import usePasswordTokenInfo from "@/hooks/api/usePasswortTokenInfo";
+import useRedeemPasswordToken from "@/hooks/api/useRedeemPasswordToken";
+import tw from "@/tailwind";
 
 export default function VerifyScreen() {
   const { t, intent } = useLocalSearchParams<{ t: string; intent: string }>();

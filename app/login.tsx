@@ -1,25 +1,27 @@
-import { Platform, View } from "react-native";
-import React, { useEffect, useRef } from "react";
-import tw from "@/tailwind";
 import "@expo/match-media";
+
+import AntDesign from "@expo/vector-icons/AntDesign";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useServerName from "@/hooks/api/useServerName";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import H1 from "@/components/elements/H1";
-import Divider from "@/components/elements/Divider";
+import Constants from "expo-constants";
 import { router, useSegments } from "expo-router";
-import LoginForm from "@/components/LoginForm";
-import useAuthentication from "@/hooks/api/useAuthentication";
-import { Store } from "@/helpers/store";
-import { FetchState } from "@/helpers/Constants";
-import RoundIconButton from "@/components/RoundIconButton";
-import { ModalHandle } from "@/components/elements/Modal";
+import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { Platform, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import CustomText from "@/components/elements/CustomText";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import Constants from "expo-constants";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useTranslation } from "react-i18next";
+import Divider from "@/components/elements/Divider";
+import H1 from "@/components/elements/H1";
+import { ModalHandle } from "@/components/elements/Modal";
+import LoginForm from "@/components/LoginForm";
+import RoundIconButton from "@/components/RoundIconButton";
+import { FetchState } from "@/helpers/Constants";
+import { Store } from "@/helpers/store";
+import useAuthentication from "@/hooks/api/useAuthentication";
+import useServerName from "@/hooks/api/useServerName";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 type WebConfig = {
   serverId: string;

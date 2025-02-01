@@ -1,17 +1,18 @@
-import { Pressable, View } from "react-native";
-import tw from "@/tailwind";
 import React, { useEffect, useState } from "react";
-import { Store } from "@/helpers/store";
-import Divider from "@/components/elements/Divider";
-import useAllPages from "@/hooks/api/useAllPages";
-import useAllColumns from "@/hooks/api/useAllColumns";
-import useAuthentication from "@/hooks/api/useAuthentication";
+import { Pressable, View } from "react-native";
+
 import BoardAssignButton from "@/components/board/BoardAssignButton";
-import useUnAssignUser from "@/hooks/api/useUnAssignUser";
+import CustomText from "@/components/elements/CustomText";
+import Divider from "@/components/elements/Divider";
+import { Store } from "@/helpers/store";
+import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
+import useAllPages from "@/hooks/api/useAllPages";
 import useAssignUser from "@/hooks/api/useAssignUser";
+import useAuthentication from "@/hooks/api/useAuthentication";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
-import CustomText from "../elements/CustomText";
+import useUnAssignUser from "@/hooks/api/useUnAssignUser";
+import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;

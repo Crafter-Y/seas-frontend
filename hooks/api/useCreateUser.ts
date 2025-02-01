@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { validate } from "email-validator";
+import { useState } from "react";
+
 import { getWebServer, requestApi } from "@/helpers/api";
 
 export const validateUser = (

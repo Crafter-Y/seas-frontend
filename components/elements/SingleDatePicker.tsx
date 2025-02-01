@@ -1,10 +1,11 @@
-import { Platform, Pressable, View } from "react-native";
-import React, { useState } from "react";
-import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
-import { DatePickerModal } from "react-native-paper-dates";
-import tw from "@/tailwind";
 import { AntDesign } from "@expo/vector-icons";
-import CustomText from "./CustomText";
+import React, { useState } from "react";
+import { Platform, Pressable, View } from "react-native";
+import { DatePickerModal } from "react-native-paper-dates";
+import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
+
+import CustomText from "@/components/elements/CustomText";
+import tw from "@/tailwind";
 
 type Props = {
   setDate: (date: CalendarDate) => void;

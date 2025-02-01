@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
-import { Store } from "./store";
 import { router } from "expo-router";
+
+import { Store } from "@/helpers/store";
 
 type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 

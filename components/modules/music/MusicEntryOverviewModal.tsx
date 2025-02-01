@@ -1,16 +1,17 @@
+import { AntDesign } from "@expo/vector-icons";
+import { FlashList } from "@shopify/flash-list";
+import { useEffect, useRef } from "react";
+import { Animated, TouchableOpacity, View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Ratings from "@/components/elements/Ratings";
+import { entryTypeMeanings } from "@/components/modules/music/MusicEntryTypeModal";
 import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
-import tw from "@/tailwind";
-import { FlashList } from "@shopify/flash-list";
-import { Animated, TouchableOpacity, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { useEffect, useRef } from "react";
-import Button from "@/components/elements/Button";
-import Ratings from "@/components/elements/Ratings";
-import { entryTypeMeanings } from "./MusicEntryTypeModal";
 import useSaveSongEntries from "@/hooks/api/useSaveSongEntries";
-import CustomText from "@/components/elements/CustomText";
+import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;

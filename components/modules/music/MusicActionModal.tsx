@@ -1,9 +1,10 @@
-import tw from "@/tailwind";
-import { Platform, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { Store } from "@/helpers/store";
 import React from "react";
+import { Platform, TouchableOpacity, View } from "react-native";
+
 import CustomText from "@/components/elements/CustomText";
+import { Store } from "@/helpers/store";
+import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;

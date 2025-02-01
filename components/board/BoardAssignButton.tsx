@@ -1,8 +1,9 @@
-import { Pressable, PressableProps, View } from "react-native";
-import React from "react";
 import { Entypo } from "@expo/vector-icons";
+import React from "react";
+import { Pressable, PressableProps, View } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
 import { Color } from "@/helpers/Constants";
-import CustomText from "../elements/CustomText";
 
 type Props = {
   color: keyof typeof Color;

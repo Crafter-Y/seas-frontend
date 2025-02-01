@@ -1,7 +1,8 @@
 import React from "react";
 import { DataTable } from "react-native-paper";
-import { HistoryType } from "../MusicHistoryModal";
-import { MusicEntryType } from "../MusicEntryTypeModal";
+
+import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
+import { HistoryType } from "@/components/modules/music/MusicHistoryModal";
 import tw from "@/tailwind";
 
 type Props = {

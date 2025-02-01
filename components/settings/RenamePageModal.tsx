@@ -1,12 +1,13 @@
-import { TextInput, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import Input from "../elements/Input";
-import tw from "@/tailwind";
-import ErrorDisplay from "../ErrorDisplay";
-import Button from "../elements/Button";
-import useRenamePage from "@/hooks/api/useRenamePage";
+import { TextInput, View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Input from "@/components/elements/Input";
+import ErrorDisplay from "@/components/ErrorDisplay";
 import { Color } from "@/helpers/Constants";
-import CustomText from "../elements/CustomText";
+import useRenamePage from "@/hooks/api/useRenamePage";
+import tw from "@/tailwind";
 
 type Props = {
   selectedPage?: APIResponsePage;

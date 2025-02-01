@@ -1,8 +1,9 @@
-import { Platform, Pressable } from "react-native";
-import React, { useState } from "react";
 import ExpoCheckbox from "expo-checkbox";
+import React, { useState } from "react";
+import { Platform, Pressable } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
 import tw from "@/tailwind";
-import CustomText from "./CustomText";
 
 type Props = {
   defaultValue?: boolean;

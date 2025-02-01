@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import { ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
-import { Linking } from "react-native";
-import CustomText from "@/components/elements/CustomText";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { ScrollView } from "react-native";
+import { Linking } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import CustomText from "@/components/elements/CustomText";
 
 export default function ImprintScreen() {
   const { t } = useTranslation();

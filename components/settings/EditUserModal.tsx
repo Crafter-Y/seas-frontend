@@ -1,12 +1,13 @@
-import { Color } from "@/helpers/Constants";
-import tw from "@/tailwind";
+import React from "react";
 import { Pressable, TouchableOpacity, View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Image from "@/components/elements/Image";
-import Button from "@/components/elements/Button";
+import { Color } from "@/helpers/Constants";
 import useRequestVerification from "@/hooks/api/useRequestVerification";
-import React from "react";
-import CustomText from "../elements/CustomText";
+import tw from "@/tailwind";
 
 type Props = {
   user: User;

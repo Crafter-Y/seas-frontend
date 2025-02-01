@@ -1,10 +1,11 @@
-import { View } from "react-native";
 import React, { useEffect } from "react";
-import tw from "@/tailwind";
-import useDeletePage from "@/hooks/api/useDeletePage";
-import Button from "../elements/Button";
+import { View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
 import { Color } from "@/helpers/Constants";
-import CustomText from "../elements/CustomText";
+import useDeletePage from "@/hooks/api/useDeletePage";
+import tw from "@/tailwind";
 
 type Props = {
   selectedPage?: APIResponsePage;

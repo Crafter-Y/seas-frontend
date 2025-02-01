@@ -1,14 +1,15 @@
-import { Pressable, View } from "react-native";
+import { router } from "expo-router";
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { Pressable, View } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
 import Image from "@/components/elements/Image";
 import {
   SettingsLayout,
   settingsSections,
 } from "@/components/layouts/SettingsLayout";
-import { router } from "expo-router";
 import useRestrictions from "@/hooks/api/useRestrictions";
-import CustomText from "@/components/elements/CustomText";
-import { useTranslation } from "react-i18next";
 
 export default function BaseSettingsScreen() {
   const { t } = useTranslation();

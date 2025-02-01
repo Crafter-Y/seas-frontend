@@ -1,14 +1,15 @@
-import tw from "@/tailwind";
+import { Picker as RNPicker } from "@react-native-picker/picker";
+import { useEffect, useRef, useState } from "react";
+import React from "react";
 import { TextInput, View } from "react-native";
+
+import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import Picker from "@/components/elements/Picker";
-import { Picker as RNPicker } from "@react-native-picker/picker";
-import ErrorDisplay from "../ErrorDisplay";
-import Button from "../elements/Button";
+import ErrorDisplay from "@/components/ErrorDisplay";
 import { Color } from "@/helpers/Constants";
-import { useEffect, useRef, useState } from "react";
 import useUpdateUser from "@/hooks/api/useUpdateUser";
-import React from "react";
+import tw from "@/tailwind";
 
 type Props = {
   editUser: APIFullResponseUser;

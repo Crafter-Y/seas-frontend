@@ -1,10 +1,11 @@
-import tw from "@/tailwind";
-import { View } from "react-native";
-import Button from "../elements/Button";
 import { useEffect } from "react";
-import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
 import React from "react";
-import CustomText from "../elements/CustomText";
+import { View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
+import tw from "@/tailwind";
 
 type Props = {
   editUser: APIFullResponseUser;

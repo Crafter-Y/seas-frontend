@@ -1,10 +1,11 @@
-import { Pressable, View } from "react-native";
 import React, { useRef } from "react";
-import tw from "@/tailwind";
+import { Pressable, View } from "react-native";
 import { useHover } from "react-native-web-hooks";
-import { Color } from "@/helpers/Constants";
+
 import { BoardType } from "@/app/board";
-import CustomText from "../elements/CustomText";
+import CustomText from "@/components/elements/CustomText";
+import { Color } from "@/helpers/Constants";
+import tw from "@/tailwind";
 
 type Props = {
   boardType: BoardType;

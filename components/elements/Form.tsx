@@ -1,7 +1,8 @@
-import { View } from "react-native";
 import React, { ReactNode } from "react";
-import tw from "@/tailwind";
+import { View } from "react-native";
 import { ClassInput } from "twrnc/dist/esm/types";
+
+import tw from "@/tailwind";
 
 type Props = {
   children?: ReactNode;

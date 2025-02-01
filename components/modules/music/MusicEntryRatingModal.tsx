@@ -1,13 +1,14 @@
+import { AntDesign } from "@expo/vector-icons";
+import { useState } from "react";
+import { TextInput, TouchableOpacity, View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
 import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import tw from "@/tailwind";
-import { TextInput, TouchableOpacity, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { useState } from "react";
-import Button from "@/components/elements/Button";
-import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
-import CustomText from "@/components/elements/CustomText";
 
 type Props = {
   closeModal: () => void;

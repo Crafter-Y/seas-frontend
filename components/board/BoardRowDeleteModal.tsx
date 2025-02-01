@@ -1,13 +1,14 @@
-import tw from "@/tailwind";
-import { View } from "react-native";
-import Button from "../elements/Button";
-import { Color } from "@/helpers/Constants";
-import useDeleteEvent from "@/hooks/api/useDeleteEvent";
 import { useEffect } from "react";
-import { Store } from "@/helpers/store";
-import { prettyDate } from "@/helpers/format";
-import CustomText from "../elements/CustomText";
 import React from "react";
+import { View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import { Color } from "@/helpers/Constants";
+import { prettyDate } from "@/helpers/format";
+import { Store } from "@/helpers/store";
+import useDeleteEvent from "@/hooks/api/useDeleteEvent";
+import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;

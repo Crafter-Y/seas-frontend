@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import MyButton from "./Button";
+import MyButton from "@/components/elements/Button";
 import { Color } from "@/helpers/Constants";
+
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   component: MyButton,

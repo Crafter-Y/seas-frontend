@@ -1,14 +1,15 @@
-import { Pressable, RefreshControl, ScrollView, View } from "react-native";
-import React from "react";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import Footer from "@/components/Footer";
-import SettingsBackButton from "../SettingsBackButton";
-import Divider from "../elements/Divider";
-import H1 from "../elements/H1";
-import { Color } from "@/helpers/Constants";
 import { router, Stack } from "expo-router";
-import CustomText from "../elements/CustomText";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { Pressable, RefreshControl, ScrollView, View } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
+import Divider from "@/components/elements/Divider";
+import H1 from "@/components/elements/H1";
+import Footer from "@/components/Footer";
+import SettingsBackButton from "@/components/SettingsBackButton";
+import { Color } from "@/helpers/Constants";
+import useMediaQueries from "@/hooks/useMediaQueries";
 
 type Props = {
   children: React.ReactNode;

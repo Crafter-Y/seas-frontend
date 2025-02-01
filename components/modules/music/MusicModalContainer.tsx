@@ -1,12 +1,13 @@
-import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
-import MusicActionModal from "./MusicActionModal";
-import MusicEntryDateModal from "./MusicEntryDateModal";
-import MusicEntryOverviewModal from "./MusicEntryOverviewModal";
-import MusicEntryRatingModal from "./MusicEntryRatingModal";
-import MusicEntryTypeModal from "./MusicEntryTypeModal";
-import MusicHistoryModal from "./MusicHistoryModal";
-import MusicSelectSongModal from "./MusicSelectSongModal";
+
+import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
+import MusicActionModal from "@/components/modules/music/MusicActionModal";
+import MusicEntryDateModal from "@/components/modules/music/MusicEntryDateModal";
+import MusicEntryOverviewModal from "@/components/modules/music/MusicEntryOverviewModal";
+import MusicEntryRatingModal from "@/components/modules/music/MusicEntryRatingModal";
+import MusicEntryTypeModal from "@/components/modules/music/MusicEntryTypeModal";
+import MusicHistoryModal from "@/components/modules/music/MusicHistoryModal";
+import MusicSelectSongModal from "@/components/modules/music/MusicSelectSongModal";
 
 const MusicModalContainer = forwardRef<ModalHandle>((props, ref) => {
   const musicActonModal = useRef<ModalHandle>(null);

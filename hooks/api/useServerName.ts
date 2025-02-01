@@ -1,8 +1,9 @@
-import { useCallback, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useCallback, useState } from "react";
+
 import { requestApiWithoutCredentials } from "@/helpers/api";
-import { Store } from "@/helpers/store";
 import { FetchState } from "@/helpers/Constants";
+import { Store } from "@/helpers/store";
 
 export default function useServerName() {
   const serverName = Store.useState((state) => state.serverName);

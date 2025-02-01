@@ -1,8 +1,9 @@
-import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
-import PrintCoumnsModal from "./PrintCoumnsModal";
-import PrintOrderModal from "./PrintOrderModal";
-import PrintRangeModal from "./PrintRangeModal";
+
+import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
+import PrintCoumnsModal from "@/components/modules/print/PrintCoumnsModal";
+import PrintOrderModal from "@/components/modules/print/PrintOrderModal";
+import PrintRangeModal from "@/components/modules/print/PrintRangeModal";
 
 const PrintModalContainer = forwardRef<ModalHandle>((props, ref) => {
   const printRangeModal = useRef<ModalHandle>(null);

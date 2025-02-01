@@ -1,20 +1,21 @@
+import AntDesign from "@expo/vector-icons/AntDesign";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
+import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform, useWindowDimensions, View } from "react-native";
+
+import DevelopmentServerModal from "@/components/DevelopmentServerModal";
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
 import Image from "@/components/elements/Image";
 import Input from "@/components/elements/Input";
-import ErrorDisplay from "@/components/ErrorDisplay";
-import Button from "@/components/elements/Button";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useRef, useState } from "react";
-import useServerName from "@/hooks/api/useServerName";
-import { router } from "expo-router";
-import { FetchState } from "@/helpers/Constants";
-import RoundIconButton from "@/components/RoundIconButton";
 import { ModalHandle } from "@/components/elements/Modal";
-import DevelopmentServerModal from "@/components/DevelopmentServerModal";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import RoundIconButton from "@/components/RoundIconButton";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { useTranslation } from "react-i18next";
-import CustomText from "@/components/elements/CustomText";
+import { FetchState } from "@/helpers/Constants";
+import useServerName from "@/hooks/api/useServerName";
 
 export default function ServerSelectorScreen() {
   const { height, width } = useWindowDimensions();

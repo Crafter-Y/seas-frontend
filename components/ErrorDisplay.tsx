@@ -1,5 +1,6 @@
 import React from "react";
-import CustomText, { CustomTextProps } from "./elements/CustomText";
+
+import CustomText, { CustomTextProps } from "@/components/elements/CustomText";
 
 type Props = {
   hasError: boolean;

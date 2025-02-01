@@ -1,12 +1,13 @@
-import { Platform, TextInput, View } from "react-native";
-import React, { useRef, useState } from "react";
-import tw from "@/tailwind";
-import Input from "./elements/Input";
-import Button from "./elements/Button";
-import ErrorDisplay from "./ErrorDisplay";
-import useMediaQueries from "@/hooks/useMediaQueries";
 import { router } from "expo-router";
-import CustomText from "./elements/CustomText";
+import React, { useRef, useState } from "react";
+import { Platform, TextInput, View } from "react-native";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Input from "@/components/elements/Input";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 type Props = {
   back: () => void;

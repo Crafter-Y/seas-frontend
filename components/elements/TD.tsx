@@ -1,5 +1,5 @@
-import { View, ViewProps } from "react-native";
 import React from "react";
+import { View, ViewProps } from "react-native";
 
 type Props = {
   cols: number;

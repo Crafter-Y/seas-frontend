@@ -1,5 +1,5 @@
-import { TextInput, TextInputProps } from "react-native";
 import React, { forwardRef, useEffect, useState } from "react";
+import { TextInput, TextInputProps } from "react-native";
 
 type Props = {
   initialValue?: string;

@@ -1,16 +1,17 @@
-import Button from "@/components/elements/Button";
-import Input from "@/components/elements/Input";
-import { Color } from "@/helpers/Constants";
-import useMusicSearch from "@/hooks/api/useMusicSearch";
-import tw from "@/tailwind";
+import { AntDesign } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
 import { useEffect, useRef, useState } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import { SegmentedButtons } from "react-native-paper";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Input from "@/components/elements/Input";
+import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
-import CustomText from "@/components/elements/CustomText";
+import useMusicSearch from "@/hooks/api/useMusicSearch";
+import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { requestApi } from "@/helpers/api";
 export default function useDeleteEvent() {
   const [succesfulDeletion, setSuccessfulDeletion] = useState(false);

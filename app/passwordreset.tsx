@@ -1,19 +1,20 @@
+import { Stack, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
+
+import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
+import Divider from "@/components/elements/Divider";
+import H1 from "@/components/elements/H1";
 import Input from "@/components/elements/Input";
 import Footer from "@/components/Footer";
 import SettingsBackButton from "@/components/SettingsBackButton";
-import Divider from "@/components/elements/Divider";
 import SettingsForm from "@/components/SettingsForm";
-import H1 from "@/components/elements/H1";
-import Button from "@/components/elements/Button";
-import { Stack, useLocalSearchParams } from "expo-router";
 import useResetPassword from "@/hooks/api/useResetPassword";
-import CustomText from "@/components/elements/CustomText";
-import { useTranslation } from "react-i18next";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 export default function ResetPasswordScreen() {
   const { email: initEmail } = useLocalSearchParams();

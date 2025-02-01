@@ -1,5 +1,6 @@
-import { View } from "react-native";
 import React, { ReactNode } from "react";
+import { View } from "react-native";
+
 import tw from "@/tailwind";
 
 type Props = {

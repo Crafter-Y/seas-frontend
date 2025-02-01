@@ -1,13 +1,14 @@
-import { useWindowDimensions, View } from "react-native";
-import React from "react";
 import { FlashList, ListRenderItem } from "@shopify/flash-list";
-import MusicHistoryHeader from "./MusicHistoryHeader";
-import MusicHistoryFooter from "./MusicHistoryFooter";
-import { MusicEntryType } from "../MusicEntryTypeModal";
-import { HistoryType } from "../MusicHistoryModal";
+import React from "react";
+import { useWindowDimensions, View } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
+import MusicHistoryFooter from "@/components/modules/music/history/MusicHistoryFooter";
+import MusicHistoryHeader from "@/components/modules/music/history/MusicHistoryHeader";
+import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
+import { HistoryType } from "@/components/modules/music/MusicHistoryModal";
 import { Color } from "@/helpers/Constants";
 import tw from "@/tailwind";
-import CustomText from "@/components/elements/CustomText";
 
 type Props = {
   headers: string[];

@@ -1,24 +1,25 @@
-import { TextInput, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import Image from "@/components/elements/Image";
-import { SettingsLayout } from "@/components/layouts/SettingsLayout";
-import tw from "@/tailwind";
-import SettingsForm from "@/components/SettingsForm";
-import Input from "@/components/elements/Input";
-import ErrorDisplay from "@/components/ErrorDisplay";
+import { TextInput, View } from "react-native";
+
 import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
+import H1 from "@/components/elements/H1";
+import Image from "@/components/elements/Image";
+import Input from "@/components/elements/Input";
+import Modal, { ModalHandle } from "@/components/elements/Modal";
+import TD from "@/components/elements/TD";
 import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
-import TD from "@/components/elements/TD";
-import Modal, { ModalHandle } from "@/components/elements/Modal";
-import H1 from "@/components/elements/H1";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import SettingsTitle from "@/components/settings/SettingsTitle";
+import SettingsForm from "@/components/SettingsForm";
 import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
 import useCreateDefaultComment from "@/hooks/api/useCreateDefaultComment";
 import useDeleteDefaultComment from "@/hooks/api/useDeleteDefaultComment";
-import SettingsTitle from "@/components/settings/SettingsTitle";
-import CustomText from "@/components/elements/CustomText";
+import tw from "@/tailwind";
 
 export default function ManageCommentsScreen() {
   const { allDefaultComments, queryAllDefaultComments } =

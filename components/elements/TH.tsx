@@ -1,8 +1,9 @@
-import { View } from "react-native";
 import React from "react";
-import tw from "@/tailwind";
+import { View } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import CustomText from "./CustomText";
+import tw from "@/tailwind";
 
 type Props = {
   titles: string[];

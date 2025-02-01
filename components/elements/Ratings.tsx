@@ -1,9 +1,10 @@
+import { AntDesign } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { ClassInput } from "twrnc/dist/esm/types";
+
 import { Color } from "@/helpers/Constants";
 import tw from "@/tailwind";
-import { ClassInput } from "twrnc/dist/esm/types";
 
 type Props = {
   onRatingChange?: (rating: Rating) => void;

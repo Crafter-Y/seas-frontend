@@ -1,21 +1,22 @@
-import { Platform, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { router, useSegments } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import useAuthentication from "@/hooks/api/useAuthentication";
+import { useTranslation } from "react-i18next";
+import { Platform, ScrollView } from "react-native";
+import { RefreshControl } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import Board from "@/components/board/Board";
 import BoardHeader from "@/components/board/BoardHeader";
 import BoardSidebar from "@/components/board/BoardSidebar";
-import Footer from "@/components/Footer";
-import Board from "@/components/board/Board";
-import useServerName from "@/hooks/api/useServerName";
-import { Color } from "@/helpers/Constants";
-import { router, useSegments } from "expo-router";
-import { RefreshControl } from "react-native-gesture-handler";
-import useBoard from "@/hooks/api/useBoard";
 import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
+import Footer from "@/components/Footer";
 import CalendarModal from "@/components/modules/calendar/CalendarModal";
-import PrintModalContainer from "@/components/modules/print/PrintModalContainer";
 import MusicModalContainer from "@/components/modules/music/MusicModalContainer";
-import { useTranslation } from "react-i18next";
+import PrintModalContainer from "@/components/modules/print/PrintModalContainer";
+import { Color } from "@/helpers/Constants";
+import useAuthentication from "@/hooks/api/useAuthentication";
+import useBoard from "@/hooks/api/useBoard";
+import useServerName from "@/hooks/api/useServerName";
 
 // TODO: i18n: build proper object with translation keys
 export type BoardType =

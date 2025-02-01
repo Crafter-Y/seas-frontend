@@ -1,6 +1,7 @@
-import { Platform, Text, TextProps } from "react-native";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Platform, Text, TextProps } from "react-native";
+
 import { resources } from "@/helpers/i18n";
 
 export type CustomTextProps = {

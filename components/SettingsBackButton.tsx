@@ -1,9 +1,10 @@
-import { Pressable, View } from "react-native";
+import { router } from "expo-router";
 import React from "react";
+import { Pressable, View } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
 import Image from "@/components/elements/Image";
 import tw from "@/tailwind";
-import { router } from "expo-router";
-import CustomText from "./elements/CustomText";
 
 type Props = {
   backRoute: string;

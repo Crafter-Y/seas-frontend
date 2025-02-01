@@ -1,11 +1,12 @@
+import { useEffect, useState } from "react";
+import { View } from "react-native";
+import { DatePickerModal } from "react-native-paper-dates";
+
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import tw from "@/tailwind";
-import { useEffect, useState } from "react";
-import { View } from "react-native";
-import { DatePickerModal } from "react-native-paper-dates";
 
 type Props = {
   closeModal: () => void;

@@ -1,17 +1,18 @@
-import { Color } from "@/helpers/Constants";
-import tw from "@/tailwind";
+import { useState } from "react";
+import React from "react";
 import { Pressable, View } from "react-native";
 import { RadioButton } from "react-native-paper";
-import { Store } from "@/helpers/store";
-import { prettyDate } from "@/helpers/format";
-import { formatDate } from "@/helpers/format";
-import { useState } from "react";
 import { DatePickerModal } from "react-native-paper-dates";
-import Button from "@/components/elements/Button";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
-import ErrorDisplay from "@/components/ErrorDisplay";
+
+import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
-import React from "react";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import { Color } from "@/helpers/Constants";
+import { formatDate } from "@/helpers/format";
+import { prettyDate } from "@/helpers/format";
+import { Store } from "@/helpers/store";
+import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;

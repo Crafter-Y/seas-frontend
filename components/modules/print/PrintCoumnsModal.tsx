@@ -1,11 +1,12 @@
+import React from "react";
+import { Platform, View } from "react-native";
+
+import Button from "@/components/elements/Button";
 import Checkbox from "@/components/elements/Checkbox";
+import { Color } from "@/helpers/Constants";
+import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import tw from "@/tailwind";
-import { Platform, View } from "react-native";
-import { Store } from "@/helpers/store";
-import Button from "@/components/elements/Button";
-import { Color } from "@/helpers/Constants";
-import React from "react";
 
 type Props = {
   closeModal: () => void;

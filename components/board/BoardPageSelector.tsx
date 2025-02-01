@@ -1,11 +1,12 @@
-import { TouchableOpacity, View } from "react-native";
 import React, { memo, useRef } from "react";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
+import { TouchableOpacity, View } from "react-native";
+import { useHover } from "react-native-web-hooks";
+
+import CustomText from "@/components/elements/CustomText";
 import { Store } from "@/helpers/store";
 import useAllPages from "@/hooks/api/useAllPages";
-import { useHover } from "react-native-web-hooks";
-import CustomText from "../elements/CustomText";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 type ButtonProps = {
   page: APIResponsePage;

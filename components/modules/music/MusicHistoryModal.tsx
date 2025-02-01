@@ -1,13 +1,14 @@
-import tw from "@/tailwind";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { MusicEntryType } from "./MusicEntryTypeModal";
-import useSongHistory from "@/hooks/api/useSongHistory";
+
+import CustomText from "@/components/elements/CustomText";
+import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
+import MusicHistoryList from "@/components/modules/music/history/MusicHistoryList";
+import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
 import { Color } from "@/helpers/Constants";
 import { prettyDate } from "@/helpers/format";
-import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
-import MusicHistoryList from "./history/MusicHistoryList";
-import CustomText from "@/components/elements/CustomText";
+import useSongHistory from "@/hooks/api/useSongHistory";
+import tw from "@/tailwind";
 
 export type HistoryType =
   | "GOOD"

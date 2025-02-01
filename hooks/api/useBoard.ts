@@ -1,6 +1,6 @@
 import { requestApi } from "@/helpers/api";
-import { Store } from "@/helpers/store";
 import { formatDate } from "@/helpers/format";
+import { Store } from "@/helpers/store";
 
 export default function useBoard() {
   const rows = Store.useState((state) => state.board);

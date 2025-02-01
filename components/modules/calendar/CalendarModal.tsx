@@ -1,16 +1,17 @@
+import * as ExpoCalendar from "expo-calendar";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
+import { useState } from "react";
+import React from "react";
+import { Platform, View } from "react-native";
+
 import Button from "@/components/elements/Button";
+import CustomText from "@/components/elements/CustomText";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { Store } from "@/helpers/store";
 import useAuthentication from "@/hooks/api/useAuthentication";
 import useServerName from "@/hooks/api/useServerName";
 import tw from "@/tailwind";
-import { useState } from "react";
-import { Platform, View } from "react-native";
-import * as ExpoCalendar from "expo-calendar";
-import * as Sharing from "expo-sharing";
-import * as FileSystem from "expo-file-system";
-import CustomText from "@/components/elements/CustomText";
-import React from "react";
 
 const CALENDAR_NAME = "SEAS Termine";
 

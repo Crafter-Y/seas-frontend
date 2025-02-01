@@ -1,5 +1,6 @@
-const handler = require("serve-handler");
 const http = require("http");
+
+const handler = require("serve-handler");
 
 const server = http.createServer((request, response) => {
   if (request.url === "/config.json" && process.env.REWRITE_CONFIG) {

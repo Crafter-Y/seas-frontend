@@ -1,7 +1,8 @@
 import React, { ReactNode } from "react";
-import tw from "@/tailwind";
 import { TouchableOpacity, View } from "react-native";
+
 import { formatDate } from "@/helpers/format";
+import tw from "@/tailwind";
 
 type Props = {
   children?: ReactNode;

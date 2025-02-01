@@ -1,9 +1,10 @@
 import React, { memo, useCallback, useRef } from "react";
-import tw from "@/tailwind";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { useHover } from "react-native-web-hooks";
 import { ClassInput } from "twrnc/dist/esm/types";
+
 import { Color } from "@/helpers/Constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import tw from "@/tailwind";
 
 type Props = {
   icon: React.ReactNode;

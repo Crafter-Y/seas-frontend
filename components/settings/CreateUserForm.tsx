@@ -1,18 +1,19 @@
-import useCreateUser from "@/hooks/api/useCreateUser";
-import SettingsForm from "@/components/SettingsForm";
-import Input from "@/components/elements/Input";
-import { useEffect, useRef, useState } from "react";
-import { TextInput } from "react-native";
 import { Picker as RNPicker } from "@react-native-picker/picker";
+import { useEffect, useRef, useState } from "react";
+import React from "react";
+import { TextInput } from "react-native";
+
+import Button from "@/components/elements/Button";
+import Callout from "@/components/elements/Callout";
+import Input from "@/components/elements/Input";
+import { ModalHandle } from "@/components/elements/Modal";
 import Picker from "@/components/elements/Picker";
 import ErrorDisplay from "@/components/ErrorDisplay";
-import Button from "@/components/elements/Button";
+import ReactivateUserModal from "@/components/settings/ReactivateUserModal";
 import UserCreatedModal from "@/components/settings/UserCreatedModal";
-import { ModalHandle } from "@/components/elements/Modal";
-import UserReactivatedModal from "./UserReactivatedModal";
-import ReactivateUserModal from "./ReactivateUserModal";
-import Callout from "../elements/Callout";
-import React from "react";
+import UserReactivatedModal from "@/components/settings/UserReactivatedModal";
+import SettingsForm from "@/components/SettingsForm";
+import useCreateUser from "@/hooks/api/useCreateUser";
 
 type Props = {
   queryUsers: () => Promise<void>;

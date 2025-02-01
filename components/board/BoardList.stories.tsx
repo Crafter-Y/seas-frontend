@@ -1,10 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import MyBoardList from "./BoardList";
-import { View } from "react-native";
 import { useEffect } from "react";
-import { Store } from "@/helpers/store";
-import { formatDate } from "@/helpers/format";
+import { View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+import MyBoardList from "@/components/board/BoardList";
+import { formatDate } from "@/helpers/format";
+import { Store } from "@/helpers/store";
+
+import type { Meta, StoryObj } from "@storybook/react";
 
 type Props = {
   children: React.ReactNode;

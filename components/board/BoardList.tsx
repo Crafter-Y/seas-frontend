@@ -1,25 +1,26 @@
-import { View } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
-import tw from "@/tailwind";
-import useMediaQueries from "@/hooks/useMediaQueries";
-import { prettyDate } from "@/helpers/format";
+import { View } from "react-native";
+
+import BoardAssignButton from "@/components/board/BoardAssignButton";
+import BoardRowCommentModal from "@/components/board/BoardRowCommentModal";
+import BoardRowDeleteModal from "@/components/board/BoardRowDeleteModal";
+import BoardRowModal from "@/components/board/BoardRowModal";
+import CustomText from "@/components/elements/CustomText";
 import Form from "@/components/elements/Form";
-import TH from "../elements/TH";
-import useAllColumns from "@/hooks/api/useAllColumns";
-import TD from "../elements/TD";
-import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
-import PressableTR from "../elements/PressableTR";
-import useAuthentication from "@/hooks/api/useAuthentication";
-import BoardAssignButton from "./BoardAssignButton";
-import useAssignUser from "@/hooks/api/useAssignUser";
+import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
+import PressableTR from "@/components/elements/PressableTR";
+import TD from "@/components/elements/TD";
+import TH from "@/components/elements/TH";
+import UserSelectModal from "@/components/elements/UserSelectModal";
+import { prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
-import ModalRewrite, { ModalHandle } from "../elements/ModalRewrite";
-import BoardRowModal from "./BoardRowModal";
-import BoardRowDeleteModal from "./BoardRowDeleteModal";
-import BoardRowCommentModal from "./BoardRowCommentModal";
+import useAllColumns from "@/hooks/api/useAllColumns";
+import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
+import useAssignUser from "@/hooks/api/useAssignUser";
+import useAuthentication from "@/hooks/api/useAuthentication";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
-import UserSelectModal from "../elements/UserSelectModal";
-import CustomText from "../elements/CustomText";
+import useMediaQueries from "@/hooks/useMediaQueries";
+import tw from "@/tailwind";
 
 type Props = {
   rows: BoardRow[];

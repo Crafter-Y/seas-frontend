@@ -1,21 +1,23 @@
-import { Stack } from "expo-router/stack";
-import { SplashScreen } from "expo-router";
-import * as Font from "expo-font";
-import { useWindowDimensions } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Constants from "expo-constants";
-import { I18nextProvider, useTranslation } from "react-i18next";
-import i18n from "@/helpers/i18n";
-import "../nativewind.css";
-
-import { de, registerTranslation } from "react-native-paper-dates";
-import { useCallback, useEffect, useState } from "react";
-import Toast from "react-native-toast-message";
-import React from "react";
-import CustomText from "@/components/elements/CustomText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
+import * as Font from "expo-font";
+import { SplashScreen } from "expo-router";
+import { Stack } from "expo-router/stack";
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { useCallback, useEffect, useState } from "react";
+import { I18nextProvider, useTranslation } from "react-i18next";
+import { useWindowDimensions } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { de, registerTranslation } from "react-native-paper-dates";
+import Toast from "react-native-toast-message";
+
+import CustomText from "@/components/elements/CustomText";
+import i18n from "@/helpers/i18n";
 import { Store } from "@/helpers/store";
+
+import "@/nativewind.css";
+
 registerTranslation("de", de);
 
 SplashScreen.preventAutoHideAsync();
@@ -30,7 +32,7 @@ function DefaultLayout() {
     async function loadFonts() {
       try {
         await Font.loadAsync({
-          Roboto: require("../assets/fonts/Roboto.ttf"),
+          Roboto: require("@/assets/fonts/Roboto.ttf"),
         });
       } catch (e) {
         console.warn(e);
@@ -101,7 +103,7 @@ let AppEntryPoint = DefaultLayout;
 
 if (Constants.expoConfig?.extra?.storybookEnabled === "true") {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  AppEntryPoint = AppEntryPoint = require("../.storybook").default;
+  AppEntryPoint = AppEntryPoint = require("@/.storybook").default;
 }
 
 export default AppEntryPoint;

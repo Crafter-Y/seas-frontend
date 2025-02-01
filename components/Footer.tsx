@@ -1,10 +1,11 @@
-import { Linking, Platform, View, ViewProps } from "react-native";
-import React from "react";
-import tw from "@/tailwind";
-import { router } from "expo-router";
-import * as MailComposer from "expo-mail-composer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import CustomText from "./elements/CustomText";
+import * as MailComposer from "expo-mail-composer";
+import { router } from "expo-router";
+import React from "react";
+import { Linking, Platform, View, ViewProps } from "react-native";
+
+import CustomText from "@/components/elements/CustomText";
+import tw from "@/tailwind";
 
 const Footer = (props: ViewProps) => {
   const mailtoReport = async () => {

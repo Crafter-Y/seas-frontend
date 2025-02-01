@@ -1,13 +1,14 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import Image from "@/components/elements/Image";
-import useVerifyTokenValidation from "@/hooks/api/useVerifyTokenValidation";
 import { useEffect } from "react";
-import Footer from "@/components/Footer";
-import CustomText from "@/components/elements/CustomText";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import CustomText from "@/components/elements/CustomText";
+import Image from "@/components/elements/Image";
+import Footer from "@/components/Footer";
+import useVerifyTokenValidation from "@/hooks/api/useVerifyTokenValidation";
 
 export default function VerifyScreen() {
   const { t } = useLocalSearchParams<{ t: string }>();

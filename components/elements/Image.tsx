@@ -1,6 +1,7 @@
+import { Image as RNImage, ImageSource } from "expo-image";
 import React from "react";
-import { ImageSource, Image as RNImage } from "expo-image";
 import { ClassInput } from "twrnc/dist/esm/types";
+
 import tw from "@/tailwind";
 
 type Props = {

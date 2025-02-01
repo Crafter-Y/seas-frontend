@@ -1,4 +1,4 @@
-import CustomText, { CustomTextProps } from "../elements/CustomText";
+import CustomText, { CustomTextProps } from "@/components/elements/CustomText";
 
 const SettingsTitle = ({ className, ...props }: CustomTextProps) => {
   return (
