@@ -1,12 +1,20 @@
-import type { Preview } from "@storybook/react";
 import React from "react";
 import { View } from "react-native";
-import tw from "@/tailwind";
+
+import type { Preview } from "@storybook/react";
 
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <View style={tw`items-center justify-center h-full p-4 bg-white`}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          padding: 16,
+          backgroundColor: "white",
+        }}
+      >
         <Story />
       </View>
     ),

@@ -102,8 +102,9 @@ function DefaultLayout() {
 let AppEntryPoint = DefaultLayout;
 
 if (Constants.expoConfig?.extra?.storybookEnabled === "true") {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  AppEntryPoint = AppEntryPoint = require("@/.storybook").default;
+  // eslint-disable-next-line @limegrass/import-alias/import-alias
+  AppEntryPoint = AppEntryPoint = require("../.storybook").default;
+  SplashScreen.hide();
 }
 
 export default AppEntryPoint;
