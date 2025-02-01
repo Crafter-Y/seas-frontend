@@ -3,6 +3,7 @@ import Input from "./elements/Input";
 import { Store } from "@/helpers/store";
 import Button from "./elements/Button";
 import ModalRewrite, { ModalHandle } from "./elements/ModalRewrite";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
   const serverUrl = Store.useState((state) => state.serverDevUrl);
@@ -15,16 +16,18 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
       <Input
         placeholder="Server ID"
         initialValue={serverUrl}
-        onChangeText={(id) =>
+        onChangeText={(url) => {
+          AsyncStorage.setItem("devServerURL", url);
           Store.update((state) => {
-            state.serverDevUrl = id;
-          })
-        }
+            state.serverDevUrl = url;
+          });
+        }}
         className="m-2"
       />
       <Button
         className="m-2"
         onPress={() => {
+          AsyncStorage.setItem("devServerURL", "http://" + localIp);
           Store.update((state) => {
             state.serverDevUrl = "http://" + localIp;
           });
@@ -35,6 +38,10 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
       <Button
         className="m-2"
         onPress={() => {
+          AsyncStorage.setItem(
+            "devServerURL",
+            "https://seas-kirchengemeinden.craftingapis.de",
+          );
           Store.update((state) => {
             state.serverDevUrl =
               "https://seas-kirchengemeinden.craftingapis.de";
@@ -46,6 +53,10 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
       <Button
         className="m-2"
         onPress={() => {
+          AsyncStorage.setItem(
+            "devServerURL",
+            "https://api.seas-kirchengemeinde.de",
+          );
           Store.update((state) => {
             state.serverDevUrl = "https://api.seas-kirchengemeinde.de";
           });

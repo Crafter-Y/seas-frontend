@@ -51,11 +51,24 @@ export default function BoardRowModal({
 
   useEffect(() => {
     if (assignmentSuccessful) querySingleRow(selectedRow!.date);
-  }, [assignmentSuccessful, selectedRow]);
+  }, [assignmentSuccessful]);
 
   useEffect(() => {
-    if (unassignmentSuccessful) querySingleRow(selectedRow!.date);
-  }, [selectedRow, unassignmentSuccessful]);
+    if (unassignmentSuccessful) {
+      querySingleRow(selectedRow!.date);
+    }
+  }, [unassignmentSuccessful]);
+
+  useEffect(() => {
+    // this is needed, becase the board assignment creates an random id before the actual assignment id is loaded.
+    // in this case, the unassignment would not work. To solve this, I requery the selected board row incase the id is larger then 1000000
+    // TODO: instead of this, the actual assignment ID could be return from the assign user endpoint and then immediately set before the whole board refetch.
+    if (
+      selectedRow!.assignments.filter((assignment) => assignment.id > 1_000_000)
+        .length !== 0
+    )
+      querySingleRow(selectedRow!.date);
+  }, []);
 
   useEffect(() => {
     setRenderdAllPages(
@@ -146,6 +159,7 @@ export default function BoardRowModal({
               color="RED"
               actionType="CROSS"
               text="Nicht mehr teilnehmen"
+              disabled={assignment!.id > 1_000_000}
               onPress={() => {
                 unassignUser(assignment!.id);
               }}
@@ -166,6 +180,7 @@ export default function BoardRowModal({
             color="RED"
             actionType="CROSS"
             text={usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
+            disabled={assignment!.id > 1_000_000}
             onPress={() => {
               unassignUser(assignment!.id);
             }}
@@ -182,6 +197,7 @@ export default function BoardRowModal({
           color="RED"
           actionType="CROSS"
           text="Unbekanntes Mitglied"
+          disabled={assignment!.id > 1_000_000}
           onPress={() => {
             unassignUser(assignment!.id);
           }}
@@ -240,6 +256,7 @@ export default function BoardRowModal({
       </>
     );
   };
+
   return (
     <>
       <View style={tw`px-2`}>

@@ -84,5 +84,6 @@
   "members": "Mitglieder",
   "settings": "Einstellungen",
   "back": "Zurück",
-  "settingsGreetings": "Dieser Bereich ist nur für Administratoren zugänglich. Über die Unterpunkte seitlich können die Inhalte der Seite eingestellt werden."
+  "settingsGreetings": "Dieser Bereich ist nur für Administratoren zugänglich. Über die Unterpunkte seitlich können die Inhalte der Seite eingestellt werden.",
+  "literal": "{{text}}"
 }

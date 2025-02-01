@@ -45,7 +45,6 @@ const InlineNavigationButton = ({
     <View className="items-center mt-2 gap-3 flex-row -mr-2">
       <Pressable
         onPress={() => {
-          console.log("here");
           router.replace(`/settings/${setting}`);
         }}
       >

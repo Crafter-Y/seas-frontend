@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { requestApiWithoutCredentials } from "@/helpers/api";
 import { Store } from "@/helpers/store";
@@ -9,7 +9,7 @@ export default function useServerName() {
   const fetchState = Store.useState((state) => state.serverNameState);
   const [fetchServerError, setFetchServerError] = useState<string | null>(null);
 
-  const fetchServerName = async () => {
+  const fetchServerName = useCallback(async () => {
     Store.update((state) => {
       state.serverNameState = FetchState.FETCHING;
     });
@@ -47,7 +47,7 @@ export default function useServerName() {
         state.serverNameState = FetchState.ERROR;
       });
     }
-  };
+  }, []);
 
   return {
     fetchServerName,

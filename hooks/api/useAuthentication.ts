@@ -15,10 +15,11 @@ export default function useAuthentication() {
   const logout = async () => {
     await AsyncStorage.removeItem("token");
 
-    const currentDevUrl = Store.getRawState().serverDevUrl;
+    const stateBefore = Store.getRawState();
     Store.update((state) => {
       Object.assign(state, defaultState);
-      state.serverDevUrl = currentDevUrl;
+      state.serverDevUrl = stateBefore.serverDevUrl;
+      state.serverName = stateBefore.serverName;
     });
 
     // wiredly, on ios, the replace crashes the app.
