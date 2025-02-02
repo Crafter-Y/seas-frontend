@@ -8,8 +8,6 @@ const preview: Preview = {
     (Story) => (
       <View
         style={{
-          justifyContent: "center",
-          alignItems: "center",
           height: "100%",
           padding: 16,
           backgroundColor: "white",

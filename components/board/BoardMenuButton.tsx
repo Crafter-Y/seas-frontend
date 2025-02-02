@@ -1,38 +1,29 @@
 import React, { useRef } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable, PressableProps, View } from "react-native";
 import { useHover } from "react-native-web-hooks";
-import { ClassInput } from "twrnc/dist/esm/types";
 
 import CustomText from "@/components/elements/CustomText";
 import Image from "@/components/elements/Image";
-import tw from "@/tailwind";
 
 type Props = {
   icon: string;
   text: string;
-  pressAction: () => void;
-  style?: ClassInput;
-};
+} & PressableProps;
 
-const BoardMenuButton = ({ icon, text, pressAction, style }: Props) => {
+const BoardMenuButton = ({ icon, text, className, ...props }: Props) => {
   const ref = useRef(null);
   const isHovered = useHover(ref);
 
   return (
-    <Pressable
-      style={tw.style("flex-row p-4", style)}
-      ref={ref}
-      onPress={pressAction}
-    >
-      <View style={tw`flex-row gap-2 items-center`}>
+    <Pressable className={`flex-row p-4 ${className}`} ref={ref} {...props}>
+      <View className="flex-row gap-2 items-center">
         <Image source={icon} size={18} />
 
         <CustomText
-          style={tw.style({
-            underline: isHovered,
-            "opacity-80": isHovered,
-            "opacity-95": !isHovered,
-          })}
+          style={{
+            opacity: isHovered ? 0.8 : 0.95,
+            textDecorationLine: isHovered ? "underline" : "none",
+          }}
         >
           {text}
         </CustomText>

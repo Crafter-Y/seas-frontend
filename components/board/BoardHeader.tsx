@@ -156,7 +156,7 @@ const BoardHeader = ({
               key={3}
               icon={require("@/assets/img/settings.svg")}
               text={"Einstellungen"}
-              pressAction={() => {
+              onPress={() => {
                 modal.current?.closeModal();
                 settings();
               }}
@@ -167,7 +167,7 @@ const BoardHeader = ({
           <BoardMenuButton
             icon={require("@/assets/img/changepassword.svg")}
             text={"Passwort ändern"}
-            pressAction={() => {
+            onPress={() => {
               modal.current?.closeModal();
               changePassword();
             }}
@@ -176,7 +176,7 @@ const BoardHeader = ({
           <BoardMenuButton
             icon={require("@/assets/img/logout.svg")}
             text={"Abmelden"}
-            pressAction={() => {
+            onPress={() => {
               modal.current?.closeModal();
               logout();
             }}

@@ -20,7 +20,7 @@ const BoardAssignButton = ({
 }: Props) => {
   return (
     <Pressable
-      className={`h-[32px] rounded-xl justify-center items-center flex-row disabled:opacity-45 active:opacity-65 ${text ? "pl-1" : "w-[32px]"} ${className}`}
+      className={`h-[32px] rounded-xl justify-center items-center flex-row disabled:opacity-45 active:opacity-65 select-none self-start ${text ? "pl-1" : "w-[32px]"} ${className}`}
       style={{
         backgroundColor: props.disabled ? Color.DARK_GRAY : Color[color],
       }}

@@ -1,10 +1,10 @@
-import MyButton from "@/components/elements/Button";
+import Button from "@/components/elements/Button";
 import { Color } from "@/helpers/Constants";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
-const meta = {
-  component: MyButton,
+export default {
+  component: Button,
   title: "Elements/Button",
   argTypes: {
     onPress: { action: "pressed" },
@@ -16,10 +16,8 @@ const meta = {
   args: {
     children: "Button",
   },
-} satisfies Meta<typeof MyButton>;
+} satisfies Meta<typeof Button>;
 
-export default meta;
-
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Button>;
 
 export const Basic: Story = {};

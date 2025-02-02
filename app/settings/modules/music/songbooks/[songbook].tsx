@@ -104,7 +104,7 @@ export default function Songbook() {
                 vorhanden ist. Alle Änderungen werden automatisch gespeichert.
               </CustomText>
               <Button
-                className={`self-start mt-2 ${editable ? "" : "hidden"}`}
+                className={`mt-2 ${editable ? "" : "hidden"}`}
                 onPress={() => {
                   createModal.current?.openModal();
                 }}
@@ -141,7 +141,7 @@ export default function Songbook() {
                     />
                     {editable && (
                       <Button
-                        className="p-2.5 self-start"
+                        className="p-2.5"
                         onPress={() => {
                           setSelectedSong(song);
                           setEditNumber(song.number);

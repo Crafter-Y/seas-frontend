@@ -1,9 +1,9 @@
-import MyCheckbox from "@/components/elements/Checkbox";
+import Checkbox from "@/components/elements/Checkbox";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
-  component: MyCheckbox,
+  component: Checkbox,
   title: "Elements/Checkbox",
   argTypes: {
     onChange: { action: "changed" },
@@ -14,11 +14,11 @@ const meta = {
   args: {
     label: "Basic checkbox with label",
   },
-} satisfies Meta<typeof MyCheckbox>;
+} satisfies Meta<typeof Checkbox>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Checkbox>;
 
 export const Basic: Story = {};
 

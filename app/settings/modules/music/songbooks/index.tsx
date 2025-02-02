@@ -91,7 +91,7 @@ export default function Index() {
           Sie Ihre eigenen Chorlisten erstellen und verwalten.
         </CustomText>
         <Button
-          className="self-start mt-2"
+          className="mt-2"
           disabled={
             restrictions?.maxOwnSongbooks
               ? restrictions.maxOwnSongbooks <=
