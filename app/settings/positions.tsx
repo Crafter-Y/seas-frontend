@@ -18,6 +18,7 @@ import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import SettingsActionButton from "@/components/settings/SettingsActionButton";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import SettingsForm from "@/components/SettingsForm";
 import { Color } from "@/helpers/Constants";
@@ -185,9 +186,8 @@ export default function ManagePositionsScreen() {
                 ))}
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
-                <Button
+                <SettingsActionButton
                   color={Color.RED}
-                  className="p-2.5"
                   disabled={!restrictions?.columnsDeletable}
                   onPress={() => {
                     setColumnToChange(column);
@@ -195,9 +195,8 @@ export default function ManagePositionsScreen() {
                   }}
                 >
                   <Image source={require("@/assets/img/close.svg")} size={24} />
-                </Button>
-                <Button
-                  className="p-2.5"
+                </SettingsActionButton>
+                <SettingsActionButton
                   disabled={!restrictions?.columnsChangable}
                   onPress={() => {
                     setColumnToChange(column);
@@ -207,7 +206,7 @@ export default function ManagePositionsScreen() {
                   }}
                 >
                   <Image source={require("@/assets/img/edit.svg")} size={24} />
-                </Button>
+                </SettingsActionButton>
               </TD>
             </TR>
           ))}

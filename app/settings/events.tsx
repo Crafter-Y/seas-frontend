@@ -17,8 +17,10 @@ import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import SettingsActionButton from "@/components/settings/SettingsActionButton";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import SettingsForm from "@/components/SettingsForm";
+import { Color } from "@/helpers/Constants";
 import useAllRecurringEvents from "@/hooks/api/useAllRecurringEvents";
 import useCreateEvent from "@/hooks/api/useCreateEvent";
 import useDeleteRecurringEvent from "@/hooks/api/useDeleteRecurringEvent";
@@ -262,9 +264,8 @@ export default function ManageEventsScreen() {
                 </CustomText>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
-                <Button
-                  color="#f67e7e"
-                  className="p-2.5"
+                <SettingsActionButton
+                  color={Color.RED}
                   onPress={() => {
                     setEventIdToDelete(event.id);
                     setEventTypeToDelete(event.eventType);
@@ -280,7 +281,7 @@ export default function ManageEventsScreen() {
                   }}
                 >
                   <Image source={require("@/assets/img/close.svg")} size={24} />
-                </Button>
+                </SettingsActionButton>
               </TD>
             </TR>
           ))}

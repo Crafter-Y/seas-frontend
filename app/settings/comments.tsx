@@ -14,8 +14,10 @@ import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import SettingsActionButton from "@/components/settings/SettingsActionButton";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import SettingsForm from "@/components/SettingsForm";
+import { Color } from "@/helpers/Constants";
 import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
 import useCreateDefaultComment from "@/hooks/api/useCreateDefaultComment";
 import useDeleteDefaultComment from "@/hooks/api/useDeleteDefaultComment";
@@ -107,9 +109,8 @@ export default function ManageCommentsScreen() {
                 </CustomText>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
-                <Button
-                  color="#f67e7e"
-                  className="p-2.5"
+                <SettingsActionButton
+                  color={Color.RED}
                   onPress={() => {
                     setCommentIdToDelete(comment.id);
                     setCommentToDelete(comment.comment);
@@ -117,7 +118,7 @@ export default function ManageCommentsScreen() {
                   }}
                 >
                   <Image source={require("@/assets/img/close.svg")} size={24} />
-                </Button>
+                </SettingsActionButton>
               </TD>
             </TR>
           ))}

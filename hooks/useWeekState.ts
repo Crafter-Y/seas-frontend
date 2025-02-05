@@ -26,12 +26,13 @@ export default function useWeekState() {
       setCurrentWeek(currentWeek - 1);
     setBeforeWeek(getPrev());
     setNextWeek(getNext());
-  }, [currentWeek, internalYear]);
+  }, [currentWeek, getNext, getPrev, internalYear]);
 
-  useEffect(() => {
-    setBeforeWeek(getPrev());
-    setNextWeek(getNext());
-  }, [currentWeek]);
+  // TODO: idk if this what needed or what it was needed for.
+  // useEffect(() => {
+  //   setBeforeWeek(getPrev());
+  //   setNextWeek(getNext());
+  // }, [currentWeek, getNext, getPrev]);
 
   return { beforeWeek, currentWeek, nextWeek, setCurrentWeek, setInternalYear };
 }

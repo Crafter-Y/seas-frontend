@@ -17,8 +17,10 @@ import ErrorDisplay from "@/components/ErrorDisplay";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
 import DeletePageModal from "@/components/settings/DeletePageModal";
 import RenamePageModal from "@/components/settings/RenamePageModal";
+import SettingsActionButton from "@/components/settings/SettingsActionButton";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import SettingsForm from "@/components/SettingsForm";
+import { Color } from "@/helpers/Constants";
 import useAllPages from "@/hooks/api/useAllPages";
 import useAllUsers from "@/hooks/api/useAllUsers";
 import useCreatePage from "@/hooks/api/useCreatePage";
@@ -145,8 +147,8 @@ export default function ManagePagesScreen() {
                 <CustomText style={tw`text-lg`}>{page.name}</CustomText>
               </TD>
               <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
-                <Button
-                  color="#f67e7e"
+                <SettingsActionButton
+                  color={Color.RED}
                   disabled={!restrictions?.pagesDeletable}
                   onPress={() => {
                     setSelectedPage(page);
@@ -154,9 +156,9 @@ export default function ManagePagesScreen() {
                   }}
                 >
                   <AntDesign name="close" size={24} color="black" />
-                </Button>
+                </SettingsActionButton>
 
-                <Button
+                <SettingsActionButton
                   disabled={!restrictions?.pagesChangable}
                   onPress={() => {
                     setSelectedPage(page);
@@ -164,15 +166,15 @@ export default function ManagePagesScreen() {
                   }}
                 >
                   <AntDesign name="edit" size={24} color="black" />
-                </Button>
-                <Button
+                </SettingsActionButton>
+                <SettingsActionButton
                   onPress={() => {
                     setSelectedPage(page);
                     moderatorModal.current?.openModal();
                   }}
                 >
                   <AntDesign name="user" size={24} color="black" />
-                </Button>
+                </SettingsActionButton>
               </TD>
             </TR>
           ))}

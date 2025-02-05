@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
-import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
@@ -18,6 +17,7 @@ import DeleteUserModal from "@/components/settings/DeleteUserModal";
 import EditUserModal from "@/components/settings/EditUserModal";
 import NewPasswordModal from "@/components/settings/NewPasswordModal";
 import RequestNewPasswordModal from "@/components/settings/RequestNewPasswordModal";
+import SettingsActionButton from "@/components/settings/SettingsActionButton";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import SettingsForm from "@/components/SettingsForm";
 import { Color } from "@/helpers/Constants";
@@ -108,9 +108,9 @@ export default function ManageUsersScreen() {
               </TD>
               <TD className="justify-end flex-row items-center gap-1" cols={2}>
                 {entry.email !== "root" && entry.id !== user?.id && (
-                  <Button
+                  <SettingsActionButton
                     color={Color.RED}
-                    className="p-2.5"
+                    className="p-[10px]"
                     onPress={() => {
                       setEditUser(entry);
                       deleteUserModal.current?.openModal();
@@ -120,14 +120,13 @@ export default function ManageUsersScreen() {
                       source={require("@/assets/img/close.svg")}
                       size={24}
                     />
-                  </Button>
+                  </SettingsActionButton>
                 )}
                 {entry.email !== "root" &&
                   (entry.id !== user?.id ||
                     entry.state === "UNVERIFIED" ||
                     entry.state === "VERIFICATION_PENDING") && (
-                    <Button
-                      className="p-2.5"
+                    <SettingsActionButton
                       onPress={() => {
                         setEditUser(entry);
                         editModal.current?.openModal();
@@ -137,7 +136,7 @@ export default function ManageUsersScreen() {
                         source={require("@/assets/img/edit.svg")}
                         size={24}
                       />
-                    </Button>
+                    </SettingsActionButton>
                   )}
               </TD>
             </TR>
