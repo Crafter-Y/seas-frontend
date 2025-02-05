@@ -65,7 +65,7 @@ export default function LoginScreen() {
         }
       });
     }
-  }, [t]);
+  }, [fetchServerName, t]);
 
   // set title for web if serverName is loaded
   useEffect(() => {

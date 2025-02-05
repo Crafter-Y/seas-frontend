@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { requestApi } from "@/helpers/api";
 import { Store } from "@/helpers/store";
@@ -6,7 +6,7 @@ import { Store } from "@/helpers/store";
 export default function useAllPages() {
   const allPages = Store.useState((state) => state.allPages);
 
-  const queryPages = async () => {
+  const queryPages = useCallback(async () => {
     const res = await requestApi("pages", "GET");
 
     if (res && res.success) {
@@ -14,7 +14,7 @@ export default function useAllPages() {
         state.allPages = res?.data.pages;
       });
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (allPages.length === 0) queryPages();

@@ -45,14 +45,14 @@ export default function ManageCommentsScreen() {
 
   useEffect(() => {
     if (successfulDefaultCommentCreation) queryAllDefaultComments();
-  }, [successfulDefaultCommentCreation]);
+  }, [queryAllDefaultComments, successfulDefaultCommentCreation]);
 
   useEffect(() => {
     if (succesfulDeletion) {
       queryAllDefaultComments();
       deleteModal.current?.closeModal();
     }
-  }, [succesfulDeletion]);
+  }, [queryAllDefaultComments, succesfulDeletion]);
 
   return (
     <SettingsLayout actualSetting="comments">

@@ -27,13 +27,15 @@ export default function BoardRowDeleteModal({
 
   useEffect(() => {
     if (succesfulDeletion) {
-      // TODO: figure out, if this call is even nessesary
+      // TODO: figure out, why selectedRow gets set to undefined here:
       Store.update((state) => {
         state.selectedRow = undefined;
       });
       triggerBoardRefetch();
       closeModal();
     }
+    // TODO: including triggerBoardRefetch and closeModal causes this to invoke multiple times, probably because of parent rerenders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [succesfulDeletion]);
 
   return (

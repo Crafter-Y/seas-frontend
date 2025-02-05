@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { requestApiWithoutCredentials } from "@/helpers/api";
 
@@ -10,7 +10,7 @@ export default function usePasswordTokenInfo() {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
 
-  const verify = async (token: string) => {
+  const verify = useCallback(async (token: string) => {
     const res = await requestApiWithoutCredentials(
       `users/passwordTokenInfo/${token}`,
       "GET",
@@ -28,7 +28,7 @@ export default function usePasswordTokenInfo() {
     setEmail(res.data.email);
 
     setTokenValid(true);
-  };
+  }, []);
 
   return {
     verify,

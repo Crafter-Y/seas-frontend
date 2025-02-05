@@ -58,7 +58,7 @@ export default function VerifyScreen() {
     } else {
       setTokenValid(false);
     }
-  }, [t]);
+  }, [setTokenValid, t, verify]);
 
   useEffect(() => {
     switch (intent) {

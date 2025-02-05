@@ -52,12 +52,16 @@ export default function BoardRowModal({
 
   useEffect(() => {
     if (assignmentSuccessful) querySingleRow(selectedRow!.date);
+    // TODO: including querySingleRow and selectedRow causes multiple invokations
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assignmentSuccessful]);
 
   useEffect(() => {
     if (unassignmentSuccessful) {
       querySingleRow(selectedRow!.date);
     }
+    // TODO: including querySingleRow and selectedRow causes multiple invokations
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unassignmentSuccessful]);
 
   useEffect(() => {
@@ -69,6 +73,7 @@ export default function BoardRowModal({
         .length !== 0
     )
       querySingleRow(selectedRow!.date);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

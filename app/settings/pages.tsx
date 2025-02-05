@@ -58,7 +58,7 @@ export default function ManagePagesScreen() {
       queryPages();
       input.current?.clear();
     }
-  }, [successfulPageCreation]);
+  }, [successfulPageCreation, queryPages]);
 
   useEffect(() => {
     if (restrictions && allPages && restrictions.maxPages <= allPages.length) {
@@ -72,7 +72,7 @@ export default function ManagePagesScreen() {
     if (succesfulAssignment) {
       queryPages();
     }
-  }, [succesfulAssignment]);
+  }, [queryPages, succesfulAssignment]);
 
   return (
     <SettingsLayout

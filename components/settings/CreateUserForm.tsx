@@ -57,7 +57,7 @@ const CreateUserForm = ({
       emailInput.current?.clear();
       queryUsers();
     }
-  }, [successfulUserCreation]);
+  }, [queryUsers, successfulUserCreation]);
 
   useEffect(() => {
     if (successfulUserReactivation) {
@@ -67,7 +67,7 @@ const CreateUserForm = ({
       emailInput.current?.clear();
       queryUsers();
     }
-  }, [successfulUserReactivation]);
+  }, [queryUsers, successfulUserReactivation]);
 
   useEffect(() => {
     if (reactivationRequired) reactivationModal.current?.openModal();

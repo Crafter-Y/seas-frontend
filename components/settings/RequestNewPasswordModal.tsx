@@ -26,7 +26,8 @@ export default function RequestNewPasswordModal({
       closeModal();
       openNewPasswordModal();
     }
-  }, [successfulPasswordCreation]);
+  }, [successfulPasswordCreation, closeModal, openNewPasswordModal]);
+
   return (
     <>
       <CustomText style={tw`mx-4`}>

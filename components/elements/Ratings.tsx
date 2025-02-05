@@ -65,7 +65,7 @@ export default function Ratings({
 
   useEffect(() => {
     if (rating !== undefined) onRatingChange?.(rating);
-  }, [rating]);
+  }, [onRatingChange, rating]);
 
   return (
     <View style={tw.style("flex-row", style)}>

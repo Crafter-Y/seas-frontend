@@ -36,7 +36,7 @@ export default function MusicHistoryModal() {
   useEffect(() => {
     setPage(0);
     queryReports(searchType, historyType, 0);
-  }, [searchType, historyType]);
+  }, [searchType, historyType, queryReports]);
 
   return (
     <View style={tw`mx-2 md:mx-4`}>

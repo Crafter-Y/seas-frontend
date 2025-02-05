@@ -58,28 +58,28 @@ export default function Songbook() {
     if (songbook.length) {
       querySongbook(Number(songbook));
     }
-  }, [songbook]);
+  }, [querySongbook, songbook]);
 
   useEffect(() => {
     if (successfulCreation) {
       querySongbook(Number(songbook));
       createModal.current?.closeModal();
     }
-  }, [songbook, successfulCreation]);
+  }, [querySongbook, songbook, successfulCreation]);
 
   useEffect(() => {
     if (successfulEdit) {
       querySongbook(Number(songbook));
       editModal.current?.closeModal();
     }
-  }, [songbook, successfulEdit]);
+  }, [querySongbook, songbook, successfulEdit]);
 
   useEffect(() => {
     if (succesfulDeletion) {
       querySongbook(Number(songbook));
       deleteModal.current?.closeModal();
     }
-  }, [songbook, succesfulDeletion]);
+  }, [querySongbook, songbook, succesfulDeletion]);
 
   return (
     <SettingsLayout actualSetting="modules">

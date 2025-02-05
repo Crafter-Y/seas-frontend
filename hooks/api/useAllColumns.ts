@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { requestApi } from "@/helpers/api";
 import { Store } from "@/helpers/store";
@@ -6,7 +6,7 @@ import { Store } from "@/helpers/store";
 export default function useAllColumns() {
   const allColumns = Store.useState((state) => state.allColumns);
 
-  const queryColumns = async () => {
+  const queryColumns = useCallback(async () => {
     const res = await requestApi("columns", "GET");
 
     if (res && res.success) {
@@ -14,7 +14,7 @@ export default function useAllColumns() {
         state.allColumns = res?.data.columns;
       });
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (allColumns.length === 0) queryColumns();

@@ -23,7 +23,7 @@ export default function VerifyScreen() {
     } else {
       setTokenValid(false);
     }
-  }, [t]);
+  }, [setTokenValid, t, verify]);
 
   return (
     <SafeAreaView className="bg-seas-light-gray flex-row h-full">

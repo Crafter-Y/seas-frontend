@@ -57,12 +57,16 @@ const BoardList = ({ rows, fetchData }: Props) => {
     if (boardAssignSuccessful) {
       fetchData();
     }
+    // TODO figure out how all used variables and functions can be included without massive duplicate invokations
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boardAssignSuccessful]);
 
   useEffect(() => {
     if (assignmentSuccessful) {
       querySingleRow(selectedRow!.date);
     }
+    // TODO figure out how all used variables and functions can be included without massive duplicate invokations
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assignmentSuccessful, selectedRow]);
 
   const getCommentForField = (column: APIResponseColumn, date: string) => {

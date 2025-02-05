@@ -53,6 +53,8 @@ const ChangeUserInformationModal = ({
       closeModal();
       queryUsers();
     }
+    // TODO: including closeModal and queryUsers here causes unnessesary rerenders (probably because of rerender of parent)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successfulUpdate]);
 
   return (

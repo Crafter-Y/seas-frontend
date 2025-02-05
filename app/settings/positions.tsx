@@ -74,7 +74,7 @@ export default function ManagePositionsScreen() {
 
   useEffect(() => {
     if (successfulColumnCreation) queryColumns();
-  }, [successfulColumnCreation]);
+  }, [queryColumns, successfulColumnCreation]);
 
   useEffect(() => {
     if (succesfulDeletion) {
@@ -88,7 +88,7 @@ export default function ManagePositionsScreen() {
       queryColumns();
       editModal.current?.closeModal();
     }
-  }, [successfulColumnRename, assignmentSuccessful]);
+  }, [successfulColumnRename, assignmentSuccessful, queryColumns]);
 
   useEffect(() => {
     if (

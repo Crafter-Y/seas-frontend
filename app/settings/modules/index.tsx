@@ -24,7 +24,7 @@ export default function ManagePagesScreen() {
 
   useEffect(() => {
     if (changeSuccessful) queryModuleStatus();
-  }, [changeSuccessful]);
+  }, [changeSuccessful, queryModuleStatus]);
 
   return (
     <SettingsLayout actualSetting="modules" backTitle="Zurück">

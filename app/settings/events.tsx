@@ -107,7 +107,7 @@ export default function ManageEventsScreen() {
     if (successfulEventCreation) {
       queryRecurringEvents();
     }
-  }, [successfulEventCreation]);
+  }, [queryRecurringEvents, successfulEventCreation]);
 
   useEffect(() => {
     if (successfulDelete) {
@@ -116,7 +116,7 @@ export default function ManageEventsScreen() {
         deleteModal.current?.closeModal();
       }, 200);
     }
-  }, [successfulDelete]);
+  }, [queryRecurringEvents, successfulDelete]);
 
   return (
     <SettingsLayout actualSetting="events">

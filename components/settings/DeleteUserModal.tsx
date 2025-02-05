@@ -26,7 +26,10 @@ export default function DeleteUserModal({
       queryUsers();
       closeModal();
     }
+    // TODO: including queryUsers and closeModal causes 6 invocations of queryUsers instead of one
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [succesfulDeletion]);
+
   return (
     <>
       <CustomText style={tw`mx-4`}>

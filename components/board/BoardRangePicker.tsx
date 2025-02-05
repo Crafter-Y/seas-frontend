@@ -100,6 +100,8 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
       weekEnd.setDate(weekStart.getDate() + 6);
       queryPageChange(weekStart, weekEnd);
     }
+    // TODO figure out how all used variables and functions can be included without massive duplicate invokations
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     boardType,
     beforeYear,

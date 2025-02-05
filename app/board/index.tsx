@@ -48,7 +48,7 @@ export default function BoardScreenScreen() {
       document.title = t("board") + " ⋅ " + serverName;
 
     if (!serverName) fetchServerName();
-  }, [serverName, segments, t]);
+  }, [serverName, segments, t, fetchServerName]);
 
   const changePassword = () => {
     router.navigate("/changepassword");

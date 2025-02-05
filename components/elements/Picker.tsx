@@ -54,7 +54,7 @@ const Picker = ({
 
   useEffect(() => {
     setSelectionCount(getAllPickerProps().length);
-  }, [children]);
+  }, [children, getAllPickerProps]);
 
   if (Platform.OS === "ios")
     return (

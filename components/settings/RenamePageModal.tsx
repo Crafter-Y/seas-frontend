@@ -28,11 +28,13 @@ export default function RenamePageModal({
   const [pageRenameName, setPageRenameName] = useState("");
 
   useEffect(() => {
+    // TODO: this gets fired twice (probably because of redefinition of querypages or closemodal because of parent rerender)
     if (successfulPageRename) {
       queryPages();
       closeModal();
     }
-  }, [successfulPageRename]);
+  }, [closeModal, queryPages, successfulPageRename]);
+
   return (
     <>
       <CustomText style={tw`mt-4 mx-4`}>Neuen Plan Namen festlegen</CustomText>

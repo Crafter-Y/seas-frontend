@@ -21,11 +21,12 @@ export default function DeletePageModal({
   const { deletePage, succesfulDeletion } = useDeletePage();
 
   useEffect(() => {
+    // TODO: gets called twice (probably because of redefinitions of closeModal and queryPages by parent element)
     if (succesfulDeletion) {
       queryPages();
       closeModal();
     }
-  }, [succesfulDeletion]);
+  }, [closeModal, queryPages, succesfulDeletion]);
 
   return (
     <>

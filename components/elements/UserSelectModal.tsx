@@ -42,7 +42,7 @@ export default function UserSelectModal({
     if (allUsers.length) {
       includeEmptySelection();
     }
-  }, [allUsers]);
+  }, [allUsers, includeEmptySelection]);
 
   useEffect(() => {
     if (search.length && search.trim().length && allUsers.length) {
@@ -81,7 +81,7 @@ export default function UserSelectModal({
     } else {
       includeEmptySelection();
     }
-  }, [allUsers, search]);
+  }, [allUsers, includeEmptySelection, search]);
 
   return (
     <View>

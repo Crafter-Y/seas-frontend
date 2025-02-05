@@ -1,10 +1,12 @@
+import { useCallback } from "react";
+
 import { requestApi } from "@/helpers/api";
 import { Store } from "@/helpers/store";
 
 export default function useSingleBoardEntry() {
   const selectedRow = Store.useState((state) => state.selectedRow);
 
-  const querySingleRow = async (date: string) => {
+  const querySingleRow = useCallback(async (date: string) => {
     const res = await requestApi(`board/${date}`, "GET");
     if (res && res.success) {
       Store.update((state) => {
@@ -27,7 +29,7 @@ export default function useSingleBoardEntry() {
         state.board = newBoard;
       });
     }
-  };
+  }, []);
 
   return { selectedRow, querySingleRow };
 }
