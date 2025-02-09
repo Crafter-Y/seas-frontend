@@ -135,13 +135,31 @@ export default function PrintOrderModal({
 
   const print = async () => {
     const html = await createHTML();
+
     if (Platform.OS === "web") {
-      const pW = window.open("", "", "height=500, width=500");
-      pW?.document.write(html);
-      pW?.document.close();
-      pW?.print();
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none"; // Hide the iframe
+      document.body.appendChild(iframe);
+
+      const iframeDoc =
+        iframe.contentDocument || iframe.contentWindow?.document;
+      if (!iframeDoc) return;
+
+      iframeDoc.open();
+      iframeDoc.write(html);
+      iframeDoc.close();
+
+      const closePrint = () => {
+        document.body.removeChild(iframe);
+      };
+
+      iframe.contentWindow!.onbeforeunload = closePrint;
+      iframe.contentWindow!.onafterprint = closePrint;
+      iframe.contentWindow!.print();
+
       return;
     }
+
     Print.printAsync({
       html,
     }).catch(() => {}); // ignoring rejection (ios rejects on cancel)
