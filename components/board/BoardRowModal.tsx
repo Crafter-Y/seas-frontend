@@ -109,7 +109,7 @@ export default function BoardRowModal({
 
           {(user?.role === "ADMIN" || user?.id === page.moderatorUserId) && (
             <BoardAssignButton
-              style={tw`ml-2`}
+              className="ml-2 m-1"
               color="BLUE"
               text="Kommentar bearbeiten"
               onPress={() => {
