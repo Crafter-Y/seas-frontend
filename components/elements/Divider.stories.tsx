@@ -5,7 +5,7 @@ import Divider from "@/components/elements/Divider";
 import type { Meta, StoryObj } from "@storybook/react";
 
 export default {
-  title: "Components/Divider",
+  title: "Elements/Divider",
   component: Divider,
   argTypes: {
     type: {
