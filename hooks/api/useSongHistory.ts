@@ -32,7 +32,15 @@ export default function useSongHistory() {
         });
 
         if (res?.success) {
-          setHistoryResponse(res.data.rows);
+          const typedRes: APIResponseHistoryEntry[] = res.data.rows;
+          const setRes = typedRes.map((row) => {
+            return {
+              ...row,
+              date: new Date(row.date),
+            };
+          });
+
+          setHistoryResponse(setRes);
           setTotalRecords(res.data.count);
         }
       }
