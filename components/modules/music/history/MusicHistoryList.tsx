@@ -25,6 +25,7 @@ type Props = {
     page: number,
   ) => void;
   responseLength: number;
+  csvExportButton?: React.ReactElement;
 };
 
 export default function MusicHistoryList<T>({
@@ -40,6 +41,7 @@ export default function MusicHistoryList<T>({
   queryReports,
   responseLength,
   totalRecords,
+  csvExportButton,
 }: {
   data: readonly T[];
   renderItem: ListRenderItem<T>;
@@ -67,6 +69,7 @@ export default function MusicHistoryList<T>({
               historyType={historyType}
               setHistoryType={setHistoryType}
             />
+            {csvExportButton && { ...csvExportButton }}
             <View
               style={tw`rounded-tl-xl rounded-tr-xl border-t-2 border-l-2 border-r-2 border-[${
                 Color.GRAY

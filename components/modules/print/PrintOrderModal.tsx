@@ -1,7 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import * as Print from "expo-print";
-import { shareAsync } from "expo-sharing";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import React from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 import Animated, { CurvedTransition } from "react-native-reanimated";
@@ -12,6 +10,7 @@ import Divider from "@/components/elements/Divider";
 import { requestApi } from "@/helpers/api";
 import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
+import { openPrintModal, sharePdf } from "@/helpers/print";
 import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
@@ -52,28 +51,31 @@ export default function PrintOrderModal({
 
   const [data, setData] = useState(initialData);
 
-  const mapPrintEntry = (row: BoardRow, columnId: number) => {
-    if (columnId === -1) return prettyDate(row.date, false);
+  const mapPrintEntry = useCallback(
+    (row: BoardRow, columnId: number) => {
+      if (columnId === -1) return prettyDate(row.date, false);
 
-    const matchingComment = row.comments.filter(
-      (comment) => comment.boardColumnId === columnId,
-    )[0];
-    if (matchingComment) return matchingComment.text;
+      const matchingComment = row.comments.filter(
+        (comment) => comment.boardColumnId === columnId,
+      )[0];
+      if (matchingComment) return matchingComment.text;
 
-    const matchingAssignment = row.assignments.filter(
-      (entry) => entry.boardColumnId === columnId,
-    )[0];
-    if (!matchingAssignment) return "";
+      const matchingAssignment = row.assignments.filter(
+        (entry) => entry.boardColumnId === columnId,
+      )[0];
+      if (!matchingAssignment) return "";
 
-    const matchingUser = allExistingUsers.filter(
-      (user) => user.id === matchingAssignment.userId,
-    )[0];
-    if (!matchingUser) return "";
+      const matchingUser = allExistingUsers.filter(
+        (user) => user.id === matchingAssignment.userId,
+      )[0];
+      if (!matchingUser) return "";
 
-    return matchingUser.firstname + " " + matchingUser.lastname;
-  };
+      return matchingUser.firstname + " " + matchingUser.lastname;
+    },
+    [allExistingUsers],
+  );
 
-  const createHTML = async () => {
+  const createHTML = useCallback(async () => {
     const res = await requestApi(
       `board?from=${formatDate(printStart!)}&to=${formatDate(printEnd!)}`,
       "GET",
@@ -131,47 +133,18 @@ export default function PrintOrderModal({
     </table>
   </body>
 </html>`;
-  };
+  }, [data, mapPrintEntry, printEnd, printStart, serverName]);
 
-  const print = async () => {
+  const print = useCallback(async () => {
+    const html = await createHTML();
+    openPrintModal(html);
+  }, [createHTML]);
+
+  const pdf = useCallback(async () => {
     const html = await createHTML();
 
-    if (Platform.OS === "web") {
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none"; // Hide the iframe
-      document.body.appendChild(iframe);
-
-      const iframeDoc =
-        iframe.contentDocument || iframe.contentWindow?.document;
-      if (!iframeDoc) return;
-
-      iframeDoc.open();
-      iframeDoc.write(html);
-      iframeDoc.close();
-
-      const closePrint = () => {
-        document.body.removeChild(iframe);
-      };
-
-      iframe.contentWindow!.onbeforeunload = closePrint;
-      iframe.contentWindow!.onafterprint = closePrint;
-      iframe.contentWindow!.print();
-
-      return;
-    }
-
-    Print.printAsync({
-      html,
-    }).catch(() => {}); // ignoring rejection (ios rejects on cancel)
-  };
-
-  const pdf = async () => {
-    const html = await createHTML();
-
-    const { uri } = await Print.printToFileAsync({ html });
-
-    await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
-  };
+    sharePdf(html);
+  }, [createHTML]);
 
   function onReordered(fromIndex: number, toIndex: number) {
     const copy = [...data]; // Don't modify react data in-place

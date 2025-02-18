@@ -1,5 +1,8 @@
+import AntDesign from "@expo/vector-icons/AntDesign";
+import * as FileSystem from "expo-file-system";
+import { isAvailableAsync, shareAsync } from "expo-sharing";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Platform, Pressable, Share, View } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
 import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
@@ -37,6 +40,40 @@ export default function MusicHistoryModal() {
     setPage(0);
     queryReports(searchType, historyType, 0);
   }, [searchType, historyType, queryReports]);
+
+  const exportCsv = async (data: APIResponseSong[]) => {
+    const csvString = [
+      "Number;Title;Book Name",
+      ...data.map((song) => `${song.number};${song.title};${song.book.name}`),
+    ].join("\n");
+
+    const csvWithBOM = "\uFEFF" + csvString;
+
+    if (Platform.OS === "web") {
+      // Add UTF-8 BOM to fix special characters
+      const blob = new Blob([csvWithBOM], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "unknown.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } else {
+      // Mobile: Save file and share
+      const fileUri = FileSystem.cacheDirectory + "unknown.csv";
+      await FileSystem.writeAsStringAsync(fileUri, csvWithBOM, {
+        encoding: FileSystem.EncodingType.UTF8,
+      });
+
+      if (await isAvailableAsync()) {
+        await shareAsync(fileUri);
+      } else {
+        await Share.share({ url: fileUri });
+      }
+    }
+  };
 
   return (
     <View style={tw`mx-2 md:mx-4`}>
@@ -194,6 +231,18 @@ export default function MusicHistoryModal() {
           setPage={setPage}
           queryReports={queryReports}
           totalRecords={totalRecords}
+          csvExportButton={
+            historyType === "KNOWN" ? undefined : (
+              <View className="mt-1 items-end">
+                <Pressable
+                  className="items-center justify-center p-2 rounded-full border border-gray-400"
+                  onPress={() => exportCsv(knownResponse)}
+                >
+                  <AntDesign name="table" size={22} color="black" />
+                </Pressable>
+              </View>
+            )
+          }
           renderItem={({ item, index }) => {
             return (
               <View
