@@ -21,6 +21,7 @@ module.exports = {
       },
       backgroundColor: colors,
       textColor: colors,
+      borderColor: colors,
     },
   },
   plugins: [],

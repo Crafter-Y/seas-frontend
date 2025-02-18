@@ -2,16 +2,15 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import * as FileSystem from "expo-file-system";
 import { isAvailableAsync, shareAsync } from "expo-sharing";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform, Pressable, Share, View } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
 import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
 import MusicHistoryList from "@/components/modules/music/history/MusicHistoryList";
 import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
-import { Color } from "@/helpers/Constants";
 import { prettyDate } from "@/helpers/format";
 import useSongHistory from "@/hooks/api/useSongHistory";
-import tw from "@/tailwind";
 
 export type HistoryType =
   | "GOOD"
@@ -31,6 +30,7 @@ export default function MusicHistoryModal() {
     countResponse,
     knownResponse,
   } = useSongHistory();
+  const { t } = useTranslation();
 
   const [searchType, setSearchType] = useState<MusicEntryType>("MISSION");
   const [historyType, setHistoryType] = useState<HistoryType>("HISTORY");
@@ -76,12 +76,12 @@ export default function MusicHistoryModal() {
   };
 
   return (
-    <View style={tw`mx-2 md:mx-4`}>
+    <View className="mx-2 md:mx-4">
       {/* History Component */}
       {historyType === "HISTORY" && (
         <MusicHistoryList
           data={historyResponse}
-          headers={["Datum", "Eintrag"]}
+          headers={[t("date"), t("entry")]}
           setSearchType={setSearchType}
           searchType={searchType}
           setHistoryType={setHistoryType}
@@ -94,29 +94,27 @@ export default function MusicHistoryModal() {
           renderItem={({ item, index }) => {
             return (
               <View
-                style={tw`border-b-2 p-1 flex-row border-[${Color.GRAY}] ${
+                className={`border-b-2 p-1 flex-row border-seas-gray ${
                   index === 0 ? "border-t-2" : ""
                 } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
-                <View style={tw``}>
-                  {/* TODO: figure out, why the date needs to be casted to the date object */}
-                  {new Date(item.date).getFullYear() !==
-                    new Date().getFullYear() && (
-                    <CustomText>{new Date(item.date).getFullYear()}</CustomText>
+                <View>
+                  {item.date.getFullYear() !== new Date().getFullYear() && (
+                    <CustomText>{item.date.getFullYear()}</CustomText>
                   )}
-                  <CustomText style={tw`mr-3`}>
+                  <CustomText className="mr-3">
                     {prettyDate(item.date.toString(), true)}
                   </CustomText>
                 </View>
-                <View style={tw`flex-1`}>
-                  <CustomText style={tw`text-lg leading-[18px]`}>
+                <View className="flex-1">
+                  <CustomText className="text-lg leading-[18px]">
                     {item.song.title} ({item.song.number})
                   </CustomText>
-                  <CustomText style={tw`text-xs`}>
+                  <CustomText className="text-xs">
                     {item.song.book.name}
                   </CustomText>
                   {item.comment && (
-                    <CustomText style={tw`text-base mt-1`}>
+                    <CustomText className="mt-1 text-base">
                       {item.comment}
                     </CustomText>
                   )}
@@ -136,7 +134,7 @@ export default function MusicHistoryModal() {
       {(historyType === "GOOD" || historyType === "BAD") && (
         <MusicHistoryList
           data={ratingResponse}
-          headers={["Eintrag", "Bewertung"]}
+          headers={[t("entry"), t("rating")]}
           setSearchType={setSearchType}
           searchType={searchType}
           setHistoryType={setHistoryType}
@@ -149,27 +147,30 @@ export default function MusicHistoryModal() {
           renderItem={({ item, index }) => {
             return (
               <View
-                style={tw`border-b-2 p-1 flex-row border-[${Color.GRAY}] ${
+                className={`border-b-2 p-1 flex-row border-seas-gray ${
                   index === 0 ? "border-t-2" : ""
                 } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
-                <View style={tw`flex-1`}>
-                  <CustomText style={tw`text-lg leading-[18px]`}>
+                <View className="flex-1 justify-center">
+                  <CustomText className="text-lg leading-[18px]">
                     {item.title} ({item.number})
                   </CustomText>
-                  <CustomText style={tw`text-xs`}>{item.book}</CustomText>
+                  <CustomText className="text-xs">{item.book}</CustomText>
                 </View>
-                <View style={tw`flex-1 items-center justify-center`}>
+                <View className="items-center justify-center flex-1">
                   <Ratings
                     key={item.rating}
                     size="small"
                     initialValue={(item.rating + "") as Rating}
                     frozen
                   />
-                  <CustomText style={tw`text-center`}>
-                    {(item.rating + "").replace(".", ",")} Sterne
-                  </CustomText>
-                  <CustomText style={tw`text-center px-1 text-xs`}>
+                  <CustomText
+                    className="text-center"
+                    t="xStars"
+                    values={{ x: (item.rating + "").replace(".", ",") }}
+                  />
+                  <CustomText className="text-center px-1 text-xs">
+                    {/* TODO: i18n translate ratings */}
                     {ratingMeaning[(item.rating + "") as Rating]}
                   </CustomText>
                 </View>
@@ -183,7 +184,7 @@ export default function MusicHistoryModal() {
       {(historyType === "MIN" || historyType === "MAX") && (
         <MusicHistoryList
           data={countResponse}
-          headers={["Eintrag", "# oft vorgetragen"]}
+          headers={[t("entry"), t("timesPerformed", { times: " " })]}
           setSearchType={setSearchType}
           searchType={searchType}
           setHistoryType={setHistoryType}
@@ -196,20 +197,22 @@ export default function MusicHistoryModal() {
           renderItem={({ item, index }) => {
             return (
               <View
-                style={tw`border-b-2 p-1 flex-row border-[${Color.GRAY}] ${
+                className={`border-b-2 p-1 flex-row border-seas-gray ${
                   index === 0 ? "border-t-2" : ""
                 } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
-                <View style={tw`flex-1`}>
-                  <CustomText style={tw`text-lg leading-[18px]`}>
+                <View className="flex-1">
+                  <CustomText className="text-lg leading-[18px]">
                     {item.title} ({item.number})
                   </CustomText>
-                  <CustomText style={tw`text-xs`}>{item.book}</CustomText>
+                  <CustomText className="text-xs">{item.book}</CustomText>
                 </View>
-                <View style={tw`items-center justify-center`}>
-                  <CustomText style={tw`text-center text-lg`}>
-                    {item.count}x vorgetragen
-                  </CustomText>
+                <View className="items-center justify-center">
+                  <CustomText
+                    className="text-center text-lg"
+                    t="timesPerformed"
+                    values={{ times: item.count + "" }}
+                  />
                 </View>
               </View>
             );
@@ -221,7 +224,7 @@ export default function MusicHistoryModal() {
       {(historyType === "KNOWN" || historyType === "UNKNOWN") && (
         <MusicHistoryList
           data={knownResponse}
-          headers={["Titel"]}
+          headers={[t("title")]}
           setSearchType={setSearchType}
           searchType={searchType}
           setHistoryType={setHistoryType}
@@ -235,7 +238,7 @@ export default function MusicHistoryModal() {
             historyType === "KNOWN" ? undefined : (
               <View className="mt-1 items-end">
                 <Pressable
-                  className="items-center justify-center p-2 rounded-full border border-gray-400"
+                  className="items-center justify-center p-2 rounded-full border border-gray-400 hover:bg-seas-light-gray"
                   onPress={() => exportCsv(knownResponse)}
                 >
                   <AntDesign name="table" size={22} color="black" />
@@ -246,23 +249,23 @@ export default function MusicHistoryModal() {
           renderItem={({ item, index }) => {
             return (
               <View
-                style={tw`border-b-2 p-1 flex-row border-[${Color.GRAY}] ${
+                className={`border-b-2 p-1 flex-row border-seas-gray ${
                   index === 0 ? "border-t-2" : ""
                 } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
-                <View style={tw`flex-1`}>
-                  <CustomText style={tw`text-lg leading-[18px]`}>
+                <View>
+                  <CustomText className="text-lg leading-[18px]">
                     {item.title}
                   </CustomText>
                   <CustomText>({item.number})</CustomText>
-                  <CustomText style={tw`text-xs`}>{item.book.name}</CustomText>
+                  <CustomText className="text-xs">{item.book.name}</CustomText>
                 </View>
               </View>
             );
           }}
         />
       )}
-      <View style={tw`h-2`}></View>
+      <View className="h-2"></View>
     </View>
   );
 }

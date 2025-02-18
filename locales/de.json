@@ -103,5 +103,12 @@
   "songbookDeletion.3": "Dadurch werden alle ",
   "songbookDeletion.4": " Songs gelöscht. Alle damit in Verbindung stehende Statistiken werden ebenfalls gelöscht.",
   "delete": "Löschen",
-  "rename": "Umbenennen"
+  "rename": "Umbenennen",
+  "timesPerformed": "{{times}}x vorgetragen",
+  "xStars": "{{x}} Sterne",
+  "title": "Titel",
+  "entry": "Eintrag",
+  "rating": "Bewertung",
+  "date": "Datum",
+  "noEntryInLast365Days": "Keine Einträge in den letzten 365 Tagen."
 }

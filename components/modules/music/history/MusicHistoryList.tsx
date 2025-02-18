@@ -7,8 +7,6 @@ import MusicHistoryFooter from "@/components/modules/music/history/MusicHistoryF
 import MusicHistoryHeader from "@/components/modules/music/history/MusicHistoryHeader";
 import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
 import { HistoryType } from "@/components/modules/music/MusicHistoryModal";
-import { Color } from "@/helpers/Constants";
-import tw from "@/tailwind";
 
 type Props = {
   headers: string[];
@@ -50,13 +48,11 @@ export default function MusicHistoryList<T>({
 
   return (
     <View
-      style={tw.style(
-        {
-          height: responseLength === 4 ? height * 0.6 : undefined,
-          width: Math.min(350, width - 75), // this bs is done, because otherwise there would be a bug where the layout is wiredly glitching
-        },
-        "mx-auto",
-      )}
+      style={{
+        height: responseLength === 4 ? height * 0.6 : undefined,
+        width: Math.min(350, width - 75), // this bs is done, because otherwise there would be a bug where the layout is wiredly glitching
+        marginHorizontal: "auto",
+      }}
     >
       <FlashList
         estimatedItemSize={10}
@@ -71,21 +67,20 @@ export default function MusicHistoryList<T>({
             />
             {csvExportButton && { ...csvExportButton }}
             <View
-              style={tw`rounded-tl-xl rounded-tr-xl border-t-2 border-l-2 border-r-2 border-[${
-                Color.GRAY
-              }] flex-row p-1 mt-1 ${data.length ? "" : "hidden"}`}
+              className={`rounded-tl-xl rounded-tr-xl border-t-2 border-l-2 border-r-2 border-seas-gray flex-row p-1 mt-1 ${data.length ? "" : "hidden"}`}
             >
               {headers.map((header) => (
-                <View key={header} style={tw`flex-1 mx-2`}>
-                  <CustomText style={tw`text-lg font-semibold`}>
+                <View key={header} className="flex-1 mx-2">
+                  <CustomText className="text-lg font-semibold">
                     {header}
                   </CustomText>
                 </View>
               ))}
             </View>
-            <CustomText style={tw`${data.length ? "hidden" : ""} py-2 text-lg`}>
-              Keine Einträge in den letzten 365 Tagen.
-            </CustomText>
+            <CustomText
+              className={`${data.length ? "hidden" : ""} py-2 text-lg`}
+              t="noEntryInLast365Days"
+            />
           </>
         }
         ListFooterComponent={

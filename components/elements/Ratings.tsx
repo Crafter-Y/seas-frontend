@@ -1,21 +1,19 @@
 import { AntDesign } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
-import { ClassInput } from "twrnc/dist/esm/types";
+import { TouchableOpacity, View, ViewProps } from "react-native";
 
 import { Color } from "@/helpers/Constants";
-import tw from "@/tailwind";
 
 type Props = {
   onRatingChange?: (rating: Rating) => void;
-  style?: ClassInput;
   size: RatingsSize;
   initialValue?: Rating;
   frozen?: boolean;
-};
+} & ViewProps;
 
 type RatingsSize = "large" | "small";
 
+// TODO: i18n translate meanings
 export const ratingMeaning = {
   "1": "Weiteres Üben erforderlich",
   "2": "Hat Verbesserungspotenzial",
@@ -56,10 +54,11 @@ const RatingButton = ({
 
 export default function Ratings({
   onRatingChange,
-  style,
   size,
   initialValue,
   frozen = false,
+  className,
+  ...props
 }: Props) {
   const [rating, setRating] = useState<Rating | undefined>(initialValue);
 
@@ -68,7 +67,7 @@ export default function Ratings({
   }, [onRatingChange, rating]);
 
   return (
-    <View style={tw.style("flex-row", style)}>
+    <View className={`flex-row ${className}`} {...props}>
       <RatingButton
         rating={rating}
         setRating={setRating}
