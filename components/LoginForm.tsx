@@ -46,6 +46,7 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
         onChangeText={(text) => setEmail(text)}
         onSubmitEditing={() => secondInput.current?.focus()}
         returnKeyType="next"
+        testID="login-email-input"
       />
       <Input
         placeholder="Passwort"
@@ -55,9 +56,12 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
         autoComplete="password"
         returnKeyType="done"
         onSubmitEditing={() => login(email, password)}
+        testID="login-password-input"
       />
 
-      <Button onPress={() => login(email, password)}>Anmelden</Button>
+      <Button onPress={() => login(email, password)} testID="login-button">
+        Anmelden
+      </Button>
 
       <ErrorDisplay
         hasError={hasAuthError}

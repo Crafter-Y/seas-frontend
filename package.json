@@ -20,7 +20,8 @@
     "eas-build-pre-install": "npm config set legacy-peer-deps true",
     "lint": "expo lint",
     "storybook-generate": "sb-rn-get-stories",
-    "analyze": "cross-env EXPO_UNSTABLE_ATLAS=true expo start"
+    "analyze": "cross-env EXPO_UNSTABLE_ATLAS=true expo start",
+    "test:e2e": "node e2e.js"
   },
   "dependencies": {
     "@expo/match-media": "^0.4.0",
@@ -89,6 +90,7 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "concurrently": "^8.0.1",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
     "eslint": "^8.57.0",
     "eslint-config-expo": "~8.0.1",
     "eslint-config-prettier": "^10.0.1",

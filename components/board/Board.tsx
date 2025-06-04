@@ -98,19 +98,19 @@ const Board = ({
       >
         <RoundIconButton
           hidden={!moduleStatus?.moduleCalendar}
-          style={tw`border border-gray-400`}
+          className="border border-gray-400"
           icon={<AntDesign name="calendar" size={20} color="black" />}
           onPress={openCalendarModal}
         />
         <RoundIconButton
           hidden={!moduleStatus?.modulePrint}
-          style={tw`border border-gray-400`}
+          className="border border-gray-400"
           icon={<AntDesign name="printer" size={20} color="black" />}
           onPress={openPrintModal}
         />
         <RoundIconButton
           hidden={!moduleStatus?.moduleMusic}
-          style={tw`border border-gray-400`}
+          className="border border-gray-400"
           icon={
             <MaterialCommunityIcons
               name="music-clef-treble"

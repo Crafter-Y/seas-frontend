@@ -1,0 +1,6 @@
+appId: de.craftery.seasfrontend
+---
+- clearState
+- launchApp
+- assertVisible:
+    id: server-selector-welcome-text

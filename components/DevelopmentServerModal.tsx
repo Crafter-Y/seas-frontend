@@ -24,6 +24,7 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
           });
         }}
         className="m-2"
+        testID="dev-server-url-input"
       />
       <Button
         className="m-2"
@@ -62,6 +63,7 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
             state.serverDevUrl = "https://api.seas-kirchengemeinde.de";
           });
         }}
+        testID="public-api-button"
       >
         api.seas-kirchengemeinde.de
       </Button>

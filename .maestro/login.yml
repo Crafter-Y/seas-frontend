@@ -1,0 +1,33 @@
+appId: de.craftery.seasfrontend
+---
+- clearState
+- launchApp
+- assertVisible:
+    id: server-selector-welcome-text
+- tapOn:
+    id: development-server-selector
+- assertVisible:
+    id: dev-server-url-input
+- tapOn:
+    id: public-api-button
+- tapOn:
+    id: modal-close-button
+- tapOn:
+    id: server-id-input
+- inputText: ${MAESTRO_SERVER_ID}
+- tapOn:
+    id: server-id-submit-button
+- assertVisible:
+    id: login-title
+- tapOn:
+    id: login-email-input
+- inputText: ${MAESTRO_EMAIL}
+- tapOn:
+    id: login-password-input
+- inputText: ${MAESTRO_PASSWORD}
+- tapOn:
+    id: login-button
+- assertVisible:
+    id: board-header-title
+- assertVisible:
+    id: board-list-form

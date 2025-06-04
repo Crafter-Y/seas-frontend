@@ -71,8 +71,9 @@ export default function ServerSelectorScreen() {
         <View className="items-end p-1">
           <RoundIconButton
             icon={<AntDesign name="setting" size={20} color="black" />}
-            onPress={() => apiModal.current!.openModal()}
-            style="border rounded-xl"
+            onPress={() => setTimeout(() => apiModal.current!.openModal(), 1)}
+            className="border rounded-xl"
+            testID="development-server-selector"
           />
         </View>
       )}
@@ -88,16 +89,17 @@ export default function ServerSelectorScreen() {
       <CustomText
         className="text-center text-3xl font-bold px-4"
         t="welcomeToServerSelection"
+        testID="server-selector-welcome-text"
       />
       <View className="px-4 mb-2">
         <CustomText className="mt-6 text-lg" t="specifyServerId" />
         <Input
           placeholder="Server ID"
-          autoFocus={true}
           inputMode="numeric"
           onChangeText={(id) => setServerId(id)}
           className="mt-1"
           onSubmitEditing={login}
+          testID="server-id-input"
         />
         <ErrorDisplay
           hasError={isError}
@@ -107,9 +109,14 @@ export default function ServerSelectorScreen() {
           hasError={!!fetchServerError}
           error={fetchServerError || ""}
         />
-
-        <CustomText className="my-2" t="thisCanBeChangedLater" />
-        <Button onPress={login}>{t("save")}</Button>
+        <Button
+          onPress={login}
+          className="my-2"
+          testID="server-id-submit-button"
+        >
+          {t("save")}
+        </Button>
+        <CustomText t="thisCanBeChangedLater" />
       </View>
       <DevelopmentServerModal ref={apiModal} />
     </StartScreenWrapper>

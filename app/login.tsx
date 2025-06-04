@@ -110,14 +110,14 @@ export default function LoginScreen() {
                 <RoundIconButton
                   icon={<AntDesign name="setting" size={20} color="black" />}
                   onPress={() => apiModal.current!.openModal()}
-                  style="border rounded-xl"
+                  className="border rounded-xl"
                 />
               </View>
             )}
             <CustomText className="text-4xl font-semibold mt-12 md:hidden">
               {t("welcome")}!
             </CustomText>
-            <CustomText className={"text-2xl text-center md:hidden"}>
+            <CustomText className="text-2xl text-center md:hidden">
               {serverName}
             </CustomText>
 
@@ -130,6 +130,7 @@ export default function LoginScreen() {
               style={tw.style({
                 "mb-12": isMd,
               })}
+              testID="login-title"
             />
 
             <LoginForm

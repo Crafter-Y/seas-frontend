@@ -1,57 +1,24 @@
-import React, { memo, useCallback, useRef } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useHover } from "react-native-web-hooks";
-import { ClassInput } from "twrnc/dist/esm/types";
-
-import { Color } from "@/helpers/Constants";
-import tw from "@/tailwind";
+import React from "react";
+import { Pressable, PressableProps } from "react-native";
 
 type Props = {
   icon: React.ReactNode;
-  onPress?: () => void;
-  style?: ClassInput;
   hidden?: boolean;
-};
+} & PressableProps;
 
-type BtnProps = {
-  icon: React.ReactNode;
-  onPress?: () => void;
-  style?: ClassInput;
-};
-
-const ActualButton = ({ icon, onPress, style }: BtnProps) => {
-  const ref = useRef(null);
-  const isHovered = useHover(ref);
-
-  const callback = useCallback(() => {
-    setTimeout(() => {
-      onPress?.();
-    }, 5);
-  }, [onPress]);
-
+const ActualButton = ({ icon, className, ...props }: Props) => {
   return (
-    <TouchableOpacity
-      ref={ref}
-      style={tw.style(
-        {
-          backgroundColor: isHovered ? Color.LIGHT_GRAY : undefined,
-        },
-        "items-center justify-center h-10 w-10 rounded-full",
-        style,
-      )}
-      onPress={callback}
+    <Pressable
+      className={`items-center justify-center h-10 w-10 rounded-full hover:bg-seas-light-gray ${className}`}
+      {...props}
     >
       {icon}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
-const RoundIconButton = ({ icon, onPress, style, hidden = false }: Props) => {
-  return hidden ? (
-    <></>
-  ) : (
-    <ActualButton icon={icon} onPress={onPress} style={style} />
-  );
+const RoundIconButton = ({ hidden = false, ...props }: Props) => {
+  return hidden ? <></> : <ActualButton {...props} />;
 };
 
-export default memo(RoundIconButton);
+export default RoundIconButton;

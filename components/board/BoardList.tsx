@@ -177,7 +177,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
         "px-6": isSm,
       })}
     >
-      <Form style={tw`mb-4 bg-white`}>
+      <Form style={tw`mb-4 bg-white`} testID="board-list-form">
         <TH titles={titles} />
         {rows.map((row) => (
           <PressableTR

@@ -18,6 +18,7 @@ const Input = forwardRef<TextInput, Props>(
       secureTextEntry,
       disabled,
       className,
+      numberOfLines,
       ...props
     }: Props,
     ref,
@@ -45,6 +46,7 @@ const Input = forwardRef<TextInput, Props>(
         ref={ref}
         inputMode={inputMode ?? "text"}
         aria-disabled={disabled}
+        numberOfLines={numberOfLines ?? 1}
         {...props}
       />
     );

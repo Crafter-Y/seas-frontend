@@ -75,7 +75,7 @@ const BoardHeader = ({
             },
             "font-bold",
           )}
-          numberOfLines={1}
+          testID="board-header-title"
         >
           {titleState()}
         </CustomText>

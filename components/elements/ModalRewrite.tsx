@@ -61,6 +61,7 @@ const ModalHeader = ({ title, closeModal, values }: HeaderProps) => {
         <TouchableOpacity
           onPress={closeModal}
           style={tw`p-2 w-10 rounded-full`}
+          testID="modal-close-button"
         >
           <AntDesign name="close" size={25} color="gray" />
         </TouchableOpacity>
