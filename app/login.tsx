@@ -90,7 +90,11 @@ export default function LoginScreen() {
 
   return (
     <>
-      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid={true}
+        extraScrollHeight={50}
+      >
         <View
           style={{
             paddingTop: Constants.statusBarHeight,

@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   Keyboard,
   Platform,
@@ -14,12 +15,23 @@ type Props = {
 
 const StartScreenWrapper = ({ children }: Props) => {
   const { height } = useWindowDimensions();
+  const ref = useRef<KeyboardAwareScrollView>(null);
 
   return (
     <SafeAreaView>
       <KeyboardAwareScrollView
-        style={{ height }}
+        ref={ref}
+        style={{
+          height: Platform.OS !== "android" ? height : undefined,
+        }}
         keyboardShouldPersistTaps="handled"
+        enableOnAndroid={true}
+        extraScrollHeight={50}
+        onKeyboardDidShow={() => {
+          setTimeout(() => {
+            ref.current?.scrollToPosition(0, 150, true);
+          }, 10);
+        }}
       >
         <TouchableWithoutFeedback
           onPress={Platform.OS === "web" ? undefined : Keyboard.dismiss} // on touch browsers, it would not work otherwise

@@ -143,6 +143,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
             boardAssign(user!.id, row.date, column.id);
           }, 100);
         }}
+        testID="board-assign-button"
       />
     );
   };
