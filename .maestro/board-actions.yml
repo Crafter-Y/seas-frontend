@@ -1,0 +1,45 @@
+appId: de.craftery.seasfrontend
+---
+- runFlow: login.yml
+# Click on the first comment
+- tapOn: "- "
+
+# attend one position
+- tapOn: "Teilnehmen "
+- assertVisible: "Nicht mehr teilnehmen "
+- tapOn: "Nicht mehr teilnehmen "
+
+# attend two positions
+- assertNotVisible: "Nicht mehr teilnehmen "
+- tapOn: "Teilnehmen "
+- tapOn: "Ebenfalls teilnehmen "
+- tapOn: "Nicht mehr teilnehmen "
+- assertVisible: "Ebenfalls teilnehmen "
+- tapOn: "Nicht mehr teilnehmen "
+- assertNotVisible: "Nicht mehr teilnehmen "
+
+# assign other user
+- tapOn: "Mitglied eintragen "
+- tapOn: "Other User "
+- tapOn: "Fertig  "
+- assertVisible: "Other User "
+- tapOn: "Other User "
+- assertNotVisible: "Other User "
+- tapOn:
+    id: modal-close-button
+
+# join position via + Button
+- tapOn:
+    id: board-assign-button
+- assertVisible: "Bastian Biedermann "
+- tapOn: "Bastian Biedermann "
+- tapOn: "Nicht mehr teilnehmen "
+- assertVisible: "Teilnehmen "
+- tapOn:
+    id: modal-close-button
+
+# change pages
+- tapOn: "Plan 2 "
+- assertVisible: "SPALTE 3 "
+- tapOn: "Plan 1 "
+- assertVisible: "SPALTE 1 "
