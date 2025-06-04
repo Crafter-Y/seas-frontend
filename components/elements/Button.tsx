@@ -25,7 +25,7 @@ const Button = ({
   return (
     <TouchableOpacity
       disabled={disabled}
-      className={`rounded-xl px-4 py-3 items-center justify-center ${
+      className={`rounded-xl pl-4 pr-4 android:pr-2.5 py-3 items-center justify-center ${
         disabled ? "cursor-not-allowed" : "cursor-pointer"
       } ${className}`}
       style={{
