@@ -103,7 +103,7 @@ let AppEntryPoint = DefaultLayout;
 
 if (Constants.expoConfig?.extra?.storybookEnabled === "true") {
   // eslint-disable-next-line @limegrass/import-alias/import-alias
-  AppEntryPoint = AppEntryPoint = require("../.storybook").default;
+  AppEntryPoint = require("../.storybook").default;
   SplashScreen.hide();
 }
 

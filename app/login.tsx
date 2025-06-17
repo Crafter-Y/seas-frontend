@@ -1,4 +1,4 @@
-import "@expo/match-media";
+import "@expo/match-media"; // I don't remember why this is needed, but I am afraid something breaks if I remove it
 
 import AntDesign from "@expo/vector-icons/AntDesign";
 import AsyncStorage from "@react-native-async-storage/async-storage";
