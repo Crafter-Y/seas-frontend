@@ -1,16 +1,15 @@
 import * as ExpoCalendar from "expo-calendar";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import React from "react";
 import { Platform, View } from "react-native";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import ErrorDisplay from "@/components/ErrorDisplay";
+import { AppContext } from "@/helpers/appContext";
 import { Store } from "@/helpers/store";
-import useAuthentication from "@/hooks/api/useAuthentication";
-import useServerName from "@/hooks/api/useServerName";
 import tw from "@/tailwind";
 
 const CALENDAR_NAME = "SEAS Termine";
@@ -20,8 +19,7 @@ export default function CalendarModal() {
 
   const [syncSuccessful, setSyncSuccessful] = useState(false);
 
-  const { user } = useAuthentication();
-  const { serverName } = useServerName();
+  const { user, serverName } = useContext(AppContext);
 
   const { from, to, board } = Store.useState((state) => ({
     from: state.lastQueryFrom,

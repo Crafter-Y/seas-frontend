@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 
 import BoardAssignButton from "@/components/board/BoardAssignButton";
@@ -12,12 +12,12 @@ import PressableTR from "@/components/elements/PressableTR";
 import TD from "@/components/elements/TD";
 import TH from "@/components/elements/TH";
 import UserSelectModal from "@/components/elements/UserSelectModal";
+import { AppContext } from "@/helpers/appContext";
 import { prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import useAssignUser from "@/hooks/api/useAssignUser";
-import useAuthentication from "@/hooks/api/useAuthentication";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
@@ -27,7 +27,7 @@ type Props = {
   fetchData: () => void;
 };
 const BoardList = ({ rows, fetchData }: Props) => {
-  const { user } = useAuthentication();
+  const { user } = useContext(AppContext);
   const { assignUser, assignmentSuccessful } = useAssignUser();
   const {
     assignUser: boardAssign,

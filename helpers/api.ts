@@ -6,12 +6,16 @@ import { Store } from "@/helpers/store";
 
 type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 
-const getApi = (): string => {
+const getApi = async (): Promise<string> => {
   if (__DEV__) {
-    return Store.getRawState().serverDevUrl;
-  } else {
-    return Constants.expoConfig?.extra?.productionApi;
+    let devUrl = await AsyncStorage.getItem("devServerURL");
+    if (devUrl !== null && devUrl !== undefined) {
+      return devUrl;
+    } else {
+      console.error("No dev URL set, using production API");
+    }
   }
+  return Constants.expoConfig?.extra?.productionApi;
 };
 
 // used to determine which webserver shall be used for clickable email links
@@ -39,7 +43,7 @@ const requestApi = async (
     const token = await AsyncStorage.getItem("token");
     if (token === null) return null;
 
-    const rawResponse = await fetch(`${getApi()}/api/v1/${endpoint}`, {
+    const rawResponse = await fetch(`${await getApi()}/api/v1/${endpoint}`, {
       method,
       body: body ? JSON.stringify(body) : undefined,
       headers: {
@@ -76,7 +80,7 @@ const requestApiWithoutCredentials = async (
   method: RequestMethod,
   body: object | undefined = undefined,
 ): Promise<ApiResponse> => {
-  const rawResponse = await fetch(`${getApi()}/api/v1/${endpoint}`, {
+  const rawResponse = await fetch(`${await getApi()}/api/v1/${endpoint}`, {
     method,
     body: body ? JSON.stringify(body) : undefined,
     headers: {
@@ -88,4 +92,4 @@ const requestApiWithoutCredentials = async (
   return response;
 };
 
-export { getApi, requestApi, requestApiWithoutCredentials };
+export { requestApi, requestApiWithoutCredentials };

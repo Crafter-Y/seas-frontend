@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
@@ -20,15 +20,15 @@ import RequestNewPasswordModal from "@/components/settings/RequestNewPasswordMod
 import SettingsActionButton from "@/components/settings/SettingsActionButton";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import SettingsForm from "@/components/SettingsForm";
+import { AppContext } from "@/helpers/appContext";
 import { Color } from "@/helpers/Constants";
 import { toUpperStarting } from "@/helpers/format";
 import useAllUsers from "@/hooks/api/useAllUsers";
-import useAuthentication from "@/hooks/api/useAuthentication";
 import useRestrictions from "@/hooks/api/useRestrictions";
 import tw from "@/tailwind";
 
 export default function ManageUsersScreen() {
-  const { user } = useAuthentication();
+  const { user } = useContext(AppContext);
   const { t } = useTranslation();
 
   const { allUsers, queryUsers } = useAllUsers();
@@ -50,15 +50,16 @@ export default function ManageUsersScreen() {
       restrictions &&
       allUsers &&
       restrictions.maxUsers <=
-        allUsers.filter((user) => user.role === "USER").length
+        allUsers.filter((specificUser) => specificUser.role === "USER").length
     ) {
       setMaxUsersReached(true);
     }
+
     if (
       restrictions &&
       allUsers &&
       restrictions.maxAdmins <=
-        allUsers.filter((user) => user.role === "ADMIN").length
+        allUsers.filter((specificUser) => specificUser.role === "ADMIN").length
     ) {
       setMaxAdminsReached(true);
     }

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
 
 import BoardAssignButton from "@/components/board/BoardAssignButton";
 import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
+import { AppContext } from "@/helpers/appContext";
 import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import useAllPages from "@/hooks/api/useAllPages";
 import useAssignUser from "@/hooks/api/useAssignUser";
-import useAuthentication from "@/hooks/api/useAuthentication";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
 import useUnAssignUser from "@/hooks/api/useUnAssignUser";
 import tw from "@/tailwind";
@@ -36,7 +36,7 @@ export default function BoardRowModal({
   const [renderdAllPages, setRenderdAllPages] = useState<APIResponsePage[]>([]);
 
   const { allPages } = useAllPages();
-  const { user } = useAuthentication();
+  const { user } = useContext(AppContext);
 
   const { selectedRow, querySingleRow } = useSingleBoardEntry();
 

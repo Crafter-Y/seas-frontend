@@ -1,7 +1,6 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { Redirect } from "expo-router";
+import { useContext, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, useWindowDimensions, View } from "react-native";
 
@@ -14,12 +13,11 @@ import { ModalHandle } from "@/components/elements/Modal";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import RoundIconButton from "@/components/RoundIconButton";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
-import { FetchState } from "@/helpers/Constants";
-import useServerName from "@/hooks/api/useServerName";
+import { AppContext } from "@/helpers/appContext";
 
 export default function ServerSelectorScreen() {
+  const { selectServer, selectServerError } = useContext(AppContext);
   const { height, width } = useWindowDimensions();
-  const { fetchServerName, fetchState, fetchServerError } = useServerName();
   const { t } = useTranslation();
 
   const [serverId, setServerId] = useState("");
@@ -28,26 +26,7 @@ export default function ServerSelectorScreen() {
 
   const apiModal = useRef<ModalHandle>(null);
 
-  // If this is web, redirect immediately
-  useEffect(() => {
-    if (Platform.OS === "web") {
-      setTimeout(() => {
-        router.replace("/login");
-      }, 1);
-    } else {
-      fetchServerName();
-    }
-  }, [fetchServerName]);
-
-  // redirect after successfull fetch
-  useEffect(() => {
-    if (fetchState === FetchState.SUCCEEDED)
-      setTimeout(() => {
-        router.replace("/login");
-      }, 1);
-  }, [fetchState]);
-
-  const login = async () => {
+  const submit = async () => {
     setIsError(false);
     if (serverId.length === 0) {
       setIsError(true);
@@ -61,9 +40,12 @@ export default function ServerSelectorScreen() {
       return;
     }
 
-    await AsyncStorage.setItem("serverId", serverId);
-    fetchServerName();
+    selectServer(serverId);
   };
+
+  if (Platform.OS === "web") {
+    return <Redirect href="/login" />;
+  }
 
   return (
     <StartScreenWrapper>
@@ -98,7 +80,7 @@ export default function ServerSelectorScreen() {
           inputMode="numeric"
           onChangeText={(id) => setServerId(id)}
           className="mt-1"
-          onSubmitEditing={login}
+          onSubmitEditing={submit}
           testID="server-id-input"
         />
         <ErrorDisplay
@@ -106,11 +88,11 @@ export default function ServerSelectorScreen() {
           error={isError && inputError !== "" ? t(inputError) : ""}
         />
         <ErrorDisplay
-          hasError={!!fetchServerError}
-          error={fetchServerError || ""}
+          hasError={selectServerError !== null}
+          error={selectServerError || ""}
         />
         <Button
-          onPress={login}
+          onPress={submit}
           className="my-2"
           testID="server-id-submit-button"
         >

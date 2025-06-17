@@ -1,19 +1,18 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import React, { memo, useCallback, useRef } from "react";
+import React, { memo, useContext, useRef } from "react";
 import { Platform } from "react-native";
 import { View } from "react-native";
 
-import { BoardType } from "@/app/board";
+import { BoardType } from "@/app/(protected)";
 import BoardMenuButton from "@/components/board/BoardMenuButton";
 import BoardMenuNavigationButton from "@/components/board/BoardMenuNavigationButton";
 import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
 import RoundIconButton from "@/components/RoundIconButton";
-import { FetchState } from "@/helpers/Constants";
+import { AppContext } from "@/helpers/appContext";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
-import useServerName from "@/hooks/api/useServerName";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
 
@@ -42,17 +41,11 @@ const BoardHeader = ({
 }: BoardHeaderProps) => {
   const { isLg } = useMediaQueries();
 
-  const { serverName, fetchState } = useServerName();
+  const { serverName } = useContext(AppContext);
 
   const modal = useRef<ModalHandle>(null);
 
   const { moduleStatus } = useModuleStatus();
-
-  const titleState = useCallback(() => {
-    if (fetchState === FetchState.SUCCEEDED && serverName) return serverName;
-    if (fetchState === FetchState.FETCHING) return "Wird geladen...";
-    return "Server zur Zeit nicht erreichbar";
-  }, [fetchState, serverName]);
 
   return (
     <View
@@ -70,14 +63,13 @@ const BoardHeader = ({
               "text-xl": isLg,
               "text-lg": !isLg,
               "ml-4": isLg,
-              "text-red-500": fetchState === FetchState.ERROR,
               maxWidth: "80%",
             },
             "font-bold",
           )}
           testID="board-header-title"
         >
-          {titleState()}
+          {serverName}
         </CustomText>
         <View
           style={tw.style(

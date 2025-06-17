@@ -1,7 +1,7 @@
 import React from "react";
 import { useWindowDimensions, View } from "react-native";
 
-import { BoardType } from "@/app/board";
+import { BoardType } from "@/app/(protected)";
 import BoardSidebarButton from "@/components/board/BoardSidebarButton";
 import BoardSidebarNavigationButton from "@/components/board/BoardSidebarNavigationButton";
 import CustomText from "@/components/elements/CustomText";

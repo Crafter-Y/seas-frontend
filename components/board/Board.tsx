@@ -3,7 +3,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 
-import { BoardType } from "@/app/board";
+import { BoardType } from "@/app/(protected)";
 import BoardList from "@/components/board/BoardList";
 import BoardPageSelector from "@/components/board/BoardPageSelector";
 import BoardRangePicker from "@/components/board/BoardRangePicker";

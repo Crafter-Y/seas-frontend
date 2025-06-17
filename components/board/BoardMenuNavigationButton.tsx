@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Pressable, View } from "react-native";
 import { useHover } from "react-native-web-hooks";
 
-import { BoardType } from "@/app/board";
+import { BoardType } from "@/app/(protected)";
 import CustomText from "@/components/elements/CustomText";
 import { Color } from "@/helpers/Constants";
 import tw from "@/tailwind";

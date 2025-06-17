@@ -1,13 +1,12 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { forwardRef, memo } from "react";
+import React, { forwardRef, memo, useContext } from "react";
 
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
-  const serverUrl = Store.useState((state) => state.serverDevUrl);
+  const { serverDevUrl, setDevUrl } = useContext(AppContext);
 
   const localIp =
     process.env.REACT_NATIVE_PACKAGER_HOSTNAME ?? "192.168.178.95:8080";
@@ -16,12 +15,9 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
     <ModalRewrite title="modal.apiEndpointUrl" ref={ref}>
       <Input
         placeholder="Server ID"
-        initialValue={serverUrl}
+        initialValue={serverDevUrl}
         onChangeText={(url) => {
-          AsyncStorage.setItem("devServerURL", url);
-          Store.update((state) => {
-            state.serverDevUrl = url;
-          });
+          setDevUrl(url);
         }}
         className="m-2"
         testID="dev-server-url-input"
@@ -29,10 +25,7 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
       <Button
         className="m-2"
         onPress={() => {
-          AsyncStorage.setItem("devServerURL", "http://" + localIp);
-          Store.update((state) => {
-            state.serverDevUrl = "http://" + localIp;
-          });
+          setDevUrl("http://" + localIp);
         }}
       >
         {localIp}
@@ -40,14 +33,7 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
       <Button
         className="m-2"
         onPress={() => {
-          AsyncStorage.setItem(
-            "devServerURL",
-            "https://seas-kirchengemeinden.craftingapis.de",
-          );
-          Store.update((state) => {
-            state.serverDevUrl =
-              "https://seas-kirchengemeinden.craftingapis.de";
-          });
+          setDevUrl("https://seas-kirchengemeinden.craftingapis.de");
         }}
       >
         seas-kirchengemeinden.craftingapis.de
@@ -55,13 +41,7 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
       <Button
         className="m-2"
         onPress={() => {
-          AsyncStorage.setItem(
-            "devServerURL",
-            "https://api.seas-kirchengemeinde.de",
-          );
-          Store.update((state) => {
-            state.serverDevUrl = "https://api.seas-kirchengemeinde.de";
-          });
+          setDevUrl("https://api.seas-kirchengemeinde.de");
         }}
         testID="public-api-button"
       >

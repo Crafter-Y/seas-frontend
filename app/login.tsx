@@ -1,10 +1,9 @@
 import "@expo/match-media"; // I don't remember why this is needed, but I am afraid something breaks if I remove it
 
 import AntDesign from "@expo/vector-icons/AntDesign";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
 import { router, useSegments } from "expo-router";
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -16,20 +15,13 @@ import H1 from "@/components/elements/H1";
 import { ModalHandle } from "@/components/elements/Modal";
 import LoginForm from "@/components/LoginForm";
 import RoundIconButton from "@/components/RoundIconButton";
-import { FetchState } from "@/helpers/Constants";
-import { Store } from "@/helpers/store";
-import useAuthentication from "@/hooks/api/useAuthentication";
-import useServerName from "@/hooks/api/useServerName";
+import { AppContext } from "@/helpers/appContext";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import tw from "@/tailwind";
 
-type WebConfig = {
-  serverId: string;
-};
-
 export default function LoginScreen() {
-  const { login, authError, hasAuthError, user } = useAuthentication();
-  const { serverName, fetchServerError, fetchServerName } = useServerName();
+  const { returnToServerSelection, serverName, loginError, login } =
+    useContext(AppContext);
 
   const { isMd } = useMediaQueries();
   const { t } = useTranslation();
@@ -37,56 +29,11 @@ export default function LoginScreen() {
 
   const apiModal = useRef<ModalHandle>(null);
 
-  const back = async () => {
-    await AsyncStorage.removeItem("serverId");
-    Store.update((state) => {
-      state.serverNameState = FetchState.FETCHING;
-    });
-    router.replace("/");
-  };
-
-  // (web) prepare server id if not set in local Storage
-  useEffect(() => {
-    if (Platform.OS === "web") {
-      AsyncStorage.getItem("serverId").then((serverId) => {
-        if (serverId === null) {
-          fetch("/config.json")
-            .then((res) => res.json())
-            .then((res: WebConfig) => {
-              if (res.serverId) {
-                AsyncStorage.setItem("serverId", res.serverId).then(() => {
-                  fetchServerName();
-                });
-                document.title = `${t("login")} ⋅ ${res.serverId}`;
-              }
-            });
-        } else {
-          fetchServerName();
-        }
-      });
-    }
-  }, [fetchServerName, t]);
-
   // set title for web if serverName is loaded
   useEffect(() => {
     if (Platform.OS === "web" && serverName && segments[0] === "login")
       document.title = t("login") + " ⋅ " + serverName;
   }, [serverName, segments, t]);
-
-  // (mobile) if serverName is not or error, redirect to server select page
-  useEffect(() => {
-    if (Platform.OS !== "web" && !serverName && fetchServerError)
-      setTimeout(() => {
-        router.replace("/");
-      }, 1);
-  }, [serverName, fetchServerError]);
-
-  // if user object is set, redirect to board
-  useEffect(() => {
-    if (user !== null) {
-      router.replace("/board/");
-    }
-  }, [user]);
 
   return (
     <>
@@ -138,10 +85,10 @@ export default function LoginScreen() {
             />
 
             <LoginForm
-              login={login}
-              hasAuthError={hasAuthError}
-              authError={authError}
-              back={back}
+              login={(email, password) => login(email, password)}
+              hasAuthError={loginError !== null}
+              authError={loginError || ""}
+              back={() => returnToServerSelection()}
             />
             <CustomText
               t="copyrightFooter"

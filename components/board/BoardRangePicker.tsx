@@ -2,7 +2,7 @@ import { Entypo } from "@expo/vector-icons";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { Pressable, TouchableOpacity, View } from "react-native";
 
-import { BoardType } from "@/app/board";
+import { BoardType } from "@/app/(protected)";
 import CustomText from "@/components/elements/CustomText";
 import { Color } from "@/helpers/Constants";
 import useMediaQueries from "@/hooks/useMediaQueries";
