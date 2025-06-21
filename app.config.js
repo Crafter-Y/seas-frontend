@@ -36,6 +36,7 @@ module.exports = {
     owner: "crafter_y",
     plugins: [
       "expo-router",
+      "expo-mail-composer",
       "expo-localization",
       [
         "expo-calendar",

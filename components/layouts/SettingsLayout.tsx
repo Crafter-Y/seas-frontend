@@ -1,6 +1,5 @@
-import { router, Stack } from "expo-router";
+import { router } from "expo-router";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { Pressable, RefreshControl, ScrollView, View } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
@@ -9,12 +8,10 @@ import H1 from "@/components/elements/H1";
 import Footer from "@/components/Footer";
 import SettingsBackButton from "@/components/SettingsBackButton";
 import { Color } from "@/helpers/Constants";
-import useMediaQueries from "@/hooks/useMediaQueries";
 
 type Props = {
   children: React.ReactNode;
   actualSetting: string;
-  backTitle?: string;
   refreshAction?: () => void;
 };
 
@@ -76,24 +73,12 @@ const InlineNavigationButton = ({
 export const SettingsLayout = ({
   children,
   actualSetting,
-  backTitle,
   refreshAction,
 }: Props) => {
-  const { t } = useTranslation();
-
-  const { isMd } = useMediaQueries();
-
   return (
     <View
       className="h-full flex-row bg-seas-settings-bg" // this is needed. Parent containers must have a set height for ScrollView to work. Before, I just set the height to the window diemension height.
     >
-      <Stack.Screen
-        options={{
-          headerShown: !isMd,
-          title: t("settings"),
-          headerBackTitle: backTitle,
-        }}
-      />
       <View className="w-1/3 items-end justify-center pl-4 hidden md:flex">
         <SettingsBackButton backRoute="/board/" />
         <H1 className="text-right" t="settings" />

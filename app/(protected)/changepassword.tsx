@@ -1,4 +1,4 @@
-import { router, Stack } from "expo-router";
+import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TextInput, View } from "react-native";
@@ -14,12 +14,10 @@ import Footer from "@/components/Footer";
 import SettingsBackButton from "@/components/SettingsBackButton";
 import SettingsForm from "@/components/SettingsForm";
 import useUpdatePassword from "@/hooks/api/useUpdatePassword";
-import useMediaQueries from "@/hooks/useMediaQueries";
 
 export default function ChangePasswordScreen() {
   const { updatePassword, hasUpdateError, updateError } = useUpdatePassword();
 
-  const { isMd } = useMediaQueries();
   const { t } = useTranslation();
 
   const [oldPassword, setOldPassword] = useState("");
@@ -31,14 +29,6 @@ export default function ChangePasswordScreen() {
 
   return (
     <SafeAreaView className="flex-row h-full">
-      <Stack.Screen
-        options={{
-          title: t("changePassword"),
-          headerTitle: t("changePassword"),
-          headerBackTitle: t("board"),
-          headerShown: !isMd,
-        }}
-      />
       <View className="w-1/3 items-end justify-center pl-4 hidden md:flex">
         <SettingsBackButton backRoute="/board/" />
         <H1 className="text-right" t="changePassword" />

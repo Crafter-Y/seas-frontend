@@ -1,11 +1,21 @@
 import { Redirect, Stack } from "expo-router";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform } from "react-native";
 
 import { AppContext } from "@/helpers/appContext";
+import useMediaQueries from "@/hooks/useMediaQueries";
+
+export const unstable_settings = {
+  // Ensure any route can link back to `/`
+  initialRouteName: "index",
+};
 
 export default function ProtectedLayout() {
   const state = useContext(AppContext);
+
+  const { t } = useTranslation();
+  const { isMd } = useMediaQueries();
 
   if (!state.isReady) {
     return null;
@@ -25,10 +35,7 @@ export default function ProtectedLayout() {
     return <Redirect href="/login" />;
   }
 
-  // if (!authState.isLoggedIn) {
-  //   return <Redirect href="/login" />;
-  // }
-
+  // TODO: the dynamic setting of headerShown might cause the header to be in the status bar on android
   return (
     <Stack
       screenOptions={{
@@ -36,6 +43,58 @@ export default function ProtectedLayout() {
       }}
     >
       <Stack.Screen name="index" />
+      <Stack.Screen
+        name="changepassword"
+        options={{
+          title: t("changePassword"),
+          headerTitle: t("changePassword"),
+          headerBackTitle: t("board"),
+          headerShown: !isMd,
+        }}
+      />
+      <Stack.Screen
+        name="settings/index"
+        options={{
+          headerShown: !isMd,
+          headerBackTitle: t("back"),
+          title: t("settings"),
+        }}
+      />
+      <Stack.Screen
+        name="settings/comments"
+        options={{
+          headerShown: !isMd,
+          title: t("settings"),
+        }}
+      />
+      <Stack.Screen
+        name="settings/events"
+        options={{
+          headerShown: !isMd,
+          title: t("settings"),
+        }}
+      />
+      <Stack.Screen
+        name="settings/pages"
+        options={{
+          headerShown: !isMd,
+          title: t("settings"),
+        }}
+      />
+      <Stack.Screen
+        name="settings/positions"
+        options={{
+          headerShown: !isMd,
+          title: t("settings"),
+        }}
+      />
+      <Stack.Screen
+        name="settings/users"
+        options={{
+          headerShown: !isMd,
+          title: t("settings"),
+        }}
+      />
     </Stack>
   );
 }

@@ -1,6 +1,5 @@
 import { router } from "expo-router";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { Pressable, View } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
@@ -12,12 +11,10 @@ import {
 import useRestrictions from "@/hooks/api/useRestrictions";
 
 export default function BaseSettingsScreen() {
-  const { t } = useTranslation();
-
   useRestrictions(); // pre-fetch restrictions
 
   return (
-    <SettingsLayout actualSetting="settings" backTitle={t("back")}>
+    <SettingsLayout actualSetting="settings">
       <View className="md:justify-center">
         <CustomText
           className="w-52 text-lg hidden md:flex"
@@ -29,8 +26,8 @@ export default function BaseSettingsScreen() {
               key={setting}
               className="border-gray-400 px-4 py-6 text-lg opacity-85 bg-gray-200 justify-between flex-row sm:mx-6 sm:mt-6 border-b-[2px]"
               onPress={() => {
-                router.navigate(
-                  `/settings/${setting as keyof typeof settingsSections}`,
+                router.push(
+                  `(protected)/settings/${setting as keyof typeof settingsSections}`,
                 );
               }}
             >
