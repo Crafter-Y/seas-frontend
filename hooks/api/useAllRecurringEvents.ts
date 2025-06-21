@@ -2,18 +2,18 @@ import { useCallback, useEffect, useState } from "react";
 
 import { requestApi } from "@/helpers/api";
 
+export type DisplayableRecurringEvent = {
+  id: number;
+  eventType: "YEARLY" | "MONTHLY" | "WEEKLY";
+  dayOfWeek?: number;
+  dayOfMonth?: number;
+  eventMonth?: number;
+};
+
 export default function useAllRecurringEvents() {
   const [allRecurringEvents, setAllRecurringEvents] = useState<
     DisplayableRecurringEvent[]
   >([]);
-
-  type DisplayableRecurringEvent = {
-    id: number;
-    eventType: "YEARLY" | "MONTHLY" | "WEEKLY";
-    dayOfWeek?: number;
-    dayOfMonth?: number;
-    eventMonth?: number;
-  };
 
   const queryRecurringEvents = useCallback(async () => {
     const res = await requestApi("events", "GET");
