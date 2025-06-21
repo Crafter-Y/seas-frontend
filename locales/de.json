@@ -33,6 +33,7 @@
   "modal.users.editUserInformation": "Informationen bearbeiten (ID: {{id}})",
   "modal.users.newPasswordRequested": "Neues Passwort angefragt",
   "modal.users.resetPassword": "Passwort zurücksetzen",
+  "modal.comments.deleteComment": "Kommentar löschen",
   "overview": "Überblick",
   "save": "Speichern",
   "specifyServerId": "Geben Sie die Server ID Ihrer Gemeinde ein:",

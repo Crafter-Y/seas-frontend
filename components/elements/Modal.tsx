@@ -31,6 +31,7 @@ export type ModalHandle = {
   closeModal: () => void;
 };
 
+//TODO: get rid of this. it seems like the "react-native-modal" package crashes my app.
 const Modal = forwardRef<ModalHandle, Props>(
   (
     {

@@ -1,26 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
-import { TextInput, View } from "react-native";
+import { TextInput } from "react-native";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
-import H1 from "@/components/elements/H1";
 import Image from "@/components/elements/Image";
 import Input from "@/components/elements/Input";
-import Modal, { ModalHandle } from "@/components/elements/Modal";
+import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
 import TD from "@/components/elements/TD";
 import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import DeleteDefaultCommentModal from "@/components/settings/DeleteDefaultCommentModal";
 import SettingsActionButton from "@/components/settings/SettingsActionButton";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import SettingsForm from "@/components/SettingsForm";
 import { Color } from "@/helpers/Constants";
 import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
 import useCreateDefaultComment from "@/hooks/api/useCreateDefaultComment";
-import useDeleteDefaultComment from "@/hooks/api/useDeleteDefaultComment";
 import tw from "@/tailwind";
 
 export default function ManageCommentsScreen() {
@@ -34,11 +33,9 @@ export default function ManageCommentsScreen() {
     successfulDefaultCommentCreation,
   } = useCreateDefaultComment();
 
-  const { deleteDefaultComment, succesfulDeletion } = useDeleteDefaultComment();
-
   const [defaultComment, setDefaultComment] = useState("");
-  const [commentIdToDelete, setCommentIdToDelete] = useState(0);
-  const [commentToDelete, setCommentToDelete] = useState("");
+  const [selectedComment, setSelectedComment] =
+    useState<APIResponseDefaultComment>();
 
   const commentInput = useRef<TextInput>(null);
   const deleteModal = useRef<ModalHandle>(null);
@@ -46,13 +43,6 @@ export default function ManageCommentsScreen() {
   useEffect(() => {
     if (successfulDefaultCommentCreation) queryAllDefaultComments();
   }, [queryAllDefaultComments, successfulDefaultCommentCreation]);
-
-  useEffect(() => {
-    if (succesfulDeletion) {
-      queryAllDefaultComments();
-      deleteModal.current?.closeModal();
-    }
-  }, [queryAllDefaultComments, succesfulDeletion]);
 
   return (
     <SettingsLayout actualSetting="comments">
@@ -112,8 +102,7 @@ export default function ManageCommentsScreen() {
                 <SettingsActionButton
                   color={Color.RED}
                   onPress={() => {
-                    setCommentIdToDelete(comment.id);
-                    setCommentToDelete(comment.comment);
+                    setSelectedComment(comment);
                     deleteModal.current?.openModal();
                   }}
                 >
@@ -125,31 +114,13 @@ export default function ManageCommentsScreen() {
         </Form>
       </SettingsForm>
 
-      <Modal type="CENTER" ref={deleteModal}>
-        <H1 style={tw`mt-2 text-center`}>Plan löschen?</H1>
-        <CustomText style={tw`mx-4`}>
-          Soll der Standartkommentar{" "}
-          <CustomText style={tw`font-semibold`}>
-            {commentToDelete.length > 32
-              ? commentToDelete.substring(0, 32) + "..."
-              : commentToDelete}
-          </CustomText>{" "}
-          wirklich glöscht werden?
-        </CustomText>
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button
-            onPress={() => {
-              deleteDefaultComment(commentIdToDelete);
-            }}
-            color="#f67e7e"
-          >
-            Löschen
-          </Button>
-          <Button onPress={() => deleteModal.current?.closeModal()}>
-            Abbrechen
-          </Button>
-        </View>
-      </Modal>
+      <ModalRewrite ref={deleteModal} title="modal.comments.deleteComment">
+        <DeleteDefaultCommentModal
+          closeModal={() => deleteModal.current?.closeModal()}
+          queryAllDefaultComments={queryAllDefaultComments}
+          selectedComment={selectedComment}
+        />
+      </ModalRewrite>
     </SettingsLayout>
   );
 }
