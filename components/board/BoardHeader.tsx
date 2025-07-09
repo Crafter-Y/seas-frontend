@@ -51,7 +51,7 @@ const BoardHeader = ({
     <View
       style={tw.style({
         "px-4": isLg,
-        "mt-6": isLg,
+        "mt-4": isLg,
       })}
     >
       <View
