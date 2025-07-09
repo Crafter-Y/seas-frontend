@@ -94,6 +94,27 @@ export default function ProtectedLayout() {
           title: t("settings"),
         }}
       />
+      <Stack.Screen
+        name="settings/modules/index"
+        options={{
+          headerShown: !isMd,
+          title: t("settings"),
+        }}
+      />
+      <Stack.Screen
+        name="settings/modules/music/songbooks/index"
+        options={{
+          headerShown: !isMd,
+          title: t("settings"),
+        }}
+      />
+      <Stack.Screen
+        name="settings/modules/music/songbooks/[songbook]"
+        options={{
+          headerShown: !isMd,
+          title: t("settings"),
+        }}
+      />
     </Stack>
   );
 }

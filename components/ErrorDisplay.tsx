@@ -7,6 +7,8 @@ type Props = {
   error: string | undefined;
 } & CustomTextProps;
 
+// TODO: refactor this to determine if there is an error based on the error prop = null
+// just have error: string | null and delete hasError prop
 const ErrorDisplay = ({ hasError, error, className, ...props }: Props) => {
   return (
     <CustomText

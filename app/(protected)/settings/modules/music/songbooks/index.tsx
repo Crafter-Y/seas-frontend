@@ -79,7 +79,10 @@ export default function Index() {
   }, [querySongbooks, successfulRename]);
 
   return (
-    <SettingsLayout actualSetting="modules" backTitle="Zurück">
+    <SettingsLayout
+      actualSetting="modules"
+      refreshAction={() => querySongbooks()}
+    >
       {isMd && (
         <SettingsBackButton
           backRoute="/settings/modules"
@@ -168,7 +171,7 @@ export default function Index() {
             </TR>
           ))}
           {songbooks.length === 0 && (
-            <CustomText className="m-2 text-lg" t="noEntiresPresent" />
+            <CustomText className="m-2 text-lg" t="noEntriesPresent" />
           )}
         </Form>
       </SettingsForm>

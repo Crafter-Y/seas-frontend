@@ -1,7 +1,8 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { FlashList } from "@shopify/flash-list";
-import { useLocalSearchParams } from "expo-router";
-import React, { useEffect, useRef, useState } from "react";
+import { Redirect, useLocalSearchParams } from "expo-router";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, TextInput, View } from "react-native";
 
 import Button from "@/components/elements/Button";
@@ -11,32 +12,34 @@ import Divider from "@/components/elements/Divider";
 import Form from "@/components/elements/Form";
 import Input from "@/components/elements/Input";
 import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
-import TD from "@/components/elements/TD";
 import TH from "@/components/elements/TH";
 import TR from "@/components/elements/TR";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { SettingsLayout } from "@/components/layouts/SettingsLayout";
+import SettingsActionButton from "@/components/settings/SettingsActionButton";
 import SettingsTitle from "@/components/settings/SettingsTitle";
 import SettingsBackButton from "@/components/SettingsBackButton";
 import SettingsForm from "@/components/SettingsForm";
 import { Color } from "@/helpers/Constants";
-import useCreateSong from "@/hooks/api/useCreateSong";
-import useDeleteSong from "@/hooks/api/useDeleteSong";
-import useEditSong from "@/hooks/api/useEditSong";
-import useSetKnownState from "@/hooks/api/useSetKnownState";
 import useSongbook from "@/hooks/api/useSongbook";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 export default function Songbook() {
   const { songbook } = useLocalSearchParams();
-  const { songs, querySongbook, editable } = useSongbook();
-  const { setKnwonState } = useSetKnownState();
+  const {
+    songs,
+    querySongbook,
+    editable,
+    createSong,
+    creationError,
+    editError,
+    editSong,
+    deleteSong,
+    setKnownState,
+  } = useSongbook();
   const { isMd } = useMediaQueries();
-  const { createSong, hasCreationError, creationError, successfulCreation } =
-    useCreateSong();
-  const { editSong, hasEditError, editError, successfulEdit } = useEditSong();
-  const { deleteSong, succesfulDeletion } = useDeleteSong();
+
+  const { t } = useTranslation();
 
   const createModal = useRef<ModalHandle>(null);
   const createNumberInput = useRef<TextInput>(null);
@@ -55,34 +58,43 @@ export default function Songbook() {
   const deleteModal = useRef<ModalHandle>(null);
 
   useEffect(() => {
-    if (songbook.length) {
-      querySongbook(Number(songbook));
-    }
+    querySongbook(Number(songbook));
   }, [querySongbook, songbook]);
 
-  useEffect(() => {
-    if (successfulCreation) {
-      querySongbook(Number(songbook));
-      createModal.current?.closeModal();
-    }
-  }, [querySongbook, songbook, successfulCreation]);
+  const addSong = useCallback(async () => {
+    createTitleInput.current?.blur();
+    let success = await createSong(createNumber, createTitle, Number(songbook));
 
-  useEffect(() => {
-    if (successfulEdit) {
-      querySongbook(Number(songbook));
+    if (success) createModal.current?.closeModal();
+  }, [createNumber, createSong, createTitle, songbook]);
+
+  const submitEditSong = useCallback(async () => {
+    editTitleInput.current?.blur();
+    let success = await editSong(selectedSong!.id, editTitle, editNumber);
+
+    if (success) {
+      await querySongbook(Number(songbook));
       editModal.current?.closeModal();
     }
-  }, [querySongbook, songbook, successfulEdit]);
+  }, [editNumber, editSong, editTitle, querySongbook, selectedSong, songbook]);
 
-  useEffect(() => {
-    if (succesfulDeletion) {
-      querySongbook(Number(songbook));
+  const submitDeleteSong = useCallback(async () => {
+    let success = await deleteSong(selectedSong!.id);
+
+    if (success) {
+      await querySongbook(Number(songbook));
       deleteModal.current?.closeModal();
     }
-  }, [querySongbook, songbook, succesfulDeletion]);
+  }, [deleteSong, querySongbook, selectedSong, songbook]);
+
+  if (!songbook || isNaN(Number(songbook))) {
+    console.error("Invalid or none songbook ID provided:", songbook);
+    return <Redirect href="/settings/modules/music/songbooks" />;
+  }
 
   return (
     <SettingsLayout actualSetting="modules">
+      {/* TODO: fix this really poor performance. It takes up to a couple seconds to render this thing if there are a couple houndred songs */}
       <FlashList
         data={songs}
         estimatedItemSize={75}
@@ -91,85 +103,77 @@ export default function Songbook() {
             {isMd && (
               <SettingsBackButton
                 backRoute="/settings/modules/music/songbooks"
-                label="Zurück zu Chorlisten"
+                label={t("backToSongbooks")}
               />
             )}
-            <SettingsTitle>Lieder bearbeiten</SettingsTitle>
+            <SettingsTitle t="editSongs" />
 
             <SettingsForm>
-              <CustomText>
-                Markierte Lieder sind bekannt. Sie können manuell Lieder als
-                &quot;Bekannt&quot; markieren. Manche Checkboxen können Sie
-                nicht mehr verändern, da bereits eine Eintragung für dieses Lied
-                vorhanden ist. Alle Änderungen werden automatisch gespeichert.
-              </CustomText>
+              <CustomText t="editSongsDescription" />
               <Button
                 className={`mt-2 ${editable ? "" : "hidden"}`}
                 onPress={() => {
                   createModal.current?.openModal();
                 }}
               >
-                <CustomText>Lied hinzufügen</CustomText>
+                <CustomText t="addSong" />
               </Button>
             </SettingsForm>
-            <Divider type="HORIZONTAL" style={tw`my-4`} />
+            <Divider type="HORIZONTAL" className="my-4" />
 
             <SettingsForm>
               <Form>
-                <TH titles={["Lied", "bekannt"]}></TH>
+                <TH titles={[t("song"), "", t("known")]}></TH>
               </Form>
             </SettingsForm>
           </>
         }
-        ListFooterComponent={<View style={tw`h-2 w-2 mb-8`}></View>}
+        ListFooterComponent={<View className="h-2 w-2 mb-8"></View>}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: song }) => {
           return (
             <SettingsForm key={song.id}>
-              <Form>
-                <TR>
-                  <TD cols={2}>
-                    <CustomText style={tw`text-lg`}>{song.title}</CustomText>
-                    <CustomText style={tw`text-lg`}>({song.number})</CustomText>
-                  </TD>
-                  <TD cols={2} style={tw`flex-row self-start justify-between`}>
-                    <Checkbox
-                      onChange={(state) => {
-                        setKnwonState(song.id, !state); // TODO: checkbox delivers wrong state - after the checkbox is fixed, this needs to be fixes (remove !)
+              <TR className="shadow-lg py-3">
+                <View className="flex-1 justify-center px-4">
+                  <CustomText className="text-lg">{song.title}</CustomText>
+                  <CustomText>({song.number})</CustomText>
+                </View>
+                <View className="flex-row gap-4 pr-4">
+                  <Checkbox
+                    onChange={(state) => {
+                      setKnownState(song.id, !state); // TODO: checkbox delivers wrong state - after the checkbox is fixed, this needs to be fixes (remove !)
+                    }}
+                    defaultValue={song.known}
+                    disabled={song.locked}
+                  />
+                  {editable && (
+                    <SettingsActionButton
+                      onPress={() => {
+                        setSelectedSong(song);
+                        setEditNumber(song.number);
+                        setEditTitle(song.title);
+                        editModal.current?.openModal();
                       }}
-                      defaultValue={song.known}
-                      disabled={song.locked}
-                    />
-                    {editable && (
-                      <Button
-                        className="p-2.5"
-                        onPress={() => {
-                          setSelectedSong(song);
-                          setEditNumber(song.number);
-                          setEditTitle(song.title);
-                          editModal.current?.openModal();
-                        }}
-                      >
-                        <AntDesign name="edit" size={24} color="black" />
-                      </Button>
-                    )}
-                  </TD>
-                </TR>
-              </Form>
+                    >
+                      <AntDesign name="edit" size={24} color="black" />
+                    </SettingsActionButton>
+                  )}
+                </View>
+              </TR>
             </SettingsForm>
           );
         }}
         ListEmptyComponent={
           <SettingsForm>
-            <CustomText style={tw`m-2 text-lg`}>
-              Noch keine Einträge vorhanden.
-            </CustomText>
+            <CustomText className="m-2 text-lg" t="noEntriesPresent" />
           </SettingsForm>
         }
       />
+
       <ModalRewrite title="modal.music.addSong" ref={createModal} scrollable>
-        <CustomText style={tw`mx-4`}>Verzeichnisnummer:</CustomText>
+        <CustomText className="mx-4">{t("directoryNumber")}:</CustomText>
         <Input
-          placeholder="1, 12b oder 5-1"
+          placeholder={t("directoryNumberPlaceholder")}
           onChangeText={setCreateNumber}
           ref={createNumberInput}
           className="mx-4"
@@ -178,9 +182,9 @@ export default function Songbook() {
           }}
           returnKeyType="next"
         />
-        <CustomText style={tw`mx-4 mt-2`}>Titel:</CustomText>
+        <CustomText className="mx-4 mt-2">{t("title")}:</CustomText>
         <Input
-          placeholder="Titel vom Lied"
+          placeholder={t("songTitlePlaceholder")}
           onChangeText={setCreateTitle}
           ref={createTitleInput}
           className="mx-4"
@@ -191,30 +195,25 @@ export default function Songbook() {
           returnKeyType="done"
         />
         <ErrorDisplay
-          style={tw`mx-4`}
-          hasError={hasCreationError}
-          error={creationError}
+          className="mx-4"
+          hasError={creationError !== null}
+          error={creationError + ""}
         />
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
+        <View className="justify-center flex-row gap-2 my-4">
           <Button onPress={() => createModal.current?.closeModal()}>
-            Abbrechen
+            {t("cancel")}
           </Button>
-          <Button
-            onPress={() => {
-              createTitleInput.current?.blur();
-              createSong(createNumber, createTitle, Number(songbook));
-            }}
-            color={Color.GREEN}
-          >
-            Erstellen
+          <Button onPress={addSong} color={Color.GREEN}>
+            {t("create")}
           </Button>
         </View>
       </ModalRewrite>
+
       <ModalRewrite title="modal.music.addSong" ref={editModal} scrollable>
-        <CustomText style={tw`mx-4`}>Verzeichnisnummer:</CustomText>
+        <CustomText className="mx-4">{t("directoryNumber")}:</CustomText>
         <Input
           initialValue={selectedSong?.number}
-          placeholder="1, 12b oder 5-1"
+          placeholder={t("directoryNumberPlaceholder")}
           onChangeText={setEditNumber}
           ref={editNumberInput}
           className="mx-4"
@@ -222,10 +221,10 @@ export default function Songbook() {
             editNumberInput.current?.blur();
           }}
         />
-        <CustomText style={tw`mx-4 mt-2`}>Titel:</CustomText>
+        <CustomText className="mx-4 mt-2">{t("title")}:</CustomText>
         <Input
           initialValue={selectedSong?.title}
-          placeholder="Titel vom Lied"
+          placeholder={t("songTitlePlaceholder")}
           onChangeText={setEditTitle}
           ref={editTitleInput}
           className="mx-4"
@@ -233,62 +232,53 @@ export default function Songbook() {
             editTitleInput.current?.blur();
           }}
         />
-        <Divider type="HORIZONTAL" style={tw`mt-3`} />
+        <Divider type="HORIZONTAL" className="mt-3" />
         <Pressable
-          style={tw`py-3`}
+          className="py-3"
           onPress={() => {
             editModal.current?.closeModal();
             deleteModal.current?.openModal();
           }}
         >
-          <CustomText style={tw`text-lg text-red-500 font-semibold px-4`}>
-            Termin löschen
-          </CustomText>
+          <CustomText
+            className="text-lg text-red-500 font-semibold px-4"
+            t="deleteSong"
+          />
         </Pressable>
-        <Divider type="HORIZONTAL" style={tw`mb-1`} />
+        <Divider type="HORIZONTAL" className="mb-1" />
         <ErrorDisplay
-          style={tw`mx-4`}
-          hasError={hasEditError}
-          error={editError}
+          className="mx-4"
+          hasError={editError !== null}
+          error={editError + ""}
         />
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
+        <View className="justify-center flex-row gap-2 my-4">
           <Button onPress={() => editModal.current?.closeModal()}>
-            Abbrechen
+            {t("cancel")}
           </Button>
-          <Button
-            onPress={() => {
-              createTitleInput.current?.blur();
-              editSong(selectedSong!.id, editTitle, editNumber);
-            }}
-            color={Color.GREEN}
-          >
-            Speichern
+          <Button onPress={submitEditSong} color={Color.GREEN}>
+            {t("save")}
           </Button>
         </View>
       </ModalRewrite>
+
       <ModalRewrite title="modal.music.deleteSong" ref={deleteModal}>
-        <CustomText style={tw`mx-4`}>
-          Soll das Lied{" "}
-          <CustomText style={tw`font-semibold`}>
+        <CustomText className="mx-4">
+          {t("songDeletion.1")}{" "}
+          <CustomText className="font-semibold">
             {selectedSong?.title} ({selectedSong?.number})
-          </CustomText>{" "}
-          wirklich glöscht werden?
+          </CustomText>
+          {t("songDeletion.2")}
         </CustomText>
-        <CustomText style={tw`text-red-400 mx-4 mt-2`}>
-          Alle damit in Verbindung stehende Statistiken werden ebenfalls
-          gelöscht.
-        </CustomText>
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
-          <Button
-            onPress={() => {
-              deleteSong(selectedSong!.id);
-            }}
-            color={Color.RED}
-          >
-            Löschen
+        <CustomText
+          className="text-red-400 mx-4 mt-2"
+          t="songbookDeleteDescription"
+        />
+        <View className="justify-center flex-row gap-2 my-4">
+          <Button onPress={submitDeleteSong} color={Color.RED}>
+            {t("delete")}
           </Button>
           <Button onPress={() => deleteModal.current?.closeModal()}>
-            Abbrechen
+            {t("cancel")}
           </Button>
         </View>
       </ModalRewrite>

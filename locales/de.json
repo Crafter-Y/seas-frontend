@@ -95,7 +95,7 @@
   "book": "Mappe",
   "known": "Bekannt",
   "songs": "Lieder",
-  "noEntiresPresent": "Keine Einträge vorhanden.",
+  "noEntriesPresent": "Keine Einträge vorhanden.",
   "name": "Name",
   "songbookName": "Name der Chormappe",
   "cancel": "Abbrechen",
@@ -112,5 +112,17 @@
   "entry": "Eintrag",
   "rating": "Bewertung",
   "date": "Datum",
-  "noEntryInLast365Days": "Keine Einträge in den letzten 365 Tagen."
+  "noEntryInLast365Days": "Keine Einträge in den letzten 365 Tagen.",
+  "editSongs": "Lieder bearbeiten",
+  "editSongsDescription": "Markierte Lieder sind bekannt. Sie können manuell Lieder als \"Bekannt\" markieren. Manche Checkboxen können Sie nicht mehr verändern, da bereits eine Eintragung für dieses Lied vorhanden ist. Alle Änderungen werden automatisch gespeichert.",
+  "addSong": "Lied hinzufügen",
+  "song": "Lied",
+  "directoryNumber": "Verzeichnisnummer",
+  "directoryNumberPlaceholder": "1, 12b oder 5-1",
+  "songTitlePlaceholder": "Titel vom Lied",
+  "deleteSong": "Lied löschen",
+  "songDeletion.1": "Soll das Lied",
+  "songDeletion.2": "wirklich gelöscht werden?",
+  "songbookDeleteDescription": "Alle damit in Verbindung stehende Statistiken werden ebenfalls gelöscht.",
+  "backToSongbooks": "Zurück zu Chorlisten"
 }

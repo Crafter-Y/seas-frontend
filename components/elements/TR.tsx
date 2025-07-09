@@ -1,17 +1,12 @@
-import React, { ReactNode } from "react";
-import { View } from "react-native";
+import React from "react";
+import { View, ViewProps } from "react-native";
 
-import tw from "@/tailwind";
-
-type Props = {
-  children?: ReactNode;
-};
-
-const TR = ({ children }: Props) => {
+const TR = ({ className, ...props }: ViewProps) => {
   return (
-    <View style={tw`flex-row w-full bg-white border-t border-gray-300`}>
-      {children}
-    </View>
+    <View
+      className={`flex-row w-full bg-white border-t border-gray-300 ${className}`}
+      {...props}
+    />
   );
 };
 
