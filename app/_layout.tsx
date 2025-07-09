@@ -10,6 +10,7 @@ import { de, registerTranslation } from "react-native-paper-dates";
 
 import CustomText from "@/components/elements/CustomText";
 import { AppProvider } from "@/helpers/appContext";
+import { Color } from "@/helpers/Constants";
 import i18n from "@/helpers/i18n";
 
 import "@/nativewind.css";
@@ -35,7 +36,7 @@ function DefaultLayout() {
       <GestureHandlerRootView
         style={{ flex: 1 }} /* onLayout={onLayoutRootView} */
       >
-        <StatusBar /* translucent={true} animated={true} */ style="auto" />
+        <StatusBar translucent={false} backgroundColor={Color.SETTINGS_BG} />
         <I18nextProvider i18n={i18n}>
           <Stack
             screenOptions={{

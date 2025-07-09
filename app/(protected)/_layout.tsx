@@ -35,7 +35,6 @@ export default function ProtectedLayout() {
     return <Redirect href="/login" />;
   }
 
-  // TODO: the dynamic setting of headerShown might cause the header to be in the status bar on android
   return (
     <Stack
       screenOptions={{
