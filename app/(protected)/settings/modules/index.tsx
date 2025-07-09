@@ -1,8 +1,8 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { router } from "expo-router";
 import React, { useEffect } from "react";
-import { View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { useTranslation } from "react-i18next";
+import { TouchableOpacity, View } from "react-native";
 
 import Button from "@/components/elements/Button";
 import Callout from "@/components/elements/Callout";
@@ -15,42 +15,38 @@ import { Color } from "@/helpers/Constants";
 import useChangeModuleState from "@/hooks/api/useChangeModuleState";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import useRestrictions from "@/hooks/api/useRestrictions";
-import tw from "@/tailwind";
 
 export default function ManagePagesScreen() {
   const { moduleStatus, queryModuleStatus } = useModuleStatus();
   const { changeSuccessful, changeModuleState } = useChangeModuleState();
   const { restrictions } = useRestrictions();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (changeSuccessful) queryModuleStatus();
   }, [changeSuccessful, queryModuleStatus]);
 
   return (
-    <SettingsLayout actualSetting="modules" backTitle="Zurück">
-      <SettingsTitle>Module verwalten</SettingsTitle>
+    <SettingsLayout actualSetting="modules">
+      <SettingsTitle t="configureModules" />
 
       <SettingsForm>
-        <CustomText>
-          Um das System noch zu erweitern gibt es Module, welche optional
-          aktiviert werden können und neue Funktionen bieten.
-        </CustomText>
+        <CustomText t="modulesDescription" />
       </SettingsForm>
-      <Divider type="HORIZONTAL" style={tw`my-4`} />
+      <Divider type="HORIZONTAL" className="my-4" />
 
       <Callout
         visible={!restrictions?.modulesManagable}
-        message="Module können in Ihrem Produkt nicht manuell aktiviert/deaktiviert werden."
+        message={t("modulesNotManagable")}
       />
 
       <SettingsForm>
-        <View
-          style={tw`border rounded-lg border-[${Color.DARK_GRAY}] border-2 px-2 py-1`}
-        >
-          <View style={tw`flex-row justify-between items-center`}>
-            <CustomText style={tw`font-semibold text-2xl opacity-85`}>
-              Print
-            </CustomText>
+        <View className="rounded-lg border-seas-dark-gray border-2 px-2 py-1">
+          <View className="flex-row justify-between items-center">
+            <CustomText
+              className="font-semibold text-2xl opacity-85"
+              t="print"
+            />
             <Button
               color={moduleStatus?.modulePrint ? Color.RED : Color.BLUE}
               disabled={!restrictions?.modulesManagable}
@@ -58,23 +54,19 @@ export default function ManagePagesScreen() {
                 changeModuleState("print", !moduleStatus!.modulePrint)
               }
             >
-              {moduleStatus?.modulePrint ? "Deaktivieren" : "Aktivieren"}
+              {moduleStatus?.modulePrint ? t("deactivate") : t("activate")}
             </Button>
           </View>
-          <Divider type="HORIZONTAL" style={tw`my-1`} />
-          <CustomText>
-            Fügt einen Druckknopf hinzu, mit welchem frei konfigurierbare
-            Exports erstellt werden können.
-          </CustomText>
+          <Divider type="HORIZONTAL" className="my-1" />
+          <CustomText t="printDescription" />
         </View>
 
-        <View
-          style={tw`border rounded-lg border-[${Color.DARK_GRAY}] border-2 px-2 py-1`}
-        >
-          <View style={tw`flex-row justify-between items-center`}>
-            <CustomText style={tw`font-semibold text-2xl opacity-85`}>
-              Kalender
-            </CustomText>
+        <View className="rounded-lg border-seas-dark-gray border-2 px-2 py-1">
+          <View className="flex-row justify-between items-center">
+            <CustomText
+              className="font-semibold text-2xl opacity-85"
+              t="calendar"
+            />
             <Button
               color={moduleStatus?.moduleCalendar ? Color.RED : Color.BLUE}
               disabled={!restrictions?.modulesManagable}
@@ -82,23 +74,19 @@ export default function ManagePagesScreen() {
                 changeModuleState("calendar", !moduleStatus!.moduleCalendar)
               }
             >
-              {moduleStatus?.moduleCalendar ? "Deaktivieren" : "Aktivieren"}
+              {moduleStatus?.moduleCalendar ? t("deactivate") : t("activate")}
             </Button>
           </View>
-          <Divider type="HORIZONTAL" style={tw`my-1`} />
-          <CustomText>
-            Fügt einen Kalenderknopf hinzu, mit welchem Kalender Exports
-            erstellt werden können.
-          </CustomText>
+          <Divider type="HORIZONTAL" className="my-1" />
+          <CustomText t="calendarDescription" />
         </View>
 
-        <View
-          style={tw`border rounded-lg border-[${Color.DARK_GRAY}] border-2 px-2 py-1`}
-        >
-          <View style={tw`flex-row justify-between items-center`}>
-            <CustomText style={tw`font-semibold text-2xl opacity-85`}>
-              Musik
-            </CustomText>
+        <View className="rounded-lg border-seas-dark-gray border-2 px-2 py-1">
+          <View className="flex-row justify-between items-center">
+            <CustomText
+              className="font-semibold text-2xl opacity-85"
+              t="music"
+            />
             <Button
               color={moduleStatus?.moduleMusic ? Color.RED : Color.BLUE}
               disabled={!restrictions?.modulesManagable}
@@ -106,22 +94,21 @@ export default function ManagePagesScreen() {
                 changeModuleState("music", !moduleStatus!.moduleMusic)
               }
             >
-              {moduleStatus?.moduleMusic ? "Deaktivieren" : "Aktivieren"}
+              {moduleStatus?.moduleMusic ? t("deactivate") : t("activate")}
             </Button>
           </View>
-          <Divider type="HORIZONTAL" style={tw`my-1`} />
+          <Divider type="HORIZONTAL" className="my-1" />
           <TouchableOpacity
-            style={tw`flex-row items-center gap-2 rounded-lg border-[${Color.DARK_GRAY}] border-2 px-2 py-1`}
+            className="flex-row items-center gap-2 rounded-lg border-seas-dark-gray border-2 px-2 py-1"
             onPress={() => router.navigate("/settings/modules/music/songbooks")}
           >
             <AntDesign name="arrowright" size={24} color="black" />
-            <CustomText style={tw`font-semibold underline`}>
-              Chorlisten verwalten
-            </CustomText>
+            <CustomText
+              className="font-semibold underline"
+              t="manageSongbooks"
+            />
           </TouchableOpacity>
-          <CustomText style={tw`mt-2`}>
-            Ermöglicht das dokumentieren und auswerten von Choraktivitäten.
-          </CustomText>
+          <CustomText className="mt-2" t="musicDescription" />
         </View>
       </SettingsForm>
     </SettingsLayout>

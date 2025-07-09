@@ -124,5 +124,16 @@
   "songDeletion.1": "Soll das Lied",
   "songDeletion.2": "wirklich gelöscht werden?",
   "songbookDeleteDescription": "Alle damit in Verbindung stehende Statistiken werden ebenfalls gelöscht.",
-  "backToSongbooks": "Zurück zu Chorlisten"
+  "backToSongbooks": "Zurück zu Chorlisten",
+  "configureModules": "Module verwalten",
+  "modulesDescription": "Um das System noch zu erweitern gibt es Module, welche optional aktiviert werden können und neue Funktionen bieten.",
+  "modulesNotManagable": "Module können in Ihrem Produkt nicht manuell aktiviert/deaktiviert werden.",
+  "print": "Drucken",
+  "deactivate": "Deaktivieren",
+  "activate": "Aktivieren",
+  "printDescription": "Fügt einen Druckknopf hinzu, mit welchem frei konfigurierbare Exports erstellt werden können.",
+  "calendar": "Kalender",
+  "calendarDescription": "Fügt einen Kalenderknopf hinzu, mit welchem Kalender Exports erstellt werden können.",
+  "music": "Musik",
+  "musicDescription": "Ermöglicht das dokumentieren und auswerten von Choraktivitäten."
 }
