@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { TextInput } from "react-native";
 
 import Button from "@/components/elements/Button";
@@ -33,6 +34,8 @@ export default function ManageCommentsScreen() {
     successfulDefaultCommentCreation,
   } = useCreateDefaultComment();
 
+  const { t } = useTranslation();
+
   const [defaultComment, setDefaultComment] = useState("");
   const [selectedComment, setSelectedComment] =
     useState<APIResponseDefaultComment>();
@@ -46,18 +49,14 @@ export default function ManageCommentsScreen() {
 
   return (
     <SettingsLayout actualSetting="comments">
-      <SettingsTitle>Kommentarvorlagen</SettingsTitle>
+      <SettingsTitle t="commentTemplates" />
 
       <SettingsForm>
-        <CustomText>
-          Auf den Plänen gibt es Kommentarfelder. Um diese leichter auszufüllen
-          mit sich ähnelnden Inhalten, können Vorlagen erstellt werden, die mit
-          einem Klick eingefügt werden können.
-        </CustomText>
+        <CustomText t="commentTemplatesDescription" />
 
         <Input
           className="mt-4"
-          placeholder="Kommentar"
+          placeholder={t("comment")}
           onChangeText={(text) => setDefaultComment(text)}
           secureTextEntry={false}
           maxLength={64}
