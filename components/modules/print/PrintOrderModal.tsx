@@ -1,6 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import { useCallback, useState } from "react";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 import Animated, { CurvedTransition } from "react-native-reanimated";
 

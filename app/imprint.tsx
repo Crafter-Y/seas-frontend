@@ -1,8 +1,7 @@
 import { Stack } from "expo-router";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView } from "react-native";
-import { Linking } from "react-native";
+import { Linking, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import CustomText from "@/components/elements/CustomText";

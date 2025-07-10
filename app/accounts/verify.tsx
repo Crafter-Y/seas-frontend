@@ -1,6 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";

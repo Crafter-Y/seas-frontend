@@ -1,8 +1,7 @@
 import * as ExpoCalendar from "expo-calendar";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
-import { useContext, useState } from "react";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Platform, View } from "react-native";
 
 import Button from "@/components/elements/Button";

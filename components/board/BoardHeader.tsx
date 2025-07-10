@@ -1,8 +1,7 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import React, { memo, useContext, useRef } from "react";
-import { Platform } from "react-native";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 
 import { BoardType } from "@/app/(protected)";
 import BoardMenuButton from "@/components/board/BoardMenuButton";

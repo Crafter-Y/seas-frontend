@@ -53,7 +53,7 @@ const EditUserModal = ({
         <Image
           source={require("@/assets/img/refresh.svg")}
           size={24}
-          style={{ color: Color.BLUE }}
+          className="color-seas-blue"
         />
       </TouchableOpacity>
       <Divider
@@ -87,7 +87,7 @@ const EditUserModal = ({
         <Image
           source={require("@/assets/img/edit.svg")}
           size={24}
-          style={{ color: Color.BLUE }}
+          className="color-seas-blue"
         />
       </Pressable>
       <Divider
@@ -127,7 +127,7 @@ const EditUserModal = ({
         <Image
           source={require("@/assets/img/changepassword.svg")}
           size={24}
-          style={{ color: Color.BLUE }}
+          className="color-seas-blue"
         />
       </Pressable>
       <Divider

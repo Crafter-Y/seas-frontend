@@ -1,7 +1,7 @@
 /** @type {import("prettier").Config} */
 const config = {
   tabWidth: 2,
-  endOfLine: "auto"
+  endOfLine: "auto",
 };
 
 module.exports = config;

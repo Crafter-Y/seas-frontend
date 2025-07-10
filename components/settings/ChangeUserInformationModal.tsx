@@ -1,6 +1,5 @@
 import { Picker as RNPicker } from "@react-native-picker/picker";
-import { useEffect, useRef, useState } from "react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TextInput, View } from "react-native";
 
 import Button from "@/components/elements/Button";

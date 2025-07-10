@@ -1,5 +1,4 @@
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, View } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { DatePickerModal } from "react-native-paper-dates";
@@ -9,8 +8,7 @@ import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { Color } from "@/helpers/Constants";
-import { formatDate } from "@/helpers/format";
-import { prettyDate } from "@/helpers/format";
+import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import tw from "@/tailwind";
 
