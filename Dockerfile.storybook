@@ -18,4 +18,4 @@ EXPOSE 8082
 
 ENTRYPOINT [ "bash", "./docker-dev.sh" ]
 
-CMD npm run storybook
+CMD npm run start:storybook
