@@ -6,7 +6,7 @@ import MyBoardList from "@/components/board/BoardList";
 import { formatDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-native-web-vite";
 
 type Props = {
   children: React.ReactNode;

@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import Ratings, { Rating } from "@/components/elements/Ratings";
 
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-native-web-vite";
 
 export default {
   title: "Elements/Ratings",

@@ -4,7 +4,12 @@ const path = require("path");
 
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: ["prettier", "expo", "plugin:eqeqeq-fix/recommended"],
+  extends: [
+    "prettier",
+    "expo",
+    "plugin:eqeqeq-fix/recommended",
+    "plugin:storybook/recommended",
+  ],
   plugins: ["prettier", "import", "@limegrass/import-alias"],
   ignorePatterns: ["/dist/*"],
   settings: {

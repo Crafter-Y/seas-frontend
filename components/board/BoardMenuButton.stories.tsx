@@ -1,6 +1,6 @@
 import BoardMenuButton from "@/components/board/BoardMenuButton";
 
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-native-web-vite";
 
 export default {
   title: "Components/BoardMenuButton",

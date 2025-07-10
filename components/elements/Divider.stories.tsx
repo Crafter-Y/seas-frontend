@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 
 import Divider from "@/components/elements/Divider";
 
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-native-web-vite";
 
 export default {
   title: "Elements/Divider",

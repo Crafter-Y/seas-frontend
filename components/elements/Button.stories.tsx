@@ -1,7 +1,7 @@
 import Button from "@/components/elements/Button";
 import { Color } from "@/helpers/Constants";
 
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-native-web-vite";
 
 export default {
   component: Button,
