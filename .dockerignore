@@ -3,7 +3,6 @@ docker-build.sh
 .git*
 Dockerfile*
 README.md
-.npmrc
 
 node_modules/
 .expo/

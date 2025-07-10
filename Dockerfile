@@ -6,6 +6,7 @@ FROM base AS builder
 WORKDIR /app
 
 COPY package*.json .
+COPY .npmrc .
 
 # npm ci does not work because something is wrong with the lockfile
 RUN npm install

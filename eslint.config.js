@@ -2,7 +2,6 @@
 
 const path = require("path");
 
-const limegrassImportAlias = require("@limegrass/eslint-plugin-import-alias");
 const { defineConfig } = require("eslint/config");
 const expoConfig = require("eslint-config-expo/flat");
 const importPlugin = require("eslint-plugin-import");
@@ -15,10 +14,6 @@ module.exports = defineConfig([
   importPlugin.flatConfigs.recommended,
   ...storybook.configs["flat/recommended"],
   {
-    plugins: {
-      //"@limegrass/import-alias": limegrassImportAlias,
-    },
-
     settings: {
       "import/resolver": {
         typescript: {
@@ -51,7 +46,6 @@ module.exports = defineConfig([
           },
         },
       ],
-      // "@limegrass/import-alias/import-alias": "error",
     },
     ignores: ["dist/*", ".expo/*", "**/node_modules/*"],
   },
