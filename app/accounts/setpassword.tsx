@@ -14,7 +14,6 @@ import Footer from "@/components/Footer";
 import { resources } from "@/helpers/i18n";
 import usePasswordTokenInfo from "@/hooks/api/usePasswortTokenInfo";
 import useRedeemPasswordToken from "@/hooks/api/useRedeemPasswordToken";
-import tw from "@/tailwind";
 
 export default function VerifyScreen() {
   const { t, intent } = useLocalSearchParams<{ t: string; intent: string }>();
@@ -83,9 +82,7 @@ export default function VerifyScreen() {
             />
           </View>
 
-          <CustomText className="text-center text-lg">
-            SEAS Kirchengemeinde
-          </CustomText>
+          <CustomText className="text-center text-lg" t="appName" />
 
           <View className="mx-5 mb-5">
             <CustomText
@@ -105,7 +102,7 @@ export default function VerifyScreen() {
             />
             <Input
               placeholder={i18n("email")}
-              style={tw`hidden`}
+              className="hidden"
               onChangeText={() => {}}
               disabled={true}
               inputMode="email"
@@ -170,13 +167,13 @@ export default function VerifyScreen() {
             )}
             {successfulRedeem && productName && (
               <>
-                <CustomText style={tw`text-green-500 text-2xl font-semibold`}>
+                <CustomText className="text-green-500 text-2xl font-semibold">
                   {i18n("passwordSuccessfully")}{" "}
                   {intent === "onboarding" ? i18n("hasSet") : i18n("changed")}.
                 </CustomText>
-                <CustomText style={tw`mt-2`}>
+                <CustomText className="mt-2">
                   {i18n("canNowLogin.0")}{" "}
-                  <CustomText style={tw`font-semibold`}>
+                  <CustomText className="font-semibold">
                     {productName}
                   </CustomText>{" "}
                   {i18n("canNowLogin.1")}

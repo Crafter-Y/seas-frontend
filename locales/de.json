@@ -138,5 +138,6 @@
   "musicDescription": "Ermöglicht das dokumentieren und auswerten von Choraktivitäten.",
   "commentTemplates": "Kommentarvorlagen",
   "commentTemplatesDescription": "Auf den Plänen gibt es Kommentarfelder. Um diese leichter auszufüllen mit sich ähnelnden Inhalten, können Vorlagen erstellt werden, die mit einem Klick eingefügt werden können.",
-  "comment": "Kommentar"
+  "comment": "Kommentar",
+  "appName": "SEAS Kirchengemeinde"
 }

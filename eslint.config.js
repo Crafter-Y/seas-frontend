@@ -47,6 +47,6 @@ module.exports = defineConfig([
         },
       ],
     },
-    ignores: ["dist/*", ".expo/*", "**/node_modules/*"],
+    ignores: ["dist/*", ".expo/*", "**/node_modules/*", ".storybook/*"],
   },
 ]);
