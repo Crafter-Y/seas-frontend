@@ -1,5 +1,6 @@
 import { Picker as RNPicker } from "@react-native-picker/picker";
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 
 import Button from "@/components/elements/Button";
@@ -26,7 +27,6 @@ import useAllRecurringEvents, {
   DisplayableRecurringEvent,
 } from "@/hooks/api/useAllRecurringEvents";
 import useCreateEvent from "@/hooks/api/useCreateEvent";
-import tw from "@/tailwind";
 
 export default function ManageEventsScreen() {
   const {
@@ -36,6 +36,8 @@ export default function ManageEventsScreen() {
     successfulEventCreation,
     singleDateCreated,
   } = useCreateEvent();
+
+  const { t } = useTranslation();
 
   const deleteModal = useRef<ModalHandle>(null);
 
@@ -61,26 +63,25 @@ export default function ManageEventsScreen() {
 
   return (
     <SettingsLayout actualSetting="events">
-      <SettingsTitle>Termine erstellen</SettingsTitle>
+      <SettingsTitle t="createEvents" />
 
       <SettingsForm>
-        <CustomText>
-          Hier können einzelne oder regelmäßige Termine eingetragen, eingesehen
-          und gelöscht werden. Dazu muss als erstes im Formular der Termintyp
-          ausgewählt werden. Danach besteht die Eingabemöglichkeit für weitere
-          Angaben.
-        </CustomText>
+        <CustomText t="createEventDescription" />
 
         {/* Event Type Selector */}
         <Picker
           selectedValue={createType}
           onValueChange={(itemValue) => setCreateType(itemValue as EventType)}
         >
-          <RNPicker.Item label="Typ auswählen" value="UNSET" enabled={false} />
-          <RNPicker.Item label="Einmaliger Termin" value="SINGLE" />
-          <RNPicker.Item label="Wöchentlich" value="WEEKLY" />
-          <RNPicker.Item label="Monatlich" value="MONTHLY" />
-          <RNPicker.Item label="Jährlich" value="YEARLY" />
+          <RNPicker.Item
+            label={t("selectType")}
+            value="UNSET"
+            enabled={false}
+          />
+          <RNPicker.Item label={t("singleEvent")} value="SINGLE" />
+          <RNPicker.Item label={t("weekly")} value="WEEKLY" />
+          <RNPicker.Item label={t("monthly")} value="MONTHLY" />
+          <RNPicker.Item label={t("yearly")} value="YEARLY" />
         </Picker>
 
         {/* Single Event */}
@@ -94,13 +95,13 @@ export default function ManageEventsScreen() {
             selectedValue={dayOfWeek}
             onValueChange={(item) => setDayOfWeek(item)}
           >
-            <RNPicker.Item label="Montags" value="1" />
-            <RNPicker.Item label="Dienstags" value="2" />
-            <RNPicker.Item label="Mittwochs" value="3" />
-            <RNPicker.Item label="Donnerstags" value="4" />
-            <RNPicker.Item label="Freitags" value="5" />
-            <RNPicker.Item label="Samstags" value="6" />
-            <RNPicker.Item label="Sonntags" value="7" />
+            <RNPicker.Item label={t("onMonday")} value="1" />
+            <RNPicker.Item label={t("onTuesday")} value="2" />
+            <RNPicker.Item label={t("onWednesday")} value="3" />
+            <RNPicker.Item label={t("onThursday")} value="4" />
+            <RNPicker.Item label={t("onFriday")} value="5" />
+            <RNPicker.Item label={t("onSaturday")} value="6" />
+            <RNPicker.Item label={t("onSunday")} value="7" />
           </Picker>
         )}
 
@@ -114,7 +115,7 @@ export default function ManageEventsScreen() {
               .fill("dummy")
               .map((element, index) => (
                 <RNPicker.Item
-                  label={"am " + (index + 1) + "."}
+                  label={t("onDayOfMonth", { day: index + 1 })}
                   value={index + 1 + ""}
                   key={index}
                 />
@@ -129,18 +130,18 @@ export default function ManageEventsScreen() {
             selectedValue={monthOfYear}
             onValueChange={(item) => setMonthOfYear(item)}
           >
-            <RNPicker.Item label="Januar" value="1" />
-            <RNPicker.Item label="Februar" value="2" />
-            <RNPicker.Item label="März" value="3" />
-            <RNPicker.Item label="April" value="4" />
-            <RNPicker.Item label="Mai" value="5" />
-            <RNPicker.Item label="Juni" value="6" />
-            <RNPicker.Item label="Juli" value="7" />
-            <RNPicker.Item label="August" value="8" />
-            <RNPicker.Item label="September" value="9" />
-            <RNPicker.Item label="Oktober" value="10" />
-            <RNPicker.Item label="November" value="11" />
-            <RNPicker.Item label="Dezember" value="12" />
+            <RNPicker.Item label={t("janurary")} value="1" />
+            <RNPicker.Item label={t("february")} value="2" />
+            <RNPicker.Item label={t("march")} value="3" />
+            <RNPicker.Item label={t("april")} value="4" />
+            <RNPicker.Item label={t("may")} value="5" />
+            <RNPicker.Item label={t("june")} value="6" />
+            <RNPicker.Item label={t("july")} value="7" />
+            <RNPicker.Item label={t("august")} value="8" />
+            <RNPicker.Item label={t("september")} value="9" />
+            <RNPicker.Item label={t("october")} value="10" />
+            <RNPicker.Item label={t("november")} value="11" />
+            <RNPicker.Item label={t("december")} value="12" />
           </Picker>,
           <Picker
             key={2}
@@ -151,7 +152,7 @@ export default function ManageEventsScreen() {
               .fill("dummy")
               .map((element, index) => (
                 <RNPicker.Item
-                  label={"am " + (index + 1) + "."}
+                  label={t("onDayOfMonth", { day: index + 1 })}
                   value={index + 1 + ""}
                   key={index}
                 />
@@ -162,15 +163,9 @@ export default function ManageEventsScreen() {
         <ErrorDisplay hasError={hasCreationError} error={creationError} />
 
         <CustomText
-          style={tw.style(
-            {
-              hidden: !singleDateCreated,
-            },
-            "text-green-500 mb-2",
-          )}
-        >
-          Einzeltermin erfolgreich erstellt
-        </CustomText>
+          className={`text-green-500 mb-2 ${singleDateCreated ? "" : "hidden"}`}
+          t="singleEventCreated"
+        />
 
         <Button
           onPress={() => {
@@ -183,19 +178,19 @@ export default function ManageEventsScreen() {
             );
           }}
         >
-          Termin erstellen
+          {t("createEvent")}
         </Button>
       </SettingsForm>
-      <Divider type="HORIZONTAL" style={tw`my-4`} />
+      <Divider type="HORIZONTAL" className="my-4" />
 
-      <SettingsForm style={tw`mb-8`}>
+      <SettingsForm className="mb-8">
         <Form>
-          <TH titles={["Termine", ""]}></TH>
+          <TH titles={[t("events"), ""]}></TH>
 
           {allRecurringEvents?.map((event) => (
             <TR key={event.id + event.eventType}>
-              <TD style={tw`justify-center`} cols={2}>
-                <CustomText style={tw`text-lg`}>
+              <TD className="justify-center" cols={2}>
+                <CustomText className="text-lg">
                   {formatEvent(
                     event.eventType,
                     event.dayOfWeek || 0,
@@ -204,7 +199,7 @@ export default function ManageEventsScreen() {
                   )}
                 </CustomText>
               </TD>
-              <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
+              <TD className="justify-end flex-row items-center gap-1" cols={2}>
                 <SettingsActionButton
                   color={Color.RED}
                   onPress={() => {

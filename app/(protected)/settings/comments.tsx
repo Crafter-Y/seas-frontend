@@ -21,7 +21,6 @@ import SettingsForm from "@/components/SettingsForm";
 import { Color } from "@/helpers/Constants";
 import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
 import useCreateDefaultComment from "@/hooks/api/useCreateDefaultComment";
-import tw from "@/tailwind";
 
 export default function ManageCommentsScreen() {
   const { allDefaultComments, queryAllDefaultComments } =
@@ -78,26 +77,26 @@ export default function ManageCommentsScreen() {
             commentInput.current?.blur();
           }}
         >
-          Vorlage erstellen
+          {t("createTemplate")}
         </Button>
       </SettingsForm>
 
-      <Divider type="HORIZONTAL" style={tw`my-4`} />
+      <Divider type="HORIZONTAL" className="my-4" />
 
-      <SettingsForm style={tw`mb-8`}>
+      <SettingsForm className="mb-8">
         <Form>
-          <TH titles={["Kommentare", ""]}></TH>
+          <TH titles={[t("comments"), ""]}></TH>
 
           {allDefaultComments.map((comment) => (
             <TR key={comment.id}>
-              <TD style={tw`justify-center`} cols={2}>
-                <CustomText style={tw`text-lg`}>
+              <TD className="justify-center" cols={2}>
+                <CustomText className="text-lg">
                   {comment.comment.length > 32
                     ? comment.comment.substring(0, 32) + "..."
                     : comment.comment}
                 </CustomText>
               </TD>
-              <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
+              <TD className="justify-end flex-row items-center gap-1" cols={2}>
                 <SettingsActionButton
                   color={Color.RED}
                   onPress={() => {
