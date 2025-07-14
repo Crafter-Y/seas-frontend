@@ -38,9 +38,7 @@ export default function VerifyScreen() {
             />
           </View>
 
-          <CustomText className="text-center text-lg">
-            SEAS Kirchengemeinde
-          </CustomText>
+          <CustomText className="text-center text-lg" t="appName" />
 
           {tokenValid && productName && (
             <CustomText className="text-center mb-4">{productName}</CustomText>

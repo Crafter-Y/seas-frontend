@@ -28,7 +28,6 @@ import useRenameSongbook from "@/hooks/api/useRenameSongbook";
 import useRestrictions from "@/hooks/api/useRestrictions";
 import useSongbooks from "@/hooks/api/useSongbooks";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 export default function Index() {
   const { isMd } = useMediaQueries();
@@ -192,11 +191,11 @@ export default function Index() {
           }}
         />
         <ErrorDisplay
-          style={tw`mx-4`}
+          className="mx-4"
           hasError={hasCreationError}
           error={creationError}
         />
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
+        <View className="justify-center flex-row gap-2 my-4">
           <Button onPress={() => createModal.current?.closeModal()}>
             {t("cancel")}
           </Button>
