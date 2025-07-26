@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
+import { getNetworkStateAsync, NetworkStateType } from "expo-network";
 import { router } from "expo-router";
 
 import { Store } from "@/helpers/store";
@@ -34,6 +35,15 @@ export const getWebServer = async () => {
   }
 };
 
+const checkOffline = async () => {
+  const networkState = await getNetworkStateAsync();
+  return (
+    !networkState.isConnected ||
+    networkState.type === NetworkStateType.NONE ||
+    !networkState.isInternetReachable
+  );
+};
+
 const requestApi = async (
   endpoint: string,
   method: RequestMethod,
@@ -42,6 +52,15 @@ const requestApi = async (
   try {
     const token = await AsyncStorage.getItem("token");
     if (token === null) return null;
+
+    if (await checkOffline()) {
+      return {
+        success: false,
+        data: {
+          error: "Keine Internetverbindung",
+        },
+      };
+    }
 
     const rawResponse = await fetch(`${await getApi()}/api/v1/${endpoint}`, {
       method,
@@ -80,6 +99,15 @@ const requestApiWithoutCredentials = async (
   method: RequestMethod,
   body: object | undefined = undefined,
 ): Promise<ApiResponse> => {
+  if (await checkOffline()) {
+    return {
+      success: false,
+      data: {
+        error: "Keine Internetverbindung",
+      },
+    };
+  }
+
   const rawResponse = await fetch(`${await getApi()}/api/v1/${endpoint}`, {
     method,
     body: body ? JSON.stringify(body) : undefined,
