@@ -1,6 +1,7 @@
 // inspired by https://www.youtube.com/watch?v=yNaOaR2kIa0
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
 import * as Font from "expo-font";
 import { SplashScreen, useRouter } from "expo-router";
 import { InvalidTokenError, jwtDecode as decode } from "jwt-decode";
@@ -266,7 +267,13 @@ export function AppProvider({ children }: PropsWithChildren) {
           setServerId(serverIdStorage);
         } else if (Platform.OS === "web") {
           // For web, we can fetch the server ID from a config file
-          const response = await fetch("/config.json");
+
+          let jsonPath = "/config.json";
+          if (Constants.expoConfig?.experiments?.baseUrl) {
+            jsonPath = `${Constants.expoConfig.experiments.baseUrl}/config.json`;
+          }
+
+          const response = await fetch(jsonPath);
           const config = await response.json();
           if (config.serverId) {
             serverIdStorage = config.serverId;

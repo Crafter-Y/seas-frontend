@@ -32,6 +32,9 @@ module.exports = {
       supportsRTL: true,
       productionApi: "https://api.seas-kirchengemeinde.de",
     },
+    experiments: {
+      baseUrl: process.env.GH_PAGES ? "/seas-frontend" : undefined,
+    },
     owner: "crafter_y",
     plugins: [
       "expo-router",

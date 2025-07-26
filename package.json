@@ -20,7 +20,9 @@
     "lint": "expo lint",
     "storybook-generate": "sb-rn-get-stories",
     "analyze": "cross-env EXPO_UNSTABLE_ATLAS=true expo start",
-    "test:e2e": "node e2e.js"
+    "test:e2e": "node e2e.js",
+    "deploy": "gh-pages --nojekyll -d dist",
+    "predeploy": "cross-env GH_PAGES=1 expo export -p web"
   },
   "dependencies": {
     "@expo/match-media": "^0.4.0",
@@ -94,6 +96,7 @@
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-storybook": "^9.0.14",
     "expo-atlas": "^0.4.0",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.4.21",
     "prettier": "^3.4.2",
     "prettier-eslint": "^16.3.0",
