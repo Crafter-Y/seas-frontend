@@ -19,7 +19,7 @@
     "eas-build-pre-install": "npm config set legacy-peer-deps true",
     "lint": "expo lint",
     "storybook-generate": "sb-rn-get-stories",
-    "analyze": "cross-env EXPO_UNSTABLE_ATLAS=true expo start",
+    "analyze": "cross-env EXPO_ATLAS=true expo start",
     "test:e2e": "node e2e.js",
     "deploy": "gh-pages --nojekyll -d dist",
     "predeploy": "cross-env GH_PAGES=1 expo export -p web"
