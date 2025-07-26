@@ -30,7 +30,6 @@ module.exports = {
         projectId: "04b64ca7-4272-45dc-98cb-14e129c5ac01",
       },
       supportsRTL: true,
-      storybookEnabled: process.env.STORYBOOK_ENABLED,
       productionApi: "https://api.seas-kirchengemeinde.de",
     },
     owner: "crafter_y",

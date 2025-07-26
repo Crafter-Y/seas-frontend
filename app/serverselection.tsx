@@ -1,5 +1,5 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Redirect } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { useContext, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, useWindowDimensions, View } from "react-native";
@@ -50,12 +50,17 @@ export default function ServerSelectorScreen() {
   return (
     <StartScreenWrapper>
       {__DEV__ && (
-        <View className="items-end p-1">
+        <View className="items-end p-1 flex-row justify-end gap-2">
           <RoundIconButton
             icon={<AntDesign name="setting" size={20} color="black" />}
             onPress={() => setTimeout(() => apiModal.current!.openModal(), 1)}
             className="border rounded-xl"
             testID="development-server-selector"
+          />
+          <RoundIconButton
+            icon={<AntDesign name="eye" size={20} color="black" />}
+            onPress={() => router.navigate("/storybook")}
+            className="border rounded-xl"
           />
         </View>
       )}

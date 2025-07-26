@@ -1,5 +1,3 @@
-import Constants from "expo-constants";
-import { SplashScreen } from "expo-router";
 import { Stack } from "expo-router/stack";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
@@ -57,6 +55,11 @@ function DefaultLayout() {
                 animation: "none",
               }}
             />
+            <Stack.Protected
+              guard={__DEV__ || process.env.NODE_ENV === "development"}
+            >
+              <Stack.Screen name="storybook" options={{ headerShown: false }} />
+            </Stack.Protected>
           </Stack>
         </I18nextProvider>
         {/** without this, when refreshing a static exported page, the height and width is 0 and doesn't get updated */}
@@ -67,12 +70,5 @@ function DefaultLayout() {
     </AppProvider>
   );
 }
-let AppEntryPoint = DefaultLayout;
 
-if (Constants.expoConfig?.extra?.storybookEnabled === "true") {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  AppEntryPoint = require("../.storybook").default;
-  SplashScreen.hide();
-}
-
-export default AppEntryPoint;
+export default DefaultLayout;

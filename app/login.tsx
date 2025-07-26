@@ -57,10 +57,15 @@ export default function LoginScreen() {
           </View>
           <View className="items-center border-l border-gray-200 px-4 md:h-screen w-full md:bg-white md:w-96 md:justify-center sm:shadow-lg pb-12 md:pb-0 min-h-screen">
             {__DEV__ && Platform.OS === "web" && (
-              <View className="w-full items-end p-1">
+              <View className="w-full items-end p-1 flex-row justify-end gap-2">
                 <RoundIconButton
                   icon={<AntDesign name="setting" size={20} color="black" />}
                   onPress={() => apiModal.current!.openModal()}
+                  className="border rounded-xl"
+                />
+                <RoundIconButton
+                  icon={<AntDesign name="eye" size={20} color="black" />}
+                  onPress={() => router.navigate("/storybook")}
                   className="border rounded-xl"
                 />
               </View>
