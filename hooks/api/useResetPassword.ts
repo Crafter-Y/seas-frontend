@@ -11,6 +11,8 @@ export default function useResetPassword() {
     setSuccessfulRequest(false);
     const serverId = await AsyncStorage.getItem("serverId");
 
+    email = email.trim();
+
     if (serverId === null) {
       router.back();
       return;
