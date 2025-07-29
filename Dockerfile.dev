@@ -1,4 +1,4 @@
-FROM node:18.18.0-bullseye
+FROM node:20.19.2-bullseye
 # See: https://docs.expo.dev/build-reference/infrastructure/
 
 WORKDIR /app

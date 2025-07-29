@@ -41,6 +41,14 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
       <Button
         className="m-2"
         onPress={() => {
+          setDevUrl("http://api.localhost");
+        }}
+      >
+        api.localhost
+      </Button>
+      <Button
+        className="m-2"
+        onPress={() => {
           setDevUrl("https://api.seas-kirchengemeinde.de");
         }}
         testID="public-api-button"
