@@ -7,6 +7,13 @@ import { FetchState } from "@/helpers/Constants";
 
 export type RatedSong = APIResponseSong & { rating: Rating; comment?: string };
 
+/**
+ * This was my initial approach to the global store structure.
+ * But I think, pullstate is no longer my way to go in the future.
+ * Some parts of this already moved to appContext.tsx
+ * TODO: the rest of this may be rewritten/moved as well
+ */
+
 interface GlobalStore {
   currentPage: number;
   allPages: APIResponsePage[];

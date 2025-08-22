@@ -18,6 +18,13 @@ import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
 
 // type RatedSong = APIResponseSong & { rating: Rating; comment?: string };
 
+/**
+ * This is more like my way to go on the global app state.
+ * Currently I just use this for auth.
+ * The rest of the state is in store.ts
+ * TODO: move the rest over here
+ */
+
 SplashScreen.preventAutoHideAsync();
 
 type AppState = {
