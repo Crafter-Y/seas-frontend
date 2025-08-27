@@ -12,6 +12,9 @@ module.exports = {
     ios: {
       supportsTablet: true,
       bundleIdentifier: "de.craftery.seasfrontend",
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false,
+      },
     },
     android: {
       adaptiveIcon: {

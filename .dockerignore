@@ -9,3 +9,5 @@ node_modules/
 .github/
 dist/
 .env
+android/
+ios/
