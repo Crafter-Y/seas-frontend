@@ -52,9 +52,9 @@ export default function ImprintScreen() {
         <CustomText>
           {t("accountHolder")}: Seas-Kirchengemeinde UG (haftungsbeschränkt)
         </CustomText>
-        <CustomText>IBAN: DE67 1101 0100 2038 6082 75</CustomText>
-        <CustomText>BIC: SOBKDEBBXXX</CustomText>
-        <CustomText>{t("bank")}: Solaris Bank</CustomText>
+        <CustomText>IBAN: DE52 2022 0800 0056 9783 92</CustomText>
+        <CustomText>BIC: SXPYDEHHXXX</CustomText>
+        <CustomText>{t("bank")}: Banking Circle - German Branch</CustomText>
 
         <CustomText className="mt-6 text-2xl" t="onlineDisputeResolution" />
         <CustomText className="text-lg">
