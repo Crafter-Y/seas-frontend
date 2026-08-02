@@ -1,4 +1,4 @@
-FROM node:20.19.2-alpine AS base
+FROM node:24-alpine AS base
 # See: https://docs.expo.dev/build-reference/infrastructure/
 
 FROM base AS builder
@@ -8,8 +8,7 @@ WORKDIR /app
 COPY package*.json .
 COPY .npmrc .
 
-# npm ci does not work because something is wrong with the lockfile
-RUN npm install
+RUN npm ci
 
 COPY . .
 

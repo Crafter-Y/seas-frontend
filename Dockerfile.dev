@@ -1,4 +1,4 @@
-FROM node:20.19.2-bullseye
+FROM node:24-bullseye
 # See: https://docs.expo.dev/build-reference/infrastructure/
 
 WORKDIR /app
@@ -11,7 +11,7 @@ ENV REACT_NATIVE_PACKAGER_HOSTNAME=${LOCAL_IP}
 COPY package*.json .
 COPY .npmrc .
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 

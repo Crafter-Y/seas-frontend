@@ -10,10 +10,10 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js 22.12.0
+      - name: Use Node.js 24.18.1
         uses: actions/setup-node@v3
         with:
-          node-version: 22.12.0
+          node-version: 24.18.1
           cache: "npm"
 
       - name: 📦 Install dependencies
