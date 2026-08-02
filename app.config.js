@@ -42,6 +42,8 @@ module.exports = {
       "expo-router",
       "expo-mail-composer",
       "expo-localization",
+      "expo-image",
+      "expo-sharing",
       [
         "expo-calendar",
         {

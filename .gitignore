@@ -19,3 +19,7 @@ android/
 .metro-health-check*
 
 credentials.json
+
+# Ignore AI stuff
+EXPO-UPGRADE-PLAN.md
+.playwright-mcp/

@@ -2,12 +2,14 @@ import { useRef } from "react";
 import {
   Keyboard,
   Platform,
-  ScrollView,
   TouchableWithoutFeedback,
   useWindowDimensions,
   View,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+import {
+  KeyboardAwareScrollView,
+  KeyboardAwareScrollViewRef,
+} from "react-native-keyboard-controller";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {
@@ -16,7 +18,7 @@ type Props = {
 
 const StartScreenWrapper = ({ children }: Props) => {
   const { height } = useWindowDimensions();
-  const ref = useRef<ScrollView>(null);
+  const ref = useRef<KeyboardAwareScrollViewRef>(null);
 
   return (
     <SafeAreaView>
