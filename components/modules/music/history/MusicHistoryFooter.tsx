@@ -3,7 +3,6 @@ import { DataTable } from "react-native-paper";
 
 import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
 import { HistoryType } from "@/components/modules/music/MusicHistoryModal";
-import tw from "@/tailwind";
 
 type Props = {
   page: number;
@@ -30,8 +29,11 @@ export default function MusicHistoryFooter({
   responseLength,
   totalRecords,
 }: Props) {
+  // DataTable comes from react-native-paper, which NativeWind does not
+  // interop — a `className` would type-check but be ignored at runtime. The
+  // previous twrnc `hidden` class is therefore expressed as a plain style.
   return (
-    <DataTable style={tw`${responseLength ? "" : "hidden"}`}>
+    <DataTable style={{ display: responseLength ? "flex" : "none" }}>
       <DataTable.Pagination
         page={page}
         numberOfPages={numPages}

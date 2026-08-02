@@ -26,7 +26,6 @@ import useAllUsers from "@/hooks/api/useAllUsers";
 import useCreatePage from "@/hooks/api/useCreatePage";
 import useRestrictions from "@/hooks/api/useRestrictions";
 import useSetPageModerator from "@/hooks/api/useSetPageModerator";
-import tw from "@/tailwind";
 
 export default function ManagePagesScreen() {
   const { allPages, queryPages } = useAllPages();
@@ -125,7 +124,7 @@ export default function ManagePagesScreen() {
         </Button>
       </SettingsForm>
 
-      <Divider type="HORIZONTAL" style={tw`my-4`} />
+      <Divider type="HORIZONTAL" className="my-4" />
 
       <Callout
         visible={!restrictions?.pagesDeletable}
@@ -137,16 +136,16 @@ export default function ManagePagesScreen() {
         message="Das Bearbeiten von Plänen ist in Ihrem Produkt deaktiviert."
       />
 
-      <SettingsForm style={tw`mb-8`}>
+      <SettingsForm className="mb-8">
         <Form>
           <TH titles={["Pläne", ""]} />
 
           {allPages.map((page) => (
             <TR key={page.id}>
-              <TD style={tw`justify-center`} cols={2}>
-                <CustomText style={tw`text-lg`}>{page.name}</CustomText>
+              <TD className="justify-center" cols={2}>
+                <CustomText className="text-lg">{page.name}</CustomText>
               </TD>
-              <TD style={tw`justify-end flex-row items-center gap-1`} cols={2}>
+              <TD className="justify-end flex-row items-center gap-1" cols={2}>
                 <SettingsActionButton
                   color={Color.RED}
                   disabled={!restrictions?.pagesDeletable}

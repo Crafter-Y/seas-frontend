@@ -6,7 +6,6 @@ import { Pressable, TouchableOpacity, View } from "react-native";
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Input from "@/components/elements/Input";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -97,13 +96,13 @@ export default function UserSelectModal({
           extraData={selectedUser}
           ListEmptyComponent={() => {
             return (
-              <CustomText style={tw`mx-2`}>Keine Treffer gefunden</CustomText>
+              <CustomText className="mx-2">Keine Treffer gefunden</CustomText>
             );
           }}
           renderItem={({ item, index }) => (
             <TouchableOpacity
               key={item?.id ?? -1}
-              style={tw`h-12 flex-row items-center bg-gray-200 px-2 gap-2 ${
+              className={`h-12 flex-row items-center bg-gray-200 px-2 gap-2 ${
                 index % 2 === 0 ? "bg-gray-100" : ""
               }`}
               onPress={() => setSelectedUser(item?.id ?? -1)}
@@ -128,7 +127,7 @@ export default function UserSelectModal({
         />
       </View>
 
-      <View style={tw`flex-row justify-center my-2`}>
+      <View className="flex-row justify-center my-2">
         <Button
           onPress={() => {
             onUserSet(selectedUser === -1 ? null : selectedUser);

@@ -7,7 +7,6 @@ import { Color } from "@/helpers/Constants";
 import { prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import useDeleteEvent from "@/hooks/api/useDeleteEvent";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -39,19 +38,19 @@ export default function BoardRowDeleteModal({
 
   return (
     <>
-      <CustomText style={tw`mx-4`}>
+      <CustomText className="mx-4">
         Soll der Termin{" "}
-        <CustomText style={tw`font-semibold`}>
+        <CustomText className="font-semibold">
           {selectedRow ? prettyDate(selectedRow.date, false) : ""}
         </CustomText>{" "}
         wirklich glöscht werden?
       </CustomText>
-      <CustomText style={tw`text-red-400 mx-4 mt-2`}>
-        Dadurch werden <CustomText style={tw`font-semibold`}>alle</CustomText>{" "}
+      <CustomText className="text-red-400 mx-4 mt-2">
+        Dadurch werden <CustomText className="font-semibold">alle</CustomText>{" "}
         Eintragungen von Mitgliedern, sowie die Kommentare gelöscht. Dies kann
         nicht mehr Rückgängig gemacht werden!
       </CustomText>
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View className="justify-center flex-row gap-2 my-4">
         <Button
           onPress={() => {
             deleteEvent(selectedRow!.date);

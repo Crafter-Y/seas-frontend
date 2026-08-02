@@ -5,7 +5,6 @@ import React from "react";
 import { Linking, Platform, View, ViewProps } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
-import tw from "@/tailwind";
 
 const Footer = (props: ViewProps) => {
   const mailtoReport = async () => {
@@ -31,26 +30,23 @@ const Footer = (props: ViewProps) => {
 
   return (
     <View className="my-4 flex items-center" {...props}>
-      <CustomText style={tw`text-xs opacity-80 w-full text-center`}>
+      <CustomText className="text-xs opacity-80 w-full text-center">
         &copy; (copyright) Helmut Haase 2022 - {new Date().getFullYear()} • SEAS
         Kirchengemeinde UG (haftungsbeschränkt)
       </CustomText>
       <CustomText
-        style={tw.style(
-          {
-            hidden: Platform.OS !== "web",
-          },
-          "text-xs opacity-80 text-center underline",
-        )}
+        className={`text-xs opacity-80 text-center underline ${
+          Platform.OS !== "web" ? "hidden" : ""
+        }`}
         onPress={() => {
           router.navigate("/imprint");
         }}
       >
         Impressum
       </CustomText>
-      <CustomText style={tw`text-xs opacity-80 w-full text-center mt-2`}>
+      <CustomText className="text-xs opacity-80 w-full text-center mt-2">
         Mit ♥️ programmiert von Bastian Biedermann &#x2022;{" "}
-        <CustomText style={tw`underline`} onPress={mailtoReport}>
+        <CustomText className="underline" onPress={mailtoReport}>
           Fehler melden
         </CustomText>
       </CustomText>

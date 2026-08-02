@@ -6,7 +6,6 @@ import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -31,10 +30,10 @@ export default function MusicEntryDateModal({
   const musicDate = Store.useState((state) => state.musicDate);
 
   return (
-    <View style={tw`mx-2 md:mx-4`}>
+    <View className="mx-2 md:mx-4">
       <CustomText>Datum auswählen:</CustomText>
 
-      <CustomText style={tw`text-lg font-semibold`}>
+      <CustomText className="text-lg font-semibold">
         {musicDate
           ? `Ausgewähltes Datum: ${prettyDate(formatDate(musicDate), false)}`
           : "Kein Datum ausgewählt"}
@@ -48,7 +47,7 @@ export default function MusicEntryDateModal({
         {musicDate ? "Neues Datum auswählen" : "Datum auswählen"}
       </Button>
 
-      <View style={tw`mb-2 mt-3 flex-row gap-2`}>
+      <View className="mb-2 mt-3 flex-row gap-2">
         <Button
           onPress={() => {
             closeModal();

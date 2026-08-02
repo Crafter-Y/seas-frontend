@@ -14,7 +14,6 @@ import SettingsBackButton from "@/components/SettingsBackButton";
 import SettingsForm from "@/components/SettingsForm";
 import useResetPassword from "@/hooks/api/useResetPassword";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 export default function ResetPasswordScreen() {
   const { email: initEmail } = useLocalSearchParams();
@@ -38,7 +37,7 @@ export default function ResetPasswordScreen() {
       />
       <View className="w-1/3 items-end justify-center pl-4 hidden md:flex">
         <SettingsBackButton backRoute="/login/" />
-        <H1 style={tw`text-right`} t="resetPassword" />
+        <H1 className="text-right" t="resetPassword" />
 
         <CustomText className="text-right mt-4 ml-4" t="resetPasswordText" />
         <Footer className="w-48 mt-12 hidden md:flex" />

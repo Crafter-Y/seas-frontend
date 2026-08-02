@@ -6,7 +6,6 @@ import Checkbox from "@/components/elements/Checkbox";
 import { Color } from "@/helpers/Constants";
 import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -25,7 +24,7 @@ export default function PrintCoumnsModal({
 
   return (
     <>
-      <View style={tw`px-4`}>
+      <View className="px-4">
         <Checkbox
           label="Termin (Datum)"
           defaultValue={true}
@@ -54,10 +53,10 @@ export default function PrintCoumnsModal({
         ))}
       </View>
       <View
-        style={tw.style(
-          { "mb-10": Platform.OS === "ios", "mb-4": Platform.OS !== "ios" }, // BUG: on iOS the button wriedly clip out the bottom
-          "justify-center flex-row gap-2 mt-4",
-        )}
+        // BUG: on iOS the button wriedly clip out the bottom
+        className={`justify-center flex-row gap-2 mt-4 ${
+          Platform.OS === "ios" ? "mb-10" : "mb-4"
+        }`}
       >
         <Button onPress={closeModal} color={Color.RED}>
           Abbrechen

@@ -4,7 +4,6 @@ import { View } from "react-native";
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import useRequestNewPassword from "@/hooks/api/useRequestNewPassword";
-import tw from "@/tailwind";
 
 type Props = {
   editUser: APIFullResponseUser;
@@ -29,14 +28,12 @@ export default function RequestNewPasswordModal({
 
   return (
     <>
-      <CustomText style={tw`mx-4`}>
+      <CustomText className="mx-4">
         Soll das Passwort von{" "}
-        <CustomText
-          style={tw`font-semibold`}
-        >{`${editUser.firstname} ${editUser.lastname}`}</CustomText>{" "}
+        <CustomText className="font-semibold">{`${editUser.firstname} ${editUser.lastname}`}</CustomText>{" "}
         wirklich zurückgesetzt werden?
       </CustomText>
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View className="justify-center flex-row gap-2 my-4">
         <Button onPress={closeModal}>Abbrechen</Button>
         <Button
           onPress={() => {

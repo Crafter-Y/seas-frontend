@@ -9,7 +9,6 @@ import CustomText from "@/components/elements/CustomText";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { AppContext } from "@/helpers/appContext";
 import { Store } from "@/helpers/store";
-import tw from "@/tailwind";
 
 const CALENDAR_NAME = "SEAS Termine";
 
@@ -223,14 +222,7 @@ END:VEVENT`;
   };
   return (
     <>
-      <View
-        style={tw.style(
-          {
-            hidden: Platform.OS === "web",
-          },
-          "my-2 mx-2",
-        )}
-      >
+      <View className={`my-2 mx-2 ${Platform.OS === "web" ? "hidden" : ""}`}>
         <View className="gap-2">
           <CustomText>
             Den angezeigten Plan mit dem Kalender synchronisieren?
@@ -238,10 +230,10 @@ END:VEVENT`;
           <Button onPress={() => syncCalendar()}>Jetzt synchronisieren</Button>
         </View>
       </View>
-      <View style={tw`my-2 mx-2 gap-2`}>
+      <View className="my-2 mx-2 gap-2">
         <ErrorDisplay error={calendarError} hasError={!!calendarError} />
         {syncSuccessful && (
-          <CustomText style={tw`text-green-500`}>
+          <CustomText className="text-green-500">
             Kalender erfolgreich synchronisiert
           </CustomText>
         )}

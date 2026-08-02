@@ -7,11 +7,9 @@ import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Ratings from "@/components/elements/Ratings";
 import { entryTypeMeanings } from "@/components/modules/music/MusicEntryTypeModal";
-import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import useSaveSongEntries from "@/hooks/api/useSaveSongEntries";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -53,9 +51,9 @@ export default function MusicEntryOverviewModal({
   }, [heightAnimate, musicRatings]);
 
   return (
-    <View style={tw`mx-2 md:mx-4 pb-2`}>
+    <View className="mx-2 md:mx-4 pb-2">
       <CustomText>{entryTypeMeanings[musicEntryType!]}</CustomText>
-      <CustomText style={tw`text-lg font-semibold mb-1`}>
+      <CustomText className="text-lg font-semibold mb-1">
         {prettyDate(formatDate(musicDate!), false)}
       </CustomText>
       <Animated.View
@@ -75,9 +73,9 @@ export default function MusicEntryOverviewModal({
               className="mt-2"
               disabled={musicRatings.length === 10}
             >
-              <View style={tw`items-center flex-row gap-2`}>
+              <View className="items-center flex-row gap-2">
                 <AntDesign name="plus" size={32} color="white" />
-                <CustomText style={tw`text-white`}>
+                <CustomText className="text-white">
                   {musicRatings.length > 0
                     ? "Weiteres Lied"
                     : "Lied hinzufügen"}
@@ -88,25 +86,25 @@ export default function MusicEntryOverviewModal({
           renderItem={({ item, index }) => {
             return (
               <View
-                style={tw`border-b-2 p-1 border-[${Color.GRAY}] ${
+                className={`border-b-2 p-1 border-seas-gray ${
                   index === 0 ? "border-t-2" : ""
                 } ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
-                <View style={tw`flex-row gap-2`}>
-                  <View style={tw`w-4/5`}>
-                    <CustomText style={tw`text-lg leading-[18px]`}>
+                <View className="flex-row gap-2">
+                  <View className="w-4/5">
+                    <CustomText className="text-lg leading-[18px]">
                       {item.title} ({item.number})
                     </CustomText>
-                    <CustomText style={tw`text-xs`}>
+                    <CustomText className="text-xs">
                       {item.book.name}
                     </CustomText>
                     {item.comment && (
-                      <CustomText style={tw`text-base mt-1`}>
+                      <CustomText className="text-base mt-1">
                         {item.comment}
                       </CustomText>
                     )}
                   </View>
-                  <View style={tw`w-1/5 flex-1 items-center justify-center`}>
+                  <View className="w-1/5 flex-1 items-center justify-center">
                     <TouchableOpacity
                       onPress={() => {
                         Store.update((state) => {

@@ -13,7 +13,6 @@ import RoundIconButton from "@/components/RoundIconButton";
 import { AppContext } from "@/helpers/appContext";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 type BoardHeaderProps = {
   user: User | null;
@@ -47,37 +46,17 @@ const BoardHeader = ({
   const { moduleStatus } = useModuleStatus();
 
   return (
-    <View
-      style={tw.style({
-        "px-4": isLg,
-        "mt-4": isLg,
-      })}
-    >
-      <View
-        style={tw`bg-white shadow-lg items-center justify-between px-2 h-16 flex-row`}
-      >
+    <View className={isLg ? "px-4 mt-4" : ""}>
+      <View className="bg-white shadow-lg items-center justify-between px-2 h-16 flex-row">
         <CustomText
-          style={tw.style(
-            {
-              "text-xl": isLg,
-              "text-lg": !isLg,
-              "ml-4": isLg,
-              maxWidth: "80%",
-            },
-            "font-bold",
-          )}
+          className={`font-bold max-w-[80%] ${
+            isLg ? "text-xl ml-4" : "text-lg"
+          }`}
           testID="board-header-title"
         >
           {serverName}
         </CustomText>
-        <View
-          style={tw.style(
-            {
-              hidden: !isLg,
-            },
-            "flex-row gap-2",
-          )}
-        >
+        <View className={`flex-row gap-2 ${!isLg ? "hidden" : ""}`}>
           <RoundIconButton
             hidden={!moduleStatus?.moduleCalendar}
             icon={<AntDesign name="calendar" size={20} color="black" />}
@@ -107,15 +86,13 @@ const BoardHeader = ({
         />
 
         <Modal ref={modal} modalOpenCondition={!isLg} type="MOBILE_BOTTOM">
-          <CustomText
-            style={tw`w-full text-center px-2 text-lg font-semibold mt-6`}
-          >
+          <CustomText className="w-full text-center px-2 text-lg font-semibold mt-6">
             {user?.firstname} {user?.lastname}
           </CustomText>
-          <CustomText style={tw`w-full text-center px-2 text-sm mb-4`}>
+          <CustomText className="w-full text-center px-2 text-sm mb-4">
             {user?.email}
           </CustomText>
-          <Divider type="HORIZONTAL" style={tw`mx-2 my-2`} />
+          <Divider type="HORIZONTAL" className="mx-2 my-2" />
 
           <BoardMenuNavigationButton
             boardType="Jahresansicht"
@@ -141,7 +118,7 @@ const BoardHeader = ({
             setBoardType={setBoardType}
             closeModal={() => modal.current?.closeModal()}
           />
-          <Divider type="HORIZONTAL" style={tw`mx-2`} />
+          <Divider type="HORIZONTAL" className="mx-2" />
           {user?.role === "ADMIN" && [
             <BoardMenuButton
               key={3}
@@ -152,7 +129,7 @@ const BoardHeader = ({
                 settings();
               }}
             />,
-            <Divider key={4} type="HORIZONTAL" style={tw`mx-2`} />,
+            <Divider key={4} type="HORIZONTAL" className="mx-2" />,
           ]}
 
           <BoardMenuButton
@@ -163,7 +140,7 @@ const BoardHeader = ({
               changePassword();
             }}
           />
-          <Divider type="HORIZONTAL" style={tw`mx-2`} />
+          <Divider type="HORIZONTAL" className="mx-2" />
           <BoardMenuButton
             icon={require("@/assets/img/logout.svg")}
             text={"Abmelden"}
@@ -171,9 +148,7 @@ const BoardHeader = ({
               modal.current?.closeModal();
               logout();
             }}
-            style={tw.style({
-              "mb-1": Platform.OS !== "web",
-            })}
+            className={Platform.OS !== "web" ? "mb-1" : ""}
           />
         </Modal>
       </View>

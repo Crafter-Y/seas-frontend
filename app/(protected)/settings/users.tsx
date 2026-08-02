@@ -25,7 +25,6 @@ import { Color } from "@/helpers/Constants";
 import { toUpperStarting } from "@/helpers/format";
 import useAllUsers from "@/hooks/api/useAllUsers";
 import useRestrictions from "@/hooks/api/useRestrictions";
-import tw from "@/tailwind";
 
 export default function ManageUsersScreen() {
   const { user } = useContext(AppContext);
@@ -86,11 +85,7 @@ export default function ManageUsersScreen() {
                 <CustomText className="text-lg">
                   {entry.firstname} {entry.lastname}
                 </CustomText>
-                <CustomText
-                  style={tw.style({
-                    hidden: entry.email === "root",
-                  })}
-                >
+                <CustomText className={entry.email === "root" ? "hidden" : ""}>
                   {entry.email}
                 </CustomText>
                 <View className="flex-row gap-1">

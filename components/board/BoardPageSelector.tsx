@@ -1,24 +1,21 @@
-import React, { memo, useRef } from "react";
+import React, { memo } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { useHover } from "react-native-web-hooks";
 
 import CustomText from "@/components/elements/CustomText";
 import { Store } from "@/helpers/store";
 import useAllPages from "@/hooks/api/useAllPages";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 type ButtonProps = {
   page: APIResponsePage;
 };
 
 const BoardPageButton = ({ page }: ButtonProps) => {
-  const ref = useRef(null);
-  const isHovered = useHover(ref);
-
   return (
+    // `group` + `group-hover:` replaces the old useHover() from
+    // react-native-web-hooks.
     <TouchableOpacity
-      ref={ref}
+      className="group"
       key={page.id}
       onPress={() =>
         Store.update((state) => {
@@ -26,16 +23,7 @@ const BoardPageButton = ({ page }: ButtonProps) => {
         })
       }
     >
-      <CustomText
-        style={tw.style(
-          {
-            "border-black": !isHovered,
-            "border-gray-600": isHovered,
-            "text-gray-600": isHovered,
-          },
-          "border rounded-xl text-lg px-2",
-        )}
-      >
+      <CustomText className="border rounded-xl text-lg px-2 border-black group-hover:border-gray-600 group-hover:text-gray-600">
         {page.name}
       </CustomText>
     </TouchableOpacity>
@@ -53,26 +41,12 @@ const BoardPageSelector = () => {
 
   return (
     <View
-      style={tw.style(
-        {
-          "px-0": !isSm,
-          "px-6": isSm,
-          "mx-2": !isSm,
-        },
-        "flex-row flex-wrap gap-2 mt-2",
-      )}
+      className={`flex-row flex-wrap gap-2 mt-2 ${isSm ? "px-6" : "px-0 mx-2"}`}
     >
       {allPages.map((page) =>
         page.id === currentPage ? (
-          <View key={page.id} style={tw`rounded-xl bg-green-600`}>
-            <CustomText
-              style={tw.style(
-                {
-                  borderRadius: 12,
-                },
-                "text-lg px-2 text-white",
-              )}
-            >
+          <View key={page.id} className="rounded-xl bg-green-600">
+            <CustomText className="text-lg px-2 text-white rounded-xl">
               {page.name}
             </CustomText>
           </View>

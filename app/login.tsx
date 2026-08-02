@@ -17,7 +17,6 @@ import LoginForm from "@/components/LoginForm";
 import RoundIconButton from "@/components/RoundIconButton";
 import { AppContext } from "@/helpers/appContext";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 export default function LoginScreen() {
   const { returnToServerSelection, serverName, loginError, login } =
@@ -77,14 +76,12 @@ export default function LoginScreen() {
             </CustomText>
 
             <View className="w-full md:hidden">
-              <Divider type="HORIZONTAL" style={tw.style("my-8 w-full")} />
+              <Divider type="HORIZONTAL" className="my-8 w-full" />
             </View>
 
             <H1
               t="login"
-              style={tw.style({
-                "mb-12": isMd,
-              })}
+              className={isMd ? "mb-12" : ""}
               testID="login-title"
             />
 

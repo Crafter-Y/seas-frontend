@@ -20,7 +20,6 @@ import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import useAssignUser from "@/hooks/api/useAssignUser";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 type Props = {
   rows: BoardRow[];
@@ -108,7 +107,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
         if (usersWithCol[0].id === user?.id) {
           // underlined name for the inline view
           return (
-            <CustomText style={tw`font-semibold underline`}>
+            <CustomText className="font-semibold underline">
               {usersWithCol[0].firstname + " " + usersWithCol[0].lastname}
             </CustomText>
           );
@@ -172,13 +171,8 @@ const BoardList = ({ rows, fetchData }: Props) => {
   };
 
   return (
-    <View
-      style={tw.style({
-        "px-0": !isSm,
-        "px-6": isSm,
-      })}
-    >
-      <Form style={tw`mb-4 bg-white`} testID="board-list-form">
+    <View className={isSm ? "px-6" : "px-0"}>
+      <Form className="mb-4 bg-white" testID="board-list-form">
         <TH titles={titles} />
         {rows.map((row) => (
           <PressableTR
@@ -191,16 +185,16 @@ const BoardList = ({ rows, fetchData }: Props) => {
               rowModal.current?.openModal();
             }}
           >
-            <TD style={tw`justify-center`} cols={titles.length}>
+            <TD className="justify-center" cols={titles.length}>
               <CustomText>{prettyDate(row.date, !isSm)}</CustomText>
             </TD>
             {getColsForPageAndType(currentPage, "POSITION").map((col) => (
-              <TD key={col.id} style={tw`justify-center`} cols={titles.length}>
+              <TD key={col.id} className="justify-center" cols={titles.length}>
                 {getPositionForField(col, row.date)}
               </TD>
             ))}
             {getColsForPageAndType(currentPage, "COMMENT").map((col) => (
-              <TD key={col.id} style={tw`justify-center`} cols={titles.length}>
+              <TD key={col.id} className="justify-center" cols={titles.length}>
                 {getCommentForField(col, row.date)}
               </TD>
             ))}

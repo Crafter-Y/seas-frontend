@@ -4,7 +4,6 @@ import { Platform, TouchableOpacity, View } from "react-native";
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import { Store } from "@/helpers/store";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -25,10 +24,10 @@ export default function MusicEntryTypeModal({
   openEntryDateModal,
 }: Props) {
   return (
-    <View style={tw`mx-2 md:mx-4`}>
+    <View className="mx-2 md:mx-4">
       <CustomText>Typ des Datensatzes:</CustomText>
       <TouchableOpacity
-        style={tw`flex-row justify-between border-2 border-gray-400 rounded-lg px-4 py-2 mt-1 ${
+        className={`flex-row justify-between border-2 border-gray-400 rounded-lg px-4 py-2 mt-1 ${
           Platform.OS === "web" ? "shadow-md" : ""
         }`}
         onPress={() => {
@@ -40,13 +39,13 @@ export default function MusicEntryTypeModal({
           openEntryDateModal();
         }}
       >
-        <CustomText style={tw`text-xl font-semibold`}>
+        <CustomText className="text-xl font-semibold">
           {entryTypeMeanings["MISSION"]}
         </CustomText>
         <AntDesign name="star" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity
-        style={tw` border-2 border-gray-400 rounded-lg px-4 py-2 mt-1 mb-3 ${
+        className={` border-2 border-gray-400 rounded-lg px-4 py-2 mt-1 mb-3 ${
           Platform.OS === "web" ? "shadow-md" : ""
         }`}
         onPress={() => {
@@ -57,7 +56,7 @@ export default function MusicEntryTypeModal({
           openEntryDateModal();
         }}
       >
-        <CustomText style={tw`text-xl font-semibold`}>
+        <CustomText className="text-xl font-semibold">
           {entryTypeMeanings["TEST"]}
         </CustomText>
       </TouchableOpacity>

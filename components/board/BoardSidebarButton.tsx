@@ -1,11 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Pressable, View } from "react-native";
-import { useHover } from "react-native-web-hooks";
 
 import CustomText from "@/components/elements/CustomText";
 import Image from "@/components/elements/Image";
-import { Color } from "@/helpers/Constants";
-import tw from "@/tailwind";
 
 type Props = {
   icon: string;
@@ -14,37 +11,23 @@ type Props = {
 };
 
 const BoardSidebarButton = ({ icon, text, pressAction }: Props) => {
-  const ref = useRef(null);
-  const isHovered = useHover(ref);
-
   return (
+    // `group` + `group-hover:` replaces the old useHover() from
+    // react-native-web-hooks: the hover state lives on this Pressable, but the
+    // styles it drives sit on descendants.
     <Pressable
-      style={tw`justify-between items-center mb-1 flex-row py-4`}
-      ref={ref}
+      className="justify-between items-center mb-1 flex-row py-4 group"
       onPress={pressAction}
     >
       <View></View>
-      <View style={tw`flex-row items-center gap-2`}>
+      <View className="flex-row items-center gap-2">
         <Image source={icon} size={18} />
-        <CustomText
-          style={tw.style({
-            underline: isHovered,
-            "opacity-80": isHovered,
-            "opacity-95": !isHovered,
-          })}
-        >
+        <CustomText className="opacity-95 group-hover:opacity-80 group-hover:underline">
           {text}
         </CustomText>
       </View>
 
-      <View
-        style={tw.style(
-          {
-            backgroundColor: isHovered ? Color.BLUE : undefined,
-          },
-          "w-1 h-8 rounded-l-md",
-        )}
-      ></View>
+      <View className="w-1 h-8 rounded-l-md group-hover:bg-seas-blue"></View>
     </Pressable>
   );
 };

@@ -22,7 +22,6 @@ import { ScrollView } from "react-native-gesture-handler";
 import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 type Props = {
   title: string;
@@ -51,22 +50,20 @@ const ModalHeader = ({ title, closeModal, values }: HeaderProps) => {
 
   return (
     <>
-      <View style={tw`pl-2 pr-2 py-2 flex-row justify-between items-center`}>
-        <View style={tw`w-10 h-1`}></View>
-        <CustomText
-          style={tw`text-3xl font-semibold text-black/80 text-center flex-grow max-w-4/5`}
-        >
+      <View className="pl-2 pr-2 py-2 flex-row justify-between items-center">
+        <View className="w-10 h-1"></View>
+        <CustomText className="text-3xl font-semibold text-black/80 text-center flex-grow max-w-4/5">
           {t(title, values)}
         </CustomText>
         <TouchableOpacity
           onPress={closeModal}
-          style={tw`p-2 w-10 rounded-full`}
+          className="p-2 w-10 rounded-full"
           testID="modal-close-button"
         >
           <AntDesign name="close" size={25} color="gray" />
         </TouchableOpacity>
       </View>
-      <Divider type="HORIZONTAL" style={tw`mb-2`} />
+      <Divider type="HORIZONTAL" className="mb-2" />
     </>
   );
 };
@@ -114,20 +111,16 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
       >
         {/* TODO: Backdrop not working */}
         {scrollable && (
-          <View
-            style={tw`bg-zinc-900/40 h-full items-center justify-center px-2`}
-          >
+          <View className="bg-zinc-900/40 h-full items-center justify-center px-2">
             <ScrollView
               keyboardShouldPersistTaps="handled"
-              style={tw.style(
-                {
-                  maxHeight: height * 0.8,
-                  "w-full": !isSm && !isMd,
-                  "max-w-96": isSm,
-                  width: isXl ? 580 : undefined,
-                },
-                "bg-white rounded-xl grow-0",
-              )}
+              className={`bg-white rounded-xl grow-0 ${
+                !isSm && !isMd ? "w-full" : ""
+              } ${isSm ? "max-w-96" : ""}`}
+              style={{
+                maxHeight: height * 0.8,
+                width: isXl ? 580 : undefined,
+              }}
             >
               <ModalHeader
                 title={title}
@@ -139,23 +132,19 @@ const ModalRewrite = forwardRef<ModalHandle, Props>(
           </View>
         )}
         {!scrollable && (
-          <Pressable style={tw`bg-zinc-900/40 h-full`} onPress={intCloseModal}>
+          <Pressable className="bg-zinc-900/40 h-full" onPress={intCloseModal}>
             <KeyboardAvoidingView
-              style={tw`items-center justify-center h-full px-2`}
+              className="items-center justify-center h-full px-2"
               behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
               <TouchableWithoutFeedback
                 onPress={Platform.OS === "web" ? undefined : Keyboard.dismiss}
               >
                 <View
-                  style={tw.style(
-                    {
-                      "w-full": !isSm && !isMd,
-                      "max-w-96": isSm,
-                      width: isXl ? 580 : undefined,
-                    },
-                    "bg-white rounded-xl shadow-lg",
-                  )}
+                  className={`bg-white rounded-xl shadow-lg ${
+                    !isSm && !isMd ? "w-full" : ""
+                  } ${isSm ? "max-w-96" : ""}`}
+                  style={{ width: isXl ? 580 : undefined }}
                 >
                   <ModalHeader
                     title={title}

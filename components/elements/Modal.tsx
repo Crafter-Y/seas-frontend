@@ -15,7 +15,6 @@ import {
 import ReactNativeModal, { Direction } from "react-native-modal";
 
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 type ModalType = "MOBILE_BOTTOM" | "CENTER";
 
@@ -74,48 +73,39 @@ const Modal = forwardRef<ModalHandle, Props>(
       <ReactNativeModal
         isVisible={isModalOpen && modalOpenCondition}
         onBackdropPress={intCloseModal}
-        style={tw.style(
-          {
-            "justify-end": Platform.OS !== "web" && type === "MOBILE_BOTTOM",
-            "justify-center": Platform.OS === "web" || type === "CENTER",
-          },
-          "m-0 items-center",
-        )}
+        className={`m-0 items-center ${
+          Platform.OS !== "web" && type === "MOBILE_BOTTOM" ? "justify-end" : ""
+        } ${Platform.OS === "web" || type === "CENTER" ? "justify-center" : ""}`}
         swipeDirection={swipeDirection}
         onSwipeComplete={intCloseModal}
         customBackdrop={
           <TouchableOpacity
-            style={tw.style(
-              {
-                height,
-                width,
-              },
-              "bg-opacity-35 bg-black",
-            )}
+            className="bg-opacity-35 bg-black"
+            style={{ height, width }}
             onPress={intCloseModal}
           ></TouchableOpacity>
         }
       >
-        <View style={tw.style({ maxHeight: height * 0.8 })}>
+        <View style={{ maxHeight: height * 0.8 }}>
           <ScrollView
             nestedScrollEnabled={true}
             decelerationRate={0.5}
-            style={tw.style(
-              {
-                flexGrow: 0,
-                "w-1/2": Platform.OS === "web",
-                "rounded-md": Platform.OS === "web",
-                "rounded-t-xl":
-                  Platform.OS === "android" && type === "MOBILE_BOTTOM",
-                width:
-                  Platform.OS === "web"
-                    ? isSm
-                      ? width / 2
-                      : width * 0.75
-                    : width,
-              },
-              "bg-white shadow-lg",
-            )}
+            className={`bg-white shadow-lg ${
+              Platform.OS === "web" ? "w-1/2 rounded-md" : ""
+            } ${
+              Platform.OS === "android" && type === "MOBILE_BOTTOM"
+                ? "rounded-t-xl"
+                : ""
+            }`}
+            style={{
+              flexGrow: 0,
+              width:
+                Platform.OS === "web"
+                  ? isSm
+                    ? width / 2
+                    : width * 0.75
+                  : width,
+            }}
           >
             {children}
           </ScrollView>

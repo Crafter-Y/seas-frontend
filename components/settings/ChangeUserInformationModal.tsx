@@ -8,7 +8,6 @@ import Picker from "@/components/elements/Picker";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { Color } from "@/helpers/Constants";
 import useUpdateUser from "@/hooks/api/useUpdateUser";
-import tw from "@/tailwind";
 
 type Props = {
   editUser: APIFullResponseUser;
@@ -58,7 +57,7 @@ const ChangeUserInformationModal = ({
 
   return (
     <>
-      <View style={tw`mx-4 gap-2`}>
+      <View className="mx-4 gap-2">
         <Input
           placeholder="Vorname"
           initialValue={editFirstName}
@@ -103,9 +102,9 @@ const ChangeUserInformationModal = ({
       <ErrorDisplay
         hasError={!!updateError && hasTriedUpdate}
         error={updateError || ""}
-        style={tw`mx-4`}
+        className="mx-4"
       />
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View className="justify-center flex-row gap-2 my-4">
         <Button onPress={closeModal}>Abbrechen</Button>
         <Button
           onPress={() => {

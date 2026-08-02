@@ -31,7 +31,6 @@ import useCreateColumn from "@/hooks/api/useCreateColumn";
 import useDeleteColumn from "@/hooks/api/useDeleteColumn";
 import useRenameColumn from "@/hooks/api/useRenameColumn";
 import useRestrictions from "@/hooks/api/useRestrictions";
-import tw from "@/tailwind";
 
 export default function ManagePositionsScreen() {
   const {
@@ -155,7 +154,7 @@ export default function ManagePositionsScreen() {
         </Button>
       </SettingsForm>
 
-      <Divider type="HORIZONTAL" style={tw`my-4`} />
+      <Divider type="HORIZONTAL" className="my-4" />
 
       <Callout
         visible={!restrictions?.columnsDeletable}
@@ -167,13 +166,13 @@ export default function ManagePositionsScreen() {
         message="Das Bearbeiten von Spalten ist in Ihrem Produkt deaktiviert."
       />
 
-      <SettingsForm style={tw`mb-8`}>
+      <SettingsForm className="mb-8">
         <Form>
           <TH titles={["Spalten", "Pläne", ""]}></TH>
           {allColumns.map((column) => (
             <TR key={column.id}>
               <TD cols={3}>
-                <CustomText style={tw`text-lg`}>{column.name}</CustomText>
+                <CustomText className="text-lg">{column.name}</CustomText>
                 <CustomText>
                   {column.type === "COMMENT" ? "Kommentarfeld" : "Eintragefeld"}
                 </CustomText>
@@ -185,7 +184,7 @@ export default function ManagePositionsScreen() {
                   </CustomText>
                 ))}
               </TD>
-              <TD style={tw`justify-end flex-row items-center gap-1`} cols={3}>
+              <TD className="justify-end flex-row items-center gap-1" cols={3}>
                 <SettingsActionButton
                   color={Color.RED}
                   disabled={!restrictions?.columnsDeletable}
@@ -214,18 +213,18 @@ export default function ManagePositionsScreen() {
       </SettingsForm>
 
       <ModalRewrite title="modal.columns.deleteColumn" ref={deleteColumnModal}>
-        <CustomText style={tw`mx-4`}>
+        <CustomText className="mx-4">
           Soll die Spalte{" "}
-          <CustomText style={tw`font-semibold`}>
+          <CustomText className="font-semibold">
             {columnToChange?.name}
           </CustomText>{" "}
           wirklich glöscht werden?
         </CustomText>
-        <CustomText style={tw`text-red-400 mx-4 mt-2`}>
+        <CustomText className="text-red-400 mx-4 mt-2">
           Dadurch werden alle Eintragungen von Mitgliedern in dieser Spalte
           unwiderruflich gelöscht!
         </CustomText>
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
+        <View className="justify-center flex-row gap-2 my-4">
           <Button onPress={() => deleteColumnModal.current?.closeModal()}>
             Abbrechen
           </Button>
@@ -241,7 +240,7 @@ export default function ManagePositionsScreen() {
       </ModalRewrite>
 
       <ModalRewrite title="modal.columns.editColumn" ref={editModal}>
-        <CustomText style={tw`mt-4 mx-4`}>
+        <CustomText className="mt-4 mx-4">
           Neuen Spalten Namen festlegen
         </CustomText>
 
@@ -260,12 +259,12 @@ export default function ManagePositionsScreen() {
         />
 
         <ErrorDisplay
-          style={tw`mx-4`}
+          className="mx-4"
           hasError={hasRenameError}
           error={renameError}
         />
 
-        <CustomText style={tw`mt-4 mx-4`}>
+        <CustomText className="mt-4 mx-4">
           Spalten zu Plänen zuordnen
         </CustomText>
         {allPages.map((page) => (
@@ -299,7 +298,7 @@ export default function ManagePositionsScreen() {
           />
         ))}
 
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
+        <View className="justify-center flex-row gap-2 my-4">
           <Button onPress={() => editModal.current?.closeModal()}>
             Abbrechen
           </Button>

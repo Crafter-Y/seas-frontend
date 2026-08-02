@@ -10,7 +10,6 @@ import ErrorDisplay from "@/components/ErrorDisplay";
 import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -53,9 +52,9 @@ export default function PrintRangeModal({
 
   return (
     <>
-      <View style={tw`px-4`}>
+      <View className="px-4">
         <Pressable
-          style={tw`flex-row items-center`}
+          className="flex-row items-center"
           onPress={() => setSelectedRadio("first")}
         >
           <RadioButton.Android
@@ -75,7 +74,7 @@ export default function PrintRangeModal({
         </CustomText>
 
         <Pressable
-          style={tw`flex-row items-center mt-2`}
+          className="flex-row items-center mt-2"
           onPress={() => setSelectedRadio("second")}
         >
           <RadioButton.Android
@@ -95,7 +94,7 @@ export default function PrintRangeModal({
               prettyDate(formatDate(pickerRange.endDate!), false)}
           </CustomText>
         )}
-        <View style={tw`flex-row`}>
+        <View className="flex-row">
           <Button
             onPress={() => {
               setPickerOpen(true);
@@ -118,7 +117,7 @@ export default function PrintRangeModal({
         <ErrorDisplay error={pickerError} hasError={!!pickerError} />
       </View>
 
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View className="justify-center flex-row gap-2 my-4">
         <Button onPress={closeModal} color={Color.RED}>
           Abbrechen
         </Button>

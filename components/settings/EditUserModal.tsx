@@ -5,9 +5,7 @@ import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import Image from "@/components/elements/Image";
-import { Color } from "@/helpers/Constants";
 import useRequestVerification from "@/hooks/api/useRequestVerification";
-import tw from "@/tailwind";
 
 type Props = {
   user: User;
@@ -32,22 +30,15 @@ const EditUserModal = ({
     <>
       <TouchableOpacity
         activeOpacity={0.55}
-        style={tw.style(
-          {
-            hidden: editUser.id === user.id,
-          },
-          "pb-3 pt-1 flex-row items-center mx-4 gap-2",
-        )}
+        className={`pb-3 pt-1 flex-row items-center mx-4 gap-2 ${
+          editUser.id === user.id ? "hidden" : ""
+        }`}
         onPress={() => {
           closeModal();
           openRequestPasswordModal();
         }}
       >
-        <CustomText
-          style={tw.style("text-lg font-semibold", {
-            color: Color.BLUE,
-          })}
-        >
+        <CustomText className="text-lg font-semibold text-seas-blue">
           Passwort zurücksetzen
         </CustomText>
         <Image
@@ -58,30 +49,18 @@ const EditUserModal = ({
       </TouchableOpacity>
       <Divider
         type="HORIZONTAL"
-        style={tw.style(
-          {
-            hidden: editUser.id === user.id,
-          },
-          "mb-1",
-        )}
+        className={`mb-1 ${editUser.id === user.id ? "hidden" : ""}`}
       />
       <Pressable
-        style={tw.style(
-          {
-            hidden: editUser.id === user.id,
-          },
-          "py-3 flex-row items-center mx-4 gap-2",
-        )}
+        className={`py-3 flex-row items-center mx-4 gap-2 ${
+          editUser.id === user.id ? "hidden" : ""
+        }`}
         onPress={() => {
           closeModal();
           openChangeInformationModal();
         }}
       >
-        <CustomText
-          style={tw.style("text-lg font-semibold", {
-            color: Color.BLUE,
-          })}
-        >
+        <CustomText className="text-lg font-semibold text-seas-blue">
           Nutzer bearbeiten
         </CustomText>
         <Image
@@ -92,22 +71,15 @@ const EditUserModal = ({
       </Pressable>
       <Divider
         type="HORIZONTAL"
-        style={tw.style(
-          {
-            hidden: editUser.id === user.id,
-          },
-          "mb-1",
-        )}
+        className={`mb-1 ${editUser.id === user.id ? "hidden" : ""}`}
       />
       <Pressable
-        style={tw.style(
-          {
-            hidden:
-              editUser.state !== "UNVERIFIED" &&
-              editUser.state !== "VERIFICATION_PENDING",
-          },
-          "py-3 flex-row items-center mx-4 gap-2",
-        )}
+        className={`py-3 flex-row items-center mx-4 gap-2 ${
+          editUser.state !== "UNVERIFIED" &&
+          editUser.state !== "VERIFICATION_PENDING"
+            ? "hidden"
+            : ""
+        }`}
         onPress={() => {
           // TODO: refactor to use event driven code (without timeout)
           closeModal();
@@ -117,11 +89,7 @@ const EditUserModal = ({
           }, 1000);
         }}
       >
-        <CustomText
-          style={tw.style("text-lg font-semibold", {
-            color: Color.BLUE,
-          })}
-        >
+        <CustomText className="text-lg font-semibold text-seas-blue">
           Verifizierung anfragen
         </CustomText>
         <Image
@@ -132,17 +100,15 @@ const EditUserModal = ({
       </Pressable>
       <Divider
         type="HORIZONTAL"
-        style={tw.style(
-          {
-            hidden:
-              editUser.state !== "UNVERIFIED" &&
-              editUser.state !== "VERIFICATION_PENDING",
-          },
-          "mb-1",
-        )}
+        className={`mb-1 ${
+          editUser.state !== "UNVERIFIED" &&
+          editUser.state !== "VERIFICATION_PENDING"
+            ? "hidden"
+            : ""
+        }`}
       />
 
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View className="justify-center flex-row gap-2 my-4">
         <Button onPress={closeModal}>Abbrechen</Button>
       </View>
     </>

@@ -13,7 +13,6 @@ import { openPrintModal, sharePdf } from "@/helpers/print";
 import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
-import tw from "@/tailwind";
 
 type Item = { text: string; key: number };
 
@@ -155,29 +154,29 @@ export default function PrintOrderModal({
 
   return (
     <>
-      <View style={tw`px-4`}>
+      <View className="px-4">
         <CustomText>
           Sie können hier die Reihenfolge ändern. Der oberste Eintrag wird auf
           dem Plan ganz links sein.
         </CustomText>
-        <Divider type="HORIZONTAL" style={tw`mt-2 mb-4`} />
+        <Divider type="HORIZONTAL" className="mt-2 mb-4" />
 
-        <View style={tw`gap-1`}>
+        <View className="gap-1">
           {data.map((row, idx, arr) => (
             <Animated.View
               // TODO: seems to be not working on chrome web - maybe broken otherwhere?
               key={row.key}
-              style={tw`flex-row p-2 border items-center justify-between`}
+              className="flex-row p-2 border items-center justify-between"
               layout={CurvedTransition.duration(150).delay(50)}
             >
               <CustomText>{row.text}</CustomText>
-              <View style={tw`flex-row`}>
+              <View className="flex-row">
                 {idx !== 0 && (
                   <TouchableOpacity
                     onPress={() => {
                       onReordered(idx, idx - 1);
                     }}
-                    style={tw`p-2 w-10 rounded-full`}
+                    className="p-2 w-10 rounded-full"
                   >
                     <AntDesign name="caret-up" size={25} color="gray" />
                   </TouchableOpacity>
@@ -187,7 +186,7 @@ export default function PrintOrderModal({
                     onPress={() => {
                       onReordered(idx, idx + 1);
                     }}
-                    style={tw`p-2 w-10 rounded-full`}
+                    className="p-2 w-10 rounded-full"
                   >
                     <AntDesign name="caret-down" size={25} color="gray" />
                   </TouchableOpacity>
@@ -197,9 +196,9 @@ export default function PrintOrderModal({
           ))}
         </View>
 
-        <Divider type="HORIZONTAL" style={tw`mt-4 mb-2`} />
+        <Divider type="HORIZONTAL" className="mt-4 mb-2" />
       </View>
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View className="justify-center flex-row gap-2 my-4">
         <Button onPress={print} color={Color.BLUE}>
           Drucken
         </Button>
@@ -207,7 +206,7 @@ export default function PrintOrderModal({
           Als .pdf exportieren
         </Button>
       </View>
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View className="justify-center flex-row gap-2 my-4">
         <Button onPress={closeModal} color={Color.RED}>
           Abbrechen
         </Button>

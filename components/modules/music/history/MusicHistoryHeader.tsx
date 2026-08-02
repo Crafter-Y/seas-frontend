@@ -4,7 +4,6 @@ import { Button, SegmentedButtons } from "react-native-paper";
 
 import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
 import { HistoryType } from "@/components/modules/music/MusicHistoryModal";
-import tw from "@/tailwind";
 
 type Props = {
   setSearchType: (text: MusicEntryType) => void;
@@ -35,7 +34,7 @@ export default function MusicHistoryHeader({
           },
         ]}
       />
-      <View style={tw`mt-2`}>
+      <View className="mt-2">
         <Button
           mode="outlined"
           textColor="black"

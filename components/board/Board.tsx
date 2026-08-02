@@ -14,7 +14,6 @@ import useAllPages from "@/hooks/api/useAllPages";
 import useBoard from "@/hooks/api/useBoard";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 type Props = {
   boardType: BoardType;
@@ -68,34 +67,15 @@ const Board = ({
   }, [allPages]);
 
   return (
-    <View
-      style={tw.style(
-        {
-          "mx-2": !isSm,
-          "mx-4": isSm,
-        },
-        "bg-white mt-4 shadow-lg",
-      )}
-    >
+    <View className={`bg-white mt-4 shadow-lg ${isSm ? "mx-4" : "mx-2"}`}>
       <BoardRangePicker boardType={boardType} queryPageChange={fetchData} />
       <BoardPageSelector />
       <Divider
         type="HORIZONTAL"
-        style={tw.style("mt-2", {
-          "mx-0": !isSm,
-          "mx-6": isSm,
-          "mb-6": isLg,
-        })}
+        className={`mt-2 ${isSm ? "mx-6" : "mx-0"} ${isLg ? "mb-6" : ""}`}
       />
 
-      <View
-        style={tw.style(
-          {
-            hidden: isLg,
-          },
-          "flex-row gap-2 m-2",
-        )}
-      >
+      <View className={`flex-row gap-2 m-2 ${isLg ? "hidden" : ""}`}>
         <RoundIconButton
           hidden={!moduleStatus?.moduleCalendar}
           className="border border-gray-400"

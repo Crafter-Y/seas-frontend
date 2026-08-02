@@ -8,7 +8,6 @@ import useAllDefaultComments from "@/hooks/api/useAllDefaultComments";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
 import useUpdateComment from "@/hooks/api/useUpdateComment";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -44,50 +43,42 @@ export default function BoardRowCommentModal({
   }, [successfulUpdate]);
 
   return (
-    <View
-      style={tw.style(
-        {
-          "px-6": isSm,
-          "px-4": !isSm,
-        },
-        "py-6",
-      )}
-    >
+    <View className={`py-6 ${isSm ? "px-6" : "px-4"}`}>
       <Pressable>
         <TextInput
           multiline
           editable
           numberOfLines={4}
-          style={tw`border rounded-lg border-gray-400 px-2 py-1 opacity-85 text-lg`}
+          className="border rounded-lg border-gray-400 px-2 py-1 opacity-85 text-lg"
           placeholder="Kommentar eingeben"
           value={commentEditValue}
           onChangeText={setCommentEditValue}
         />
       </Pressable>
 
-      <View style={tw`flex-row flex-wrap gap-1 mt-1`}>
+      <View className="flex-row flex-wrap gap-1 mt-1">
         {allDefaultComments?.map((comment) => (
           <Pressable
             key={comment.id}
-            style={tw`border border-gray-400 rounded-lg py-1 px-2 flex-row items-center gap-2 max-w-full`}
+            className="border border-gray-400 rounded-lg py-1 px-2 flex-row items-center gap-2 max-w-full"
             onPress={() => {
               setCommentEditValue(commentEditValue + comment.comment);
             }}
           >
             <CustomText
-              style={tw`font-semibold text-green-500 text-lg`}
+              className="font-semibold text-green-500 text-lg"
               selectable={false}
             >
               +
             </CustomText>
-            <CustomText style={tw`font-semibold`} selectable={false}>
+            <CustomText className="font-semibold" selectable={false}>
               {comment.comment}
             </CustomText>
           </Pressable>
         ))}
       </View>
 
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View className="justify-center flex-row gap-2 my-4">
         <Button
           onPress={() => {
             closeModal();

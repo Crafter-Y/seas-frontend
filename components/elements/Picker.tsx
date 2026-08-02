@@ -15,7 +15,6 @@ import { Platform, Pressable, View } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
-import tw from "@/tailwind";
 
 type Props = {
   selectedValue: string;
@@ -67,11 +66,9 @@ const Picker = ({
               iosModal.current?.openModal();
             }
           }}
-          style={tw.style(
-            "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center h-13 pl-4 pr-5",
-          )}
+          className="border border-black border-opacity-20 rounded-xl justify-between flex-row items-center h-13 pl-4 pr-5"
         >
-          <CustomText style={tw.style({}, "text-lg")}>
+          <CustomText className="text-lg">
             {selectionCount === 1
               ? getAllPickerProps()[0].label
               : getParamValue(selectedValue)}
@@ -96,17 +93,13 @@ const Picker = ({
     );
 
   return (
-    <View style={tw.style("border border-black border-opacity-20 rounded-xl")}>
+    <View className="border border-black border-opacity-20 rounded-xl">
       <RNPicker
         aria-disabled={disabled}
-        style={tw.style(
-          {
-            fontSize: 18,
-            border: "none",
-          },
-
-          "rounded-xl px-2 bg-transparent py-1",
-        )}
+        // was the web-only CSS shorthand `border: "none"` under twrnc, which is
+        // not a valid React Native style key; borderWidth: 0 is the equivalent
+        className="rounded-xl px-2 bg-transparent py-1 text-lg"
+        style={{ borderWidth: 0 }}
         selectedValue={selectedValue}
         onValueChange={onValueChange}
       >

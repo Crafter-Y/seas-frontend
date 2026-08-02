@@ -4,7 +4,6 @@ import { View } from "react-native";
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
-import tw from "@/tailwind";
 
 type Props = {
   reactivateUser: () => void;
@@ -15,12 +14,10 @@ const ReactivateUserModal = forwardRef<ModalHandle, Props>(
   ({ reactivateUser, clearInputs }: Props, ref) => {
     return (
       <Modal type="CENTER" ref={ref}>
-        <CustomText
-          style={tw`text-center text-2xl mt-6 px-4 font-semibold underline`}
-        >
+        <CustomText className="text-center text-2xl mt-6 px-4 font-semibold underline">
           Benutzer neu aktivieren?
         </CustomText>
-        <View style={tw`px-4 mt-4 gap-2`}>
+        <View className="px-4 mt-4 gap-2">
           <CustomText>
             Ein ehemaliger Mitglied mit dieser Email Adresse existierte bereits.
             Wenn dieser erneut aktiviert wird, bleiben alle ehemaligen
@@ -28,7 +25,7 @@ const ReactivateUserModal = forwardRef<ModalHandle, Props>(
           </CustomText>
           <CustomText>Soll dieser Nutzer neu aktiviert werden?</CustomText>
         </View>
-        <View style={tw`justify-center flex-row gap-2 my-4`}>
+        <View className="justify-center flex-row gap-2 my-4">
           <Button
             onPress={() => {
               reactivateUser();

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Platform, Pressable } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
-import tw from "@/tailwind";
 
 type Props = {
   defaultValue?: boolean;
@@ -23,7 +22,7 @@ const Checkbox = ({
 
   return (
     <Pressable
-      style={tw`flex-row items-center gap-2 mx-4 mb-1`}
+      className="flex-row items-center gap-2 mx-4 mb-1"
       onPress={() => {
         if (disabled) return;
         setChecked(!checked);

@@ -12,7 +12,6 @@ import useAllPages from "@/hooks/api/useAllPages";
 import useAssignUser from "@/hooks/api/useAssignUser";
 import useSingleBoardEntry from "@/hooks/api/useSingleBoardEntry";
 import useUnAssignUser from "@/hooks/api/useUnAssignUser";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -265,49 +264,49 @@ export default function BoardRowModal({
 
   return (
     <>
-      <View style={tw`px-2`}>
+      <View className="px-2">
         {/* Display all pages, sort the currentPage to first */}
         {/* TODO: In the future, it should be checked if the user has the permission to see that page/segment */}
         {renderdAllPages.map((page) => (
           <View key={page.id}>
-            <CustomText style={tw`text-lg`}>{page.name}:</CustomText>
+            <CustomText className="text-lg">{page.name}:</CustomText>
 
             {getColsForPageAndType(page.id, "POSITION").map((col) => (
               <View
                 key={col.id}
-                style={tw`flex-row py-1 items-center gap-2 flex-wrap`}
+                className="flex-row py-1 items-center gap-2 flex-wrap"
               >
-                <CustomText style={tw`mr-4`}>{col.name}</CustomText>
+                <CustomText className="mr-4">{col.name}</CustomText>
                 {selectedRow ? getPositionForField(col, page) : null}
               </View>
             ))}
             {getColsForPageAndType(page.id, "COMMENT").map((col) => (
-              <View key={col.id} style={tw`py-1`}>
-                <CustomText style={tw`mr-4`}>{col.name}:</CustomText>
-                <View style={tw`flex-row mt-1 flex-wrap`}>
-                  <Divider type="VERTICAL" style={tw`mr-1`} />
+              <View key={col.id} className="py-1">
+                <CustomText className="mr-4">{col.name}:</CustomText>
+                <View className="flex-row mt-1 flex-wrap">
+                  <Divider type="VERTICAL" className="mr-1" />
                   {selectedRow ? getCommentForField(col, page) : null}
                 </View>
               </View>
             ))}
-            <Divider type="HORIZONTAL" style={tw`my-1`} />
+            <Divider type="HORIZONTAL" className="my-1" />
           </View>
         ))}
 
         {user?.role === "ADMIN" && (
           <>
             <Pressable
-              style={tw`py-3`}
+              className="py-3"
               onPress={() => {
                 closeModal();
                 openDeleteRowModal();
               }}
             >
-              <CustomText style={tw`text-lg text-red-500 font-semibold`}>
+              <CustomText className="text-lg text-red-500 font-semibold">
                 Termin löschen
               </CustomText>
             </Pressable>
-            <Divider type="HORIZONTAL" style={tw`mb-1`} />
+            <Divider type="HORIZONTAL" className="mb-1" />
           </>
         )}
       </View>

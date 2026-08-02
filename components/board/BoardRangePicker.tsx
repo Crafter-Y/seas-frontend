@@ -4,13 +4,11 @@ import { Pressable, TouchableOpacity, View } from "react-native";
 
 import { BoardType } from "@/app/(protected)";
 import CustomText from "@/components/elements/CustomText";
-import { Color } from "@/helpers/Constants";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import useMonthState from "@/hooks/useMonthState";
 import useQuarterState from "@/hooks/useQuarterState";
 import useWeekState from "@/hooks/useWeekState";
 import useYearState from "@/hooks/useYearState";
-import tw from "@/tailwind";
 
 type Props = {
   boardType: BoardType;
@@ -182,15 +180,12 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   };
 
   return (
-    <View style={tw`flex-row justify-center sm:gap-3 gap-1 items-center mt-4`}>
+    <View className="flex-row justify-center sm:gap-3 gap-1 items-center mt-4">
       <TouchableOpacity
         onPress={backAction}
-        style={tw.style(
-          {
-            "w-32": isMd,
-          },
-          "flex-row items-center gap-2 justify-end",
-        )}
+        className={`flex-row items-center gap-2 justify-end ${
+          isMd ? "w-32" : ""
+        }`}
       >
         <Entypo name="arrow-bold-left" size={16} color="black" />
         <CustomText className="underline" selectable={false} numberOfLines={1}>
@@ -198,18 +193,18 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
         </CustomText>
       </TouchableOpacity>
       <Pressable
-        style={tw`border rounded-sm px-2 py-1 bg-[${Color.GRAY}] items-center w-32`}
+        className="border rounded-sm px-2 py-1 bg-seas-gray items-center w-32"
         onPress={middleAction}
       >
         {boardType === "Jahresansicht" && (
-          <CustomText style={tw`text-lg font-semibold`} selectable={false}>
+          <CustomText className="text-lg font-semibold" selectable={false}>
             {currentYear}
           </CustomText>
         )}
         {boardType !== "Jahresansicht" && (
           <>
             <CustomText selectable={false}>{currentYear}</CustomText>
-            <CustomText style={tw`text-lg font-semibold`} selectable={false}>
+            <CustomText className="text-lg font-semibold" selectable={false}>
               {thisText}
             </CustomText>
           </>
@@ -218,14 +213,11 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
 
       <TouchableOpacity
         onPress={nextAction}
-        style={tw.style(
-          {
-            "w-32": isMd,
-          },
-          "flex-row items-center gap-2 justify-start",
-        )}
+        className={`flex-row items-center gap-2 justify-start ${
+          isMd ? "w-32" : ""
+        }`}
       >
-        <CustomText style={tw`underline`} selectable={false} numberOfLines={1}>
+        <CustomText className="underline" selectable={false} numberOfLines={1}>
           {nextText}
         </CustomText>
         <Entypo name="arrow-bold-right" size={16} color="black" />

@@ -7,11 +7,9 @@ import { SegmentedButtons } from "react-native-paper";
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Input from "@/components/elements/Input";
-import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { Store } from "@/helpers/store";
 import useMusicSearch from "@/hooks/api/useMusicSearch";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -48,8 +46,8 @@ export default function MusicSelectSongModal({
   }, [heightAnimate, songs]);
 
   return (
-    <View style={tw`mx-2 md:mx-4 mb-2`}>
-      <CustomText style={tw`text-lg font-semibold mb-1`}>
+    <View className="mx-2 md:mx-4 mb-2">
+      <CustomText className="text-lg font-semibold mb-1">
         {prettyDate(formatDate(musicDate!), false)}
       </CustomText>
       <SegmentedButtons
@@ -98,19 +96,17 @@ export default function MusicSelectSongModal({
           renderItem={({ item, index }) => {
             return (
               <View
-                style={tw`border-b-2 p-1 flex-row gap-2 border-[${
-                  Color.GRAY
-                }] ${index === 0 ? "border-t-2" : ""} ${
+                className={`border-b-2 p-1 flex-row gap-2 border-seas-gray ${index === 0 ? "border-t-2" : ""} ${
                   index % 2 === 0 ? "bg-gray-100" : ""
                 }`}
               >
-                <View style={tw`w-4/5`}>
-                  <CustomText style={tw`text-lg leading-[18px]`}>
+                <View className="w-4/5">
+                  <CustomText className="text-lg leading-[18px]">
                     {item.title} ({item.number})
                   </CustomText>
-                  <CustomText style={tw`text-xs`}>{item.book.name}</CustomText>
+                  <CustomText className="text-xs">{item.book.name}</CustomText>
                 </View>
-                <View style={tw`w-1/5 flex-1 items-center justify-center`}>
+                <View className="w-1/5 flex-1 items-center justify-center">
                   <TouchableOpacity
                     onPress={() => {
                       Store.update((state) => {

@@ -5,7 +5,6 @@ import { DatePickerModal } from "react-native-paper-dates";
 import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 
 import CustomText from "@/components/elements/CustomText";
-import tw from "@/tailwind";
 
 type Props = {
   setDate: (date: CalendarDate) => void;
@@ -21,19 +20,14 @@ const SingleDatePicker = ({ setDate }: Props) => {
         onPress={() => {
           setOpen(true);
         }}
-        style={tw.style(
-          {
-            "h-13": Platform.OS !== "web",
-            "pl-4": Platform.OS !== "web",
-            "pr-5": Platform.OS !== "web",
-            "pl-2": Platform.OS === "web",
-            "py-0.5": Platform.OS === "web",
-            "pr-1": Platform.OS === "web",
-          },
-          "border border-black border-opacity-20 rounded-xl justify-between flex-row items-center",
-        )}
+        // NOTE: `h-13` is not on Tailwind's default spacing scale, so it was
+        // already a no-op under twrnc. Kept verbatim rather than silently
+        // changing the height — see the Step 2 notes in EXPO-UPGRADE-PLAN.md.
+        className={`border border-black border-opacity-20 rounded-xl justify-between flex-row items-center ${
+          Platform.OS !== "web" ? "h-13 pl-4 pr-5" : "pl-2 py-0.5 pr-1"
+        }`}
       >
-        <CustomText style={tw.style({}, "text-lg")}>
+        <CustomText className="text-lg">
           {date ? date?.toLocaleDateString() : "Datum auswählen"}
         </CustomText>
         <AntDesign name="caret-down" size={10} color="gray" />

@@ -2,7 +2,6 @@ import React, { ReactNode } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 import { formatDate } from "@/helpers/format";
-import tw from "@/tailwind";
 
 type Props = {
   children?: ReactNode;
@@ -13,21 +12,13 @@ type Props = {
 const PressableTR = ({ children, onPress, date }: Props) => {
   return (
     <View
-      style={tw.style(
-        {
-          "bg-black/10": new Date(formatDate(new Date())) > new Date(date),
-        },
-        "border-t border-gray-300",
-      )}
+      className={`border-t border-gray-300 ${
+        new Date(formatDate(new Date())) > new Date(date) ? "bg-black/10" : ""
+      }`}
     >
       <TouchableOpacity
         activeOpacity={0.55}
-        style={tw.style(
-          {
-            minHeight: 64,
-          },
-          "flex-row w-full",
-        )}
+        className="flex-row w-full min-h-16"
         onPress={onPress}
       >
         {children}

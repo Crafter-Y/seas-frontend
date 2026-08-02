@@ -7,7 +7,6 @@ import CustomText from "@/components/elements/CustomText";
 import Input from "@/components/elements/Input";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import useMediaQueries from "@/hooks/useMediaQueries";
-import tw from "@/tailwind";
 
 type Props = {
   back: () => void;
@@ -27,16 +26,9 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
 
   return (
     <View
-      style={tw.style(
-        {
-          "w-auto": isMd,
-          "px-0": isMd,
-          "px-20": isSm && !isMd,
-          "w-full": !isMd,
-          "px-2": !isMd && !isSm,
-        },
-        "mt-4 gap-2",
-      )}
+      className={`mt-4 gap-2 ${isMd ? "w-auto px-0" : "w-full"} ${
+        isSm && !isMd ? "px-20" : ""
+      } ${!isMd && !isSm ? "px-2" : ""}`}
     >
       <Input
         placeholder="Email"
@@ -73,7 +65,7 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
       />
 
       <CustomText
-        style={tw.style("underline opacity-80")}
+        className="underline opacity-80"
         onPress={() => {
           router.navigate({
             pathname: "/passwordreset",
@@ -86,12 +78,8 @@ const LoginForm = ({ back, login, hasAuthError, authError }: Props) => {
         Passwort vergessen
       </CustomText>
 
-      <View
-        style={tw.style({
-          hidden: isWeb,
-        })}
-      >
-        <CustomText style={tw`mt-2 mb-0`}>Falsch hier?</CustomText>
+      <View className={isWeb ? "hidden" : ""}>
+        <CustomText className="mt-2 mb-0">Falsch hier?</CustomText>
         <Button onPress={back}>Woanders anmelden</Button>
       </View>
     </View>

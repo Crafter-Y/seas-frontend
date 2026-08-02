@@ -7,7 +7,6 @@ import Input from "@/components/elements/Input";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { Color } from "@/helpers/Constants";
 import useRenamePage from "@/hooks/api/useRenamePage";
-import tw from "@/tailwind";
 
 type Props = {
   selectedPage?: APIResponsePage;
@@ -37,7 +36,7 @@ export default function RenamePageModal({
 
   return (
     <>
-      <CustomText style={tw`mt-4 mx-4`}>Neuen Plan Namen festlegen</CustomText>
+      <CustomText className="mt-4 mx-4">Neuen Plan Namen festlegen</CustomText>
 
       <Input
         initialValue={selectedPage?.name}
@@ -54,12 +53,12 @@ export default function RenamePageModal({
       />
 
       <ErrorDisplay
-        style={tw`mx-4`}
+        className="mx-4"
         hasError={hasRenameError}
         error={renameError}
       />
 
-      <View style={tw`justify-center flex-row gap-2 my-4`}>
+      <View className="justify-center flex-row gap-2 my-4">
         <Button
           onPress={() => {
             renamePage(selectedPage!.id, pageRenameName);

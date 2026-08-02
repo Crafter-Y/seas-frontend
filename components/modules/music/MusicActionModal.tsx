@@ -4,7 +4,6 @@ import { Platform, TouchableOpacity, View } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
 import { Store } from "@/helpers/store";
-import tw from "@/tailwind";
 
 type Props = {
   closeModal: () => void;
@@ -31,9 +30,9 @@ export default function MusicActionModal({
 
   return (
     <>
-      <View style={tw`flex-row m-3 md:m-4 gap-3`}>
+      <View className="flex-row m-3 md:m-4 gap-3">
         <TouchableOpacity
-          style={tw`flex-grow flex-1 rounded-lg border-gray-400 border-2 gap-4 justify-between p-2 ${
+          className={`flex-grow flex-1 rounded-lg border-gray-400 border-2 gap-4 justify-between p-2 ${
             Platform.OS === "web" ? "shadow-md" : ""
           }`}
           onPress={() => {
@@ -46,38 +45,34 @@ export default function MusicActionModal({
             }
           }}
         >
-          <CustomText style={tw`text-center text-xl font-semibold`}>
+          <CustomText className="text-center text-xl font-semibold">
             Daten eingeben
           </CustomText>
           <AntDesign
             name="plus"
             size={64}
             color="gray"
-            style={tw`w-16 mx-auto`}
+            className="w-16 mx-auto"
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={tw.style(
-            {
-              "shadow-md": Platform.OS === "web",
-              "pb-10": Platform.OS === "ios", // wriedly, in ios, the icons clip out the bottom
-              "pb-2": Platform.OS !== "ios",
-            },
-            "flex-grow flex-1 rounded-lg border-gray-400 border-2 gap-4 justify-between px-2 pt-2",
-          )}
+          // wriedly, in ios, the icons clip out the bottom
+          className={`flex-grow flex-1 rounded-lg border-gray-400 border-2 gap-4 justify-between px-2 pt-2 ${
+            Platform.OS === "web" ? "shadow-md" : ""
+          } ${Platform.OS === "ios" ? "pb-10" : "pb-2"}`}
           onPress={() => {
             closeModal();
             openHistoryModal();
           }}
         >
-          <CustomText style={tw`text-center text-xl font-semibold`}>
+          <CustomText className="text-center text-xl font-semibold">
             Informationen abrufen
           </CustomText>
           <AntDesign
             name="paper-clip"
             size={64}
             color="gray"
-            style={tw`w-16 mx-auto`}
+            className="w-16 mx-auto"
           />
         </TouchableOpacity>
       </View>

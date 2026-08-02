@@ -1,11 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Pressable, View } from "react-native";
-import { useHover } from "react-native-web-hooks";
 
 import { BoardType } from "@/app/(protected)";
 import CustomText from "@/components/elements/CustomText";
-import { Color } from "@/helpers/Constants";
-import tw from "@/tailwind";
 
 type Props = {
   boardType: BoardType;
@@ -18,37 +15,30 @@ const BoardSidebarNavigationButton = ({
   currentBoardType,
   setBoardType,
 }: Props) => {
-  const ref = useRef(null);
-  const isHovered = useHover(ref);
-
   const changeTab = () => {
     setBoardType(boardType);
   };
 
   return (
+    // `group` + `group-hover:` replaces the old useHover() from
+    // react-native-web-hooks: hover is tracked here, but the styles it drives
+    // sit on descendants.
     <Pressable
-      style={tw`justify-between items-center mb-1 flex-row`}
-      ref={ref}
+      className="justify-between items-center mb-1 flex-row group"
       onPress={changeTab}
     >
       <View></View>
       <CustomText
-        style={tw.style({
-          "font-semibold": boardType === currentBoardType,
-          underline: isHovered,
-          "opacity-80": isHovered,
-        })}
+        className={`group-hover:underline group-hover:opacity-80 ${
+          boardType === currentBoardType ? "font-semibold" : ""
+        }`}
       >
         {boardType}
       </CustomText>
       <View
-        style={tw.style(
-          {
-            backgroundColor:
-              boardType === currentBoardType ? Color.BLUE : Color.GRAY,
-          },
-          "w-1 h-8 rounded-l-md",
-        )}
+        className={`w-1 h-8 rounded-l-md ${
+          boardType === currentBoardType ? "bg-seas-blue" : "bg-seas-gray"
+        }`}
       ></View>
     </Pressable>
   );
