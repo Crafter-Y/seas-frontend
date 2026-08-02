@@ -6,7 +6,7 @@ import { router, useSegments } from "expo-router";
 import React, { useContext, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 import DevelopmentServerModal from "@/components/DevelopmentServerModal";
 import CustomText from "@/components/elements/CustomText";
@@ -39,8 +39,7 @@ export default function LoginScreen() {
     <>
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
-        enableOnAndroid={true}
-        extraScrollHeight={50}
+        bottomOffset={50}
       >
         <View
           style={{

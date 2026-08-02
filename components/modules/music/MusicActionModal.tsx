@@ -74,7 +74,7 @@ export default function MusicActionModal({
             Informationen abrufen
           </CustomText>
           <AntDesign
-            name="paperclip"
+            name="paper-clip"
             size={64}
             color="gray"
             style={tw`w-16 mx-auto`}

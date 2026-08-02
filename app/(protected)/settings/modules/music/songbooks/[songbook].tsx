@@ -97,7 +97,6 @@ export default function Songbook() {
       {/* TODO: fix this really poor performance. It takes up to a couple seconds to render this thing if there are a couple houndred songs */}
       <FlashList
         data={songs}
-        estimatedItemSize={75}
         ListHeaderComponent={
           <>
             {isMd && (

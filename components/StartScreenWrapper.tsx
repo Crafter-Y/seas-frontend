@@ -2,11 +2,12 @@ import { useRef } from "react";
 import {
   Keyboard,
   Platform,
+  ScrollView,
   TouchableWithoutFeedback,
   useWindowDimensions,
   View,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
 
 const StartScreenWrapper = ({ children }: Props) => {
   const { height } = useWindowDimensions();
-  const ref = useRef<KeyboardAwareScrollView>(null);
+  const ref = useRef<ScrollView>(null);
 
   return (
     <SafeAreaView>
@@ -25,9 +26,8 @@ const StartScreenWrapper = ({ children }: Props) => {
           height: Platform.OS !== "android" ? height : undefined,
         }}
         keyboardShouldPersistTaps="handled"
-        enableOnAndroid={true}
-        extraScrollHeight={50}
-        // TODO: something like this might be needed for very small screens - but it is just a workaround for the extraScrollHeight not working properly
+        bottomOffset={50}
+        // TODO: something like this might be needed for very small screens - but it is just a workaround for the bottomOffset not working properly
         // onKeyboardDidShow={() => {
         //   setTimeout(() => {
         //     ref.current?.scrollToPosition(0, 150, true);

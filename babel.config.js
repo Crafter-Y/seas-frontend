@@ -7,7 +7,6 @@ module.exports = function (api) {
     ],
     plugins: [
       "@babel/plugin-transform-export-namespace-from",
-      "react-native-reanimated/plugin",
       [
         "module-resolver",
         {
@@ -16,6 +15,9 @@ module.exports = function (api) {
           },
         },
       ],
+      // Reanimated 4 moved the worklets transform into react-native-worklets.
+      // MUST stay last in this list.
+      "react-native-worklets/plugin",
     ],
   };
 };

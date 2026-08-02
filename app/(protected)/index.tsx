@@ -19,10 +19,7 @@ import useBoard from "@/hooks/api/useBoard";
 
 // TODO: i18n: build proper object with translation keys
 export type BoardType =
-  | "Jahresansicht"
-  | "Quartal Ansicht"
-  | "Monatsansicht"
-  | "Wochenansicht";
+  "Jahresansicht" | "Quartal Ansicht" | "Monatsansicht" | "Wochenansicht";
 
 export default function BoardScreenScreen() {
   const { logout, user, serverName } = useContext(AppContext);

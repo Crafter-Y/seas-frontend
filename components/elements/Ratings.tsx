@@ -1,4 +1,4 @@
-import { AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { TouchableOpacity, View, ViewProps } from "react-native";
 
@@ -43,8 +43,8 @@ const RatingButton = ({
 }: RatingButtonProps) => {
   return (
     <TouchableOpacity onPress={() => setRating(ratingValue)} disabled={frozen}>
-      <AntDesign
-        name={activationValues.includes(rating ?? "") ? "star" : "staro"}
+      <MaterialCommunityIcons
+        name={activationValues.includes(rating ?? "") ? "star" : "star-outline"}
         size={size === "large" ? 48 : 24}
         color={Color.GREEN}
       />

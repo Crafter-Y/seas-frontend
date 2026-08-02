@@ -95,7 +95,6 @@ export default function UserSelectModal({
         <FlashList
           data={renderedItems}
           extraData={selectedUser}
-          estimatedItemSize={20}
           ListEmptyComponent={() => {
             return (
               <CustomText style={tw`mx-2`}>Keine Treffer gefunden</CustomText>

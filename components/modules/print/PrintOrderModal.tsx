@@ -179,7 +179,7 @@ export default function PrintOrderModal({
                     }}
                     style={tw`p-2 w-10 rounded-full`}
                   >
-                    <AntDesign name="caretup" size={25} color="gray" />
+                    <AntDesign name="caret-up" size={25} color="gray" />
                   </TouchableOpacity>
                 )}
                 {idx !== arr.length - 1 && (
@@ -189,7 +189,7 @@ export default function PrintOrderModal({
                     }}
                     style={tw`p-2 w-10 rounded-full`}
                   >
-                    <AntDesign name="caretdown" size={25} color="gray" />
+                    <AntDesign name="caret-down" size={25} color="gray" />
                   </TouchableOpacity>
                 )}
               </View>

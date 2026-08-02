@@ -102,7 +102,7 @@ export default function ManagePagesScreen() {
             className="flex-row items-center gap-2 rounded-lg border-seas-dark-gray border-2 px-2 py-1"
             onPress={() => router.navigate("/settings/modules/music/songbooks")}
           >
-            <AntDesign name="arrowright" size={24} color="black" />
+            <AntDesign name="arrow-right" size={24} color="black" />
             <CustomText
               className="font-semibold underline"
               t="manageSongbooks"

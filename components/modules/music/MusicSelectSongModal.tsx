@@ -94,7 +94,6 @@ export default function MusicSelectSongModal({
               <CustomText>Tippen, damit Ergebnisse erscheinen</CustomText>
             )
           }
-          estimatedItemSize={50}
           data={songs}
           renderItem={({ item, index }) => {
             return (

@@ -76,7 +76,7 @@ const Picker = ({
               ? getAllPickerProps()[0].label
               : getParamValue(selectedValue)}
           </CustomText>
-          <AntDesign name="caretdown" size={10} color="gray" />
+          <AntDesign name="caret-down" size={10} color="gray" />
         </Pressable>
         <Modal
           ref={iosModal}

@@ -7,7 +7,6 @@ module.exports = {
     orientation: "default",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
-    newArchEnabled: true,
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: true,

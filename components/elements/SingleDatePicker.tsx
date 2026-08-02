@@ -36,7 +36,7 @@ const SingleDatePicker = ({ setDate }: Props) => {
         <CustomText style={tw.style({}, "text-lg")}>
           {date ? date?.toLocaleDateString() : "Datum auswählen"}
         </CustomText>
-        <AntDesign name="caretdown" size={10} color="gray" />
+        <AntDesign name="caret-down" size={10} color="gray" />
       </Pressable>
       <DatePickerModal
         startYear={2023}

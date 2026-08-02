@@ -1,5 +1,5 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 import { isAvailableAsync, shareAsync } from "expo-sharing";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,13 +13,7 @@ import { prettyDate } from "@/helpers/format";
 import useSongHistory from "@/hooks/api/useSongHistory";
 
 export type HistoryType =
-  | "GOOD"
-  | "BAD"
-  | "MIN"
-  | "MAX"
-  | "HISTORY"
-  | "KNOWN"
-  | "UNKNOWN";
+  "GOOD" | "BAD" | "MIN" | "MAX" | "HISTORY" | "KNOWN" | "UNKNOWN";
 
 export default function MusicHistoryModal() {
   const {

@@ -4,6 +4,7 @@ import React from "react";
 import { I18nextProvider } from "react-i18next";
 import { useWindowDimensions } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 import { de, registerTranslation } from "react-native-paper-dates";
 
 import CustomText from "@/components/elements/CustomText";
@@ -36,32 +37,36 @@ function DefaultLayout() {
       >
         {/* TODO: maybe display the status bar at all times correctly? https://www.reddit.com/r/expo/comments/1kdtpo9/header_overlap_with_status_bar_after_upgrading_to/ */}
         <StatusBar translucent={false} backgroundColor={Color.SETTINGS_BG} />
-        <I18nextProvider i18n={i18n}>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              // gestureEnabled: false,
-            }}
-          >
-            <Stack.Screen
-              name="(protected)"
-              options={{
-                animation: "none",
+        <KeyboardProvider>
+          <I18nextProvider i18n={i18n}>
+            <Stack
+              screenOptions={{
+                headerShown: false,
               }}
-            />
-            <Stack.Screen
-              name="login"
-              options={{
-                animation: "none",
-              }}
-            />
-            <Stack.Protected
-              guard={__DEV__ || process.env.NODE_ENV === "development"}
             >
-              <Stack.Screen name="storybook" options={{ headerShown: false }} />
-            </Stack.Protected>
-          </Stack>
-        </I18nextProvider>
+              <Stack.Screen
+                name="(protected)"
+                options={{
+                  animation: "none",
+                }}
+              />
+              <Stack.Screen
+                name="login"
+                options={{
+                  animation: "none",
+                }}
+              />
+              <Stack.Protected
+                guard={__DEV__ || process.env.NODE_ENV === "development"}
+              >
+                <Stack.Screen
+                  name="storybook"
+                  options={{ headerShown: false }}
+                />
+              </Stack.Protected>
+            </Stack>
+          </I18nextProvider>
+        </KeyboardProvider>
         {/** without this, when refreshing a static exported page, the height and width is 0 and doesn't get updated */}
         <CustomText className="hidden">
           {height}x{width}
