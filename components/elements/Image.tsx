@@ -5,13 +5,13 @@ type Props = {
   size?: number;
 } & ImageProps;
 
-const Image = ({ source, size = 4, style, ...props }: Props) => {
+const Image = ({ source, size = 4, style, contentFit, ...props }: Props) => {
   return (
     <RNImage
       source={source}
+      contentFit={contentFit ?? "contain"}
       style={[
         {
-          resizeMode: "contain",
           height: size,
           width: size,
         },

@@ -1,8 +1,9 @@
-import { StorybookConfig } from "@storybook/react-native-web-vite";
+import type { StorybookConfig as ReactNativeConfig } from "@storybook/react-native";
+import type { StorybookConfig as WebConfig } from "@storybook/react-native-web-vite";
 
-const main: StorybookConfig = {
+const main: WebConfig & Pick<ReactNativeConfig, "deviceAddons"> = {
   stories: ["../components/**/*.stories.?(ts|tsx|js|jsx)"],
-  addons: [
+  deviceAddons: [
     "@storybook/addon-ondevice-controls",
     "@storybook/addon-ondevice-actions",
   ],
