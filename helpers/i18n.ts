@@ -14,7 +14,6 @@ export const defaultNS = "de";
 
 i18n.use(initReactI18next).init({
   debug: __DEV__,
-  compatibilityJSON: "v3",
   resources: resources,
   lng: getLocales()[0]?.languageTag,
   fallbackLng: "de",

@@ -20,9 +20,6 @@ const SingleDatePicker = ({ setDate }: Props) => {
         onPress={() => {
           setOpen(true);
         }}
-        // NOTE: `h-13` is not on Tailwind's default spacing scale, so it was
-        // already a no-op under twrnc. Kept verbatim rather than silently
-        // changing the height — see the Step 2 notes in EXPO-UPGRADE-PLAN.md.
         className={`border border-black border-opacity-20 rounded-xl justify-between flex-row items-center ${
           Platform.OS !== "web" ? "h-13 pl-4 pr-5" : "pl-2 py-0.5 pr-1"
         }`}
