@@ -1,0 +1,44 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "dependencyDashboard": false,
+  "enabledManagers": ["npm", "dockerfile", "github-actions"],
+  "packageRules": [
+    {
+      "description": "One PR per dependency. config:recommended pulls in grouping presets (group:recommended, group:monorepos) that bundle related packages together; clearing groupName/groupSlug for everything undoes that.",
+      "matchPackageNames": ["*"],
+      "groupName": null,
+      "groupSlug": null
+    },
+    {
+      "description": "Expo owns these versions. They are pinned by the installed SDK and must only ever move together, via `npx expo install --fix` during a deliberate SDK upgrade. Bumping any of them individually produces a version set Expo does not support. Derived from expo's bundledNativeModules.json, plus typescript and @types/react which `expo install --fix` also pins.",
+      "matchPackageNames": [
+        "expo",
+        "expo-*",
+        "@expo/*",
+        "react",
+        "react-dom",
+        "react-native",
+        "react-native-gesture-handler",
+        "react-native-keyboard-controller",
+        "react-native-reanimated",
+        "react-native-safe-area-context",
+        "react-native-screens",
+        "react-native-svg",
+        "react-native-web",
+        "react-native-worklets",
+        "@react-native-async-storage/async-storage",
+        "@react-native-community/datetimepicker",
+        "@react-native-community/slider",
+        "@react-native-picker/picker",
+        "@shopify/flash-list",
+        "babel-preset-expo",
+        "eslint-config-expo",
+        "typescript",
+        "@types/react",
+        "@types/react-dom"
+      ],
+      "enabled": false
+    }
+  ]
+}
