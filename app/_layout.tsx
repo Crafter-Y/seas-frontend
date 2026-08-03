@@ -9,7 +9,6 @@ import { de, registerTranslation } from "react-native-paper-dates";
 
 import CustomText from "@/components/elements/CustomText";
 import { AppProvider } from "@/helpers/appContext";
-import { Color } from "@/helpers/Constants";
 import i18n from "@/helpers/i18n";
 
 import "@/nativewind.css";
@@ -35,8 +34,7 @@ function DefaultLayout() {
       <GestureHandlerRootView
         style={{ flex: 1 }} /* onLayout={onLayoutRootView} */
       >
-        {/* TODO: maybe display the status bar at all times correctly? https://www.reddit.com/r/expo/comments/1kdtpo9/header_overlap_with_status_bar_after_upgrading_to/ */}
-        <StatusBar translucent={false} backgroundColor={Color.SETTINGS_BG} />
+        <StatusBar />
         <KeyboardProvider>
           <I18nextProvider i18n={i18n}>
             <Stack

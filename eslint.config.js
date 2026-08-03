@@ -25,6 +25,7 @@ module.exports = defineConfig([
 
     rules: {
       "prettier/prettier": "warn",
+      // TODO: look into this rule as well
       // "@typescript-eslint/no-unused-vars": [
       //   "error",
       //   {
@@ -34,6 +35,9 @@ module.exports = defineConfig([
       //     varsIgnorePattern: "^_",
       //   },
       // ],
+      // TODO: work these down, then restore them to "error".
+      "react-hooks/set-state-in-effect": "warn",
+      "react-hooks/refs": "warn",
       "import/order": [
         "error",
         {

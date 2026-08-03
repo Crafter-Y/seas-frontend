@@ -44,6 +44,7 @@ module.exports = {
       "expo-localization",
       "expo-image",
       "expo-sharing",
+      "expo-status-bar",
       [
         "expo-calendar",
         {

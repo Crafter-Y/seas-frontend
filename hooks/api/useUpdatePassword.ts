@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Router } from "expo-router";
+import { type ImperativeRouter } from "expo-router";
 import { useState } from "react";
 
 import { requestApi } from "@/helpers/api";
@@ -13,7 +13,7 @@ export default function useUpdatePassword() {
     oldPassword: string,
     newPassword1: string,
     newPassword2: string,
-    router: Router,
+    router: ImperativeRouter,
   ) => {
     if (newPassword1 !== newPassword2) {
       setHasUpdateError(true);
