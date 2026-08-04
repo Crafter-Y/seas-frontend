@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { use, useEffect, useMemo } from "react";
 import { Pressable, View } from "react-native";
 
 import BoardAssignButton from "@/components/board/BoardAssignButton";
@@ -33,7 +33,7 @@ export default function BoardRowModal({
   setCommentEditValue,
 }: Props) {
   const { allPages } = useAllPages();
-  const { user } = useContext(AppContext);
+  const { user } = use(AppContext);
 
   const { selectedRow, querySingleRow } = useSingleBoardEntry();
 

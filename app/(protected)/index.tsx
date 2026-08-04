@@ -1,5 +1,5 @@
 import { router, useSegments } from "expo-router";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, ScrollView } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
@@ -22,7 +22,7 @@ export type BoardType =
   "Jahresansicht" | "Quartal Ansicht" | "Monatsansicht" | "Wochenansicht";
 
 export default function BoardScreenScreen() {
-  const { logout, user, serverName } = useContext(AppContext);
+  const { logout, user, serverName } = use(AppContext);
   const { loading, requeryBoard } = useBoard();
 
   const segments = useSegments();

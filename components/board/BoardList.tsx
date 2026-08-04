@@ -1,11 +1,4 @@
-import React, {
-  memo,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { memo, use, useEffect, useMemo, useRef, useState } from "react";
 import { View } from "react-native";
 
 import BoardAssignButton from "@/components/board/BoardAssignButton";
@@ -33,7 +26,7 @@ type Props = {
   fetchData: () => void;
 };
 const BoardList = ({ rows, fetchData }: Props) => {
-  const { user } = useContext(AppContext);
+  const { user } = use(AppContext);
   const { assignUser, assignmentSuccessful } = useAssignUser();
   const {
     assignUser: boardAssign,

@@ -3,7 +3,7 @@ import "@expo/match-media"; // I don't remember why this is needed, but I am afr
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Constants from "expo-constants";
 import { router, useSegments } from "expo-router";
-import React, { useContext, useEffect, useRef } from "react";
+import React, { use, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
@@ -20,7 +20,7 @@ import useMediaQueries from "@/hooks/useMediaQueries";
 
 export default function LoginScreen() {
   const { returnToServerSelection, serverName, loginError, login } =
-    useContext(AppContext);
+    use(AppContext);
 
   const { isMd } = useMediaQueries();
   const { t } = useTranslation();

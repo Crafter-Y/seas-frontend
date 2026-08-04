@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { useImperativeHandle, useRef } from "react";
 
 import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
 import MusicActionModal from "@/components/modules/music/MusicActionModal";
@@ -9,7 +9,11 @@ import MusicEntryTypeModal from "@/components/modules/music/MusicEntryTypeModal"
 import MusicHistoryModal from "@/components/modules/music/MusicHistoryModal";
 import MusicSelectSongModal from "@/components/modules/music/MusicSelectSongModal";
 
-const MusicModalContainer = forwardRef<ModalHandle>((props, ref) => {
+type Props = {
+  ref?: React.Ref<ModalHandle>;
+};
+
+const MusicModalContainer = ({ ref }: Props) => {
   const musicActonModal = useRef<ModalHandle>(null);
 
   const entryTypeModal = useRef<ModalHandle>(null);
@@ -82,7 +86,7 @@ const MusicModalContainer = forwardRef<ModalHandle>((props, ref) => {
       </ModalRewrite>
     </>
   );
-});
+};
 
 MusicModalContainer.displayName = "MusicModalContainer";
 export default MusicModalContainer;

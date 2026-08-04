@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { use, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
@@ -27,7 +27,7 @@ import useAllUsers from "@/hooks/api/useAllUsers";
 import useRestrictions from "@/hooks/api/useRestrictions";
 
 export default function ManageUsersScreen() {
-  const { user } = useContext(AppContext);
+  const { user } = use(AppContext);
   const { t } = useTranslation();
 
   const { allUsers, queryUsers } = useAllUsers();

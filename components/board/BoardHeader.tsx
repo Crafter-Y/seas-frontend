@@ -1,6 +1,6 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import React, { memo, useContext, useRef } from "react";
+import React, { memo, use, useRef } from "react";
 import { Platform, View } from "react-native";
 
 import { BoardType } from "@/app/(protected)";
@@ -39,7 +39,7 @@ const BoardHeader = ({
 }: BoardHeaderProps) => {
   const { isLg } = useMediaQueries();
 
-  const { serverName } = useContext(AppContext);
+  const { serverName } = use(AppContext);
 
   const modal = useRef<ModalHandle>(null);
 

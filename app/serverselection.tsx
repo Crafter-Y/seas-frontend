@@ -1,6 +1,6 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Redirect, router } from "expo-router";
-import { useContext, useRef, useState } from "react";
+import { use, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, useWindowDimensions, View } from "react-native";
 
@@ -16,7 +16,7 @@ import StartScreenWrapper from "@/components/StartScreenWrapper";
 import { AppContext } from "@/helpers/appContext";
 
 export default function ServerSelectorScreen() {
-  const { selectServer, selectServerError } = useContext(AppContext);
+  const { selectServer, selectServerError } = use(AppContext);
   const { height, width } = useWindowDimensions();
   const { t } = useTranslation();
 

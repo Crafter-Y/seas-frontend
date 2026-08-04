@@ -339,7 +339,7 @@ export function AppProvider({ children }: PropsWithChildren) {
   }, [isReady]);
 
   return (
-    <AppContext.Provider
+    <AppContext
       value={{
         serverId,
         user,
@@ -356,6 +356,6 @@ export function AppProvider({ children }: PropsWithChildren) {
       }}
     >
       {children}
-    </AppContext.Provider>
+    </AppContext>
   );
 }

@@ -36,6 +36,7 @@ module.exports = {
     },
     experiments: {
       baseUrl: process.env.GH_PAGES ? "/seas-frontend" : undefined,
+      reactCompiler: true,
     },
     owner: "crafter_y",
     plugins: [

@@ -1,7 +1,7 @@
 import * as ExpoCalendar from "expo-calendar";
 import * as FileSystem from "expo-file-system/legacy";
 import * as Sharing from "expo-sharing";
-import React, { useContext, useState } from "react";
+import React, { use, useState } from "react";
 import { Platform, View } from "react-native";
 
 import Button from "@/components/elements/Button";
@@ -17,7 +17,7 @@ export default function CalendarModal() {
 
   const [syncSuccessful, setSyncSuccessful] = useState(false);
 
-  const { user, serverName } = useContext(AppContext);
+  const { user, serverName } = use(AppContext);
 
   const { from, to, board } = Store.useState((state) => ({
     from: state.lastQueryFrom,

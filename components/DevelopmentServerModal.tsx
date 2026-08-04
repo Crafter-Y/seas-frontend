@@ -1,12 +1,16 @@
-import React, { forwardRef, memo, useContext } from "react";
+import React, { memo, use } from "react";
 
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import ModalRewrite, { ModalHandle } from "@/components/elements/ModalRewrite";
 import { AppContext } from "@/helpers/appContext";
 
-const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
-  const { serverDevUrl, setDevUrl } = useContext(AppContext);
+type Props = {
+  ref?: React.Ref<ModalHandle>;
+};
+
+const DevelopmentServerModal = ({ ref }: Props) => {
+  const { serverDevUrl, setDevUrl } = use(AppContext);
 
   const localIp =
     process.env.REACT_NATIVE_PACKAGER_HOSTNAME ?? "192.168.178.95:8080";
@@ -57,7 +61,7 @@ const DevelopmentServerModal = forwardRef<ModalHandle>((props, ref) => {
       </Button>
     </ModalRewrite>
   );
-});
+};
 
 DevelopmentServerModal.displayName = "DevelopmentServerModal";
 export default memo(DevelopmentServerModal);

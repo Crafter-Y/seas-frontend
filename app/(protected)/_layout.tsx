@@ -1,5 +1,5 @@
 import { Redirect, Stack } from "expo-router";
-import { useContext } from "react";
+import { use } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform } from "react-native";
 
@@ -12,7 +12,7 @@ export const unstable_settings = {
 };
 
 export default function ProtectedLayout() {
-  const state = useContext(AppContext);
+  const state = use(AppContext);
 
   const { t } = useTranslation();
   const { isMd } = useMediaQueries();

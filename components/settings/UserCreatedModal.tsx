@@ -1,11 +1,15 @@
-import { forwardRef, MutableRefObject } from "react";
+import { RefObject } from "react";
 import { View } from "react-native";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Modal, { ModalHandle } from "@/components/elements/Modal";
 
-const UserCreatedModal = forwardRef<ModalHandle>((props, ref) => {
+type Props = {
+  ref?: RefObject<ModalHandle | null>;
+};
+
+const UserCreatedModal = ({ ref }: Props) => {
   return (
     <Modal type="CENTER" ref={ref}>
       <CustomText className="text-center text-xl mt-6 px-4 font-semibold">
@@ -16,7 +20,7 @@ const UserCreatedModal = forwardRef<ModalHandle>((props, ref) => {
       <View className="items-center mb-4 mt-2">
         <Button
           onPress={() => {
-            (ref as MutableRefObject<ModalHandle>).current.closeModal();
+            ref?.current?.closeModal();
           }}
         >
           Fertig
@@ -24,7 +28,7 @@ const UserCreatedModal = forwardRef<ModalHandle>((props, ref) => {
       </View>
     </Modal>
   );
-});
+};
 
 UserCreatedModal.displayName = "UserCreatedModal";
 export default UserCreatedModal;
