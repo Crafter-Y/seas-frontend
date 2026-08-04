@@ -55,7 +55,10 @@ export default function ManagePositionsScreen() {
   const [columnName, setColumnName] = useState("");
   const [columnType, setColumnType] = useState("POSITION");
 
-  const [maxColsReached, setMaxColsReached] = useState(false);
+  const maxColsReached =
+    !!restrictions &&
+    !!allColumns &&
+    restrictions.maxColumns <= allColumns.length;
 
   const columnNameInput = useRef<TextInput>(null);
   const renameInput = useRef<TextInput>(null);
@@ -88,16 +91,6 @@ export default function ManagePositionsScreen() {
       editModal.current?.closeModal();
     }
   }, [successfulColumnRename, assignmentSuccessful, queryColumns]);
-
-  useEffect(() => {
-    if (
-      restrictions &&
-      allColumns &&
-      restrictions.maxColumns <= allColumns.length
-    ) {
-      setMaxColsReached(true);
-    }
-  }, [restrictions, allColumns]);
 
   return (
     <SettingsLayout

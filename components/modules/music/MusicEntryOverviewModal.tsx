@@ -1,6 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
 
 import Button from "@/components/elements/Button";
@@ -32,7 +32,7 @@ export default function MusicEntryOverviewModal({
     },
   );
 
-  const heightAnimate = useRef(new Animated.Value(128)).current;
+  const [heightAnimate] = useState(() => new Animated.Value(128));
 
   useEffect(() => {
     if (musicRatings.length > 2) {

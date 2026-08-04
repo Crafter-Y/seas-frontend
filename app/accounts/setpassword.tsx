@@ -35,8 +35,8 @@ export default function VerifyScreen() {
     email,
   } = usePasswordTokenInfo();
 
-  const [title, setTitle] =
-    useState<keyof (typeof resources)["de"]["translation"]>("changePassword");
+  const title: keyof (typeof resources)["de"]["translation"] =
+    intent === "onboarding" ? "createAccount" : "setYourPassword";
 
   const [newPassword1, setNewPassword1] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
@@ -56,17 +56,6 @@ export default function VerifyScreen() {
       setTokenValid(false);
     }
   }, [setTokenValid, t, verify]);
-
-  useEffect(() => {
-    switch (intent) {
-      case "onboarding": {
-        setTitle("createAccount");
-        break;
-      }
-      default:
-        setTitle("setYourPassword");
-    }
-  }, [intent]);
 
   return (
     <SafeAreaView className="bg-seas-light-gray flex-row h-full">

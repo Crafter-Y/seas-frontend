@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { Pressable, View } from "react-native";
 
 import BoardAssignButton from "@/components/board/BoardAssignButton";
@@ -32,8 +32,6 @@ export default function BoardRowModal({
   openEditCommentModal,
   setCommentEditValue,
 }: Props) {
-  const [renderdAllPages, setRenderdAllPages] = useState<APIResponsePage[]>([]);
-
   const { allPages } = useAllPages();
   const { user } = useContext(AppContext);
 
@@ -75,13 +73,13 @@ export default function BoardRowModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    setRenderdAllPages(
-      JSON.parse(JSON.stringify(allPages)).sort((a: APIResponsePage) =>
+  const renderdAllPages = useMemo<APIResponsePage[]>(
+    () =>
+      (JSON.parse(JSON.stringify(allPages)) as APIResponsePage[]).sort((a) =>
         a.id !== currentPage ? 1 : -1,
       ),
-    );
-  }, [allPages, currentPage]);
+    [allPages, currentPage],
+  );
 
   const getColsForPageAndType = (page: number, type: ColumnType) => {
     return allColumns.filter(

@@ -28,23 +28,14 @@ const ChangeUserInformationModal = ({
 
   const [hasTriedUpdate, setHasTriedUpdate] = useState(false);
 
-  const [editFirstName, setEditFirstName] = useState("");
-  const [editLastName, setEditLastName] = useState("");
-  const [editEmail, setEditEmail] = useState("");
-  const [editRole, setEditRole] = useState<Role>("USER");
+  const [editFirstName, setEditFirstName] = useState(editUser?.firstname ?? "");
+  const [editLastName, setEditLastName] = useState(editUser?.lastname ?? "");
+  const [editEmail, setEditEmail] = useState(editUser?.email ?? "");
+  const [editRole, setEditRole] = useState<Role>(editUser?.role ?? "USER");
 
   const editFirstNameInput = useRef<TextInput>(null);
   const editSecondNameInput = useRef<TextInput>(null);
   const editEmailInput = useRef<TextInput>(null);
-
-  useEffect(() => {
-    setHasTriedUpdate(false);
-
-    setEditFirstName(editUser.firstname);
-    setEditLastName(editUser.lastname);
-    setEditEmail(editUser.email);
-    setEditRole(editUser.role);
-  }, [editUser]);
 
   useEffect(() => {
     if (successfulUpdate) {

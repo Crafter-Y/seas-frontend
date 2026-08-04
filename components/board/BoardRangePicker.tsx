@@ -1,5 +1,5 @@
 import { Entypo } from "@expo/vector-icons";
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { Pressable, TouchableOpacity, View } from "react-native";
 
 import { BoardType } from "@/app/(protected)";
@@ -15,6 +15,21 @@ type Props = {
   queryPageChange: (from: Date, to: Date) => void;
 };
 
+const MONTHS = [
+  "Januar",
+  "Februar",
+  "März",
+  "April",
+  "Mai",
+  "Juni",
+  "Juli",
+  "August",
+  "September",
+  "Oktober",
+  "November",
+  "Dezember",
+];
+
 const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   const { beforeYear, currentYear, nextYear, setCurrentYear } = useYearState();
   const { beforeQuarter, currentQuarter, nextQuarter, setCurrentQuarter } =
@@ -24,12 +39,49 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   const { beforeWeek, currentWeek, nextWeek, setCurrentWeek, setInternalYear } =
     useWeekState();
 
-  const [backText, setBackText] = useState("");
-  const [nextText, setNextText] = useState("");
-
-  const [thisText, setThisText] = useState("");
-
   const { isMd } = useMediaQueries();
+
+  const { backText, nextText, thisText } = useMemo(() => {
+    if (boardType === "Jahresansicht") {
+      return {
+        backText: `${beforeYear}`,
+        nextText: `${nextYear}`,
+        thisText: "",
+      };
+    }
+    if (boardType === "Quartal Ansicht") {
+      return {
+        backText: `${beforeQuarter}. Quartal`,
+        nextText: `${nextQuarter}. Quartal`,
+        thisText: `${currentQuarter}. Quartal`,
+      };
+    }
+    if (boardType === "Monatsansicht") {
+      return {
+        backText: MONTHS[beforeMonth - 1],
+        nextText: MONTHS[nextMonth - 1],
+        thisText: MONTHS[currentMonth - 1],
+      };
+    }
+    return {
+      backText: `KW ${beforeWeek}`,
+      nextText: `KW ${nextWeek}`,
+      thisText: `KW ${currentWeek}`,
+    };
+  }, [
+    boardType,
+    beforeYear,
+    nextYear,
+    beforeQuarter,
+    nextQuarter,
+    currentQuarter,
+    beforeMonth,
+    nextMonth,
+    currentMonth,
+    beforeWeek,
+    nextWeek,
+    currentWeek,
+  ]);
 
   const getDateByWeek = (w: number, y: number) => {
     const simple = new Date(y, 0, 1 + (w - 1) * 7);
@@ -41,35 +93,13 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
   };
 
   useEffect(() => {
-    const months = [
-      "Januar",
-      "Februar",
-      "März",
-      "April",
-      "Mai",
-      "Juni",
-      "Juli",
-      "August",
-      "September",
-      "Oktober",
-      "November",
-      "Dezember",
-    ];
-
     setInternalYear(currentYear);
     if (boardType === "Jahresansicht") {
-      setBackText(beforeYear + "");
-      setNextText(nextYear + "");
-
       queryPageChange(
         new Date(currentYear, 0, 1),
         new Date(currentYear, 11, 31),
       );
     } else if (boardType === "Quartal Ansicht") {
-      setBackText(beforeQuarter + ". Quartal");
-      setNextText(nextQuarter + ". Quartal");
-      setThisText(currentQuarter + ". Quartal");
-
       const startThisQuarter = new Date(
         currentYear,
         (currentQuarter - 1) * 3,
@@ -80,19 +110,11 @@ const BoardRangePicker = ({ boardType, queryPageChange }: Props) => {
         new Date(currentYear, startThisQuarter.getMonth() + 3, 0),
       );
     } else if (boardType === "Monatsansicht") {
-      setBackText(months[beforeMonth - 1]);
-      setNextText(months[nextMonth - 1]);
-      setThisText(months[currentMonth - 1]);
-
       queryPageChange(
         new Date(currentYear, currentMonth - 1, 1),
         new Date(currentYear, currentMonth, 0),
       );
     } else {
-      setBackText("KW " + beforeWeek);
-      setNextText("KW " + nextWeek);
-      setThisText("KW " + currentWeek);
-
       const weekStart = getDateByWeek(currentWeek, currentYear);
       const weekEnd = new Date(weekStart);
       weekEnd.setDate(weekStart.getDate() + 6);

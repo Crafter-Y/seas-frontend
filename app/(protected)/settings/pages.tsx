@@ -36,7 +36,9 @@ export default function ManagePagesScreen() {
   const { assignModerator, succesfulAssignment } = useSetPageModerator();
 
   const [pageName, setPageName] = useState("");
-  const [maxPagesReached, setMaxPagesReached] = useState(false);
+
+  const maxPagesReached =
+    !!restrictions && !!allPages && restrictions.maxPages <= allPages.length;
 
   const input = useRef<TextInput>(null);
   const deleteModal = useRef<ModalHandle>(null);
@@ -58,14 +60,6 @@ export default function ManagePagesScreen() {
       input.current?.clear();
     }
   }, [successfulPageCreation, queryPages]);
-
-  useEffect(() => {
-    if (restrictions && allPages && restrictions.maxPages <= allPages.length) {
-      setMaxPagesReached(true);
-    } else {
-      setMaxPagesReached(false);
-    }
-  }, [restrictions, allPages]);
 
   useEffect(() => {
     if (succesfulAssignment) {

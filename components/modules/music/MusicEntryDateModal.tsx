@@ -18,13 +18,12 @@ export default function MusicEntryDateModal({
   openMusicEntryTypeModal,
   openMusicSelectonModal,
 }: Props) {
-  const [isPickerOpen, setPickerOpen] = useState(false);
+  const [isPickerOpen, setPickerOpen] = useState(true);
 
   useEffect(() => {
     Store.update((state) => {
       state.musicDate = undefined;
     });
-    setPickerOpen(true);
   }, []);
 
   const musicDate = Store.useState((state) => state.musicDate);

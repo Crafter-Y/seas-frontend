@@ -1,4 +1,11 @@
-import React, { memo, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  memo,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { View } from "react-native";
 
 import BoardAssignButton from "@/components/board/BoardAssignButton";
@@ -41,8 +48,6 @@ const BoardList = ({ rows, fetchData }: Props) => {
   const { currentPage } = Store.useState((state) => ({
     currentPage: state.currentPage,
   }));
-
-  const [titles, setTitles] = useState<string[]>([]);
 
   const [selectedColumn, setSelectedColumn] = useState<APIResponseColumn>();
   const [commentEditValue, setCommentEditValue] = useState("");
@@ -147,21 +152,21 @@ const BoardList = ({ rows, fetchData }: Props) => {
     );
   };
 
-  useEffect(() => {
-    const titles = [];
-    titles.push("Termin");
+  const titles = useMemo(() => {
+    const result = ["Termin"];
 
     allColumns.forEach((column) => {
       if (column.pages.includes(currentPage) && column.type === "POSITION") {
-        titles.push(column.name);
+        result.push(column.name);
       }
     });
     allColumns.forEach((column) => {
       if (column.pages.includes(currentPage) && column.type === "COMMENT") {
-        titles.push(column.name);
+        result.push(column.name);
       }
     });
-    setTitles(titles);
+
+    return result;
   }, [currentPage, allColumns]);
 
   const getColsForPageAndType = (page: number, type: ColumnType) => {

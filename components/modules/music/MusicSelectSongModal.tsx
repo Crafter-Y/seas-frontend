@@ -1,6 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
 import { SegmentedButtons } from "react-native-paper";
 
@@ -25,7 +25,7 @@ export default function MusicSelectSongModal({
   const { songs, querySongs } = useMusicSearch();
   const musicDate = Store.useState((state) => state.musicDate);
 
-  const heightAnimate = useRef(new Animated.Value(128)).current;
+  const [heightAnimate] = useState(() => new Animated.Value(128));
 
   const [searchType, setSearchType] = useState<"NUMBER" | "TITLE">("NUMBER");
 

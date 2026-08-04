@@ -7,7 +7,6 @@ import React, {
   ReactElement,
   ReactNode,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from "react";
@@ -33,8 +32,6 @@ const Picker = ({
   const iosModal = useRef<ModalHandle>(null);
   const iosPicker = useRef<RNPicker<string>>(null);
 
-  const [selectionCount, setSelectionCount] = useState(0);
-
   const getAllPickerProps = useCallback(() => {
     return children
       .filter((child) => React.isValidElement(child))
@@ -51,9 +48,7 @@ const Picker = ({
     );
   };
 
-  useEffect(() => {
-    setSelectionCount(getAllPickerProps().length);
-  }, [children, getAllPickerProps]);
+  const selectionCount = getAllPickerProps().length;
 
   if (Platform.OS === "ios")
     return (
@@ -96,8 +91,6 @@ const Picker = ({
     <View className="border border-black border-opacity-20 rounded-xl">
       <RNPicker
         aria-disabled={disabled}
-        // was the web-only CSS shorthand `border: "none"` under twrnc, which is
-        // not a valid React Native style key; borderWidth: 0 is the equivalent
         className="rounded-xl px-2 bg-transparent py-1 text-lg"
         style={{ borderWidth: 0 }}
         selectedValue={selectedValue}

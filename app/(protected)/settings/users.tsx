@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
@@ -33,8 +33,16 @@ export default function ManageUsersScreen() {
   const { allUsers, queryUsers } = useAllUsers();
   const { restrictions } = useRestrictions();
 
-  const [maxUsersReached, setMaxUsersReached] = useState(false);
-  const [maxAdminsReached, setMaxAdminsReached] = useState(false);
+  const maxUsersReached =
+    !!restrictions &&
+    !!allUsers &&
+    restrictions.maxUsers <=
+      allUsers.filter((specificUser) => specificUser.role === "USER").length;
+  const maxAdminsReached =
+    !!restrictions &&
+    !!allUsers &&
+    restrictions.maxAdmins <=
+      allUsers.filter((specificUser) => specificUser.role === "ADMIN").length;
 
   const [editUser, setEditUser] = useState<APIFullResponseUser>();
 
@@ -43,26 +51,6 @@ export default function ManageUsersScreen() {
   const deleteUserModal = useRef<ModalHandle>(null);
   const requestNewPasswordModal = useRef<ModalHandle>(null);
   const newPasswordModal = useRef<ModalHandle>(null);
-
-  useEffect(() => {
-    if (
-      restrictions &&
-      allUsers &&
-      restrictions.maxUsers <=
-        allUsers.filter((specificUser) => specificUser.role === "USER").length
-    ) {
-      setMaxUsersReached(true);
-    }
-
-    if (
-      restrictions &&
-      allUsers &&
-      restrictions.maxAdmins <=
-        allUsers.filter((specificUser) => specificUser.role === "ADMIN").length
-    ) {
-      setMaxAdminsReached(true);
-    }
-  }, [restrictions, allUsers]);
 
   return (
     <SettingsLayout actualSetting="users">
@@ -161,6 +149,7 @@ export default function ManageUsersScreen() {
         ref={changeInformationModal}
       >
         <ChangeUserInformationModal
+          key={editUser?.id}
           editUser={editUser!}
           queryUsers={queryUsers}
           maxUsersReached={maxUsersReached}

@@ -1,6 +1,6 @@
 import { FlashList } from "@shopify/flash-list";
 import ExpoCheckbox from "expo-checkbox";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Pressable, TouchableOpacity, View } from "react-native";
 
 import Button from "@/components/elements/Button";
@@ -20,67 +20,60 @@ export default function UserSelectModal({
   onUserSet,
   allUsers,
 }: Props) {
-  const [renderedItems, setRenderedItems] = useState<
-    (ArrayElement<typeof allUsers> | null)[]
-  >([]);
-
   const [search, setSearch] = useState("");
 
   const [selectedUser, setSelectedUser] = useState<number>(
     initialSelectedUserId ?? -1,
   );
 
-  const includeEmptySelection = useCallback(() => {
-    const renderItems: typeof renderedItems = Array.from(allUsers);
-    renderItems.push(null);
-    renderItems.sort((a) => (a !== null ? 1 : -1));
-    setRenderedItems(renderItems);
-  }, [allUsers]);
+  const renderedItems = useMemo<
+    (ArrayElement<typeof allUsers> | null)[]
+  >(() => {
+    const withEmptySelection = () => {
+      const items: (ArrayElement<typeof allUsers> | null)[] =
+        Array.from(allUsers);
+      items.push(null);
+      items.sort((a) => (a !== null ? 1 : -1));
+      return items;
+    };
 
-  useEffect(() => {
-    if (allUsers.length) {
-      includeEmptySelection();
+    if (!(search.length && search.trim().length && allUsers.length)) {
+      return withEmptySelection();
     }
-  }, [allUsers, includeEmptySelection]);
 
-  useEffect(() => {
-    if (search.length && search.trim().length && allUsers.length) {
-      const searchTerms = search
-        .split(" ")
-        .map((el) => el.toLowerCase())
-        .filter((el) => el.length);
+    const searchTerms = search
+      .split(" ")
+      .map((el) => el.toLowerCase())
+      .filter((el) => el.length);
 
-      const res: (typeof allUsers)[] = [];
+    const res: (typeof allUsers)[] = [];
 
-      allUsers.forEach((user) => {
-        const searchableTokens = [user.firstname, user.lastname].map((el) =>
-          el.toLowerCase(),
-        );
+    allUsers.forEach((user) => {
+      const searchableTokens = [user.firstname, user.lastname].map((el) =>
+        el.toLowerCase(),
+      );
 
-        let matches = 0;
+      let matches = 0;
 
-        searchTerms.forEach((term) => {
-          searchableTokens.forEach((token) => {
-            if (term === token) {
-              matches += 5;
-            } else if (token.includes(term)) {
-              matches += 3;
-            } else if (term.includes(token)) matches++;
-          });
+      searchTerms.forEach((term) => {
+        searchableTokens.forEach((token) => {
+          if (term === token) {
+            matches += 5;
+          } else if (token.includes(term)) {
+            matches += 3;
+          } else if (term.includes(token)) matches++;
         });
-
-        if (res[matches] === undefined) {
-          res[matches] = [user];
-        } else {
-          res[matches].push(user);
-        }
       });
-      res[0] = [];
-      setRenderedItems(res.flat().reverse());
-    } else {
-      includeEmptySelection();
-    }
-  }, [allUsers, includeEmptySelection, search]);
+
+      if (res[matches] === undefined) {
+        res[matches] = [user];
+      } else {
+        res[matches].push(user);
+      }
+    });
+    res[0] = [];
+    return res.flat().reverse();
+  }, [allUsers, search]);
 
   return (
     <View>

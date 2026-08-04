@@ -35,9 +35,6 @@ module.exports = defineConfig([
       //     varsIgnorePattern: "^_",
       //   },
       // ],
-      // TODO: work these down, then restore them to "error".
-      "react-hooks/set-state-in-effect": "warn",
-      "react-hooks/refs": "warn",
       "import/order": [
         "error",
         {

@@ -30,8 +30,17 @@ export default function MusicHistoryModal() {
   const [historyType, setHistoryType] = useState<HistoryType>("HISTORY");
   const [page, setPage] = useState(0);
 
-  useEffect(() => {
+  const changeSearchType = (type: MusicEntryType) => {
+    setSearchType(type);
     setPage(0);
+  };
+
+  const changeHistoryType = (type: HistoryType) => {
+    setHistoryType(type);
+    setPage(0);
+  };
+
+  useEffect(() => {
     queryReports(searchType, historyType, 0);
   }, [searchType, historyType, queryReports]);
 
@@ -76,9 +85,9 @@ export default function MusicHistoryModal() {
         <MusicHistoryList
           data={historyResponse}
           headers={[t("date"), t("entry")]}
-          setSearchType={setSearchType}
+          setSearchType={changeSearchType}
           searchType={searchType}
-          setHistoryType={setHistoryType}
+          setHistoryType={changeHistoryType}
           historyType={historyType}
           responseLength={historyResponse.length}
           page={page}
@@ -129,9 +138,9 @@ export default function MusicHistoryModal() {
         <MusicHistoryList
           data={ratingResponse}
           headers={[t("entry"), t("rating")]}
-          setSearchType={setSearchType}
+          setSearchType={changeSearchType}
           searchType={searchType}
-          setHistoryType={setHistoryType}
+          setHistoryType={changeHistoryType}
           historyType={historyType}
           page={page}
           responseLength={ratingResponse.length}
@@ -179,9 +188,9 @@ export default function MusicHistoryModal() {
         <MusicHistoryList
           data={countResponse}
           headers={[t("entry"), t("timesPerformed", { times: " " })]}
-          setSearchType={setSearchType}
+          setSearchType={changeSearchType}
           searchType={searchType}
-          setHistoryType={setHistoryType}
+          setHistoryType={changeHistoryType}
           historyType={historyType}
           responseLength={countResponse.length}
           page={page}
@@ -219,9 +228,9 @@ export default function MusicHistoryModal() {
         <MusicHistoryList
           data={knownResponse}
           headers={[t("title")]}
-          setSearchType={setSearchType}
+          setSearchType={changeSearchType}
           searchType={searchType}
-          setHistoryType={setHistoryType}
+          setHistoryType={changeHistoryType}
           historyType={historyType}
           page={page}
           responseLength={historyType === "KNOWN" ? knownResponse.length : 0}
