@@ -231,7 +231,8 @@ export default function Index() {
           </Button>
           <Button
             onPress={() => {
-              deleteSongbook(selectedSongbook!.id);
+              if (!selectedSongbook) return;
+              deleteSongbook(selectedSongbook.id);
             }}
             color={Color.RED}
           >
@@ -249,7 +250,8 @@ export default function Index() {
           secureTextEntry={false}
           ref={renameInput}
           onSubmitEditing={() => {
-            renamePage(selectedSongbook!.id, renameName);
+            if (!selectedSongbook) return;
+            renamePage(selectedSongbook.id, renameName);
             renameInput.current?.blur();
           }}
           returnKeyType="done"
@@ -267,7 +269,8 @@ export default function Index() {
           </Button>
           <Button
             onPress={() => {
-              renamePage(selectedSongbook!.id, renameName);
+              if (!selectedSongbook) return;
+              renamePage(selectedSongbook.id, renameName);
               renameInput.current?.blur();
             }}
             color={Color.GREEN}

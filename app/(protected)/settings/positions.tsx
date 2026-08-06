@@ -223,7 +223,8 @@ export default function ManagePositionsScreen() {
           </Button>
           <Button
             onPress={() => {
-              deleteColumn(columnToChange!.id);
+              if (!columnToChange) return;
+              deleteColumn(columnToChange.id);
             }}
             color={Color.RED}
           >
@@ -245,7 +246,8 @@ export default function ManagePositionsScreen() {
           secureTextEntry={false}
           ref={renameInput}
           onSubmitEditing={() => {
-            renameColumn(columnToChange!.id, columnRenameName);
+            if (!columnToChange) return;
+            renameColumn(columnToChange.id, columnRenameName);
             renameInput.current?.blur();
           }}
           returnKeyType="done"
@@ -266,11 +268,12 @@ export default function ManagePositionsScreen() {
             key={page.id}
             defaultValue={columnToChange?.pages.includes(page.id)}
             onChange={(isAssigned) => {
-              if (columnToChange?.pages.includes(page.id) === isAssigned) {
+              if (!columnToChange) return;
+              if (columnToChange.pages.includes(page.id) === isAssigned) {
                 // thing has changed - add it to the changes array
                 assignmentChanges.push({
                   pageId: page.id,
-                  columnId: columnToChange!.id,
+                  columnId: columnToChange.id,
                   isAssigned: !isAssigned,
                 });
               } else {
@@ -278,7 +281,7 @@ export default function ManagePositionsScreen() {
                 const index = assignmentChanges.indexOf(
                   assignmentChanges.filter(
                     (entr) =>
-                      entr.columnId === columnToChange!.id &&
+                      entr.columnId === columnToChange.id &&
                       entr.pageId === page.id,
                   )[0],
                 );
@@ -297,8 +300,9 @@ export default function ManagePositionsScreen() {
           </Button>
           <Button
             onPress={() => {
+              if (!columnToChange) return;
               assignColumns(assignmentChanges);
-              renameColumn(columnToChange!.id, columnRenameName);
+              renameColumn(columnToChange.id, columnRenameName);
               renameInput.current?.blur();
             }}
             color={Color.GREEN}

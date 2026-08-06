@@ -69,8 +69,9 @@ export default function Songbook() {
   }, [createNumber, createSong, createTitle, songbook]);
 
   const submitEditSong = useCallback(async () => {
+    if (!selectedSong) return;
     editTitleInput.current?.blur();
-    let success = await editSong(selectedSong!.id, editTitle, editNumber);
+    let success = await editSong(selectedSong.id, editTitle, editNumber);
 
     if (success) {
       await querySongbook(Number(songbook));
@@ -79,7 +80,8 @@ export default function Songbook() {
   }, [editNumber, editSong, editTitle, querySongbook, selectedSong, songbook]);
 
   const submitDeleteSong = useCallback(async () => {
-    let success = await deleteSong(selectedSong!.id);
+    if (!selectedSong) return;
+    let success = await deleteSong(selectedSong.id);
 
     if (success) {
       await querySongbook(Number(songbook));

@@ -198,7 +198,10 @@ export default function ManagePagesScreen() {
         <UserSelectModal
           initialSelectedUserId={selectedPage?.moderatorUserId ?? null}
           closeModal={() => moderatorModal.current?.closeModal()}
-          onUserSet={(userId) => assignModerator(selectedPage!.id, userId)}
+          onUserSet={(userId) => {
+            if (!selectedPage) return;
+            assignModerator(selectedPage.id, userId);
+          }}
           allUsers={allUsers}
         />
       </ModalRewrite>

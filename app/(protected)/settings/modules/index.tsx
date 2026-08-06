@@ -50,9 +50,10 @@ export default function ManagePagesScreen() {
             <Button
               color={moduleStatus?.modulePrint ? Color.RED : Color.BLUE}
               disabled={!restrictions?.modulesManagable}
-              onPress={() =>
-                changeModuleState("print", !moduleStatus!.modulePrint)
-              }
+              onPress={() => {
+                if (!moduleStatus) return;
+                changeModuleState("print", !moduleStatus.modulePrint);
+              }}
             >
               {moduleStatus?.modulePrint ? t("deactivate") : t("activate")}
             </Button>
@@ -70,9 +71,10 @@ export default function ManagePagesScreen() {
             <Button
               color={moduleStatus?.moduleCalendar ? Color.RED : Color.BLUE}
               disabled={!restrictions?.modulesManagable}
-              onPress={() =>
-                changeModuleState("calendar", !moduleStatus!.moduleCalendar)
-              }
+              onPress={() => {
+                if (!moduleStatus) return;
+                changeModuleState("calendar", !moduleStatus.moduleCalendar);
+              }}
             >
               {moduleStatus?.moduleCalendar ? t("deactivate") : t("activate")}
             </Button>
@@ -90,9 +92,10 @@ export default function ManagePagesScreen() {
             <Button
               color={moduleStatus?.moduleMusic ? Color.RED : Color.BLUE}
               disabled={!restrictions?.modulesManagable}
-              onPress={() =>
-                changeModuleState("music", !moduleStatus!.moduleMusic)
-              }
+              onPress={() => {
+                if (!moduleStatus) return;
+                changeModuleState("music", !moduleStatus.moduleMusic);
+              }}
             >
               {moduleStatus?.moduleMusic ? t("deactivate") : t("activate")}
             </Button>
