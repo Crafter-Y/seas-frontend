@@ -30,7 +30,6 @@ interface GlobalStore {
   lastQueryFrom: Date | null;
   lastQueryTo: Date | null;
 
-  serverName: string | null;
   serverNameState: FetchState;
 
   printDateStart: Date | null;
@@ -60,7 +59,6 @@ export const defaultState: GlobalStore = {
   lastQueryFrom: null,
   lastQueryTo: null,
 
-  serverName: null,
   serverNameState: FetchState.UNFETCHED,
 
   printDateStart: null,

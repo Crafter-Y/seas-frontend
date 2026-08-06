@@ -1,18 +1,22 @@
 import { AntDesign } from "@expo/vector-icons";
-import React, { useCallback, useState } from "react";
+import { remapProps } from "nativewind";
+import React, { use, useCallback, useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
-import Animated, { CurvedTransition } from "react-native-reanimated";
+import Animated, { LinearTransition } from "react-native-reanimated";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import { requestApi } from "@/helpers/api";
+import { AppContext } from "@/helpers/appContext";
 import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { openPrintModal, sharePdf } from "@/helpers/print";
 import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
+
+const AnimatedView = remapProps(Animated.View, { className: "style" });
 
 type Item = { text: string; key: number };
 
@@ -31,8 +35,9 @@ export default function PrintOrderModal({
 
   const { allExistingUsers } = useAllExistingUsers();
 
-  const { serverName, printStart, printEnd } = Store.useState((state) => ({
-    serverName: state.serverName,
+  const { serverName } = use(AppContext);
+
+  const { printStart, printEnd } = Store.useState((state) => ({
     printStart: state.printDateStart,
     printEnd: state.printDateEnd,
   }));
@@ -163,15 +168,14 @@ export default function PrintOrderModal({
 
         <View className="gap-1">
           {data.map((row, idx, arr) => (
-            <Animated.View
-              // TODO: seems to be not working on chrome web - maybe broken otherwhere?
+            <AnimatedView
               key={row.key}
               className="flex-row p-2 border items-center justify-between"
-              layout={CurvedTransition.duration(150).delay(50)}
+              layout={LinearTransition.duration(150).delay(50)}
             >
               <CustomText>{row.text}</CustomText>
               <View className="flex-row">
-                {idx !== 0 && (
+                {idx !== 0 ? (
                   <TouchableOpacity
                     onPress={() => {
                       onReordered(idx, idx - 1);
@@ -180,8 +184,10 @@ export default function PrintOrderModal({
                   >
                     <AntDesign name="caret-up" size={25} color="gray" />
                   </TouchableOpacity>
+                ) : (
+                  <View className="p-2 w-10" />
                 )}
-                {idx !== arr.length - 1 && (
+                {idx !== arr.length - 1 ? (
                   <TouchableOpacity
                     onPress={() => {
                       onReordered(idx, idx + 1);
@@ -190,9 +196,11 @@ export default function PrintOrderModal({
                   >
                     <AntDesign name="caret-down" size={25} color="gray" />
                   </TouchableOpacity>
+                ) : (
+                  <View className="p-2 w-10" />
                 )}
               </View>
-            </Animated.View>
+            </AnimatedView>
           ))}
         </View>
 
