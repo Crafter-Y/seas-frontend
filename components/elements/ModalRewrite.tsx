@@ -1,4 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
+import { cssInterop } from "nativewind";
 import React, { useCallback, useImperativeHandle, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -12,11 +13,16 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView as GestureScrollView } from "react-native-gesture-handler";
 
 import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import useMediaQueries from "@/hooks/useMediaQueries";
+
+const ScrollView = cssInterop(GestureScrollView, {
+  className: "style",
+  contentContainerClassName: "contentContainerStyle",
+});
 
 export type ModalHandle = {
   openModal: () => void;
