@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { use, useState } from "react";
 import { View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import MyBoardList from "@/components/board/BoardList";
+import { AppContext } from "@/helpers/appContext";
 import { formatDate } from "@/helpers/format";
-import { Store } from "@/helpers/store";
 
 import type { Meta, StoryObj } from "@storybook/react-native-web-vite";
 
@@ -12,49 +12,85 @@ type Props = {
   children: React.ReactNode;
 };
 
-const DataWrapper = ({ children }: Props) => {
-  useEffect(() => {
-    Store.update((state) => {
-      state.currentPage = 1;
-      state.user = {
-        id: 0,
-        firstname: "Testing",
-        lastname: "User",
-        email: "testuser@mail.com",
-        role: "USER",
-      };
-      state.allExistingUsers = [
-        {
-          id: 0,
-          firstname: "Testing",
-          lastname: "User",
-          deleted: false,
-        },
-        {
-          id: 1,
-          firstname: "Another",
-          lastname: "User",
-          deleted: false,
-        },
-      ];
-      state.allColumns = [
-        {
-          id: 0,
-          name: "Column1",
-          type: "POSITION",
-          pages: [1],
-        },
-        {
-          id: 1,
-          name: "Comments",
-          type: "COMMENT",
-          pages: [1],
-        },
-      ];
-    });
-  }, []);
+const mockPages: APIResponsePage[] = [
+  {
+    id: 1,
+    name: "Page 1",
+    moderatorUserId: 0,
+  },
+];
 
-  return <View>{children}</View>;
+const mockColumns: APIResponseColumn[] = [
+  {
+    id: 0,
+    name: "Column1",
+    type: "POSITION",
+    pages: [1],
+  },
+  {
+    id: 1,
+    name: "Comments",
+    type: "COMMENT",
+    pages: [1],
+  },
+];
+
+const mockUsers: APIResponseUser[] = [
+  {
+    id: 0,
+    firstname: "Testing",
+    lastname: "User",
+    deleted: false,
+  },
+  {
+    id: 1,
+    firstname: "Another",
+    lastname: "User",
+    deleted: false,
+  },
+];
+
+const mockUser: User = {
+  id: 0,
+  firstname: "Testing",
+  lastname: "User",
+  email: "testuser@mail.com",
+  role: "USER",
+};
+
+const DataWrapper = ({ children }: Props) => {
+  const parentContext = use(AppContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [allPages, setAllPages] = useState(mockPages);
+  const [allColumns, setAllColumns] = useState(mockColumns);
+  const [allExistingUsers, setAllExistingUsers] = useState(mockUsers);
+  const [user, setUser] = useState<User | null>(mockUser);
+  const [selectedRow, setSelectedRow] = useState<BoardRow>();
+  const [board, setBoard] = useState<BoardRow[]>([]);
+
+  return (
+    <AppContext
+      value={{
+        ...parentContext,
+        currentPage,
+        setCurrentPage,
+        allPages,
+        setAllPages,
+        allColumns,
+        setAllColumns,
+        allExistingUsers,
+        setAllExistingUsers,
+        user,
+        setUser,
+        selectedRow,
+        setSelectedRow,
+        board,
+        setBoard,
+      }}
+    >
+      <View>{children}</View>
+    </AppContext>
+  );
 };
 
 const meta = {

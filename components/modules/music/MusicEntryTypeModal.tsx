@@ -1,9 +1,10 @@
 import { AntDesign } from "@expo/vector-icons";
+import { use } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 type Props = {
   closeModal: () => void;
@@ -23,6 +24,8 @@ export default function MusicEntryTypeModal({
   openMusicActionModal,
   openEntryDateModal,
 }: Props) {
+  const { setMusicEntryType } = use(AppContext);
+
   return (
     <View className="mx-2 md:mx-4">
       <CustomText>Typ des Datensatzes:</CustomText>
@@ -31,9 +34,7 @@ export default function MusicEntryTypeModal({
           Platform.OS === "web" ? "shadow-md" : ""
         }`}
         onPress={() => {
-          Store.update((state) => {
-            state.musicEntryType = "MISSION";
-          });
+          setMusicEntryType("MISSION");
 
           closeModal();
           openEntryDateModal();
@@ -49,9 +50,7 @@ export default function MusicEntryTypeModal({
           Platform.OS === "web" ? "shadow-md" : ""
         }`}
         onPress={() => {
-          Store.update((state) => {
-            state.musicEntryType = "TEST";
-          });
+          setMusicEntryType("TEST");
           closeModal();
           openEntryDateModal();
         }}

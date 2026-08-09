@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { use, useEffect } from "react";
 import { View } from "react-native";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
+import { AppContext } from "@/helpers/appContext";
 import { Color } from "@/helpers/Constants";
 import { prettyDate } from "@/helpers/format";
-import { Store } from "@/helpers/store";
 import useDeleteEvent from "@/hooks/api/useDeleteEvent";
 
 type Props = {
@@ -22,13 +22,12 @@ export default function BoardRowDeleteModal({
   triggerBoardRefetch,
 }: Props) {
   const { deleteEvent, succesfulDeletion } = useDeleteEvent();
+  const { setSelectedRow } = use(AppContext);
 
   useEffect(() => {
     if (succesfulDeletion) {
       // TODO: figure out, why selectedRow gets set to undefined here:
-      Store.update((state) => {
-        state.selectedRow = undefined;
-      });
+      setSelectedRow(undefined);
       triggerBoardRefetch();
       closeModal();
     }

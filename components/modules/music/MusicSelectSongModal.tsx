@@ -1,14 +1,14 @@
 import { AntDesign } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
 import { SegmentedButtons } from "react-native-paper";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Input from "@/components/elements/Input";
+import { AppContext } from "@/helpers/appContext";
 import { formatDate, prettyDate } from "@/helpers/format";
-import { Store } from "@/helpers/store";
 import useMusicSearch from "@/hooks/api/useMusicSearch";
 
 type Props = {
@@ -23,7 +23,7 @@ export default function MusicSelectSongModal({
   openRatingsModal,
 }: Props) {
   const { songs, querySongs } = useMusicSearch();
-  const musicDate = Store.useState((state) => state.musicDate);
+  const { musicDate, setMusicSongSelected } = use(AppContext);
 
   const [heightAnimate] = useState(() => new Animated.Value(128));
 
@@ -109,9 +109,7 @@ export default function MusicSelectSongModal({
                 <View className="w-1/5 flex-1 items-center justify-center">
                   <TouchableOpacity
                     onPress={() => {
-                      Store.update((state) => {
-                        state.musicSongSelected = item;
-                      });
+                      setMusicSongSelected(item);
                       closeModal();
                       openRatingsModal();
                     }}

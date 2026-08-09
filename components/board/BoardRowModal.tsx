@@ -5,7 +5,6 @@ import BoardAssignButton from "@/components/board/BoardAssignButton";
 import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import { AppContext } from "@/helpers/appContext";
-import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import useAllPages from "@/hooks/api/useAllPages";
@@ -33,13 +32,9 @@ export default function BoardRowModal({
   setCommentEditValue,
 }: Props) {
   const { allPages } = useAllPages();
-  const { user } = use(AppContext);
+  const { currentPage, user } = use(AppContext);
 
   const { selectedRow, querySingleRow } = useSingleBoardEntry();
-
-  const { currentPage } = Store.useState((state) => ({
-    currentPage: state.currentPage,
-  }));
 
   const { allColumns } = useAllColumns();
   const { allExistingUsers } = useAllExistingUsers();

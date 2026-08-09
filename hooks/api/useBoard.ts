@@ -1,16 +1,20 @@
+import { use } from "react";
+
 import { requestApi } from "@/helpers/api";
+import { AppContext } from "@/helpers/appContext";
 import { formatDate } from "@/helpers/format";
-import { Store } from "@/helpers/store";
 
 export default function useBoard() {
-  const rows = Store.useState((state) => state.board);
-
-  const { lastQueryFrom, lastQueryTo } = Store.useState((state) => ({
-    lastQueryFrom: state.lastQueryFrom,
-    lastQueryTo: state.lastQueryTo,
-  }));
-
-  const loading = Store.useState((state) => state.boardLoading);
+  const {
+    board: rows,
+    setBoard,
+    boardLoading: loading,
+    setBoardLoading,
+    lastQueryFrom,
+    setLastQueryFrom,
+    lastQueryTo,
+    setLastQueryTo,
+  } = use(AppContext);
 
   const requeryBoard = async () => {
     if (lastQueryFrom && lastQueryTo)
@@ -18,11 +22,9 @@ export default function useBoard() {
   };
 
   const queryBoard = async (fromDate: Date, toDate: Date) => {
-    Store.update((state) => {
-      state.lastQueryFrom = fromDate;
-      state.lastQueryTo = toDate;
-      state.boardLoading = true;
-    });
+    setLastQueryFrom(fromDate);
+    setLastQueryTo(toDate);
+    setBoardLoading(true);
 
     const res = await requestApi(
       `board?from=${formatDate(fromDate)}&to=${formatDate(toDate)}`,
@@ -30,14 +32,10 @@ export default function useBoard() {
     );
 
     if (res && res.success) {
-      Store.update((state) => {
-        state.board = res?.data;
-      });
+      setBoard(res.data);
     }
 
-    Store.update((state) => {
-      state.boardLoading = false;
-    });
+    setBoardLoading(false);
   };
 
   return { rows, queryBoard, requeryBoard, loading };

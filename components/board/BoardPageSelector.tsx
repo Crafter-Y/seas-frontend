@@ -1,8 +1,8 @@
-import React, { memo } from "react";
+import React, { memo, use } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 import useAllPages from "@/hooks/api/useAllPages";
 import useMediaQueries from "@/hooks/useMediaQueries";
 
@@ -11,17 +11,15 @@ type ButtonProps = {
 };
 
 const BoardPageButton = ({ page }: ButtonProps) => {
+  const { setCurrentPage } = use(AppContext);
+
   return (
     // `group` + `group-hover:` replaces the old useHover() from
     // react-native-web-hooks.
     <TouchableOpacity
       className="group"
       key={page.id}
-      onPress={() =>
-        Store.update((state) => {
-          state.currentPage = page.id;
-        })
-      }
+      onPress={() => setCurrentPage(page.id)}
     >
       <CustomText className="border rounded-xl text-lg px-2 border-black group-hover:border-gray-600 group-hover:text-gray-600">
         {page.name}
@@ -34,10 +32,7 @@ const BoardPageSelector = () => {
   const { isSm } = useMediaQueries();
 
   const { allPages } = useAllPages();
-
-  const { currentPage } = Store.useState((state) => ({
-    currentPage: state.currentPage,
-  }));
+  const { currentPage } = use(AppContext);
 
   return (
     <View

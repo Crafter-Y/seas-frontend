@@ -5,59 +5,77 @@ import Constants from "expo-constants";
 import * as Font from "expo-font";
 import { SplashScreen, useRouter } from "expo-router";
 import { InvalidTokenError, jwtDecode as decode } from "jwt-decode";
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform } from "react-native";
 import Toast from "react-native-toast-message";
 
-import { requestApi, requestApiWithoutCredentials } from "@/helpers/api";
-// import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
-// import { Rating } from "@/components/elements/Ratings";
-// import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
-// import { FetchState } from "@/helpers/Constants";
+import {
+  registerUnauthorizedHandler,
+  requestApi,
+  requestApiWithoutCredentials,
+} from "@/helpers/api";
 
-// type RatedSong = APIResponseSong & { rating: Rating; comment?: string };
+import type { Rating } from "@/components/elements/Ratings";
+import type { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
+import type { Dispatch, PropsWithChildren, SetStateAction } from "react";
+import type { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calendar";
 
-/**
- * This is more like my way to go on the global app state.
- * Currently I just use this for auth.
- * The rest of the state is in store.ts
- * TODO: move the rest over here
- */
+export type RatedSong = APIResponseSong & {
+  rating: Rating;
+  comment?: string;
+};
 
 SplashScreen.preventAutoHideAsync();
 
 type AppState = {
-  //   currentPage: number;
-  //   allPages: APIResponsePage[];
-  //   allColumns: APIResponseColumn[];
-  //   selectedRow?: BoardRow;
-
-  //   board: BoardRow[];
-  //   boardLoading: boolean;
-
-  //   allExistingUsers: APIResponseUser[];
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+  allPages: APIResponsePage[];
+  setAllPages: Dispatch<SetStateAction<APIResponsePage[]>>;
+  allColumns: APIResponseColumn[];
+  setAllColumns: Dispatch<SetStateAction<APIResponseColumn[]>>;
+  selectedRow: BoardRow | undefined;
+  setSelectedRow: Dispatch<SetStateAction<BoardRow | undefined>>;
+  board: BoardRow[];
+  setBoard: Dispatch<SetStateAction<BoardRow[]>>;
+  boardLoading: boolean;
+  setBoardLoading: Dispatch<SetStateAction<boolean>>;
+  allExistingUsers: APIResponseUser[];
+  setAllExistingUsers: Dispatch<SetStateAction<APIResponseUser[]>>;
   user: User | null;
-  //   moduleStatus: APIModuleStatus | null;
-  //   allDefaultComments: APIResponseDefaultComment[];
-  //   lastQueryFrom: Date | null;
-  //   lastQueryTo: Date | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
+  moduleStatus: APIModuleStatus | null;
+  setModuleStatus: Dispatch<SetStateAction<APIModuleStatus | null>>;
+  allDefaultComments: APIResponseDefaultComment[];
+  setAllDefaultComments: Dispatch<SetStateAction<APIResponseDefaultComment[]>>;
+  lastQueryFrom: Date | null;
+  setLastQueryFrom: Dispatch<SetStateAction<Date | null>>;
+  lastQueryTo: Date | null;
+  setLastQueryTo: Dispatch<SetStateAction<Date | null>>;
 
   serverId: string | null;
   serverName: string | null;
-  //   serverNameState: FetchState;
   serverDevUrl: string;
 
-  //   printDateStart: Date | null;
-  //   printDateEnd: Date | null;
-  //   printColumns: number[];
+  printDateStart: Date | null;
+  setPrintDateStart: Dispatch<SetStateAction<Date | null>>;
+  printDateEnd: Date | null;
+  setPrintDateEnd: Dispatch<SetStateAction<Date | null>>;
+  printColumns: number[];
+  setPrintColumns: Dispatch<SetStateAction<number[]>>;
 
-  //   musicEntryType?: MusicEntryType;
-  //   musicDate?: CalendarDate;
-  //   musicSongSelected?: APIResponseSong;
-  //   musicRatings: RatedSong[];
+  musicEntryType: MusicEntryType | undefined;
+  setMusicEntryType: Dispatch<SetStateAction<MusicEntryType | undefined>>;
+  musicDate: CalendarDate;
+  setMusicDate: Dispatch<SetStateAction<CalendarDate>>;
+  musicSongSelected: APIResponseSong | undefined;
+  setMusicSongSelected: Dispatch<SetStateAction<APIResponseSong | undefined>>;
+  musicRatings: RatedSong[];
+  setMusicRatings: Dispatch<SetStateAction<RatedSong[]>>;
 
-  //   restrictions?: APIRestrictions;
+  restrictions: APIRestrictions | undefined;
+  setRestrictions: Dispatch<SetStateAction<APIRestrictions | undefined>>;
 
   isReady: boolean;
   loginError: string | null;
@@ -70,30 +88,53 @@ type AppState = {
 };
 
 export const AppContext = createContext<AppState>({
-  //   currentPage: 0,
-  //   allPages: [],
-  //   allColumns: [],
-
-  //   board: [],
-  //   boardLoading: false,
-
-  //   allExistingUsers: [],
+  currentPage: 0,
+  setCurrentPage: () => {},
+  allPages: [],
+  setAllPages: () => {},
+  allColumns: [],
+  setAllColumns: () => {},
+  selectedRow: undefined,
+  setSelectedRow: () => {},
+  board: [],
+  setBoard: () => {},
+  boardLoading: false,
+  setBoardLoading: () => {},
+  allExistingUsers: [],
+  setAllExistingUsers: () => {},
   user: null,
-  //   moduleStatus: null,
-  //   allDefaultComments: [],
-  //   lastQueryFrom: null,
-  //   lastQueryTo: null,
+  setUser: () => {},
+  moduleStatus: null,
+  setModuleStatus: () => {},
+  allDefaultComments: [],
+  setAllDefaultComments: () => {},
+  lastQueryFrom: null,
+  setLastQueryFrom: () => {},
+  lastQueryTo: null,
+  setLastQueryTo: () => {},
 
   serverId: null,
   serverName: null,
-  //   serverNameState: FetchState.UNFETCHED,
   serverDevUrl: "http://api.localhost",
 
-  //   printDateStart: null,
-  //   printDateEnd: null,
-  //   printColumns: [],
+  printDateStart: null,
+  setPrintDateStart: () => {},
+  printDateEnd: null,
+  setPrintDateEnd: () => {},
+  printColumns: [],
+  setPrintColumns: () => {},
 
-  //   musicRatings: [],
+  musicEntryType: undefined,
+  setMusicEntryType: () => {},
+  musicDate: undefined,
+  setMusicDate: () => {},
+  musicSongSelected: undefined,
+  setMusicSongSelected: () => {},
+  musicRatings: [],
+  setMusicRatings: () => {},
+
+  restrictions: undefined,
+  setRestrictions: () => {},
   isReady: false,
   loginError: null,
   selectServerError: null,
@@ -110,13 +151,37 @@ const DEV_URL_KEY = "devServerURL";
 
 export function AppProvider({ children }: PropsWithChildren) {
   const [isReady, setIsReady] = useState(false);
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [allPages, setAllPages] = useState<APIResponsePage[]>([]);
+  const [allColumns, setAllColumns] = useState<APIResponseColumn[]>([]);
+  const [selectedRow, setSelectedRow] = useState<BoardRow>();
+  const [board, setBoard] = useState<BoardRow[]>([]);
+  const [boardLoading, setBoardLoading] = useState(false);
+  const [allExistingUsers, setAllExistingUsers] = useState<APIResponseUser[]>(
+    [],
+  );
   const [serverId, setServerId] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [moduleStatus, setModuleStatus] = useState<APIModuleStatus | null>(
+    null,
+  );
+  const [allDefaultComments, setAllDefaultComments] = useState<
+    APIResponseDefaultComment[]
+  >([]);
+  const [lastQueryFrom, setLastQueryFrom] = useState<Date | null>(null);
+  const [lastQueryTo, setLastQueryTo] = useState<Date | null>(null);
   const [serverDevUrl, setServerDevUrl] = useState<string>(
     "http://api.localhost",
   );
   const [serverName, setServerName] = useState<string | null>(null);
+  const [printDateStart, setPrintDateStart] = useState<Date | null>(null);
+  const [printDateEnd, setPrintDateEnd] = useState<Date | null>(null);
+  const [printColumns, setPrintColumns] = useState<number[]>([]);
+  const [musicEntryType, setMusicEntryType] = useState<MusicEntryType>();
+  const [musicDate, setMusicDate] = useState<CalendarDate>();
+  const [musicSongSelected, setMusicSongSelected] = useState<APIResponseSong>();
+  const [musicRatings, setMusicRatings] = useState<RatedSong[]>([]);
+  const [restrictions, setRestrictions] = useState<APIRestrictions>();
   const [loginError, setLoginError] = useState<string | null>(null);
   const [selectServerError, setSelectServerError] = useState<string | null>(
     null,
@@ -124,6 +189,28 @@ export function AppProvider({ children }: PropsWithChildren) {
 
   const { t } = useTranslation();
   const router = useRouter();
+
+  const clearDomainState = useCallback(() => {
+    setCurrentPage(0);
+    setAllPages([]);
+    setAllColumns([]);
+    setSelectedRow(undefined);
+    setBoard([]);
+    setBoardLoading(false);
+    setAllExistingUsers([]);
+    setModuleStatus(null);
+    setAllDefaultComments([]);
+    setLastQueryFrom(null);
+    setLastQueryTo(null);
+    setPrintDateStart(null);
+    setPrintDateEnd(null);
+    setPrintColumns([]);
+    setMusicEntryType(undefined);
+    setMusicDate(undefined);
+    setMusicSongSelected(undefined);
+    setMusicRatings([]);
+    setRestrictions(undefined);
+  }, []);
 
   const login = async (email: string, password: string) => {
     setLoginError(null);
@@ -161,13 +248,7 @@ export function AppProvider({ children }: PropsWithChildren) {
 
   const logout = async () => {
     await AsyncStorage.removeItem(TOKEN_KEY);
-
-    // const stateBefore = Store.getRawState();
-    // Store.update((state) => {
-    //   Object.assign(state, defaultState);
-    //   state.serverDevUrl = stateBefore.serverDevUrl;
-    //   state.serverName = stateBefore.serverName;
-    // });
+    clearDomainState();
     setUser(null);
 
     // wiredly, on ios, the replace crashes the app.
@@ -229,6 +310,7 @@ export function AppProvider({ children }: PropsWithChildren) {
     }
     await AsyncStorage.removeItem(SERVER_ID_KEY);
     await AsyncStorage.removeItem(TOKEN_KEY);
+    clearDomainState();
     setServerId(null);
     setUser(null);
     setServerName(null);
@@ -254,6 +336,13 @@ export function AppProvider({ children }: PropsWithChildren) {
       setSelectServerError(e + "");
     }
   };
+
+  useEffect(() => {
+    return registerUnauthorizedHandler(() => {
+      clearDomainState();
+      setUser(null);
+    });
+  }, [clearDomainState]);
 
   useEffect(() => {
     const asyncInit = async () => {
@@ -341,11 +430,50 @@ export function AppProvider({ children }: PropsWithChildren) {
   return (
     <AppContext
       value={{
+        currentPage,
+        setCurrentPage,
+        allPages,
+        setAllPages,
+        allColumns,
+        setAllColumns,
+        selectedRow,
+        setSelectedRow,
+        board,
+        setBoard,
+        boardLoading,
+        setBoardLoading,
+        allExistingUsers,
+        setAllExistingUsers,
         serverId,
         user,
+        setUser,
+        moduleStatus,
+        setModuleStatus,
+        allDefaultComments,
+        setAllDefaultComments,
+        lastQueryFrom,
+        setLastQueryFrom,
+        lastQueryTo,
+        setLastQueryTo,
         serverDevUrl,
         isReady,
         serverName,
+        printDateStart,
+        setPrintDateStart,
+        printDateEnd,
+        setPrintDateEnd,
+        printColumns,
+        setPrintColumns,
+        musicEntryType,
+        setMusicEntryType,
+        musicDate,
+        setMusicDate,
+        musicSongSelected,
+        setMusicSongSelected,
+        musicRatings,
+        setMusicRatings,
+        restrictions,
+        setRestrictions,
         loginError,
         selectServerError,
         logout,

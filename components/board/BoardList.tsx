@@ -14,7 +14,6 @@ import TH from "@/components/elements/TH";
 import UserSelectModal from "@/components/elements/UserSelectModal";
 import { AppContext } from "@/helpers/appContext";
 import { prettyDate } from "@/helpers/format";
-import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 import useAssignUser from "@/hooks/api/useAssignUser";
@@ -26,7 +25,7 @@ type Props = {
   fetchData: () => void;
 };
 const BoardList = ({ rows, fetchData }: Props) => {
-  const { user } = use(AppContext);
+  const { currentPage, setSelectedRow, user } = use(AppContext);
   const { assignUser, assignmentSuccessful } = useAssignUser();
   const {
     assignUser: boardAssign,
@@ -37,10 +36,6 @@ const BoardList = ({ rows, fetchData }: Props) => {
   const { selectedRow, querySingleRow } = useSingleBoardEntry();
 
   const { isSm } = useMediaQueries();
-
-  const { currentPage } = Store.useState((state) => ({
-    currentPage: state.currentPage,
-  }));
 
   const [selectedColumn, setSelectedColumn] = useState<APIResponseColumn>();
   const [commentEditValue, setCommentEditValue] = useState("");
@@ -177,9 +172,7 @@ const BoardList = ({ rows, fetchData }: Props) => {
             key={row.date}
             date={row.date}
             onPress={() => {
-              Store.update((state) => {
-                state.selectedRow = row;
-              });
+              setSelectedRow(row);
               rowModal.current?.openModal();
             }}
           >

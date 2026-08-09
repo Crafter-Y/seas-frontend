@@ -1,19 +1,17 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { type ImperativeRouter } from "expo-router";
-import { useState } from "react";
+import { use, useState } from "react";
 
 import { requestApi } from "@/helpers/api";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 export default function useUpdatePassword() {
   const [hasUpdateError, setHasUpdateError] = useState(false);
   const [updateError, setUpdateError] = useState("");
+  const { logout } = use(AppContext);
 
   const updatePassword = async (
     oldPassword: string,
     newPassword1: string,
     newPassword2: string,
-    router: ImperativeRouter,
   ) => {
     if (newPassword1 !== newPassword2) {
       setHasUpdateError(true);
@@ -60,13 +58,7 @@ export default function useUpdatePassword() {
     if (res.success) {
       setHasUpdateError(false);
       setUpdateError("");
-
-      Store.update((state) => {
-        state.user = null;
-      });
-      await AsyncStorage.removeItem("token");
-
-      router.replace("/login");
+      await logout();
     } else {
       setHasUpdateError(true);
       setUpdateError(res.data.error);

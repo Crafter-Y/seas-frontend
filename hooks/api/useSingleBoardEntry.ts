@@ -1,35 +1,34 @@
-import { useCallback } from "react";
+import { use, useCallback } from "react";
 
 import { requestApi } from "@/helpers/api";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 export default function useSingleBoardEntry() {
-  const selectedRow = Store.useState((state) => state.selectedRow);
+  const { selectedRow, setSelectedRow, setBoard } = use(AppContext);
 
-  const querySingleRow = useCallback(async (date: string) => {
-    const res = await requestApi(`board/${date}`, "GET");
-    if (res && res.success) {
-      Store.update((state) => {
-        state.selectedRow = res?.data.row;
-      });
+  const querySingleRow = useCallback(
+    async (date: string) => {
+      const res = await requestApi(`board/${date}`, "GET");
+      if (res && res.success) {
+        const queriedRow = res.data.row;
+        setSelectedRow(queriedRow);
+        setBoard((board) =>
+          board.map((row) => {
+            if (row.date === queriedRow.date) {
+              return {
+                date: row.date,
+                comments: row.comments,
+                assignments: queriedRow.assignments,
+              };
+            }
 
-      const currentBoard = Array.of(...Store.getRawState().board);
-      const newBoard = currentBoard.map((row) => {
-        if (row.date === res?.data.row.date) {
-          return {
-            date: row.date,
-            comments: row.comments,
-            assignments: res?.data.row.assignments,
-          };
-        }
-
-        return row;
-      });
-      Store.update((state) => {
-        state.board = newBoard;
-      });
-    }
-  }, []);
+            return row;
+          }),
+        );
+      }
+    },
+    [setBoard, setSelectedRow],
+  );
 
   return { selectedRow, querySingleRow };
 }

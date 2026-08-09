@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import { MusicEntryType } from "@/components/modules/music/MusicEntryTypeModal";
 import { requestApi } from "@/helpers/api";
+import { RatedSong } from "@/helpers/appContext";
 import { formatDate } from "@/helpers/format";
-import { RatedSong } from "@/helpers/store";
 
 export default function useSaveSongEntries() {
   const [successfulSave, setSuccessfulSave] = useState(false);

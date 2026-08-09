@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { View } from "react-native";
 import { DatePickerModal } from "react-native-paper-dates";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
+import { AppContext } from "@/helpers/appContext";
 import { formatDate, prettyDate } from "@/helpers/format";
-import { Store } from "@/helpers/store";
 
 type Props = {
   closeModal: () => void;
@@ -19,14 +19,11 @@ export default function MusicEntryDateModal({
   openMusicSelectonModal,
 }: Props) {
   const [isPickerOpen, setPickerOpen] = useState(true);
+  const { musicDate, setMusicDate } = use(AppContext);
 
   useEffect(() => {
-    Store.update((state) => {
-      state.musicDate = undefined;
-    });
-  }, []);
-
-  const musicDate = Store.useState((state) => state.musicDate);
+    setMusicDate(undefined);
+  }, [setMusicDate]);
 
   return (
     <View className="mx-2 md:mx-4">
@@ -73,15 +70,11 @@ export default function MusicEntryDateModal({
         mode="single"
         visible={isPickerOpen}
         onDismiss={() => {
-          Store.update((state) => {
-            state.musicDate = undefined;
-          });
+          setMusicDate(undefined);
           setPickerOpen(false);
         }}
         onConfirm={(date) => {
-          Store.update((state) => {
-            state.musicDate = date.date;
-          });
+          setMusicDate(date.date);
           setPickerOpen(false);
         }}
       />

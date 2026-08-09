@@ -1,10 +1,10 @@
-import React from "react";
+import React, { use } from "react";
 import { Platform, View } from "react-native";
 
 import Button from "@/components/elements/Button";
 import Checkbox from "@/components/elements/Checkbox";
+import { AppContext } from "@/helpers/appContext";
 import { Color } from "@/helpers/Constants";
-import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 
 type Props = {
@@ -19,8 +19,7 @@ export default function PrintCoumnsModal({
   openPrintOrderModal,
 }: Props) {
   const { allColumns } = useAllColumns();
-
-  const printColState = Store.useState((state) => state.printColumns);
+  const { printColumns, setPrintColumns } = use(AppContext);
 
   return (
     <>
@@ -35,18 +34,16 @@ export default function PrintCoumnsModal({
           <Checkbox
             key={col.id}
             label={col.name}
-            defaultValue={printColState.includes(col.id)}
+            defaultValue={printColumns.includes(col.id)}
             onChange={(value) => {
-              Store.update((state) => {
-                // TODO: it doesn't make sense, why this variable is always inverted
+              setPrintColumns((previous) => {
+                // TODO: it doesn't make sense why this variable is always inverted
                 if (!value) {
-                  if (!printColState.includes(col.id))
-                    state.printColumns.push(col.id);
-                } else {
-                  state.printColumns = state.printColumns.filter(
-                    (el) => el !== col.id,
-                  );
+                  return previous.includes(col.id)
+                    ? previous
+                    : [...previous, col.id];
                 }
+                return previous.filter((el) => el !== col.id);
               });
             }}
           />

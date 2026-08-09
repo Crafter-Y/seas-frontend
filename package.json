@@ -51,7 +51,6 @@
     "i18next": "^26.3.6",
     "jwt-decode": "^4.0.0",
     "nativewind": "^4.1.23",
-    "pullstate": "^1.25.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-i18next": "^17.0.11",

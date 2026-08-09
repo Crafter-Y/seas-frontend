@@ -1,47 +1,36 @@
-import { useState } from "react";
+import { use, useState } from "react";
 
 import { requestApi } from "@/helpers/api";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 export default function useUnAssignUser() {
   const [unassignmentSuccessful, setUnassignmentSuccessful] = useState(false);
+  const { setBoard, setSelectedRow } = use(AppContext);
 
   const preUnAssignUser = (assignmentId: number) => {
     // fast insertation on row modal
-    const selectedRow = Store.getRawState().selectedRow;
-    if (selectedRow) {
-      let prevAssignments = [...selectedRow.assignments];
-      prevAssignments = prevAssignments.filter(
-        (assignment) => assignment.id !== assignmentId,
-      );
-
-      Store.update((state) => {
-        state.selectedRow = {
-          date: selectedRow.date,
-          assignments: prevAssignments,
-          comments: selectedRow.comments,
-        };
-      });
-    }
-
-    // fast insertation on board
-    const currentBoard = Store.getRawState().board;
-    const newBoard = currentBoard.map((row) => {
-      let prevAssignments = [...row.assignments];
-      prevAssignments = prevAssignments.filter(
-        (assignment) => assignment.id !== assignmentId,
-      );
+    setSelectedRow((selectedRow) => {
+      if (!selectedRow) return selectedRow;
 
       return {
-        date: row.date,
-        assignments: prevAssignments,
-        comments: row.comments,
+        date: selectedRow.date,
+        assignments: selectedRow.assignments.filter(
+          (assignment) => assignment.id !== assignmentId,
+        ),
+        comments: selectedRow.comments,
       };
     });
 
-    Store.update((state) => {
-      state.board = newBoard;
-    });
+    // fast insertation on board
+    setBoard((board) =>
+      board.map((row) => ({
+        date: row.date,
+        assignments: row.assignments.filter(
+          (assignment) => assignment.id !== assignmentId,
+        ),
+        comments: row.comments,
+      })),
+    );
   };
 
   const unassignUser = async (assignmentId: number) => {

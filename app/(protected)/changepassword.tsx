@@ -1,4 +1,3 @@
-import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TextInput, View } from "react-native";
@@ -79,7 +78,7 @@ export default function ChangePasswordScreen() {
 
           <Button
             onPress={() =>
-              updatePassword(oldPassword, newPassword1, newPassword2, router)
+              updatePassword(oldPassword, newPassword1, newPassword2)
             }
           >
             {t("changePassword")}

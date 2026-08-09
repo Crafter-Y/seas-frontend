@@ -1,54 +1,48 @@
-import { useState } from "react";
+import { use, useState } from "react";
 
 import { requestApi } from "@/helpers/api";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 export default function useAssignUser() {
   const [assignmentSuccessful, setAssignmentSuccessful] = useState(false);
+  const { setBoard, setSelectedRow } = use(AppContext);
 
   const preAssignUser = (userId: number, rowDate: string, columnId: number) => {
-    // fast insertation on row modal
-    const selectedRow = Store.getRawState().selectedRow;
-    if (selectedRow && selectedRow.date === rowDate) {
-      const prevAssignments = [...selectedRow.assignments];
-      prevAssignments.push({
-        userId,
-        boardColumnId: columnId,
-        id: Math.random() + 1_000_000,
-      });
+    const selectedRowAssignment = {
+      userId,
+      boardColumnId: columnId,
+      id: Math.random() + 1_000_000,
+    };
+    const boardAssignment = {
+      userId,
+      boardColumnId: columnId,
+      id: Math.random() + 1_000_000,
+    };
 
-      Store.update((state) => {
-        state.selectedRow = {
-          date: selectedRow.date,
-          assignments: prevAssignments,
-          comments: selectedRow.comments,
-        };
-      });
-    }
+    // fast insertation on row modal
+    setSelectedRow((selectedRow) => {
+      if (!selectedRow || selectedRow.date !== rowDate) return selectedRow;
+
+      return {
+        date: selectedRow.date,
+        assignments: [...selectedRow.assignments, selectedRowAssignment],
+        comments: selectedRow.comments,
+      };
+    });
 
     // fast insertation on board
-    const currentBoard = Store.getRawState().board;
-    const newBoard = currentBoard.map((row) => {
-      if (row.date === rowDate) {
-        const prevAssignments = [...row.assignments];
-        prevAssignments.push({
-          userId,
-          boardColumnId: columnId,
-          id: Math.random() + 1_000_000,
-        });
-
-        return {
-          date: row.date,
-          assignments: prevAssignments,
-          comments: row.comments,
-        };
-      }
-      return row;
-    });
-
-    Store.update((state) => {
-      state.board = newBoard;
-    });
+    setBoard((board) =>
+      board.map((row) => {
+        if (row.date === rowDate) {
+          return {
+            date: row.date,
+            assignments: [...row.assignments, boardAssignment],
+            comments: row.comments,
+          };
+        }
+        return row;
+      }),
+    );
   };
 
   const assignUser = async (

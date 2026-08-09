@@ -1,9 +1,9 @@
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
+import React, { use } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 type Props = {
   closeModal: () => void;
@@ -18,15 +18,7 @@ export default function MusicActionModal({
   openOverviewModal,
   openHistoryModal,
 }: Props) {
-  const { musicRatings, musicEntryType, musicDate } = Store.useState(
-    (state) => {
-      return {
-        musicRatings: state.musicRatings,
-        musicEntryType: state.musicEntryType,
-        musicDate: state.musicDate,
-      };
-    },
-  );
+  const { musicRatings, musicEntryType, musicDate } = use(AppContext);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Pressable, View } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { DatePickerModal } from "react-native-paper-dates";
@@ -7,9 +7,9 @@ import { CalendarDate } from "react-native-paper-dates/lib/typescript/Date/Calen
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import ErrorDisplay from "@/components/ErrorDisplay";
+import { AppContext } from "@/helpers/appContext";
 import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
-import { Store } from "@/helpers/store";
 
 type Props = {
   closeModal: () => void;
@@ -20,8 +20,12 @@ export default function PrintRangeModal({
   closeModal,
   openColumnsModal,
 }: Props) {
-  const fromDate = Store.useState((state) => state.lastQueryFrom);
-  const toDate = Store.useState((state) => state.lastQueryTo);
+  const {
+    lastQueryFrom: fromDate,
+    lastQueryTo: toDate,
+    setPrintDateStart,
+    setPrintDateEnd,
+  } = use(AppContext);
 
   const [pickerError, setPickerError] = useState("");
 
@@ -124,19 +128,15 @@ export default function PrintRangeModal({
         <Button
           onPress={() => {
             if (selectedRadio === "first") {
-              Store.update((state) => {
-                state.printDateStart = fromDate;
-                state.printDateEnd = toDate;
-              });
+              setPrintDateStart(fromDate);
+              setPrintDateEnd(toDate);
             } else if (selectedRadio === "second") {
               if (!pickerRange.startDate || !pickerRange.endDate) {
                 setPickerError("Der Zeitraum muss komplett angegeben werden!");
                 return;
               }
-              Store.update((state) => {
-                state.printDateStart = pickerRange.startDate!;
-                state.printDateEnd = pickerRange.endDate!;
-              });
+              setPrintDateStart(pickerRange.startDate);
+              setPrintDateEnd(pickerRange.endDate);
             }
             closeModal();
             openColumnsModal();

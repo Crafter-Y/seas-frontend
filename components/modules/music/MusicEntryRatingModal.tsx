@@ -1,12 +1,12 @@
 import { AntDesign } from "@expo/vector-icons";
-import { useState } from "react";
+import { use, useState } from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Ratings, { Rating, ratingMeaning } from "@/components/elements/Ratings";
+import { AppContext } from "@/helpers/appContext";
 import { formatDate, prettyDate } from "@/helpers/format";
-import { Store } from "@/helpers/store";
 
 type Props = {
   closeModal: () => void;
@@ -19,12 +19,11 @@ export default function MusicEntryRatingModal({
   openSelectSongModal,
   openOverviewModal,
 }: Props) {
-  const { musicDate, song } = Store.useState((state) => {
-    return {
-      musicDate: state.musicDate,
-      song: state.musicSongSelected,
-    };
-  });
+  const {
+    musicDate,
+    musicSongSelected: song,
+    setMusicRatings,
+  } = use(AppContext);
 
   const [rating, setRating] = useState<Rating | undefined>();
   const [comment, setComment] = useState("");
@@ -79,13 +78,14 @@ export default function MusicEntryRatingModal({
       <Button
         onPress={() => {
           closeModal();
-          Store.update((state) => {
-            state.musicRatings.push({
+          setMusicRatings((ratings) => [
+            ...ratings,
+            {
               ...song!,
               rating: rating!,
               comment: comment.trim() === "" ? undefined : comment,
-            });
-          });
+            },
+          ]);
           openOverviewModal();
         }}
         className="mt-4"

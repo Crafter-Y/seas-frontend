@@ -1,20 +1,18 @@
-import { useCallback, useEffect } from "react";
+import { use, useCallback, useEffect } from "react";
 
 import { requestApi } from "@/helpers/api";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 export default function useAllPages() {
-  const allPages = Store.useState((state) => state.allPages);
+  const { allPages, setAllPages } = use(AppContext);
 
   const queryPages = useCallback(async () => {
     const res = await requestApi("pages", "GET");
 
     if (res && res.success) {
-      Store.update((state) => {
-        state.allPages = res?.data.pages;
-      });
+      setAllPages(res.data.pages);
     }
-  }, []);
+  }, [setAllPages]);
 
   useEffect(() => {
     if (allPages.length === 0) queryPages();

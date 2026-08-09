@@ -8,7 +8,6 @@ import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import { AppContext } from "@/helpers/appContext";
-import { Store } from "@/helpers/store";
 
 const CALENDAR_NAME = "SEAS Termine";
 
@@ -17,13 +16,13 @@ export default function CalendarModal() {
 
   const [syncSuccessful, setSyncSuccessful] = useState(false);
 
-  const { user, serverName } = use(AppContext);
-
-  const { from, to, board } = Store.useState((state) => ({
-    from: state.lastQueryFrom,
-    to: state.lastQueryTo,
-    board: state.board,
-  }));
+  const {
+    user,
+    serverName,
+    lastQueryFrom: from,
+    lastQueryTo: to,
+    board,
+  } = use(AppContext);
 
   const getDefaultCalendarSource = async () => {
     const defaultCalendar = await ExpoCalendar.getDefaultCalendarAsync();

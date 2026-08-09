@@ -1,6 +1,6 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 
 import { BoardType } from "@/app/(protected)";
@@ -9,7 +9,7 @@ import BoardPageSelector from "@/components/board/BoardPageSelector";
 import BoardRangePicker from "@/components/board/BoardRangePicker";
 import Divider from "@/components/elements/Divider";
 import RoundIconButton from "@/components/RoundIconButton";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 import useAllPages from "@/hooks/api/useAllPages";
 import useBoard from "@/hooks/api/useBoard";
 import useModuleStatus from "@/hooks/api/useModuleStatus";
@@ -35,6 +35,7 @@ const Board = ({
   const { moduleStatus } = useModuleStatus();
 
   const { rows, queryBoard } = useBoard();
+  const { setCurrentPage } = use(AppContext);
 
   const today = new Date();
   const thisQuarter = Math.floor(today.getMonth() / 3);
@@ -60,11 +61,9 @@ const Board = ({
 
   useEffect(() => {
     if (allPages.length !== 0) {
-      Store.update((state) => {
-        state.currentPage = allPages[0].id;
-      });
+      setCurrentPage(allPages[0].id);
     }
-  }, [allPages]);
+  }, [allPages, setCurrentPage]);
 
   return (
     <View className={`bg-white mt-4 shadow-lg ${isSm ? "mx-4" : "mx-2"}`}>

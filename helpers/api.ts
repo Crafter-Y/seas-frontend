@@ -3,9 +3,19 @@ import Constants from "expo-constants";
 import { getNetworkStateAsync, NetworkStateType } from "expo-network";
 import { router } from "expo-router";
 
-import { Store } from "@/helpers/store";
-
 type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
+
+let unauthorizedHandler: (() => void) | null = null;
+
+export const registerUnauthorizedHandler = (handler: () => void) => {
+  unauthorizedHandler = handler;
+
+  return () => {
+    if (unauthorizedHandler === handler) {
+      unauthorizedHandler = null;
+    }
+  };
+};
 
 const getApi = async (): Promise<string> => {
   if (__DEV__) {
@@ -80,9 +90,7 @@ const requestApi = async (
         response.data.error === "The user does not exist" ||
         response.data.error === "Your password has changed")
     ) {
-      Store.update((state) => {
-        state.user = null;
-      });
+      unauthorizedHandler?.();
       await AsyncStorage.removeItem("token");
       router.replace("/login");
     }

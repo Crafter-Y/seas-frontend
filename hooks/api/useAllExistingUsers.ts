@@ -1,17 +1,15 @@
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 
 import { requestApi } from "@/helpers/api";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 export default function useAllExistingUsers() {
-  const allExistingUsers = Store.useState((state) => state.allExistingUsers);
+  const { allExistingUsers, setAllExistingUsers } = use(AppContext);
 
   const queryUsers = async () => {
     const res = await requestApi("users", "GET");
     if (res && res.success) {
-      Store.update((state) => {
-        state.allExistingUsers = res?.data.users;
-      });
+      setAllExistingUsers(res.data.users);
     }
   };
 

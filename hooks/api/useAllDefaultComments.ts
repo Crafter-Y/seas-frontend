@@ -1,22 +1,18 @@
-import { useCallback, useEffect } from "react";
+import { use, useCallback, useEffect } from "react";
 
 import { requestApi } from "@/helpers/api";
-import { Store } from "@/helpers/store";
+import { AppContext } from "@/helpers/appContext";
 
 export default function useAllDefaultComments() {
-  const allDefaultComments = Store.useState(
-    (state) => state.allDefaultComments,
-  );
+  const { allDefaultComments, setAllDefaultComments } = use(AppContext);
 
   const queryAllDefaultComments = useCallback(async () => {
     const res = await requestApi("defaultcomments", "GET");
 
     if (res === null || !res.success) return;
 
-    Store.update((state) => {
-      state.allDefaultComments = res.data.defaultComments;
-    });
-  }, []);
+    setAllDefaultComments(res.data.defaultComments);
+  }, [setAllDefaultComments]);
 
   useEffect(() => {
     if (allDefaultComments.length === 0) queryAllDefaultComments();

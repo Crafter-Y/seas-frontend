@@ -1,14 +1,14 @@
 import { AntDesign } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
 
 import Button from "@/components/elements/Button";
 import CustomText from "@/components/elements/CustomText";
 import Ratings from "@/components/elements/Ratings";
 import { entryTypeMeanings } from "@/components/modules/music/MusicEntryTypeModal";
+import { AppContext } from "@/helpers/appContext";
 import { formatDate, prettyDate } from "@/helpers/format";
-import { Store } from "@/helpers/store";
 import useSaveSongEntries from "@/hooks/api/useSaveSongEntries";
 
 type Props = {
@@ -22,15 +22,14 @@ export default function MusicEntryOverviewModal({
 }: Props) {
   const { saveSongs } = useSaveSongEntries();
 
-  const { musicDate, musicRatings, musicEntryType } = Store.useState(
-    (state) => {
-      return {
-        musicDate: state.musicDate,
-        musicRatings: state.musicRatings,
-        musicEntryType: state.musicEntryType,
-      };
-    },
-  );
+  const {
+    musicDate,
+    setMusicDate,
+    musicRatings,
+    setMusicRatings,
+    musicEntryType,
+    setMusicEntryType,
+  } = use(AppContext);
 
   const [heightAnimate] = useState(() => new Animated.Value(128));
 
@@ -107,11 +106,9 @@ export default function MusicEntryOverviewModal({
                   <View className="w-1/5 flex-1 items-center justify-center">
                     <TouchableOpacity
                       onPress={() => {
-                        Store.update((state) => {
-                          state.musicRatings = musicRatings
-                            .map((el, idx) => (idx === index ? undefined : el))
-                            .filter((el) => el !== undefined);
-                        });
+                        setMusicRatings((ratings) =>
+                          ratings.filter((_rating, idx) => idx !== index),
+                        );
                       }}
                     >
                       <AntDesign name="close" size={32} color="gray" />
@@ -127,12 +124,9 @@ export default function MusicEntryOverviewModal({
       <Button
         onPress={async () => {
           await saveSongs(musicRatings, musicDate!, musicEntryType!);
-
-          Store.update((state) => {
-            state.musicRatings = [];
-            state.musicEntryType = undefined;
-            state.musicDate = undefined;
-          });
+          setMusicRatings([]);
+          setMusicEntryType(undefined);
+          setMusicDate(undefined);
           closeModal();
         }}
         className="mt-4"

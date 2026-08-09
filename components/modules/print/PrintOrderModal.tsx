@@ -12,7 +12,6 @@ import { AppContext } from "@/helpers/appContext";
 import { Color } from "@/helpers/Constants";
 import { formatDate, prettyDate } from "@/helpers/format";
 import { openPrintModal, sharePdf } from "@/helpers/print";
-import { Store } from "@/helpers/store";
 import useAllColumns from "@/hooks/api/useAllColumns";
 import useAllExistingUsers from "@/hooks/api/useAllExistingUsers";
 
@@ -29,18 +28,16 @@ export default function PrintOrderModal({
   closeModal,
   openColumnsModal,
 }: Props) {
-  const printColumns = Store.useState((state) => state.printColumns);
-
   const { allColumns } = useAllColumns();
 
   const { allExistingUsers } = useAllExistingUsers();
 
-  const { serverName } = use(AppContext);
-
-  const { printStart, printEnd } = Store.useState((state) => ({
-    printStart: state.printDateStart,
-    printEnd: state.printDateEnd,
-  }));
+  const {
+    serverName,
+    printColumns,
+    printDateStart: printStart,
+    printDateEnd: printEnd,
+  } = use(AppContext);
 
   const initialData: Item[] = [...new Set(printColumns)].map((el) => ({
     key: el,
