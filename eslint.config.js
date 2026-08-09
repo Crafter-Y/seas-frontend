@@ -25,16 +25,6 @@ module.exports = defineConfig([
 
     rules: {
       "prettier/prettier": "warn",
-      // TODO: look into this rule as well
-      // "@typescript-eslint/no-unused-vars": [
-      //   "error",
-      //   {
-      //     argsIgnorePattern: "^_",
-      //     caughtErrorsIgnorePattern: "^_",
-      //     destructuredArrayIgnorePattern: "^_",
-      //     varsIgnorePattern: "^_",
-      //   },
-      // ],
       "import/order": [
         "error",
         {
