@@ -15,6 +15,8 @@ import RoundIconButton from "@/components/RoundIconButton";
 import StartScreenWrapper from "@/components/StartScreenWrapper";
 import { AppContext } from "@/helpers/appContext";
 
+import type { ParseKeys } from "i18next";
+
 export default function ServerSelectorScreen() {
   const { selectServer, selectServerError } = use(AppContext);
   const { height, width } = useWindowDimensions();
@@ -22,7 +24,7 @@ export default function ServerSelectorScreen() {
 
   const [serverId, setServerId] = useState("");
   const [isError, setIsError] = useState(false);
-  const [inputError, setInputError] = useState("");
+  const [inputError, setInputError] = useState<ParseKeys | "">("");
 
   const apiModal = useRef<ModalHandle>(null);
 

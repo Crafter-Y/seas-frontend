@@ -2,10 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Text, TextProps } from "react-native";
 
-import { resources } from "@/helpers/i18n";
+import type { ParseKeys } from "i18next";
 
 export type CustomTextProps = {
-  t?: keyof (typeof resources)["de"]["translation"];
+  t?: ParseKeys;
   values?: {
     [name: string]: string;
   };

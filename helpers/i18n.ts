@@ -10,10 +10,11 @@ export const resources = {
   en: { translation: enTranslation },
 } as const;
 
-export const defaultNS = "de";
+export const defaultNS = "translation";
 
 i18n.use(initReactI18next).init({
   debug: __DEV__,
+  defaultNS,
   resources: resources,
   lng: getLocales()[0]?.languageTag,
   fallbackLng: "de",

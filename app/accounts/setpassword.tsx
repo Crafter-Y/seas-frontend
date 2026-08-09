@@ -11,9 +11,10 @@ import Image from "@/components/elements/Image";
 import Input from "@/components/elements/Input";
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Footer from "@/components/Footer";
-import { resources } from "@/helpers/i18n";
 import usePasswordTokenInfo from "@/hooks/api/usePasswortTokenInfo";
 import useRedeemPasswordToken from "@/hooks/api/useRedeemPasswordToken";
+
+import type { ParseKeys } from "i18next";
 
 export default function VerifyScreen() {
   const { t, intent } = useLocalSearchParams<{ t: string; intent: string }>();
@@ -35,7 +36,7 @@ export default function VerifyScreen() {
     email,
   } = usePasswordTokenInfo();
 
-  const title: keyof (typeof resources)["de"]["translation"] =
+  const title: ParseKeys =
     intent === "onboarding" ? "createAccount" : "setYourPassword";
 
   const [newPassword1, setNewPassword1] = useState("");

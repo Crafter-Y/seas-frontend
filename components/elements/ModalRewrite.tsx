@@ -19,6 +19,8 @@ import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import useMediaQueries from "@/hooks/useMediaQueries";
 
+import type { ParseKeys } from "i18next";
+
 const ScrollView = cssInterop(GestureScrollView, {
   className: "style",
   contentContainerClassName: "contentContainerStyle",
@@ -30,7 +32,7 @@ export type ModalHandle = {
 };
 
 type Props = {
-  title: string;
+  title: ParseKeys;
   values?: {
     [name: string]: string;
   };
@@ -40,7 +42,7 @@ type Props = {
 };
 
 type HeaderProps = {
-  title: string;
+  title: ParseKeys;
   values?: {
     [name: string]: string;
   };
