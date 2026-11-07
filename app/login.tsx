@@ -13,6 +13,7 @@ import CustomText from "@/components/elements/CustomText";
 import Divider from "@/components/elements/Divider";
 import H1 from "@/components/elements/H1";
 import { ModalHandle } from "@/components/elements/Modal";
+import LegalLinks from "@/components/LegalLinks";
 import LoginForm from "@/components/LoginForm";
 import RoundIconButton from "@/components/RoundIconButton";
 import { AppContext } from "@/helpers/appContext";
@@ -103,6 +104,7 @@ export default function LoginScreen() {
               }}
               className="underline text-xs opacity-80 w-full text-center native:hidden"
             />
+            <LegalLinks className="mt-1" />
           </View>
         </View>
       </KeyboardAwareScrollView>

@@ -5,6 +5,7 @@ import React from "react";
 import { Linking, Platform, View, ViewProps } from "react-native";
 
 import CustomText from "@/components/elements/CustomText";
+import LegalLinks from "@/components/LegalLinks";
 
 const Footer = (props: ViewProps) => {
   const mailtoReport = async () => {
@@ -31,8 +32,8 @@ const Footer = (props: ViewProps) => {
   return (
     <View className="my-4 flex items-center" {...props}>
       <CustomText className="text-xs opacity-80 w-full text-center">
-        &copy; (copyright) Helmut Haase 2022 - {new Date().getFullYear()} • SEAS
-        Kirchengemeinde UG (haftungsbeschränkt)
+        &copy; 2022 - {new Date().getFullYear()} Bastian Biedermann Software
+        &amp; IT-Dienstleistungen
       </CustomText>
       <CustomText
         className={`text-xs opacity-80 text-center underline ${
@@ -44,6 +45,7 @@ const Footer = (props: ViewProps) => {
       >
         Impressum
       </CustomText>
+      <LegalLinks />
       <CustomText className="text-xs opacity-80 w-full text-center mt-2">
         Mit ♥️ programmiert von Bastian Biedermann &#x2022;{" "}
         <CustomText className="underline" onPress={mailtoReport}>

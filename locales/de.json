@@ -1,5 +1,5 @@
 {
-  "copyrightFooter": "© (copyright) Helmut Haase 2022 - {{year}} • SEAS Kirchengemeinde UG (haftungsbeschränkt)",
+  "copyrightFooter": "© 2022 - {{year}} Bastian Biedermann Software & IT-Dienstleistungen",
   "error.noServerIdSpecified": "Sie müssen eine Server ID eingeben",
   "error.serverIdNotValid": "Die Server ID ist nicht gültig",
   "error.fontLoadingFailed": "Schriftart konnte nicht geladen werden",
@@ -46,16 +46,8 @@
   "email": "E-Mail",
   "passwordResetRequested": "Sie erhalten in Kürze eine E-Mail mit einem Link zum Zurücksetzen Ihres Passworts.",
   "germany": "Deutschland",
-  "managingPartner": "Geschäftsführender Gesellschafter",
-  "commercialRegister": "Handelsregister",
   "contact": "Kontakt",
   "telephone": "Telefon",
-  "bankDetails": "Kontoverbindung",
-  "accountHolder": "Kontoinhaber",
-  "bank": "Bank",
-  "onlineDisputeResolution": "Online-Streitbeilegung",
-  "onlineDisputePlatform": "Plattform der Europäischen Kommission zur Online-Streitbeilegung (OS) für Verbraucher",
-  "onlineDisputeExlusionClause": "Wir sind nicht verpflichtet, an einem Streitbeteiligungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
   "changePassword": "Passwort ändern",
   "board": "Plan",
   "newPasswordCriteria": "Das neue Passwort muss mindestens 7 Zeichen haben. Erlaubt sind Buchstaben, Zahlen und Sonderzeichen: -_!?/*%$",
@@ -171,5 +163,10 @@
   "december": "Dezember",
   "singleEventCreated": "Einzeltermin erfolgreich erstellt",
   "createEvent": "Termin erstellen",
-  "events": "Termine"
+  "events": "Termine",
+  "imprintOperator": "Angaben gemäß § 5 DDG für die App SEAS und die Website seas-kirchengemeinde.de",
+  "consumerDisputeResolution": "Verbraucherstreitbeilegung",
+  "consumerDisputeClause": "Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
+  "privacy": "Datenschutz",
+  "terms": "AGB"
 }
