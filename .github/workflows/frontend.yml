@@ -44,7 +44,7 @@ jobs:
       - name: Smoke-test image
         shell: bash
         run: |
-          set -euo pipefail
+          set -euxo pipefail
           docker run -d --name frontend-smoke -p 127.0.0.1:8080:80 seas-frontend:test
           trap 'docker logs frontend-smoke; docker rm -f frontend-smoke' EXIT
           base=http://127.0.0.1:8080
@@ -55,7 +55,7 @@ jobs:
           # The tenant comes from the host name, for production and staging hosts.
           [ "$(curl -s -H 'Host: 42389.seas-kirchengemeinde.de' $base/config.json)" = '{"serverId":"42389"}' ]
           [ "$(curl -s -H 'Host: 9000.preview.seas-kirchengemeinde.de' $base/config.json)" = '{"serverId":"9000"}' ]
-          [ "$(curl -s -H 'Host: 127.0.0.1' $base/config.json)" = '{"serverId":""}' ]
+          [ "$(curl -s -H 'Host: localhost' $base/config.json)" = '{"serverId":""}' ]
           expect 200 /
           expect 200 /login
           expect 200 /settings/users
