@@ -34,13 +34,15 @@ export const getWebServer = async () => {
   if (__DEV__) {
     return "http://localhost:8081";
   } else {
+    const domain =
+      Constants.expoConfig?.extra?.webDomain ?? "seas-kirchengemeinde.de";
     try {
       const serverId = await AsyncStorage.getItem("serverId");
-      if (serverId === null) return "https://58119.seas-kirchengemeinde.de";
+      if (serverId === null) return `https://58119.${domain}`;
 
-      return `https://${serverId}.seas-kirchengemeinde.de`;
+      return `https://${serverId}.${domain}`;
     } catch (_ignored) {
-      return "https://58119.seas-kirchengemeinde.de";
+      return `https://58119.${domain}`;
     }
   }
 };
