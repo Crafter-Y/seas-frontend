@@ -1,35 +1,31 @@
-FROM node:24-alpine AS base
-# See: https://docs.expo.dev/build-reference/infrastructure/
-
-FROM base AS builder
-
+# Stage 1: static web export
+FROM node:24.22.0-alpine AS builder
 WORKDIR /app
 
-COPY package*.json .
-COPY .npmrc .
+COPY package*.json .npmrc ./
 
 RUN npm ci
 
 COPY . .
 
-RUN npm run build:web
+# API and web domain the build talks to (staging overrides them; see app.config.js).
+ARG SEAS_API_URL
+ARG SEAS_WEB_DOMAIN
+ENV SEAS_API_URL=$SEAS_API_URL SEAS_WEB_DOMAIN=$SEAS_WEB_DOMAIN
 
-# TODO: this part can be rewritten to nginx to just serve the files and rewrite config.json
-FROM base AS runner
-WORKDIR /app
+RUN npm run build:web && rm -f dist/config.json
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nodejs
+# Stage 2: serve with nginx (the tenant's /config.json is generated from the host name)
+FROM nginx:1.31.7-alpine AS runner
 
-RUN npm install serve-handler
+RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=builder --chown=nodejs:nodejs /app/package.json /app/package.json
-COPY --from=builder --chown=nodejs:nodejs /app/dist /app/dist
-COPY --from=builder --chown=nodejs:nodejs /app/serve.js /app/serve.js
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-USER nodejs
 EXPOSE 80
 
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD wget --no-verbose --tries=1 --spider http://localhost:80 || exit 1
+HEALTHCHECK --interval=5s --timeout=3s --start-period=10s --retries=3 \
+    CMD wget -q -T 2 -O /dev/null http://127.0.0.1:80/healthz || exit 1
 
-CMD ["npm","run","serve:prod"]
+CMD ["nginx", "-g", "daemon off;"]

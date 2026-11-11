@@ -1,0 +1,8 @@
+{
+  "Parallelism": 1,
+  "Delay": 5000000000,
+  "Monitor": 60000000000,
+  "FailureAction": "pause",
+  "MaxFailureRatio": 0,
+  "Order": "start-first"
+}

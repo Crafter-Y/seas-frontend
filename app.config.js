@@ -32,7 +32,10 @@ module.exports = {
         projectId: "04b64ca7-4272-45dc-98cb-14e129c5ac01",
       },
       supportsRTL: true,
-      productionApi: "https://api.seas-kirchengemeinde.de",
+      // Staging web builds override both (Dockerfile build args); the apps use the defaults.
+      productionApi:
+        process.env.SEAS_API_URL || "https://api.seas-kirchengemeinde.de",
+      webDomain: process.env.SEAS_WEB_DOMAIN || "seas-kirchengemeinde.de",
     },
     experiments: {
       baseUrl: process.env.GH_PAGES ? "/seas-frontend" : undefined,

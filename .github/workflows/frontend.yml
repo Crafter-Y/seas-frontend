@@ -1,0 +1,135 @@
+name: Frontend image
+
+on:
+  pull_request:
+  push:
+    branches: [master, dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Serialize releases; never interrupt an active deployment on a new push.
+concurrency:
+  group: frontend-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      digest: ${{ steps.publish.outputs.digest }}
+    env:
+      # dev builds talk to staging; everything else to production.
+      SEAS_API_URL: ${{ github.ref == 'refs/heads/dev' && 'https://api.preview.seas-kirchengemeinde.de' || 'https://api.seas-kirchengemeinde.de' }}
+      SEAS_WEB_DOMAIN: ${{ github.ref == 'refs/heads/dev' && 'preview.seas-kirchengemeinde.de' || 'seas-kirchengemeinde.de' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@v3
+      - name: Build image for validation
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: seas-frontend:test
+          build-args: |
+            SEAS_API_URL=${{ env.SEAS_API_URL }}
+            SEAS_WEB_DOMAIN=${{ env.SEAS_WEB_DOMAIN }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Smoke-test image
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run -d --name frontend-smoke -p 127.0.0.1:8080:80 seas-frontend:test
+          trap 'docker logs frontend-smoke; docker rm -f frontend-smoke' EXIT
+          base=http://127.0.0.1:8080
+          curl --fail --silent --show-error --output /dev/null \
+            --retry 30 --retry-delay 1 --retry-all-errors --max-time 2 $base/healthz
+          status() { curl --silent --output /dev/null --write-out '%{http_code}' -H "Host: ${2:-42389.seas-kirchengemeinde.de}" "$base$1"; }
+          expect() { local got; got=$(status "$2" "${3:-}"); [ "$got" = "$1" ] || { echo "::error::$2 returned $got, expected $1"; exit 1; }; }
+          # The tenant comes from the host name, for production and staging hosts.
+          [ "$(curl -s -H 'Host: 42389.seas-kirchengemeinde.de' $base/config.json)" = '{"serverId":"42389"}' ]
+          [ "$(curl -s -H 'Host: 9000.preview.seas-kirchengemeinde.de' $base/config.json)" = '{"serverId":"9000"}' ]
+          [ "$(curl -s -H 'Host: 127.0.0.1' $base/config.json)" = '{"serverId":""}' ]
+          expect 200 /
+          expect 200 /login
+          expect 200 /settings/users
+          expect 200 /board/
+          expect 200 /settings/modules/music/songbooks/5   # dynamic route: fallback page
+          expect 301 /login.html
+          expect 404 /_expo/static/js/web/missing.js
+          expect 404 /missing.png
+          bundle=$(docker exec frontend-smoke sh -c 'cat /usr/share/nginx/html/_expo/static/js/web/entry-*.js')
+          grep -qF "$SEAS_API_URL" <<<"$bundle" || { echo "::error::bundle does not use $SEAS_API_URL"; exit 1; }
+          asset=$(docker exec frontend-smoke sh -c 'cd /usr/share/nginx/html && ls _expo/static/js/web/entry-*.js | head -1')
+          curl -sI -H 'Host: 42389.seas-kirchengemeinde.de' "$base/$asset" | grep -qi 'cache-control: public, max-age=31536000, immutable'
+          curl -sI -H 'Host: 42389.seas-kirchengemeinde.de' "$base/login" | grep -qi 'cache-control: no-cache'
+      - name: Sign in to GHCR
+        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish validated image
+        id: publish
+        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
+        shell: bash
+        run: |
+          set -euo pipefail
+          image="ghcr.io/crafter-y/seas-frontend:sha-${GITHUB_SHA}"
+          docker tag seas-frontend:test "$image"
+          docker push "$image"
+          digest=$(docker buildx imagetools inspect "$image" --format '{{json .Manifest}}' | jq -r '.digest')
+          [[ "$digest" =~ ^sha256:[a-f0-9]{64}$ ]]
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
+          echo "Image: ghcr.io/crafter-y/seas-frontend@$digest" >> "$GITHUB_STEP_SUMMARY"
+
+  deploy:
+    name: Deploy (${{ github.ref == 'refs/heads/master' && 'production' || 'staging' }})
+    needs: image
+    if: >-
+      github.event_name != 'pull_request' &&
+      ((github.ref == 'refs/heads/master' && vars.DOKPLOY_DEPLOY_ENABLED == 'true') ||
+       (github.ref == 'refs/heads/dev' && vars.STAGING_DEPLOY_ENABLED == 'true'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # DOKPLOY_APPLICATION_ID and DOKPLOY_API_KEY live only in the environments.
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'staging' }}
+    env:
+      REPLICAS: ${{ github.ref == 'refs/heads/master' && '2' || '1' }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Select immutable image in Dokploy
+        env:
+          DOKPLOY_URL: ${{ vars.DOKPLOY_URL }}
+          DOKPLOY_APPLICATION_ID: ${{ vars.DOKPLOY_APPLICATION_ID }}
+          DOKPLOY_API_KEY: ${{ secrets.DOKPLOY_API_KEY }}
+          IMAGE_REF: ghcr.io/crafter-y/seas-frontend@${{ needs.image.outputs.digest }}
+        run: |
+          set -euo pipefail
+          [ -n "$DOKPLOY_APPLICATION_ID" ] || { echo "::error::DOKPLOY_APPLICATION_ID is not set in this environment"; exit 1; }
+          curl --fail --silent --show-error --output /dev/null --max-time 30 \
+            --proto '=https' \
+            -X POST "${DOKPLOY_URL%/}/api/application.update" \
+            -H "x-api-key: $DOKPLOY_API_KEY" \
+            -H 'Content-Type: application/json' \
+            --data "$(jq -n --arg id "$DOKPLOY_APPLICATION_ID" --arg image "$IMAGE_REF" --argjson replicas "$REPLICAS" \
+              --slurpfile update deploy/update-config.json --slurpfile rollback deploy/rollback-config.json \
+              '{applicationId: $id, dockerImage: $image, replicas: $replicas,
+                updateConfigSwarm: $update[0], rollbackConfigSwarm: $rollback[0]}')"
+          curl --fail --silent --show-error --max-time 30 --proto '=https' \
+            "${DOKPLOY_URL%/}/api/application.one?applicationId=$DOKPLOY_APPLICATION_ID" \
+            -H "x-api-key: $DOKPLOY_API_KEY" | \
+            jq -e --arg image "$IMAGE_REF" --argjson replicas "$REPLICAS" '.dockerImage == $image and .replicas == $replicas'
+      - name: Trigger Dokploy rollout
+        uses: benbristow/dokploy-deploy-action@0.2.2
+        with:
+          dokploy_url: ${{ vars.DOKPLOY_URL }}
+          api_token: ${{ secrets.DOKPLOY_API_KEY }}
+          application_id: ${{ vars.DOKPLOY_APPLICATION_ID }}

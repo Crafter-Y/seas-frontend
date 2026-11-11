@@ -20,17 +20,16 @@ npm run dev
 
 ## Hosting
 
-Just export the project (npm run build:web), put it onto a webspace and route every request to root that is not a ressource (/).
-
-The serve script (serve.js) can handle that for you. (No SSL)
-
-## Docker
-
-To just host the application (Using the node script from above without SSL):
+The Docker image serves the static web export with nginx (`nginx.conf`). The tenant is the first
+label of the host name (`42389.seas-kirchengemeinde.de` → `/config.json` returns `{"serverId":"42389"}`).
 
 ```bash
-docker run -d -p 80:80 -e PORT=80 -e SERVER_ID=12345 --name seas craftery/seas-frontend:latest
+docker build -t seas-frontend . && docker run --rm -p 8080:80 seas-frontend
+curl -H 'Host: 12345.localhost' localhost:8080/config.json
 ```
+
+`dev` deploys to staging (`<id>.preview.seas-kirchengemeinde.de`), `master` to production
+(`.github/workflows/frontend.yml`).
 
 ## Exporting
 
