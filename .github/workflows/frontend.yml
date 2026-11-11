@@ -91,7 +91,7 @@ jobs:
           echo "Image: ghcr.io/crafter-y/seas-frontend@$digest" >> "$GITHUB_STEP_SUMMARY"
 
   deploy:
-    name: Deploy (${{ github.ref == 'refs/heads/master' && 'production' || 'staging' }})
+    name: Deploy to Dokploy
     needs: image
     if: >-
       github.event_name != 'pull_request' &&
